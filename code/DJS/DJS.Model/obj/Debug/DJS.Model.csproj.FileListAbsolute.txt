@@ -1,0 +1,17 @@
+D:\MyFiles\DJS\DJS.Model\bin\Debug\DJS.Model.dll
+D:\MyFiles\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
+D:\MyFiles\DJS\DJS.Model\obj\Debug\DJS.Model.dll
+D:\MyFiles\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
+D:\MyFiles\DJS\DJS.Model\obj\Debug\DJS.Model.csprojResolveAssemblyReference.cache
+F:\workfile\DJS\DJS.Model\bin\Debug\DJS.Model.dll
+F:\workfile\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
+F:\workfile\DJS\DJS.Model\obj\Debug\DJS.Model.dll
+F:\workfile\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
+D:\MyFiles\DJS\Codes\DJS\DJS.Model\bin\Debug\DJS.Model.dll
+D:\MyFiles\DJS\Codes\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
+D:\MyFiles\DJS\Codes\DJS\DJS.Model\obj\Debug\DJS.Model.dll
+D:\MyFiles\DJS\Codes\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
+F:\workfile\DJS\Codes\DJS\DJS.Model\bin\Debug\DJS.Model.dll
+F:\workfile\DJS\Codes\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
+F:\workfile\DJS\Codes\DJS\DJS.Model\obj\Debug\DJS.Model.dll
+F:\workfile\DJS\Codes\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
