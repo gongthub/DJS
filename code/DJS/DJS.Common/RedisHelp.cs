@@ -114,7 +114,26 @@ namespace DJS.Common
             }
         }
         #endregion
-          
+           
+        #region 删除一个值 +long Del(string key)
+        /// <summary>
+        /// 删除一个值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public long DelById<T>(string key)
+        { 
+
+            using (RedisClient redisClient = new RedisClient())
+            {
+                return redisClient.Del(key);
+            }
+        }
+        #endregion
+
+
 
     }
 }

@@ -7,3 +7,7 @@ F:\workfile\DJS\Codes\DJS\DJS.SDK\bin\Debug\DJS.SDK.pdb
 F:\workfile\DJS\Codes\DJS\DJS.SDK\obj\Debug\DJS.SDK.dll
 F:\workfile\DJS\Codes\DJS\DJS.SDK\obj\Debug\DJS.SDK.pdb
 F:\workfile\DJS\Codes\DJS\DJS.SDK\obj\Debug\DJS.SDK.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.SDK\bin\Debug\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.SDK\bin\Debug\DJS.SDK.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.SDK\obj\Debug\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.SDK\obj\Debug\DJS.SDK.pdb

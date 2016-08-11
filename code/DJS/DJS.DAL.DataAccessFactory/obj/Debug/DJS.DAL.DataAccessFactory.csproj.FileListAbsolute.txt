@@ -25,3 +25,12 @@ F:\workfile\DJS\Codes\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.Model.pdb
 F:\workfile\DJS\Codes\DJS\DJS.DAL.DataAccessFactory\obj\Debug\DJS.DAL.DataAccessFactory.csprojResolveAssemblyReference.cache
 F:\workfile\DJS\Codes\DJS\DJS.DAL.DataAccessFactory\obj\Debug\DJS.DAL.DataAccessFactory.dll
 F:\workfile\DJS\Codes\DJS\DJS.DAL.DataAccessFactory\obj\Debug\DJS.DAL.DataAccessFactory.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.DAL.DataAccessFactory.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.DAL.DataAccessFactory.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.IDAL.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.IDAL.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.Model.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\obj\Debug\DJS.DAL.DataAccessFactory.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\obj\Debug\DJS.DAL.DataAccessFactory.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\obj\Debug\DJS.DAL.DataAccessFactory.pdb

@@ -23,3 +23,10 @@ F:\workfile\DJS\Codes\DJS\DJS.IDAL\bin\Debug\DJS.Model.pdb
 F:\workfile\DJS\Codes\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.csprojResolveAssemblyReference.cache
 F:\workfile\DJS\Codes\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.dll
 F:\workfile\DJS\Codes\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\bin\Debug\DJS.IDAL.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\bin\Debug\DJS.IDAL.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\bin\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\bin\Debug\DJS.Model.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.pdb

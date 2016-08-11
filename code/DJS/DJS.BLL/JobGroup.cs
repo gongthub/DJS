@@ -76,7 +76,7 @@ namespace DJS.BLL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelById<T>(Guid Id)
+        public static bool DelById<T>(string Id)
         {
             bool ret = false;
 

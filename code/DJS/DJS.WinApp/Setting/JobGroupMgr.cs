@@ -131,7 +131,7 @@ namespace DJS.WinApp
                             Guid id = Guid.Empty;
                             if (Guid.TryParse(ids, out id))
                             { 
-                                if (BLL.JobGroup.DelById<List<Model.JobGroup>>(id))
+                                if (BLL.JobGroup.DelById<List<Model.JobGroup>>(id.ToString()))
                                 {
                                     BindList();
                                 }
