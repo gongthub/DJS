@@ -14,5 +14,13 @@ namespace DJS.IDAL
         /// </summary>
         /// <returns></returns>
         List<Jobs> GetModels();
+
+
+        /// <summary>
+        /// 根据id获取job
+        /// </summary>
+        /// <returns></returns>
+        Jobs GetModelById();
+
     }
 }

@@ -84,7 +84,7 @@ namespace DJS.BLL
         /// <param name="sender"></param>
         private void JobsCountListen(object sender)
         {
-            int counts = BLL.Jobs.GetJobsForQuartz().Count; 
+            int counts = BLL.Jobs.GetJobsForQuartzCount();
             if (counts != jobsCounts)
             {
                 if (OnChange_ListenJobs != null)

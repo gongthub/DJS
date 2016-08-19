@@ -61,7 +61,7 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据 +bool DelById(Guid Id)
+        #region 根据id删除数据 +static bool DelById(Guid Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
@@ -70,19 +70,18 @@ namespace DJS.BLL
         public static bool DelById(Guid Id)
         { 
             return iJobGroup.DelById(Id);
-        }
+        } 
+        #endregion
+
+        #region 添加 +static bool Add(Model.JobGroup model)
         /// <summary>
-        /// 根据id删除数据
+        /// 添加实体
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public static bool DelById<T>(string Id)
-        {
-            bool ret = false;
-
-            Common.RedisHelp.redisHelp.DelById<T>(Id);
-
-            return ret;
+        public static bool Add(Model.JobGroup model)
+        { 
+            return iJobGroup.Add(model);
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,11 +10,19 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace DJS.WinApp
 {
     public partial class Center : Form
     {
+        /// <summary>
+        /// 配置文件路径
+        /// </summary>
+        private static string xmlDBConfigPath = ConfigHelp.XmlDBConfigPath;
+
+        private static string groupsPath = @"/DB/GROUPS/GROUP";
+
         /// <summary>
         ///  时间控件
         /// </summary> 
@@ -50,6 +59,10 @@ namespace DJS.WinApp
             TIMER.Interval = INTERVAL;
             TIMER.Tick += timer_Tick;
             TIMER.Start();
+            
+            //XmlNodeList list = XmlHelp.xmlHelp.GetNodes(xmlDBConfigPath, groupsPath);
+            //Model.JobGroup model=new DJS.Model.JobGroup();
+            //Common.XmlHelp.xmlHelp.SetNodeToModel(model, list[0]);
               
         }
         #endregion

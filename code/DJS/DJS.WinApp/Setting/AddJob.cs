@@ -19,7 +19,7 @@ namespace DJS.WinApp
         /// <summary>
         /// 获取程序集文件所在文件夹名称
         /// </summary>
-        private static string PATH = ConfigurationManager.AppSettings["AssemblySrc"].ToString();
+        private static string PATH = ConfigHelp.AssemblySrcPath;
 
         public AddJob()
         {

@@ -52,6 +52,7 @@
             this.dgvTriggerGroups.RowTemplate.Height = 23;
             this.dgvTriggerGroups.Size = new System.Drawing.Size(784, 295);
             this.dgvTriggerGroups.TabIndex = 1;
+            this.dgvTriggerGroups.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvTriggerGroups_DataBindingComplete);
             // 
             // groupBox2
             // 

@@ -73,5 +73,17 @@ namespace DJS.BLL
             return iTriggerGroup.DelById(Id);
         }
         #endregion
+
+        #region 添加 +static bool Add(Model.TriggerGroup model)
+        /// <summary>
+        /// 添加实体
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool Add(Model.TriggerGroup model)
+        {
+            return iTriggerGroup.Add(model);
+        }
+        #endregion
     }
 }

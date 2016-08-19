@@ -66,6 +66,7 @@
             this.dgvJobs.RowTemplate.Height = 23;
             this.dgvJobs.Size = new System.Drawing.Size(784, 295);
             this.dgvJobs.TabIndex = 1;
+            this.dgvJobs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvJobs_DataBindingComplete);
             // 
             // groupBox2
             // 

@@ -48,12 +48,18 @@ namespace DJS.BLL
                         foreach (JobKey jobkey in jobkeys)
                         {
                             IJobDetail JobDetail = Common.QuartzHelp.quartzHelp.GetJobDetail(jobkey);
+                            ITrigger iTrigger = Common.QuartzHelp.quartzHelp.GetTriggersOfJob(jobkey).FirstOrDefault();
+                            
                             if (JobDetail != null)
                             {
                                 Model.Jobs model = new Model.Jobs();
                                 model.Name = jobkey.Name;
                                 model.GroupName = jobkey.Group;
-
+                                if (iTrigger != null)
+                                {
+                                    model.TriggerGroup = iTrigger.Key.Group;
+                                    model.TriggerName = iTrigger.Key.Name;
+                                }
                                 models.Add(model);
                             }
                         }
@@ -78,7 +84,24 @@ namespace DJS.BLL
             return models;
         }
         #endregion
-         
+
+        #region  获取所有Quartz中 Jobs数量 +static int GetJobsForQuartzCount()
+        /// <summary>
+        /// 获取所有Quartz中 Jobs数量
+        /// </summary>
+        /// <returns></returns>
+        public static int GetJobsForQuartzCount()
+        {
+            int counts = 0;
+            List<Model.Jobs> models = GetJobsForQuartz();
+            if (models != null && models.Count > 0)
+            {
+                counts = models.Count;
+            }
+            return counts;
+        }
+        #endregion
+
         #region 获取存储中的jobs + List<Model.Jobs> GetJobs()
         /// <summary>
         /// 获取存储中的jobs
@@ -87,6 +110,28 @@ namespace DJS.BLL
         public static List<Model.Jobs> GetJobs()
         {
             throw new NotImplementedException();
+        } 
+        #endregion
+
+        #region 根据任务组和任务名称触发任务 +static bool TriggerJob(string groupName,string name)
+        /// <summary>
+        /// 根据任务组和任务名称触发任务
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static bool TriggerJob(string groupName,string name)
+        {
+            bool ret = true;
+
+            ISet<JobKey> jobkeys = Common.QuartzHelp.quartzHelp.GetJobKeys(groupName);
+
+            JobKey key = jobkeys.First(m=>m.Name==name&&m.Group==groupName);
+            if (key != null)
+            {
+                ret = Common.QuartzHelp.quartzHelp.TriggerJob(key);
+            }
+
+            return ret;
         } 
         #endregion
     }

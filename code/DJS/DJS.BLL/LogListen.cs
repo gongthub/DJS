@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +11,22 @@ namespace DJS.BLL
 {
     public class LogListen
     {
+        /// <summary>
+        /// 获取日志文件路径
+        /// </summary>
+        private static string LOGURL = ConfigHelp.LogUrlPath;
+        /// <summary>
+        /// 获取日志存储类型
+        /// </summary>
+        private static string LogFileType = ConfigHelp.LogFileTypePath;
 
         private static string LOGMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("LogMgr_K");
+
+        /// <summary>
+        /// 上一个文件MD5值
+        /// </summary>
+        public static string LastMD5 = "";
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -28,7 +44,7 @@ namespace DJS.BLL
         /// <summary>
         /// 定义检测时间间隔
         /// </summary>
-        private static readonly int _checkInterval = 2000;
+        private static readonly int _checkInterval = 3000;
 
         /// <summary>
         /// 检测信息监听的时间对象
@@ -83,22 +99,51 @@ namespace DJS.BLL
         /// </summary>
         /// <param name="sender"></param>
         private void LogsCountListen(object sender)
-        { 
-            List<Model.LogModel> models = new List<Model.LogModel>();
-            models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
-            if (models != null)
-            { 
-                Model.LogModel model= models.OrderByDescending(m => m.Time).FirstOrDefault();
-                if (model != null)
+        {
+            if (LogFileType == Model.Enums.LogFileType.File.ToString())
+            {
+                string paths = LOGURL + @"\";
+                ArrayList files = Common.FileHelp.GetFileslist(paths);
+                if (files != null && files.Count > 0)
                 {
-                    if (NewTime == DateTime.MinValue)
+                    files.Sort();
+                    string file = files[files.Count - 1].ToString();
+                    paths += @"\" + file;
+
+                    if (paths != "" && Common.FileHelp.FileExists(paths))
                     {
-                        NewTime = model.Time;
+                        string mdnow = Common.SecurityHelp.securityHelp.GetMD5HashFromFile(paths);
+                        if (mdnow != LastMD5)
+                        {
+                            if (OnChange_ListenLogs != null)
+                            {
+                                LastMD5 = mdnow;
+                                EventArgs arg = new EventArgs();
+                                OnChange_ListenLogs(this, arg);
+                            }
+                        }
                     }
-                    if (model.Time > NewTime)
+
+                }
+            } 
+            if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+            {
+                List<Model.LogModel> models = new List<Model.LogModel>();
+                models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
+                if (models != null)
+                {
+                    Model.LogModel model = models.OrderByDescending(m => m.Time).FirstOrDefault();
+                    if (model != null)
                     {
-                        EventArgs arg = new EventArgs();
-                        OnChange_ListenLogs(this, arg);
+                        if (NewTime == DateTime.MinValue)
+                        {
+                            NewTime = model.Time;
+                        }
+                        if (model.Time > NewTime)
+                        {
+                            EventArgs arg = new EventArgs();
+                            OnChange_ListenLogs(this, arg);
+                        }
                     }
                 }
             }

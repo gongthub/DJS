@@ -62,10 +62,31 @@ namespace DJS.DAL.Redis
                 if (model != null)
                 {
                     ret = models.Remove(model);
-                    Common.RedisHelp.redisHelp.Set<List<Model.JobGroup>>(JOBGROUP_KEY,models);
+                    Common.RedisHelp.redisHelp.Set<List<Model.JobGroup>>(JOBGROUP_KEY, models);
                 }
             }
 
+            return ret;
+        }
+        #endregion
+
+        #region 添加 +bool Add(Model.JobGroup model)
+        /// <summary>
+        /// 添加实体
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+
+        public bool Add(Model.JobGroup model)
+        { 
+            List<Model.JobGroup> models = new List<Model.JobGroup>();
+            models = Common.RedisHelp.redisHelp.Get<List<Model.JobGroup>>(JOBGROUP_KEY);
+            if (models == null)
+            {
+                models = new List<Model.JobGroup>();
+            }
+            models.Add(model);
+            bool ret = Common.RedisHelp.redisHelp.Set<List<Model.JobGroup>>(JOBGROUP_KEY, models);
             return ret;
         }
         #endregion

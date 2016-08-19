@@ -10,8 +10,15 @@ namespace DJS.Common
 {
     public class RedisHelp
     {
-        private static string redisServer = ConfigurationManager.AppSettings["redisServer"].ToString();
-        private static int redisServerPort = Convert.ToInt32(ConfigurationManager.AppSettings["redisServerPort"].ToString());
+        /// <summary>
+        /// redis服务器地址
+        /// </summary>
+        private static string redisServer = ConfigHelp.redisServerPath;
+        
+        /// <summary>
+        /// redis服务器端口
+        /// </summary>
+        private static int redisServerPort = Convert.ToInt32(ConfigHelp.redisServerPortPath);
           
 
         #region 单例模式创建对象

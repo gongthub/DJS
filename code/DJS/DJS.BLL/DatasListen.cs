@@ -96,6 +96,7 @@ namespace DJS.BLL
                 {
                     if (OnChange_ListenDatas != null)
                     {
+                        LastMD5 = mdnow;
                         EventArgs arg = new EventArgs();
                         OnChange_ListenDatas(this, arg);
                     }

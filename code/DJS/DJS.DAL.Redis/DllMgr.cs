@@ -44,5 +44,16 @@ namespace DJS.DAL.Redis
         } 
         #endregion
 
+
+
+        public bool Add(Model.DllMgr model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DelById(Guid Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

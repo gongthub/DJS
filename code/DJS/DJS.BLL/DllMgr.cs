@@ -60,5 +60,29 @@ namespace DJS.BLL
             return iDllMgr.IsExist(name);
         }
         #endregion
+
+        #region 根据id删除数据 +bool DelById(Guid Id)
+        /// <summary>
+        /// 根据id删除数据
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static bool DelById(Guid Id)
+        {
+            return iDllMgr.DelById(Id);
+        }
+        #endregion
+
+        #region 添加 +static bool Add(Model.DllMgr model)
+        /// <summary>
+        /// 添加实体
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static bool Add(Model.DllMgr model)
+        {
+            return iDllMgr.Add(model);
+        }
+        #endregion
     }
 }

@@ -194,3 +194,6 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.TriggerGroupAdd.
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.TriggerGroupMgr.resources
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.TriggerList.resources
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.csproj.GenerateResource.Cache
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\XmlDB.xml
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\DJS.DAL.XML.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\DJS.DAL.XML.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,7 @@ namespace DJS.WinApp
         /// <summary>
         /// 获取数据文件夹
         /// </summary>
-        private static string PATH = ConfigurationManager.AppSettings["DataPath"].ToString();
+        private static string PATH = ConfigHelp.DataPathPath;
 
         #region 窗体加载事件 -void DataList_Load(object sender, EventArgs e)
         /// <summary>
@@ -173,7 +174,7 @@ namespace DJS.WinApp
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLogRedis(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
             }
 
         }
@@ -221,7 +222,7 @@ namespace DJS.WinApp
             catch (Exception ex)
             {
                 //日志
-                DJS.Common.LogHelp.logHelp.WriteLogRedis(ex.Message, Model.Enums.LogType.Error);
+                DJS.Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
             }
         }
         #endregion

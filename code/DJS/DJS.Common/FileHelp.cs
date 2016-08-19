@@ -20,11 +20,11 @@ namespace DJS.Common
         /// <summary>
         /// 数据保存路径
         /// </summary>
-        private static string DATAPATH = DJS.Common.FileHelp.GetFullPath(ConfigurationManager.AppSettings["DataPath"].ToString());
+        private static string DATAPATH = DJS.Common.FileHelp.GetFullPath(ConfigHelp.DataPathPath);
         /// <summary>
         /// 数据保存文件名称
         /// </summary>
-        private static string DATANAME = ConfigurationManager.AppSettings["DataName"].ToString();
+        private static string DATANAME = ConfigHelp.DataNamePath;
 
 
         #region 单例模式创建对象
@@ -620,9 +620,16 @@ namespace DJS.Common
         {
             ArrayList arry = new ArrayList();
             DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
-            foreach (FileInfo NextFile in TheFolder.GetFiles())
+            if (DirectoryIsExists(folderFullName))
             {
-                arry.Add(NextFile.Name);
+                FileInfo[] files = TheFolder.GetFiles();
+                if (files != null && files.Count() > 0)
+                {
+                    foreach (FileInfo NextFile in files)
+                    {
+                        arry.Add(NextFile.Name);
+                    }
+                }
             }
             return arry;
         }
@@ -647,7 +654,7 @@ namespace DJS.Common
                 }
                 catch (Exception e)
                 {
-                    LogHelp.logHelp.WriteLogRedis(e.Message, Model.Enums.LogType.Error);
+                    LogHelp.logHelp.WriteLog(e.Message, Model.Enums.LogType.Error);
                 }
                 finally
                 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -21,7 +22,8 @@ namespace DJS.WinApp
         public CronSet()
         {
             InitializeComponent();
-            CRONURL = ConfigurationManager.AppSettings["CronUrl"];
+            //Cron 路径
+            CRONURL = ConfigHelp.CronUrlPath;
             CRONURL = Common.FileHelp.GetFullPath(CRONURL);
         }
 

@@ -18,11 +18,11 @@ namespace DJS.SDK.Service
         {
             try
             {
-                Common.LogHelp.logHelp.WriteLogRedis(msg, type);
+                Common.LogHelp.logHelp.WriteLog(msg, type);
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLogRedis(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
             }
         }
         #endregion
@@ -41,7 +41,7 @@ namespace DJS.SDK.Service
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLogRedis(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
             }
         }
         #endregion

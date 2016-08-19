@@ -26,7 +26,7 @@ namespace DJS.SDK
         private static readonly string DLLPATH = "DJS.SDK.";
 
         /// <summary>
-        /// 数据库类型
+        /// SDK接口实现类型
         /// </summary>
         private static readonly string DBTYPE = ConfigurationManager.AppSettings["SDKSERVICETYPE"];
 

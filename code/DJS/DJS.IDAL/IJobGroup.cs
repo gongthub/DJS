@@ -21,6 +21,14 @@ namespace DJS.IDAL
         /// <returns>true:存在 false:不存在</returns>
         bool IsExist(string name);
 
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model">实体</param>
+        /// <returns>true:成功 false:失败</returns>
+        bool Add(Model.JobGroup  model);
+
         /// <summary>
         /// 根据id删除
         /// </summary>

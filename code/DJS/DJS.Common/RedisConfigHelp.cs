@@ -13,7 +13,7 @@ namespace DJS.Common
         /// <summary>
         /// 配置文件路径
         /// </summary>
-        private static string RedisConfigPath = ConfigurationManager.AppSettings["RedisConfig"].ToString();
+        private static string RedisConfigPath = ConfigHelp.RedisConfigPath;
 
         /// <summary>
         /// key节点

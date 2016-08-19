@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -17,7 +18,7 @@ namespace DJS.WinApp
         /// <summary>
         /// 获取程序集文件所在文件夹名称
         /// </summary>
-        private static string PATH = ConfigurationManager.AppSettings["AssemblySrc"].ToString();
+        private static string PATH = ConfigHelp.AssemblySrcPath;
         private static string DLLMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("DLLMgr_K");
 
         private FileInfo FILE = null;
@@ -74,14 +75,7 @@ namespace DJS.WinApp
                     MessageBox.Show("命名空间已经存在，请重新输入！");
                 }
                 else
-                {
-                    List<Model.DllMgr> models = new List<Model.DllMgr>();
-                    models = Common.RedisHelp.redisHelp.Get<List<Model.DllMgr>>(DLLMGR_KEY);
-                    if (models == null)
-                    {
-                        models = new List<Model.DllMgr>();
-                    }
-
+                { 
                     Model.DllMgr model = new Model.DllMgr();
                     model.ID = Guid.NewGuid();
                     model.No = nos;
@@ -94,13 +88,17 @@ namespace DJS.WinApp
                         {
                             Common.FileHelp.CreateDirectory(paths);
                         }
-
+                        string fileNamePaths=PATH + @"\" + names + @"\" + ofdUpLoad.SafeFileName;
+                        //文件存在时先删除
+                        if (FileHelp.FileExists(fileNamePaths))
+                        {
+                            FileHelp.DeleteFiles(fileNamePaths);
+                        }
                         FILE.CopyTo(PATH + @"\" + names + @"\" + ofdUpLoad.SafeFileName);
 
                         model.Url = PATH + @"\" + names + @"\" + ofdUpLoad.FileName;
                     }
-                    models.Add(model);
-                    bool ret = Common.RedisHelp.redisHelp.Set<List<Model.DllMgr>>(DLLMGR_KEY, models);
+                    bool ret = BLL.DllMgr.Add(model);
                     if (ret)
                     {
                         MessageBox.Show("添加成功");

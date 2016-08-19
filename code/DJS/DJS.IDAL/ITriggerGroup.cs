@@ -27,5 +27,12 @@ namespace DJS.IDAL
         /// <param name="Id"></param>
         /// <returns></returns>
         bool DelById(Guid Id);
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model">实体</param>
+        /// <returns>true:成功 false:失败</returns>
+        bool Add(Model.TriggerGroup model);
     }
 }

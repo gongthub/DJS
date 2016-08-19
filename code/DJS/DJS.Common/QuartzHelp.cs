@@ -21,13 +21,13 @@ namespace DJS.Common
         /// <summary>
         /// 获取程序集文件所在文件夹名称
         /// </summary>
-        private static string IQUARTZ = ConfigurationManager.AppSettings["IQuartz"].ToString();
+        private static string IQUARTZ = ConfigHelp.IQuartzPath;
 
         static ISchedulerFactory _sf = new StdSchedulerFactory();
         static IScheduler _sched = _sf.GetScheduler();
         static object lockObj = new object();
         IJobDetail job = null;
- 
+
         #region 单例模式创建对象
         //单例模式创建对象
         private static QuartzHelp _quartzHelp = null;
@@ -56,7 +56,7 @@ namespace DJS.Common
             }
         }
         #endregion
-        
+
         #region 属性
         /// <summary>
         /// InStandbyMode
@@ -580,6 +580,27 @@ namespace DJS.Common
             }
             return strs;
 
+        }
+        #endregion
+
+        #region 触发一个任务 +void TriggerJob(JobKey jobKey)
+        /// <summary>
+        /// 触发一个任务
+        /// </summary>
+        /// <param name="jobKey">任务</param>
+        /// <returns></returns>
+        public bool TriggerJob(JobKey jobKey)
+        {
+            bool ret = true;
+            try
+            {
+                _sched.TriggerJob(jobKey);
+            }
+            catch (Exception ex)
+            {
+                ret = false;
+            }
+            return ret;
         }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Configuration;
 using System.Reflection;
 
@@ -24,7 +25,7 @@ namespace DJS.DAL.DataAccessFactory
         /// <summary>
         /// 数据库类型
         /// </summary>
-        private static readonly string DBTYPE = ConfigurationManager.AppSettings["DALTYPE"];
+        private static readonly string DBTYPE = ConfigHelp.DALTYPEPath;
 
         #endregion 属性
 

@@ -43,8 +43,9 @@ namespace DJS.WinApp
             //Common.QuartzHelp.quartzHelp.GetCurrentlyExecutingJobs();
 
             ControlSetting.controlSetting.DataGridViewSet(dgvJobs);
+            dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDo_Click);
             BindCombox();
-            BindList("", "");
+            BindList();
 
         }
         #endregion
@@ -96,9 +97,7 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            string name = txtJobName.Text;
-            string group = cbJobGroup.Text;
-            BindList(name, group);
+            BindList();
         }
         #endregion
 
@@ -106,20 +105,43 @@ namespace DJS.WinApp
         /// <summary>
         /// 绑定列表方法
         /// </summary>
-        private void BindList(string name, string group)
+        private void BindList()
         {
+            string name = txtJobName.Text;
+            string group = cbJobGroup.Text;
+            if (dgvJobs.Columns.Contains("dgvlinkDo"))
+            {
+                dgvJobs.Columns.Remove("dgvlinkDo");
+            }
             List<Model.Jobs> models = BLL.Jobs.GetJobsForQuartz(m => m.Name.Contains(name) && m.GroupName.Contains(group));
+
             dgvJobs.DataSource = models;
+
+            DataGridViewLinkColumn dgvlinkDo = new DataGridViewLinkColumn();
+            {
+                dgvlinkDo.Name = "dgvlinkDo";
+                dgvlinkDo.HeaderText = "操作";
+                dgvlinkDo.Text = "执行";
+                dgvlinkDo.LinkColor = Color.Red;
+                dgvlinkDo.ActiveLinkColor = Color.Red;
+                dgvlinkDo.UseColumnTextForLinkValue = true;
+                dgvlinkDo.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                //dgvbtnDel.FlatStyle = FlatStyle.Standard;
+                dgvlinkDo.CellTemplate.Style.BackColor = Color.Honeydew;
+            }
+            dgvJobs.Columns.Add(dgvlinkDo);
+            dgvJobs.Refresh();
         }
         #endregion
-         
+
         #region 绑定下拉列表框 -void BindCombox()
         /// <summary>
         /// 绑定下拉列表框
         /// </summary>
         private void BindCombox()
         {
-            BindJobGroup(); 
+            BindJobGroup();
         }
         #endregion
 
@@ -136,5 +158,60 @@ namespace DJS.WinApp
         }
         #endregion
 
+        #region 数据列表绑定完成事件 -void dgvJobs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        /// <summary>
+        /// 数据列表绑定完成事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvJobs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvJobs.Columns["ID"].Visible = false;//隐藏某列：
+            dgvJobs.Columns["Name"].HeaderText = "名称";
+            dgvJobs.Columns["GroupName"].HeaderText = "任务组";
+            dgvJobs.Columns["TriggerName"].HeaderText = "触发器";
+            dgvJobs.Columns["TriggerGroup"].HeaderText = "触发器组";
+            dgvJobs.Columns["State"].HeaderText = "状态";
+        }
+        #endregion
+
+        #region 立即执行按钮点击事件 -void dgvlinkDo_Click(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// 立即执行按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvlinkDo_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && dgvJobs.Columns[e.ColumnIndex] != null && dgvJobs.Columns[e.ColumnIndex].HeaderText == "操作" && e.RowIndex >= 0)
+            {
+                MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+                DialogResult dr = MessageBox.Show("确定要立即执行吗?", "立即执行", messButton);
+                if (dr == DialogResult.OK)//如果点击“确定”按钮
+                {
+
+                    if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
+                    {
+                        if (dgvJobs.Rows[e.RowIndex].Cells["GroupName"] != null && dgvJobs.Rows[e.RowIndex].Cells["Name"] != null)
+                        {
+                            string groupNames = dgvJobs.Rows[e.RowIndex].Cells["GroupName"].Value.ToString();
+                            string names = dgvJobs.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+
+                            if (BLL.Jobs.TriggerJob(groupNames, names))
+                            {
+                                BindList();
+                                MessageBox.Show("执行成功"); 
+                            }
+                            else
+                            {
+                                MessageBox.Show("执行失败");
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        #endregion
     }
 }

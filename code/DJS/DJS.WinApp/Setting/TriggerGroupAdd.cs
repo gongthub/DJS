@@ -11,8 +11,7 @@ using System.Windows.Forms;
 namespace DJS.WinApp
 {
     public partial class TriggerGroupAdd : Form
-    {
-        private static string TRIGGERGROUP_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("TriggerGroup_K");
+    { 
         public TriggerGroupAdd()
         {
             InitializeComponent();
@@ -34,19 +33,12 @@ namespace DJS.WinApp
                 MessageBox.Show("组名称已经存在，请重新输入！");
             }
             else
-            {
-                List<Model.TriggerGroup> models = new List<Model.TriggerGroup>();
-                models = Common.RedisHelp.redisHelp.Get<List<Model.TriggerGroup>>(TRIGGERGROUP_KEY);
-                if (models == null)
-                {
-                    models = new List<Model.TriggerGroup>();
-                }
+            { 
                 Model.TriggerGroup group = new Model.TriggerGroup();
                 group.ID = Guid.NewGuid();
                 group.No = nos;
                 group.Name = names;
-                models.Add(group);
-                bool ret = Common.RedisHelp.redisHelp.Set<List<Model.TriggerGroup>>(TRIGGERGROUP_KEY, models);
+                bool ret = DJS.BLL.TriggerGroup.Add(group);
                 if (ret)
                 {
                     MessageBox.Show("添加成功");

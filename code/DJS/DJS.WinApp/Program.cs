@@ -16,7 +16,7 @@ namespace DJS.WinApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Center()); 
+            Application.Run(new Center());  
         }
     }
 }

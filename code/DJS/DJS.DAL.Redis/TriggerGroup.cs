@@ -69,5 +69,26 @@ namespace DJS.DAL.Redis
             return ret;
         }
         #endregion
+         
+        #region 添加 +bool Add(Model.TriggerGroup model)
+        /// <summary>
+        /// 添加实体
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+
+        public bool Add(Model.TriggerGroup model)
+        {
+            List<Model.TriggerGroup> models = new List<Model.TriggerGroup>();
+            models = Common.RedisHelp.redisHelp.Get<List<Model.TriggerGroup>>(TRIGGERGROUP_KEY);
+            if (models == null)
+            {
+                models = new List<Model.TriggerGroup>();
+            }
+            models.Add(model);
+            bool ret = Common.RedisHelp.redisHelp.Set<List<Model.TriggerGroup>>(TRIGGERGROUP_KEY, models);
+            return ret;
+        }
+        #endregion
     }
 }

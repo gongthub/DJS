@@ -50,7 +50,7 @@ namespace DJS.WinApp
         private void Main_Load(object sender, EventArgs e)
         {
             logListen.AddLogsChangeHandler(OnChange_Logs);
-            string logs = Common.LogHelp.logHelp.GetLogsRedis(20);
+            string logs = Common.LogHelp.logHelp.GetLogs(20);
             txtLogsShow.Text = logs;
               
         } 
@@ -65,7 +65,7 @@ namespace DJS.WinApp
         private void OnChange_Logs(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
-            string logs = Common.LogHelp.logHelp.GetLogsRedis(20);
+            string logs = Common.LogHelp.logHelp.GetLogs(20);
             txtLogsShow.Text = logs;
             BLL.LogListen.NewTime = DateTime.Now;
         }

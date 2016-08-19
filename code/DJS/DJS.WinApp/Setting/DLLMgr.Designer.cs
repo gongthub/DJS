@@ -112,6 +112,7 @@
             this.dgvDLLLists.RowTemplate.Height = 23;
             this.dgvDLLLists.Size = new System.Drawing.Size(784, 295);
             this.dgvDLLLists.TabIndex = 1;
+            this.dgvDLLLists.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvDLLLists_DataBindingComplete);
             // 
             // groupBox1
             // 

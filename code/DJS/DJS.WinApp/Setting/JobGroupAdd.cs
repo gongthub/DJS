@@ -11,8 +11,7 @@ using System.Windows.Forms;
 namespace DJS.WinApp
 {
     public partial class JobGroupAdd : Form
-    {
-        private static string JOBGROUP_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("JobGroup_K");
+    { 
         public JobGroupAdd()
         {
             InitializeComponent();
@@ -41,7 +40,7 @@ namespace DJS.WinApp
 
             decimal nos = nudNo.Value;
             string names = txtName.Text;
-            
+
             //判断名称是否存在
             if (BLL.JobGroup.IsExist(names))
             {
@@ -49,22 +48,15 @@ namespace DJS.WinApp
             }
             else
             {
-                List<Model.JobGroup> models = new List<Model.JobGroup>();
-                models = Common.RedisHelp.redisHelp.Get<List<Model.JobGroup>>(JOBGROUP_KEY);
-                if (models == null)
-                {
-                    models = new List<Model.JobGroup>();
-                }
                 Model.JobGroup group = new Model.JobGroup();
                 group.ID = Guid.NewGuid();
                 group.No = nos;
                 group.Name = names;
-                models.Add(group);
-                bool ret = Common.RedisHelp.redisHelp.Set<List<Model.JobGroup>>(JOBGROUP_KEY, models);
+                bool ret = DJS.BLL.JobGroup.Add(group);
                 if (ret)
                 {
                     MessageBox.Show("添加成功");
-                    JobGroupMgr jobgroupmgr = new JobGroupMgr(); 
+                    JobGroupMgr jobgroupmgr = new JobGroupMgr();
                     jobgroupmgr.BindList();
                 }
                 else

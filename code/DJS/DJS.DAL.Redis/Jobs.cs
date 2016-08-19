@@ -19,5 +19,11 @@ namespace DJS.DAL.Redis
             throw new NotImplementedException();
         } 
         #endregion
+
+
+        public Model.Jobs GetModelById()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

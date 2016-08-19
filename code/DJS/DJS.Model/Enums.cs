@@ -58,5 +58,16 @@ namespace DJS.Model
             [Description("错误")]
             Error = 1
         }
+
+        /// <summary>
+        /// 日志存储类型
+        /// </summary>
+        public enum LogFileType
+        {
+            [Description("Redis")]
+            Redis = 0,
+            [Description("File")]
+            File = 1
+        }
     }
 }

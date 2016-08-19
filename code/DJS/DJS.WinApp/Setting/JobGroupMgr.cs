@@ -130,8 +130,8 @@ namespace DJS.WinApp
                             string ids = dgvJobGroups.Rows[e.RowIndex].Cells["ID"].Value.ToString();
                             Guid id = Guid.Empty;
                             if (Guid.TryParse(ids, out id))
-                            { 
-                                if (BLL.JobGroup.DelById<List<Model.JobGroup>>(id.ToString()))
+                            {
+                                if (BLL.JobGroup.DelById(id))
                                 {
                                     BindList();
                                 }
