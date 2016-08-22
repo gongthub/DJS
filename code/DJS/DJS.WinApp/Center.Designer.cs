@@ -33,16 +33,17 @@
             this.tsbtnMain = new System.Windows.Forms.ToolStripButton();
             this.tsbtnJobShow = new System.Windows.Forms.ToolStripButton();
             this.tsbtnTriggerList = new System.Windows.Forms.ToolStripButton();
+            this.tsbDataShow = new System.Windows.Forms.ToolStripButton();
             this.tsddbtnSet = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmtJobGroupMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtTriggerGroupMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtDllMgr = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtAddJob = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtDllJob = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmtRestart = new System.Windows.Forms.ToolStripMenuItem();
             this.panMain = new System.Windows.Forms.Panel();
             this.ssShow = new System.Windows.Forms.StatusStrip();
             this.tsslblTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsbDataShow = new System.Windows.Forms.ToolStripButton();
             this.tsMenu.SuspendLayout();
             this.ssShow.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +86,17 @@
             this.tsbtnTriggerList.Name = "tsbtnTriggerList";
             this.tsbtnTriggerList.Size = new System.Drawing.Size(88, 22);
             this.tsbtnTriggerList.Text = "触发器列表";
+            this.tsbtnTriggerList.Visible = false;
             this.tsbtnTriggerList.Click += new System.EventHandler(this.tsbtnTriggerList_Click);
+            // 
+            // tsbDataShow
+            // 
+            this.tsbDataShow.Image = ((System.Drawing.Image)(resources.GetObject("tsbDataShow.Image")));
+            this.tsbDataShow.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDataShow.Name = "tsbDataShow";
+            this.tsbDataShow.Size = new System.Drawing.Size(76, 22);
+            this.tsbDataShow.Text = "数据查看";
+            this.tsbDataShow.Click += new System.EventHandler(this.tsbDataShow_Click);
             // 
             // tsddbtnSet
             // 
@@ -93,7 +104,8 @@
             this.tsmtJobGroupMgr,
             this.tsmtTriggerGroupMgr,
             this.tsmtDllMgr,
-            this.tsmtAddJob});
+            this.tsmtAddJob,
+            this.tsmtRestart});
             this.tsddbtnSet.Image = ((System.Drawing.Image)(resources.GetObject("tsddbtnSet.Image")));
             this.tsddbtnSet.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbtnSet.Name = "tsddbtnSet";
@@ -137,6 +149,13 @@
             this.tsmtDllJob.Text = "DLL任务";
             this.tsmtDllJob.Click += new System.EventHandler(this.tsmtDllJob_Click);
             // 
+            // tsmtRestart
+            // 
+            this.tsmtRestart.Name = "tsmtRestart";
+            this.tsmtRestart.Size = new System.Drawing.Size(160, 22);
+            this.tsmtRestart.Text = "重新启动";
+            this.tsmtRestart.Click += new System.EventHandler(this.tsmtRestart_Click);
+            // 
             // panMain
             // 
             this.panMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -162,15 +181,6 @@
             // 
             this.tsslblTime.Name = "tsslblTime";
             this.tsslblTime.Size = new System.Drawing.Size(0, 17);
-            // 
-            // tsbDataShow
-            // 
-            this.tsbDataShow.Image = ((System.Drawing.Image)(resources.GetObject("tsbDataShow.Image")));
-            this.tsbDataShow.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbDataShow.Name = "tsbDataShow";
-            this.tsbDataShow.Size = new System.Drawing.Size(76, 22);
-            this.tsbDataShow.Text = "数据查看";
-            this.tsbDataShow.Click += new System.EventHandler(this.tsbDataShow_Click);
             // 
             // Center
             // 
@@ -209,5 +219,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmtAddJob;
         private System.Windows.Forms.ToolStripMenuItem tsmtDllJob;
         private System.Windows.Forms.ToolStripButton tsbDataShow;
+        private System.Windows.Forms.ToolStripMenuItem tsmtRestart;
     }
 }

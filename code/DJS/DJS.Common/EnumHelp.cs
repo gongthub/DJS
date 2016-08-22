@@ -137,5 +137,33 @@ namespace DJS.Common
             return null;
         } 
         #endregion
+
+        #region 将枚举转换为SelectLists + List<Model.SelectLists> ToSelectLists(Type type)
+        /// <summary>
+        /// 将枚举转换为SelectLists
+        /// 说明：
+        /// 若不是枚举类型，则返回NULL
+        /// 单元测试-->通过
+        /// </summary>
+        /// <param name="type">枚举类型</param>
+        /// <returns>SelectLists</returns>
+        public List<Model.SelectLists> ToSelectLists(Type type)
+        {
+            if (type.IsEnum)
+            {
+                List<Model.SelectLists> lists = new List<Model.SelectLists>();
+                Array _enumValues = Enum.GetValues(type);
+                foreach (Enum value in _enumValues)
+                {
+                    Model.SelectLists list = new Model.SelectLists();
+                    list.Value = Convert.ToInt32(value);
+                    list.Name = GetDescription(value);
+                    lists.Add(list);
+                }
+                return lists;
+            }
+            return null;
+        } 
+        #endregion
     }
 }

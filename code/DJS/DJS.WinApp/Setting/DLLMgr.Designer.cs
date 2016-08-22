@@ -59,6 +59,7 @@
             this.btnRefresh.TabIndex = 4;
             this.btnRefresh.Text = "开始刷新";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Visible = false;
             // 
             // btnQuery
             // 

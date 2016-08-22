@@ -14,13 +14,32 @@ namespace DJS.IDAL
         /// </summary>
         /// <returns></returns>
         List<Jobs> GetModels();
-
-
+         
         /// <summary>
         /// 根据id获取job
         /// </summary>
         /// <returns></returns>
-        Jobs GetModelById();
+        Jobs GetModelById(Guid Id);
 
+        /// <summary>
+        /// 根据名称判断是否存在
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <returns>true:存在 false:不存在</returns>
+        bool IsExist(string name);
+         
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="model">实体</param>
+        /// <returns>true:成功 false:失败</returns>
+        bool Add(Model.Jobs model);
+
+        /// <summary>
+        /// 根据id删除
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        bool DelById(Guid Id);
     }
 }

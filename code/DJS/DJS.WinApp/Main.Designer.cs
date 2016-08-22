@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.gbNows = new System.Windows.Forms.GroupBox();
+            this.txtJobsNow = new System.Windows.Forms.TextBox();
             this.gbLogs = new System.Windows.Forms.GroupBox();
             this.txtLogsShow = new System.Windows.Forms.TextBox();
-            this.txtJobsNow = new System.Windows.Forms.TextBox();
             this.gbNows.SuspendLayout();
             this.gbLogs.SuspendLayout();
             this.SuspendLayout();
@@ -49,6 +49,15 @@
             this.gbNows.TabIndex = 3;
             this.gbNows.TabStop = false;
             this.gbNows.Text = "执行中任务";
+            // 
+            // txtJobsNow
+            // 
+            this.txtJobsNow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtJobsNow.Location = new System.Drawing.Point(3, 17);
+            this.txtJobsNow.Multiline = true;
+            this.txtJobsNow.Name = "txtJobsNow";
+            this.txtJobsNow.Size = new System.Drawing.Size(854, 135);
+            this.txtJobsNow.TabIndex = 0;
             // 
             // gbLogs
             // 
@@ -69,17 +78,9 @@
             this.txtLogsShow.Location = new System.Drawing.Point(3, 17);
             this.txtLogsShow.Multiline = true;
             this.txtLogsShow.Name = "txtLogsShow";
+            this.txtLogsShow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLogsShow.Size = new System.Drawing.Size(854, 241);
             this.txtLogsShow.TabIndex = 0;
-            // 
-            // txtJobsNow
-            // 
-            this.txtJobsNow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtJobsNow.Location = new System.Drawing.Point(3, 17);
-            this.txtJobsNow.Multiline = true;
-            this.txtJobsNow.Name = "txtJobsNow";
-            this.txtJobsNow.Size = new System.Drawing.Size(854, 135);
-            this.txtJobsNow.TabIndex = 0;
             // 
             // Main
             // 

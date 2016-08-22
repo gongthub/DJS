@@ -47,25 +47,29 @@ namespace DJS.Common
         /// <returns></returns>
         public string GetMD5HashFromFile(string fileName)
         {
-            try
+            lock (this)
             {
-                FileStream file = new FileStream(fileName, FileMode.Open);
-                System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-                byte[] retVal = md5.ComputeHash(file);
-                file.Close();
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < retVal.Length; i++)
+                try
                 {
-                    sb.Append(retVal[i].ToString("x2"));
+                    using (FileStream file = new FileStream(fileName, FileMode.Open))
+                    {
+                        System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                        byte[] retVal = md5.ComputeHash(file);
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < retVal.Length; i++)
+                        {
+                            sb.Append(retVal[i].ToString("x2"));
+                        }
+                        return sb.ToString();
+                    }
                 }
-                return sb.ToString();
+                catch (Exception ex)
+                {
+                    LogHelp.logHelp.WriteLog("获取文件MD5错误:" + ex.Message, Model.Enums.LogType.Error);
+                    return "";
+                }
             }
-            catch (Exception ex)
-            {
-                LogHelp.logHelp.WriteLogRedis("获取文件MD5错误:" + ex.Message, Model.Enums.LogType.Error);
-                return "";
-            }
-        } 
+        }
         #endregion
     }
 }

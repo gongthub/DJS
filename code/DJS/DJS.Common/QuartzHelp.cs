@@ -81,6 +81,34 @@ namespace DJS.Common
         }
         #endregion
 
+        #region 获取状态
+        /// <summary>
+        /// 获取状态
+        /// </summary>
+        /// <returns></returns>
+        public string GetState()
+        {
+            string str = "";
+
+            if (IsStarted)
+            {
+                str = "正常运行";
+            }
+            else
+                if (IsShutdown)
+                {
+                    str = "关闭";
+                }
+                else
+                    if (InStandbyMode)
+                    {
+                        str = "待机模式";
+                    }
+
+            return str;
+        } 
+        #endregion
+
         #region 开始
         /// <summary>
         /// 开始
@@ -143,6 +171,16 @@ namespace DJS.Common
         public void Shutdown()
         {
             _sched.Shutdown(true);
+        }
+        #endregion
+
+        #region 待机所有任务 +void Standby()
+        /// <summary>
+        /// 待机所有任务
+        /// </summary>
+        public void Standby()
+        {
+            _sched.Standby();
         }
         #endregion
 
@@ -601,6 +639,18 @@ namespace DJS.Common
                 ret = false;
             }
             return ret;
+        }
+        #endregion
+
+        #region 根据触发器获取触发器状态 +TriggerState GetTriggerState(TriggerKey triggerKey)
+        /// <summary>
+        /// 根据触发器获取触发器状态
+        /// </summary>
+        /// <param name="triggerKey">触发器</param>
+        /// <returns></returns>
+        public TriggerState GetTriggerState(TriggerKey triggerKey)
+        {
+            return _sched.GetTriggerState(triggerKey);
         }
         #endregion
 

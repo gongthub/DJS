@@ -20,8 +20,26 @@ namespace DJS.DAL.Redis
         } 
         #endregion
 
+         
 
-        public Model.Jobs GetModelById()
+
+        public bool IsExist(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Add(Model.Jobs model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DelById(Guid Id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Model.Jobs GetModelById(Guid Id)
         {
             throw new NotImplementedException();
         }

@@ -68,6 +68,6 @@ namespace DJS.Model
             Redis = 0,
             [Description("File")]
             File = 1
-        }
+        } 
     }
 }

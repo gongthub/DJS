@@ -451,8 +451,20 @@ namespace DJS.Common
                 if (t.GetType().GetProperty(att.Name) != null)
                 {
                     Type type = t.GetType().GetProperty(att.Name).PropertyType;
-                    object obj = SetType(type, att.Value);
-                    t.GetType().GetProperty(att.Name).SetValue(t, obj);
+                    if (type.Name == "Type")
+                    {
+                        string[] strs = att.Value.Split('.');
+                        if (strs.Length >= 2)
+                        {
+                            type = Common.AssemblyHelp.assembly.GetDllType(strs[0], strs[1]);
+                        }
+                        t.GetType().GetProperty(att.Name).SetValue(t, type);  
+                    }
+                    else
+                    {
+                        object obj = SetType(type, att.Value);
+                        t.GetType().GetProperty(att.Name).SetValue(t, obj);  
+                    }
                 }
             }
             return t;
@@ -532,7 +544,14 @@ namespace DJS.Common
                 {
                     XmlAttribute attr = null;
                     attr = doc.CreateAttribute(info.Name);
-                    attr.Value = info.GetValue(t).ToString();
+                    if (info.GetValue(t) != null)
+                    {
+                        attr.Value = info.GetValue(t).ToString();
+                    }
+                    else
+                    {
+                        attr.Value = ""; 
+                    }
                     node.Attributes.SetNamedItem(attr);
                 }
             }

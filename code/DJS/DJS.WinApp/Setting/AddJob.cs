@@ -73,26 +73,43 @@ namespace DJS.WinApp
             string classNames = cbClassName.Text;
 
             string types = cbType.Text;
+            string typesval = cbType.SelectedValue.ToString();
 
             Type type = Common.AssemblyHelp.assembly.GetDllType(nameSpages, classNames);
-            if (types == "周期性")
+            Model.Jobs model = new Model.Jobs();
+            model.ID = Guid.NewGuid();
+            model.Name = jobNames;
+            model.GroupName = jobGroups;
+            model.TriggerName = triggerNames;
+            model.TriggerGroup = triggerGroups;
+            model.Crons = crons;
+            DateTime time = DateTime.MinValue;
+            if (DateTime.TryParse(times, out time))
             {
-                MessageHelp mes = Common.QuartzHelp.quartzHelp.AddJob(type, crons, jobNames, jobGroups, triggerNames, triggerGroups);
-
-                MessageBox.Show(mes.Message); 
+                model.Time = time;
+            }
+            int typet = 0;
+            if (Int32.TryParse(typesval, out typet))
+            {
+                model.Type = typet;
+            }
+            model.AssType = type; 
+            model.State = (int)Model.Enums.TriggerState.Normal;
+            if (!BLL.Jobs.IsExist(jobNames))
+            {
+                if (BLL.Jobs.AddJobs(model))
+                {
+                    MessageBox.Show("添加成功！");
+                }
+                else
+                {
+                    MessageBox.Show("添加失败！");
+                }
             }
             else
-                if (types == "一次性")
-                {
-                    DateTime time = DateTime.MinValue;
-                    if (DateTime.TryParse(times, out time))
-                    {
-                        MessageHelp mes = Common.QuartzHelp.quartzHelp.AddJob(type, time, jobNames, jobGroups, triggerNames, triggerGroups);
-
-                        MessageBox.Show(mes.Message);
-                    }
-                }
-
+            {
+                MessageBox.Show("任务已经存在！");
+            }  
         }
 
         #endregion
@@ -249,12 +266,14 @@ namespace DJS.WinApp
         /// </summary>
         private void BindType()
         {
-            ArrayList arry = Common.EnumHelp.enumHelp.ToArrayList(typeof(Model.Enums.TimeType)); 
-            cbType.DataSource = arry;
+            //ArrayList arry = Common.EnumHelp.enumHelp.ToArrayList(typeof(Model.Enums.TimeType));
+            List<Model.SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Model.Enums.TimeType));
+            cbType.DataSource = list;
             cbType.DisplayMember = "Name";
+            cbType.ValueMember = "Value";
         }
         #endregion
-         
+
         #region 命名空间选择事件 -void cbNameSpace_SelectedIndexChanged(object sender, EventArgs e)
         /// <summary>
         /// 命名空间选择事件
@@ -267,7 +286,7 @@ namespace DJS.WinApp
             BindClassName(nameSpaces);
         }
         #endregion
-          
+
         #endregion
 
     }

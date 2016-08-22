@@ -412,61 +412,78 @@ namespace DJS.Common
         public static string ReadTxtFileNumE(string FilePath, int num)
         {
             string content = "";//返回的字符串
-            if (!IsFileInUse(FilePath))
+            try
             {
-                using (FileStream fs = new FileStream(FilePath, FileMode.Open))
+                if (!IsFileInUse(FilePath))
                 {
-                    using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
+                    using (FileStream fs = new FileStream(FilePath, FileMode.Open))
                     {
-                        if (reader.ReadLine() != null)
+                        using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
                         {
-                            string str = reader.ReadToEnd();
-                            string[] aryStr = Regex.Split(str, "\r\n");
-                            int allnum = aryStr.Length;
-                            if (allnum > num)
+                            if (reader.ReadLine() != null)
                             {
-                                string text = string.Empty;
-                                int startnum = allnum - num;
-                                int j = 1;
-                                for (int i = 0; i < allnum; i++)
+                                string str = reader.ReadToEnd();
+                                string[] aryStr = Regex.Split(str, "\r\n");
+                                int allnum = aryStr.Length;
+                                if (allnum > num)
                                 {
-                                    //if (startnum > 0)
-                                    //{
-                                    //    startnum -= 1;
-                                    //}
-
-                                    if (aryStr[allnum - j] != null && aryStr[allnum - j].Trim() != "")
-                                    {
-                                        startnum -= 1;
-                                    }
-                                    if (startnum <= i)
-                                    {
+                                    string text = string.Empty;
+                                    int startnum = allnum - num;
+                                    int j = 1;
+                                    for (int i = 0; i < allnum; i++)
+                                    {  
                                         if (aryStr[allnum - j] != null && aryStr[allnum - j].Trim() != "")
                                         {
-                                            text += aryStr[allnum - j] + "\r\n";
-                                            content = text;
+                                            startnum -= 1;
                                         }
-                                        j++;
+                                        if (startnum <= i)
+                                        {
+                                            if (aryStr[allnum - j] != null && aryStr[allnum - j].Trim() != "")
+                                            {
+                                                if (text.Trim() != "")
+                                                {
+                                                    text += aryStr[allnum - j] + "\r\n";
+                                                }
+                                                else
+                                                {
+                                                    text += aryStr[allnum - j];
+                                                }
+                                                content = text;
+                                            }
+                                            j++;
 
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                int j = 1;
-                                string text = string.Empty;
-                                for (int i = 0; i < allnum; i++)
+                                else
                                 {
-                                    text += aryStr[allnum - j] + "\r\n";
-                                    content = text;
-                                    j++;
+                                    int j = 1;
+                                    string text = string.Empty;
+                                    for (int i = 0; i < allnum; i++)
+                                    { 
+                                        if (text.Trim() != "")
+                                        {
+                                            text += aryStr[allnum - j] + "\r\n";
+                                        }
+                                        else
+                                        {
+                                            text += aryStr[allnum - j];
+                                        }
+                                        content = text;
+                                        j++;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                return content;
             }
-            return content;
+            catch (Exception ex)
+            {
+                LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                return content;
+            }
         }
         #endregion
 
@@ -492,24 +509,30 @@ namespace DJS.Common
         /// <param name="WriteStr">写入数据</param>
         public static void WirteStr(string FilePath, string WriteStr)
         {
-
-            //判断文件是否被使用
-            if (!IsFileInUse(FilePath))
+            try
             {
-                FileInfo finfo = new FileInfo(FilePath);
-                using (FileStream fs = finfo.OpenWrite())
+                //判断文件是否被使用
+                if (!IsFileInUse(FilePath))
                 {
-                    //根据上面创建的文件流创建写数据流 
-                    StreamWriter strwriter = new StreamWriter(fs);
-                    //设置写数据流的起始位置为文件流的末尾 
-                    strwriter.BaseStream.Seek(0, SeekOrigin.End);
-                    //写入相关记录信息
-                    strwriter.WriteLine(WriteStr);
-                    //清空缓冲区内容，并把缓冲区内容写入基础流 
-                    strwriter.Flush();
-                    strwriter.Close();
-                    fs.Close();
+                    FileInfo finfo = new FileInfo(FilePath);
+                    using (FileStream fs = finfo.OpenWrite())
+                    {
+                        //根据上面创建的文件流创建写数据流 
+                        StreamWriter strwriter = new StreamWriter(fs);
+                        //设置写数据流的起始位置为文件流的末尾 
+                        strwriter.BaseStream.Seek(0, SeekOrigin.End);
+                        //写入相关记录信息
+                        strwriter.WriteLine(WriteStr);
+                        //清空缓冲区内容，并把缓冲区内容写入基础流 
+                        strwriter.Flush();
+                        strwriter.Close();
+                        fs.Close();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogHelp.logHelp.WriteLog(ex.Message,Model.Enums.LogType.Error);
             }
         }
         /// <summary>

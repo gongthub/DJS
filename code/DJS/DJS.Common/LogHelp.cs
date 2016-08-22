@@ -70,16 +70,8 @@ namespace DJS.Common
         public void WriteLog(string messages, int type)
         {
             if (LogFileType == Model.Enums.LogFileType.File.ToString())
-            {
-                if (!DJS.Common.FileHelp.DirectoryIsExists(LOGURL))
-                {
-                    DJS.Common.FileHelp.CreateDirectory(LOGURL);
-                }
-                string strs = "";
-                strs += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ";
-                strs += EnumHelp.enumHelp.GetDescription((Model.Enums.LogType)type) + " - ";
-                strs += messages;
-                DJS.Common.FileHelp.WirteStr(LOGURL + @"/" + DateTime.Now.ToString(LOGNAME) + LOGTYPE, strs);
+            { 
+                WriteLogFile(messages, type);
             }
 
             if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
@@ -97,16 +89,8 @@ namespace DJS.Common
         public void WriteLog(string messages, Model.Enums.LogType type)
         {
             if (LogFileType == Model.Enums.LogFileType.File.ToString())
-            {
-                if (!DJS.Common.FileHelp.DirectoryIsExists(LOGURL))
-                {
-                    DJS.Common.FileHelp.CreateDirectory(LOGURL);
-                }
-                string strs = "";
-                strs += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ";
-                strs += EnumHelp.enumHelp.GetDescription(type) + " - ";
-                strs += messages;
-                DJS.Common.FileHelp.WirteStr(LOGURL + @"/" + DateTime.Now.ToString(LOGNAME) + LOGTYPE, strs);
+            { 
+                WriteLogFile(messages, type);
             }
             if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
             {
@@ -122,18 +106,11 @@ namespace DJS.Common
         /// <returns></returns>
         public string GetLogs(int num)
         {
-            string strs = "";
+            string strs = ""; 
+
             if (LogFileType == Model.Enums.LogFileType.File.ToString())
             {
-                string paths = LOGURL + @"\";
-                ArrayList files = Common.FileHelp.GetFileslist(paths);
-                if (files != null && files.Count > 0)
-                {
-                    files.Sort();
-                    string file = files[files.Count - 1].ToString();
-                    paths += @"\" + file;
-                    strs = Common.FileHelp.ReadTxtFileNumE(paths, 20);
-                }
+                strs = GetLogsFile(num);
             }
             if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
             {
@@ -143,12 +120,52 @@ namespace DJS.Common
         }
         #endregion
 
-        #region 写入日志到Redis +void WriteLogRedis(string int type)
+        #region 写入日志到File -void WriteLogFile(string int type)
+        /// <summary>
+        /// 写入日志到File
+        /// </summary>
+        /// <param name="messages">描述</param>  
+        private void WriteLogFile(string messages, int type)
+        {
+
+            if (!DJS.Common.FileHelp.DirectoryIsExists(LOGURL))
+            {
+                DJS.Common.FileHelp.CreateDirectory(LOGURL);
+            }
+            string strs = "";
+            strs += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ";
+            strs += EnumHelp.enumHelp.GetDescription((Model.Enums.LogType)type) + " - ";
+            strs += messages;
+            DJS.Common.FileHelp.WirteStr(LOGURL + @"/" + DateTime.Now.ToString(LOGNAME) + LOGTYPE, strs);
+
+        }
+        #endregion
+
+        #region 写入日志到File -void WriteLogFile(string Model.Enums.LogType type)
+        /// <summary>
+        /// 写入日志到File
+        /// </summary>
+        /// <param name="messages">描述</param>  
+        private void WriteLogFile(string messages, Model.Enums.LogType type)
+        {
+            if (!DJS.Common.FileHelp.DirectoryIsExists(LOGURL))
+            {
+                DJS.Common.FileHelp.CreateDirectory(LOGURL);
+            }
+            string strs = "";
+            strs += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ";
+            strs += EnumHelp.enumHelp.GetDescription(type) + " - ";
+            strs += messages;
+            DJS.Common.FileHelp.WirteStr(LOGURL + @"/" + DateTime.Now.ToString(LOGNAME) + LOGTYPE, strs);
+        }
+        #endregion
+
+        #region 写入日志到Redis -void WriteLogRedis(string int type)
         /// <summary>
         /// 写入日志到Redis
         /// </summary>
         /// <param name="messages">描述</param>  
-        public void WriteLogRedis(string messages, int type)
+        private void WriteLogRedis(string messages, int type)
         {
 
             List<Model.LogModel> models = new List<Model.LogModel>();
@@ -170,12 +187,12 @@ namespace DJS.Common
         }
         #endregion
 
-        #region 写入日志到Redis +void WriteLogRedis(string Model.Enums.LogType type)
+        #region 写入日志到Redis -void WriteLogRedis(string Model.Enums.LogType type)
         /// <summary>
         /// 写入日志到Redis
         /// </summary>
         /// <param name="messages">描述</param>  
-        public void WriteLogRedis(string messages, Model.Enums.LogType type)
+        private void WriteLogRedis(string messages, Model.Enums.LogType type)
         {
 
             List<Model.LogModel> models = new List<Model.LogModel>();
@@ -197,12 +214,33 @@ namespace DJS.Common
         }
         #endregion
 
-        #region 获取日志 +string GetLogsRedis(int num)
+        #region 获取文件日志 -string GetLogsFile(int num)
         /// <summary>
-        /// 获取日志
+        /// 获取文件日志
         /// </summary>
         /// <returns></returns>
-        public string GetLogsRedis(int num)
+        private string GetLogsFile(int num)
+        {
+            string strs = "";
+            string paths = LOGURL + @"\";
+            ArrayList files = Common.FileHelp.GetFileslist(paths);
+            if (files != null && files.Count > 0)
+            {
+                files.Sort();
+                string file = files[files.Count - 1].ToString();
+                paths += @"\" + file;
+                strs = Common.FileHelp.ReadTxtFileNumE(paths, num);
+            }
+            return strs.ToString();
+        }
+        #endregion
+
+        #region 获取Redis日志 -string GetLogsRedis(int num)
+        /// <summary>
+        /// 获取Redis日志
+        /// </summary>
+        /// <returns></returns>
+        private string GetLogsRedis(int num)
         {
             StringBuilder strs = new StringBuilder();
             List<Model.LogModel> models = new List<Model.LogModel>();

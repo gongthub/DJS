@@ -48,7 +48,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["RedisConfig"].ToString();
             }
         }
-         
+
         /// <summary>
         /// xml存储文件路径
         /// </summary>
@@ -59,7 +59,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["XmlDBConfig"].ToString();
             }
         }
-         
+
         /// <summary>
         /// 获取程序集文件所在文件夹名称
         /// </summary>
@@ -70,7 +70,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["AssemblySrc"].ToString();
             }
         }
-         
+
         /// <summary>
         /// 数据保存路径
         /// </summary>
@@ -81,7 +81,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["DataPath"].ToString();
             }
         }
-         
+
         /// <summary>
         /// 数据保存文件名称
         /// </summary>
@@ -103,7 +103,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["LogUrl"].ToString();
             }
         }
-         
+
         /// <summary>
         /// 获取日志文件名称规则
         /// </summary>
@@ -114,7 +114,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["LogName"].ToString();
             }
         }
-         
+
         /// <summary>
         /// 获取日志文件类型
         /// </summary>
@@ -123,6 +123,20 @@ namespace DJS.Common
             get
             {
                 return ConfigurationManager.AppSettings["LogFileType"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 获取日志显示条数
+        /// </summary>
+        public static int LogShowNumPath
+        {
+            get
+            {
+                string strs = ConfigurationManager.AppSettings["LogShowNum"].ToString();
+                int num = 0;
+                Int32.TryParse(strs, out num);
+                return num;
             }
         }
 
@@ -136,7 +150,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["IQuartz"].ToString();
             }
         }
-         
+
         /// <summary>
         /// redis服务器地址
         /// </summary>
@@ -147,7 +161,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["redisServer"].ToString();
             }
         }
-         
+
         /// <summary>
         /// redis服务器端口
         /// </summary>
@@ -158,7 +172,7 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["redisServerPort"].ToString();
             }
         }
-         
+
         /// <summary>
         /// Cron 路径
         /// </summary>
@@ -168,8 +182,8 @@ namespace DJS.Common
             {
                 return ConfigurationManager.AppSettings["CronUrl"].ToString();
             }
-        } 
-         
+        }
+
         /// <summary>
         /// 数据库类型
         /// </summary>
@@ -179,6 +193,6 @@ namespace DJS.Common
             {
                 return ConfigurationManager.AppSettings["DALTYPE"].ToString();
             }
-        }  
+        }
     }
 }

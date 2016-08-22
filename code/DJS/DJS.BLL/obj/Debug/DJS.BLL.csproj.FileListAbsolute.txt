@@ -70,8 +70,6 @@ F:\workfile\DJS\Codes\DJS\DJS.BLL\bin\Debug\ServiceStack.Common.xml
 F:\workfile\DJS\Codes\DJS\DJS.BLL\obj\Debug\DJS.BLL.csprojResolveAssemblyReference.cache
 F:\workfile\DJS\Codes\DJS\DJS.BLL\obj\Debug\DJS.BLL.dll
 F:\workfile\DJS\Codes\DJS\DJS.BLL\obj\Debug\DJS.BLL.pdb
-D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.csprojResolveAssemblyReference.cache
-D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.BLL.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.BLL.pdb
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\Common.Logging.dll
@@ -91,4 +89,6 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Redis.pdb
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Common.xml
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.pdb

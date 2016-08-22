@@ -44,6 +44,8 @@ namespace DJS.WinApp
 
             ControlSetting.controlSetting.DataGridViewSet(dgvJobs);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDo_Click);
+            dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkReAdd_Click);
+            dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDoDel_Click);
             BindCombox();
             BindList();
 
@@ -60,9 +62,17 @@ namespace DJS.WinApp
         {
 
             Control.CheckForIllegalCrossThreadCalls = false;
-            List<Model.Jobs> models = BLL.Jobs.GetJobsForQuartz();
-            dgvJobs.DataSource = models;
-            BLL.JobsListen.jobsCounts = models.Count;
+            List<Model.Jobs> models = BLL.Jobs.GetJobs();
+            if (models != null && models.Count > 0)
+            {
+                dgvJobs.DataSource = models;
+                BLL.JobsListen.jobsCounts = models.Count;
+            }
+            else
+            {
+                dgvJobs.DataSource = null;
+                BLL.JobsListen.jobsCounts = 0;
+            }
         }
         #endregion
 
@@ -97,7 +107,7 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            BindList();
+            BindList(); 
         }
         #endregion
 
@@ -113,7 +123,15 @@ namespace DJS.WinApp
             {
                 dgvJobs.Columns.Remove("dgvlinkDo");
             }
-            List<Model.Jobs> models = BLL.Jobs.GetJobsForQuartz(m => m.Name.Contains(name) && m.GroupName.Contains(group));
+            if (dgvJobs.Columns.Contains("dgvlinkReAdd"))
+            {
+                dgvJobs.Columns.Remove("dgvlinkReAdd");
+            }
+            if (dgvJobs.Columns.Contains("dgvlinkDoDel"))
+            {
+                dgvJobs.Columns.Remove("dgvlinkDoDel");
+            }
+            List<Model.Jobs> models = BLL.Jobs.GetJobs(m => m.Name.Contains(name) && m.GroupName.Contains(group));
 
             dgvJobs.DataSource = models;
 
@@ -131,6 +149,39 @@ namespace DJS.WinApp
                 dgvlinkDo.CellTemplate.Style.BackColor = Color.Honeydew;
             }
             dgvJobs.Columns.Add(dgvlinkDo);
+            //dgvJobs.Refresh();
+
+            DataGridViewLinkColumn dgvlinkReAdd = new DataGridViewLinkColumn();
+            {
+                dgvlinkReAdd.Name = "dgvlinkReAdd";
+                dgvlinkReAdd.HeaderText = "重新添加";
+                dgvlinkReAdd.Text = "重新添加";
+                dgvlinkReAdd.LinkColor = Color.Red;
+                dgvlinkReAdd.ActiveLinkColor = Color.Red;
+                dgvlinkReAdd.UseColumnTextForLinkValue = true;
+                dgvlinkReAdd.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                //dgvbtnDel.FlatStyle = FlatStyle.Standard;
+                dgvlinkReAdd.CellTemplate.Style.BackColor = Color.Honeydew;
+            }
+            dgvJobs.Columns.Add(dgvlinkReAdd);
+
+
+            DataGridViewLinkColumn dgvlinkDoDel = new DataGridViewLinkColumn();
+            {
+                dgvlinkDoDel.Name = "dgvlinkDoDel";
+                dgvlinkDoDel.HeaderText = "删除";
+                dgvlinkDoDel.Text = "删除";
+                dgvlinkDoDel.LinkColor = Color.Red;
+                dgvlinkDoDel.ActiveLinkColor = Color.Red;
+                dgvlinkDoDel.UseColumnTextForLinkValue = true;
+                dgvlinkDoDel.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                //dgvbtnDel.FlatStyle = FlatStyle.Standard;
+                dgvlinkDoDel.CellTemplate.Style.BackColor = Color.Honeydew;
+            }
+            dgvJobs.Columns.Add(dgvlinkDoDel);
+
             dgvJobs.Refresh();
         }
         #endregion
@@ -167,11 +218,17 @@ namespace DJS.WinApp
         private void dgvJobs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgvJobs.Columns["ID"].Visible = false;//隐藏某列：
+            dgvJobs.Columns["State"].Visible = false;//隐藏某列：
+            dgvJobs.Columns["Type"].Visible = false;//隐藏某列：
+            dgvJobs.Columns["AssType"].Visible = false;//隐藏某列：
             dgvJobs.Columns["Name"].HeaderText = "名称";
             dgvJobs.Columns["GroupName"].HeaderText = "任务组";
             dgvJobs.Columns["TriggerName"].HeaderText = "触发器";
             dgvJobs.Columns["TriggerGroup"].HeaderText = "触发器组";
-            dgvJobs.Columns["State"].HeaderText = "状态";
+            //dgvJobs.Columns["State"].HeaderText = "状态";
+            dgvJobs.Columns["StateName"].HeaderText = "状态";
+            dgvJobs.Columns["TypeName"].HeaderText = "类型";
+            dgvJobs.Columns["Time"].HeaderText = "执行时间";
         }
         #endregion
 
@@ -200,11 +257,104 @@ namespace DJS.WinApp
                             if (BLL.Jobs.TriggerJob(groupNames, names))
                             {
                                 BindList();
-                                MessageBox.Show("执行成功"); 
+                                MessageBox.Show("执行成功");
                             }
                             else
                             {
                                 MessageBox.Show("执行失败");
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        #endregion
+
+        #region 重新添加按钮点击事件 -void dgvlinkReAdd_Click(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// 重新添加按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvlinkReAdd_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && dgvJobs.Columns[e.ColumnIndex] != null && dgvJobs.Columns[e.ColumnIndex].HeaderText == "重新添加" && e.RowIndex >= 0)
+            {
+                MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+                DialogResult dr = MessageBox.Show("确定要重新添加吗?", "重新添加", messButton);
+                if (dr == DialogResult.OK)//如果点击“确定”按钮
+                {
+
+                    if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
+                    {
+                        if (dgvJobs.Rows[e.RowIndex].Cells["ID"] != null)
+                        {
+                            string Ids = dgvJobs.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+
+                            Guid Id = Guid.Empty;
+                            if (Guid.TryParse(Ids, out Id))
+                            {
+                                Model.Jobs model = BLL.Jobs.GetModelById(Id);
+                                if (BLL.Jobs.ReAddJobs(model))
+                                {
+                                    BindList();
+                                    MessageBox.Show("重新添加成功");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("重新添加失败");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("重新添加失败");
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        #endregion
+
+        #region 删除按钮点击事件 -void dgvlinkDoDel_Click(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// 删除按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvlinkDoDel_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && dgvJobs.Columns[e.ColumnIndex] != null && dgvJobs.Columns[e.ColumnIndex].HeaderText == "删除" && e.RowIndex >= 0)
+            {
+                MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+                DialogResult dr = MessageBox.Show("确定要删除吗?", "删除", messButton);
+                if (dr == DialogResult.OK)//如果点击“确定”按钮
+                {
+
+                    if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
+                    {
+                        if (dgvJobs.Rows[e.RowIndex].Cells["ID"] != null)
+                        {
+                            string Ids = dgvJobs.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+
+                            Guid Id = Guid.Empty;
+                            if (Guid.TryParse(Ids, out Id))
+                            {
+                                if (BLL.Jobs.DelByIdAndQuartz(Id))
+                                {
+                                    BindList();
+                                    MessageBox.Show("删除成功");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("删除失败");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("删除失败");
                             }
                         }
                     }

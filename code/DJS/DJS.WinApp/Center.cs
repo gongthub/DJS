@@ -24,6 +24,11 @@ namespace DJS.WinApp
         private static string groupsPath = @"/DB/GROUPS/GROUP";
 
         /// <summary>
+        /// 是否重启
+        /// </summary>
+        private static int ISRESTART = 0;
+
+        /// <summary>
         ///  时间控件
         /// </summary> 
         private static Timer TIMER = new Timer();
@@ -59,11 +64,11 @@ namespace DJS.WinApp
             TIMER.Interval = INTERVAL;
             TIMER.Tick += timer_Tick;
             TIMER.Start();
-            
+
             //XmlNodeList list = XmlHelp.xmlHelp.GetNodes(xmlDBConfigPath, groupsPath);
             //Model.JobGroup model=new DJS.Model.JobGroup();
             //Common.XmlHelp.xmlHelp.SetNodeToModel(model, list[0]);
-              
+
         }
         #endregion
 
@@ -75,15 +80,19 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void Center_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult result;
-            result = MessageBox.Show("确定退出吗？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
+            if (ISRESTART == 0)
             {
-                System.Environment.Exit(0);
-            }
-            else
-            {
-                e.Cancel = true;
+                ISRESTART = 0;
+                DialogResult result;
+                result = MessageBox.Show("确定退出吗？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
+                {
+                    System.Environment.Exit(0);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
         #endregion
@@ -111,6 +120,7 @@ namespace DJS.WinApp
         private void timer_Tick(object sender, EventArgs e)
         {
             tsslblTime.Text = "系统时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            tsslblTime.Text += "   Quartz状态：" + Common.QuartzHelp.quartzHelp.GetState(); 
         }
         #endregion
 
@@ -239,6 +249,25 @@ namespace DJS.WinApp
         }
         #endregion
 
+        #region 重新启动 -void tsmtRestart_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 重新启动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmtRestart_Click(object sender, EventArgs e)
+        {
+            DialogResult result;
+            result = MessageBox.Show("确定重新启动吗？", "重新启动", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                ISRESTART = 1;
+                Application.Exit();
+                Application.Restart();
+            }
+        }
+        #endregion
+
         #endregion
 
         #region 生成窗体 +void GenerateForm(string form, object sender)
@@ -263,6 +292,6 @@ namespace DJS.WinApp
 
         }
         #endregion
-         
+
     }
 }

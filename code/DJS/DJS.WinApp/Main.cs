@@ -17,6 +17,12 @@ namespace DJS.WinApp
 {
     public partial class Main : Form
     {
+
+        /// <summary>
+        /// 获取日志显示条数
+        /// </summary>
+        private static int LogShowNum = ConfigHelp.LogShowNumPath;
+
         //注册log改变事件
         private BLL.LogListen logListen = new BLL.LogListen();
 
@@ -50,7 +56,7 @@ namespace DJS.WinApp
         private void Main_Load(object sender, EventArgs e)
         {
             logListen.AddLogsChangeHandler(OnChange_Logs);
-            string logs = Common.LogHelp.logHelp.GetLogs(20);
+            string logs = Common.LogHelp.logHelp.GetLogs(LogShowNum);
             txtLogsShow.Text = logs;
               
         } 
@@ -65,7 +71,7 @@ namespace DJS.WinApp
         private void OnChange_Logs(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
-            string logs = Common.LogHelp.logHelp.GetLogs(20);
+            string logs = Common.LogHelp.logHelp.GetLogs(LogShowNum);
             txtLogsShow.Text = logs;
             BLL.LogListen.NewTime = DateTime.Now;
         }
