@@ -197,3 +197,8 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\RedisConfig.xml
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\XmlDB.xml
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe.config
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\SDKConfig.xml
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\App.config
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\EntityFramework.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\NLog.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\EntityFramework.SqlServer.dll

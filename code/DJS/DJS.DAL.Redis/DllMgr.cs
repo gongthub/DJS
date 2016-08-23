@@ -34,7 +34,7 @@ namespace DJS.DAL.Redis
             List<Model.DllMgr> models = GetModels();
             if (models != null && models.Count > 0)
             {
-                Model.DllMgr model = models.Find(m => m.NameSpace == name);
+                Model.DllMgr model = models.Find(m => m.Name == name);
                 if (model != null)
                 {
                     ret = true;
@@ -52,6 +52,12 @@ namespace DJS.DAL.Redis
         }
 
         public bool DelById(Guid Id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Model.DllMgr GetModelById(Guid Id)
         {
             throw new NotImplementedException();
         }

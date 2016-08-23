@@ -69,13 +69,11 @@ namespace DJS.WinApp
             string jobGroups = cbJobGroup.Text;
             string triggerNames = txtTriggerName.Text;
             string triggerGroups = cbTriggerGroup.Text;
-            string nameSpages = cbNameSpace.Text;
+            string name = cbNameSpace.Text;
             string classNames = cbClassName.Text;
 
             string types = cbType.Text;
             string typesval = cbType.SelectedValue.ToString();
-
-            Type type = Common.AssemblyHelp.assembly.GetDllType(nameSpages, classNames);
             Model.Jobs model = new Model.Jobs();
             model.ID = Guid.NewGuid();
             model.Name = jobNames;
@@ -93,7 +91,17 @@ namespace DJS.WinApp
             {
                 model.Type = typet;
             }
-            model.AssType = type; 
+
+            string nameSpaces = "";
+            Model.DllMgr ddlmgr = BLL.DllMgr.GetModels(m => m.Name == name).FirstOrDefault();
+            if (ddlmgr != null)
+            {
+                nameSpaces = ddlmgr.NameSpace;
+                model.DLLID = ddlmgr.ID;
+                model.DLLName = ddlmgr.Name;
+            }
+            Type type = Common.AssemblyHelp.assembly.GetDllType(name, nameSpaces, classNames);
+            model.AssType = type;
             model.State = (int)Model.Enums.TriggerState.Normal;
             if (!BLL.Jobs.IsExist(jobNames))
             {
@@ -109,7 +117,7 @@ namespace DJS.WinApp
             else
             {
                 MessageBox.Show("任务已经存在！");
-            }  
+            }
         }
 
         #endregion
@@ -248,15 +256,20 @@ namespace DJS.WinApp
         }
         #endregion
 
-        #region 绑定操作类下拉框 -void BindClassName()
+        #region 绑定操作类下拉框 -void BindClassName(string name)
         /// <summary>
         /// 绑定操作类下拉框
         /// </summary>
-        private void BindClassName(string nameSpace)
+        private void BindClassName(string name)
         {
-            ArrayList arry = Common.QuartzHelp.quartzHelp.GetIClassName(nameSpace);
-            cbClassName.DataSource = arry;
-            cbClassName.DisplayMember = "Name";
+            Model.DllMgr model = BLL.DllMgr.GetModels(m => m.Name == name).FirstOrDefault();
+            if (model != null)
+            {
+
+                ArrayList arry = Common.QuartzHelp.quartzHelp.GetIClassName(model.Name, model.NameSpace);
+                cbClassName.DataSource = arry;
+                cbClassName.DisplayMember = "Name";
+            }
         }
         #endregion
 

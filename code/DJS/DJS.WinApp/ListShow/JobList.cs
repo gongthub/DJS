@@ -221,6 +221,7 @@ namespace DJS.WinApp
             dgvJobs.Columns["State"].Visible = false;//隐藏某列：
             dgvJobs.Columns["Type"].Visible = false;//隐藏某列：
             dgvJobs.Columns["AssType"].Visible = false;//隐藏某列：
+            dgvJobs.Columns["DLLID"].Visible = false;//隐藏某列：
             dgvJobs.Columns["Name"].HeaderText = "名称";
             dgvJobs.Columns["GroupName"].HeaderText = "任务组";
             dgvJobs.Columns["TriggerName"].HeaderText = "触发器";
@@ -228,6 +229,7 @@ namespace DJS.WinApp
             //dgvJobs.Columns["State"].HeaderText = "状态";
             dgvJobs.Columns["StateName"].HeaderText = "状态";
             dgvJobs.Columns["TypeName"].HeaderText = "类型";
+            dgvJobs.Columns["DLLName"].HeaderText = "DLL名称";
             dgvJobs.Columns["Time"].HeaderText = "执行时间";
         }
         #endregion

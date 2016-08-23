@@ -17,6 +17,11 @@ namespace DJS.Model
         public decimal No { set; get; }
 
         /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { set; get; }
+
+        /// <summary>
         /// 命名空间
         /// </summary>
         public string NameSpace { set; get; }

@@ -596,15 +596,15 @@ namespace DJS.Common
         }
         #endregion
 
-        #region 获取所有实现IJob接口类名 +List<string> GetIClassName(string nameSpace)
+        #region 获取所有实现IJob接口类名 +List<string> GetIClassName(string name,string nameSpace)
         /// <summary>
         /// 获取所有实现IJob接口类名
         /// </summary>
         /// <returns></returns>
-        public ArrayList GetIClassName(string nameSpace)
+        public ArrayList GetIClassName(string name,string nameSpace)
         {
             ArrayList strs = new ArrayList();
-            List<Type> types = Common.AssemblyHelp.GetDllTypeNames(nameSpace);
+            List<Type> types = Common.AssemblyHelp.GetDllTypeNames(name,nameSpace);
 
             if (types != null && types.Count > 0)
             {

@@ -58,7 +58,7 @@ namespace DJS.DAL.XML
             List<Model.DllMgr> models = GetModels();
             if (models != null && models.Count > 0)
             {
-                Model.DllMgr model = models.Find(m => m.NameSpace == name);
+                Model.DllMgr model = models.Find(m => m.Name == name);
                 if (model != null)
                 {
                     ret = true;
@@ -101,6 +101,25 @@ namespace DJS.DAL.XML
             }
             return ret;
         }
+        #endregion
+
+        #region 根据id获取数据 +Model.DllMgr GetModelById(Guid Id)
+        /// <summary>
+        /// 根据id获取数据
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public Model.DllMgr GetModelById(Guid Id)
+        {
+            Model.DllMgr model = new Model.DllMgr();
+            List<Model.DllMgr> models = GetModels();
+            if (models != null && models.Count > 0)
+            {
+                model = models.Find(m => m.ID == Id);
+
+            }
+            return model;
+        } 
         #endregion
     }
 }

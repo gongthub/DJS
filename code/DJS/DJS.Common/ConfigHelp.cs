@@ -194,5 +194,16 @@ namespace DJS.Common
                 return ConfigurationManager.AppSettings["DALTYPE"].ToString();
             }
         }
+
+        /// <summary>
+        /// SDK配置文件路径
+        /// </summary>
+        public static string SDKCONFIGPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SDKCONFIG"].ToString();
+            }
+        }
     }
 }

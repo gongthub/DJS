@@ -6,7 +6,5 @@
   <TRIGGERGROUPS>
     <TRIGGERGROUP ID="2709b15d-f9e1-4f4e-93c1-dc65434806ae" No="1" Name="触发器组一" TriggerNum="0" />
   </TRIGGERGROUPS>
-  <DDLMGRS>
-    <DDLMGR ID="167ecdf1-f5cd-41d7-afd4-d345b12dadf1" No="1" NameSpace="SinaGP" Url="Stores\SinaGP\C:\Users\gt\Desktop\SinaGP\SinaGP.dll" />
-  </DDLMGRS>
+  <DDLMGRS> </DDLMGRS>
 </DB>

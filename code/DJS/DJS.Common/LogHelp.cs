@@ -29,6 +29,11 @@ namespace DJS.Common
         private static string LOGMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("LogMgr_K");
 
         /// <summary>
+        /// 消息队列
+        /// </summary>
+        private static Queue MsgQueue;
+
+        /// <summary>
         /// 日志文件格式
         /// </summary>
         private static string LOGTYPE = ".txt";
@@ -53,6 +58,7 @@ namespace DJS.Common
                     {
                         if (null == _logHelp)
                         {
+                            MsgQueue = new Queue();
                             _logHelp = new LogHelp();
                         }
                     }
@@ -69,14 +75,19 @@ namespace DJS.Common
         /// <param name="messages"></param> 
         public void WriteLog(string messages, int type)
         {
-            if (LogFileType == Model.Enums.LogFileType.File.ToString())
-            { 
-                WriteLogFile(messages, type);
-            }
-
-            if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+            lock (MsgQueue.SyncRoot)
             {
-                WriteLogRedis(messages, type);
+                MsgQueue.Enqueue(messages);
+                messages = System.Convert.ToString(MsgQueue.Dequeue());
+                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                {
+                    WriteLogFile(messages, type);
+                }
+
+                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                {
+                    WriteLogRedis(messages, type);
+                }
             }
         }
         #endregion
@@ -88,13 +99,18 @@ namespace DJS.Common
         /// <param name="messages"></param> 
         public void WriteLog(string messages, Model.Enums.LogType type)
         {
-            if (LogFileType == Model.Enums.LogFileType.File.ToString())
-            { 
-                WriteLogFile(messages, type);
-            }
-            if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+            lock (MsgQueue.SyncRoot)
             {
-                WriteLogRedis(messages, type);
+                MsgQueue.Enqueue(messages);
+                messages = System.Convert.ToString(MsgQueue.Dequeue());
+                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                {
+                    WriteLogFile(messages, type);
+                }
+                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                {
+                    WriteLogRedis(messages, type);
+                }
             }
         }
         #endregion
@@ -106,17 +122,20 @@ namespace DJS.Common
         /// <returns></returns>
         public string GetLogs(int num)
         {
-            string strs = ""; 
+            lock (MsgQueue.SyncRoot)
+            {
+                string strs = "";
 
-            if (LogFileType == Model.Enums.LogFileType.File.ToString())
-            {
-                strs = GetLogsFile(num);
+                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                {
+                    strs = GetLogsFile(num);
+                }
+                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                {
+                    strs = GetLogsRedis(num);
+                }
+                return strs;
             }
-            if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
-            {
-                strs = GetLogsRedis(num);
-            }
-            return strs;
         }
         #endregion
 

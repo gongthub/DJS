@@ -18,6 +18,7 @@ namespace SinaGP
         /// 任务组接口
         /// </summary>
         private static DJS.SDK.ILog iLog = null;
+        private static DJS.SDK.IConfigMgr iConfigMgr = null;
 
         #endregion
 
@@ -26,6 +27,8 @@ namespace SinaGP
         static SinaHelp()
         {
             iLog = DJS.SDK.DataAccess.CreateILog();
+            iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr();
+            iConfigMgr.SetConfig("TestConfig","test");
         }
 
         #endregion

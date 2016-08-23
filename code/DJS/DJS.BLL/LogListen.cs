@@ -100,49 +100,52 @@ namespace DJS.BLL
         /// <param name="sender"></param>
         private void LogsCountListen(object sender)
         {
-            if (LogFileType == Model.Enums.LogFileType.File.ToString())
+            lock (this)
             {
-                string paths = LOGURL + @"\";
-                ArrayList files = Common.FileHelp.GetFileslist(paths);
-                if (files != null && files.Count > 0)
+                if (LogFileType == Model.Enums.LogFileType.File.ToString())
                 {
-                    files.Sort();
-                    string file = files[files.Count - 1].ToString();
-                    paths += @"\" + file;
-
-                    if (paths != "" && Common.FileHelp.FileExists(paths))
+                    string paths = LOGURL + @"\";
+                    ArrayList files = Common.FileHelp.GetFileslist(paths);
+                    if (files != null && files.Count > 0)
                     {
-                        string mdnow = Common.SecurityHelp.securityHelp.GetMD5HashFromFile(paths);
-                        if (mdnow != LastMD5)
+                        files.Sort();
+                        string file = files[files.Count - 1].ToString();
+                        paths += @"\" + file;
+
+                        if (paths != "" && Common.FileHelp.FileExists(paths))
                         {
-                            if (OnChange_ListenLogs != null)
+                            string mdnow = Common.SecurityHelp.securityHelp.GetMD5HashFromFile(paths);
+                            if (mdnow != LastMD5)
                             {
-                                LastMD5 = mdnow;
+                                if (OnChange_ListenLogs != null)
+                                {
+                                    LastMD5 = mdnow;
+                                    EventArgs arg = new EventArgs();
+                                    OnChange_ListenLogs(this, arg);
+                                }
+                            }
+                        }
+
+                    }
+                }
+                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                {
+                    List<Model.LogModel> models = new List<Model.LogModel>();
+                    models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
+                    if (models != null)
+                    {
+                        Model.LogModel model = models.OrderByDescending(m => m.Time).FirstOrDefault();
+                        if (model != null)
+                        {
+                            if (NewTime == DateTime.MinValue)
+                            {
+                                NewTime = model.Time;
+                            }
+                            if (model.Time > NewTime)
+                            {
                                 EventArgs arg = new EventArgs();
                                 OnChange_ListenLogs(this, arg);
                             }
-                        }
-                    }
-
-                }
-            } 
-            if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
-            {
-                List<Model.LogModel> models = new List<Model.LogModel>();
-                models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
-                if (models != null)
-                {
-                    Model.LogModel model = models.OrderByDescending(m => m.Time).FirstOrDefault();
-                    if (model != null)
-                    {
-                        if (NewTime == DateTime.MinValue)
-                        {
-                            NewTime = model.Time;
-                        }
-                        if (model.Time > NewTime)
-                        {
-                            EventArgs arg = new EventArgs();
-                            OnChange_ListenLogs(this, arg);
                         }
                     }
                 }

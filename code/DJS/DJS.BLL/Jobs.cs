@@ -250,7 +250,7 @@ namespace DJS.BLL
                 {
                     ret = Common.QuartzHelp.quartzHelp.DeleteJob(key);
                 }
-                ret = iJobs.DelById(Id);
+                ret = DelById(Id);
             }
             catch (Exception ex)
             {

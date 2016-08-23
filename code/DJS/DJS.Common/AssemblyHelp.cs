@@ -40,7 +40,7 @@ namespace DJS.Common
                     {
                         if (null == _assembly)
                         {
-                            _assembly = new AssemblyHelp(); 
+                            _assembly = new AssemblyHelp();
                         }
                     }
                 }
@@ -48,7 +48,7 @@ namespace DJS.Common
             }
         }
         #endregion
-         
+
         #region 动态调用 DLL 方法 +object Invoke(string nameSpace, string className, string methodName)
         /// <summary>
         /// 动态调用 DLL 方法
@@ -81,8 +81,8 @@ namespace DJS.Common
         }
 
         #endregion
-         
-        #region 动态调用 DLL返回类型 +Type GetDllType(string nameSpace, string className)
+
+        #region 动态调用 DLL返回类型 +Type GetDllType(string name,string nameSpace, string className)
         /// <summary>
         /// 动态调用 DLL 方法
         /// </summary>
@@ -90,9 +90,9 @@ namespace DJS.Common
         /// <param name="className">类名</param>
         /// <param name="methodName">方法名</param>
         /// <returns></returns>
-        public Type GetDllType(string nameSpace, string className)
+        public Type GetDllType(string name, string nameSpace, string className)
         {
-            string files = FULLPATH + @"\" + nameSpace + @"\" + nameSpace + ".dll";
+            string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll"; 
             string assems = nameSpace + "." + className;
 
             Assembly asm = Assembly.LoadFile(files);
@@ -104,7 +104,7 @@ namespace DJS.Common
 
         #endregion
 
-        #region 动态调用 DLL返回所有名称 +List<string> GetDllTypeNames(string nameSpace, string className)
+        #region 动态调用 DLL返回所有名称 +List<string> GetDllTypeNames(string name, string nameSpace)
         /// <summary>
         /// 动态调用 DLL 方法
         /// </summary>
@@ -112,10 +112,10 @@ namespace DJS.Common
         /// <param name="className">类名</param>
         /// <param name="methodName">方法名</param>
         /// <returns></returns>
-        public static List<Type> GetDllTypeNames(string nameSpace)
+        public static List<Type> GetDllTypeNames(string name, string nameSpace)
         {
             List<Type> types = new List<Type>();
-            string files = FULLPATH + @"\" + nameSpace + @"\" + nameSpace + ".dll"; 
+            string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll";
             Assembly asm = Assembly.LoadFile(files);
             foreach (Type type in asm.GetTypes())
             {
@@ -125,6 +125,6 @@ namespace DJS.Common
         }
 
         #endregion
-         
+
     }
 }

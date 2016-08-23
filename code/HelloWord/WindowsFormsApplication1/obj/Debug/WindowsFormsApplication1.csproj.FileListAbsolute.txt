@@ -50,3 +50,6 @@ D:\MyFiles\DJS\Codes\HelloWord\WindowsFormsApplication1\bin\Debug\HelloName.pdb
 F:\workfile\DJS\Codes\HelloWord\WindowsFormsApplication1\bin\Debug\DJS.SDK.dll
 F:\workfile\DJS\Codes\HelloWord\WindowsFormsApplication1\bin\Debug\HelloName.dll
 F:\workfile\DJS\Codes\HelloWord\WindowsFormsApplication1\bin\Debug\HelloName.pdb
+D:\MyFiles\GIT\DJS\DJS\code\HelloWord\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+D:\MyFiles\GIT\DJS\DJS\code\HelloWord\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+D:\MyFiles\GIT\DJS\DJS\code\HelloWord\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
