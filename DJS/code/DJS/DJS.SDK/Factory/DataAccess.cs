@@ -80,6 +80,16 @@ namespace DJS.SDK
             string ClassNamespace = DLLPATH + DBTYPE + ".Log";
             object objType = CreateObject(ClassNamespace);
             return (DJS.SDK.ILog)objType;
+        }
+        /// <summary>
+        /// 接口IConfigMgr映射 
+        /// </summary>
+        /// <returns></returns>
+        public static DJS.SDK.IConfigMgr CreateIConfigMgr()
+        {
+            string ClassNamespace = DLLPATH + DBTYPE + ".ConfigMgr";
+            object objType = CreateObject(ClassNamespace);
+            return (DJS.SDK.IConfigMgr)objType;
         } 
         #endregion
     }

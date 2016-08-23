@@ -431,7 +431,7 @@ namespace DJS.Common
                                     int startnum = allnum - num;
                                     int j = 1;
                                     for (int i = 0; i < allnum; i++)
-                                    {  
+                                    {
                                         if (aryStr[allnum - j] != null && aryStr[allnum - j].Trim() != "")
                                         {
                                             startnum -= 1;
@@ -440,14 +440,7 @@ namespace DJS.Common
                                         {
                                             if (aryStr[allnum - j] != null && aryStr[allnum - j].Trim() != "")
                                             {
-                                                if (text.Trim() != "")
-                                                {
-                                                    text += aryStr[allnum - j] + "\r\n";
-                                                }
-                                                else
-                                                {
-                                                    text += aryStr[allnum - j];
-                                                }
+                                                text += aryStr[allnum - j] + "\r\n";
                                                 content = text;
                                             }
                                             j++;
@@ -460,15 +453,8 @@ namespace DJS.Common
                                     int j = 1;
                                     string text = string.Empty;
                                     for (int i = 0; i < allnum; i++)
-                                    { 
-                                        if (text.Trim() != "")
-                                        {
-                                            text += aryStr[allnum - j] + "\r\n";
-                                        }
-                                        else
-                                        {
-                                            text += aryStr[allnum - j];
-                                        }
+                                    {
+                                        text += aryStr[allnum - j] + "\r\n";
                                         content = text;
                                         j++;
                                     }
@@ -532,7 +518,7 @@ namespace DJS.Common
             }
             catch (Exception ex)
             {
-                LogHelp.logHelp.WriteLog(ex.Message,Model.Enums.LogType.Error);
+                LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
             }
         }
         /// <summary>

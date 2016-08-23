@@ -23,6 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.SDK.Service", "DJS.SDK.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.DAL.XML", "DJS.DAL.XML\DJS.DAL.XML.csproj", "{20D3C168-9E04-4BCE-9228-9F361A8D7441}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{453FBF2F-3E8A-49F3-B524-CE172F05E70A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{7A721F03-3D5B-430F-B032-3EDF0E4D1675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{C0D44356-8036-4292-B127-18D8E7937973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,8 +75,16 @@ Global
 		{20D3C168-9E04-4BCE-9228-9F361A8D7441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20D3C168-9E04-4BCE-9228-9F361A8D7441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20D3C168-9E04-4BCE-9228-9F361A8D7441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D44356-8036-4292-B127-18D8E7937973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D44356-8036-4292-B127-18D8E7937973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D44356-8036-4292-B127-18D8E7937973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D44356-8036-4292-B127-18D8E7937973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B23F7D42-A9C8-474C-B484-66B03A5C91EF} = {453FBF2F-3E8A-49F3-B524-CE172F05E70A}
+		{C0D44356-8036-4292-B127-18D8E7937973} = {7A721F03-3D5B-430F-B032-3EDF0E4D1675}
 	EndGlobalSection
 EndGlobal

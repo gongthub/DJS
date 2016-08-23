@@ -60,7 +60,7 @@ namespace DJS.DAL.XML
 
             }
             return model;
-        } 
+        }
         #endregion
 
         #region 根据名称判断是否存在 +bool IsExist(string name)
@@ -82,7 +82,7 @@ namespace DJS.DAL.XML
                 }
             }
             return ret;
-        } 
+        }
         #endregion
 
         #region 添加 +bool Add(Model.Jobs model)
@@ -103,9 +103,9 @@ namespace DJS.DAL.XML
                 ret = false;
             }
             return ret;
-        } 
+        }
         #endregion
-         
+
         #region 根据id删除数据 +bool DelById(Guid Id)
         /// <summary>
         /// 根据id删除数据
@@ -119,6 +119,6 @@ namespace DJS.DAL.XML
             return ret;
         }
         #endregion
-         
+
     }
 }

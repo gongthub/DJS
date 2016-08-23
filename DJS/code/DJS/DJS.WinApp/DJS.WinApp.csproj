@@ -35,6 +35,15 @@
     <Reference Include="Common.Logging">
       <HintPath>..\DLL\Quartz\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\DLL\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\DLL\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\DLL\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz">
       <HintPath>..\DLL\Quartz\Quartz.dll</HintPath>
     </Reference>
@@ -180,6 +189,7 @@
     <EmbeddedResource Include="ListShow\TriggerList.resx">
       <DependentUpon>TriggerList.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="NLog.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -193,6 +203,7 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +247,9 @@
   <ItemGroup>
     <Content Include="RedisConfig.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SDKConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="XmlDB.xml">

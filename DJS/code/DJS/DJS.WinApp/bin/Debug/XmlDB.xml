@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <DB>
   <JOBGROUPS>
     <JOBGROUP ID="e6f9d1ec-5087-4b93-ac6b-b0cf982ac603" No="1" Name="任务组一" JobNum="0" />
@@ -7,6 +7,11 @@
     <TRIGGERGROUP ID="2709b15d-f9e1-4f4e-93c1-dc65434806ae" No="1" Name="触发器组一" TriggerNum="0" />
   </TRIGGERGROUPS>
   <DDLMGRS>
-    <DDLMGR ID="167ecdf1-f5cd-41d7-afd4-d345b12dadf1" No="1" NameSpace="SinaGP" Url="Stores\SinaGP\C:\Users\gt\Desktop\SinaGP\SinaGP.dll" />
+    <DDLMGR ID="de59462c-9e4b-4dfb-bd07-4716ae7b907f" No="1" Name="租金贷预警" NameSpace="EmailSeriveZJD" Url="Stores\租金贷预警\EmailSeriveZJD.dll" />
+    <DDLMGR ID="7bb4adff-31d0-4061-b93e-19c21cd1c47a" No="2" Name="新浪SinaGP" NameSpace="SinaGP" Url="Stores\新浪SinaGP\SinaGP.dll" />
   </DDLMGRS>
+  <JOBS>
+    <JOB ID="70234c9f-ffb2-4aad-9aa8-b40581e3d43b" Name="job2" GroupName="任务组一" TriggerName="trigger2" TriggerGroup="触发器组一" Crons="" Time="2016/8/23 14:57:03" Type="1" TypeName="" AssType="SinaGP.SinaHelp" DLLName="新浪SinaGP" State="0" StateName="" DLLID="7bb4adff-31d0-4061-b93e-19c21cd1c47a" />
+    <JOB ID="38694561-4168-4cb7-be8d-d2f5025b16f5" Name="job1" GroupName="任务组一" TriggerName="trigger1" TriggerGroup="触发器组一" Crons="" Time="2016/8/23 15:18:16" Type="1" TypeName="" AssType="EmailSeriveZJD.Achieve" DLLName="租金贷预警" State="0" StateName="" DLLID="de59462c-9e4b-4dfb-bd07-4716ae7b907f" />
+  </JOBS>
 </DB>

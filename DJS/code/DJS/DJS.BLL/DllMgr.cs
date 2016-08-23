@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,7 +62,7 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据 +bool DelById(Guid Id)
+        #region 根据id删除数据 +static bool DelById(Guid Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
@@ -69,7 +70,41 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool DelById(Guid Id)
         {
+            DelByDllId(Id);
             return iDllMgr.DelById(Id);
+        }
+        #endregion
+         
+        #region 根据id获取数据 +static Model.DllMgr GetModelById(Guid Id)
+        /// <summary>
+        /// 根据id获取数据
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static Model.DllMgr GetModelById(Guid Id)
+        {
+            return iDllMgr.GetModelById(Id);
+        }
+        #endregion
+
+        #region 根据id删除DLL +void DelByDllId(Guid Id)
+        /// <summary>
+        /// 根据id删除DLL
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static void DelByDllId(Guid Id)
+        {
+            Model.DllMgr model = GetModelById(Id);
+            if (model != null)
+            {
+                string filepath = FileHelp.GetFullPath(model.Url);
+                //文件存在时先删除
+                if (FileHelp.FileExists(filepath))
+                {
+                    FileHelp.DeleteFiles(filepath);
+                } 
+            } 
         }
         #endregion
 
@@ -84,5 +119,7 @@ namespace DJS.BLL
             return iDllMgr.Add(model);
         }
         #endregion
+
+
     }
 }

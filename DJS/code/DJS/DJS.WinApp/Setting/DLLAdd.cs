@@ -67,6 +67,7 @@ namespace DJS.WinApp
             try
             {
                 decimal nos = nudNo.Value;
+                string namespaces = txtNameSpace.Text;
                 string names = txtName.Text;
 
                 //判断名称是否存在
@@ -79,7 +80,8 @@ namespace DJS.WinApp
                     Model.DllMgr model = new Model.DllMgr();
                     model.ID = Guid.NewGuid();
                     model.No = nos;
-                    model.NameSpace = names;
+                    model.NameSpace = namespaces;
+                    model.Name = names;
 
                     if (FILE.Exists)
                     {
@@ -96,7 +98,7 @@ namespace DJS.WinApp
                         }
                         FILE.CopyTo(PATH + @"\" + names + @"\" + ofdUpLoad.SafeFileName);
 
-                        model.Url = PATH + @"\" + names + @"\" + ofdUpLoad.FileName;
+                        model.Url = PATH + @"\" + names + @"\" + ofdUpLoad.SafeFileName;
                     }
                     bool ret = BLL.DllMgr.Add(model);
                     if (ret)

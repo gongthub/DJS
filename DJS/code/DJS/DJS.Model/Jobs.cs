@@ -20,6 +20,8 @@ namespace DJS.Model
         public Type AssType { set; get; }
         public int State { set; get; }
         public string StateName { set; get; }
+        public Guid DLLID { set; get; }
+        public string DLLName { set; get; }
 
     }
 }

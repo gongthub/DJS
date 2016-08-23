@@ -336,7 +336,7 @@ namespace DJS.Common
         /// 范例3: @"ApplyPost/Item[@itemName='岗位编号']",@itemName是Item节点的属性.
         /// </param>
         public XmlNodeList GetNodes(string filePath, string xPath, out XmlDocument xmlDoc)
-        { 
+        {
             //创建XML的根节点
             //创建根对象
             XmlElement rootElement = CreateRootElement(filePath, out xmlDoc);
@@ -372,14 +372,14 @@ namespace DJS.Common
         /// </summary>        
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void AppendNode<T>(string xmlFilePath, string xPath, string elenmentName, T t)
-        { 
+        {
             //创建XmlDocument对象
             XmlDocument xmlDocument = new XmlDocument();
             //创建XML的根节点
             //创建根对象
-            XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument); 
+            XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
             XmlNode node = xmlDocument.CreateElement(elenmentName);
-            node = SetModelToNode(t, node); 
+            node = SetModelToNode(t, node);
             XmlNode xmlnode = rootElement.SelectSingleNode(xPath);
             if (xmlnode == null)
             {
@@ -394,7 +394,7 @@ namespace DJS.Common
         }
 
         #endregion
-         
+
         #region 根据指定属性名称和属性值删除指定节点 +bool RemoveNode(string filePath,string xPath,string attName,object val)
         /// <summary>
         /// 根据指定属性名称和属性值删除指定节点
@@ -409,8 +409,8 @@ namespace DJS.Common
             try
             {
                 //创建XmlDocument对象
-                XmlDocument xmlDocument = new XmlDocument(); 
-                 
+                XmlDocument xmlDocument = new XmlDocument();
+
                 //获取要删除的节点
                 XmlNodeList nodes = GetNodes(filePath, xPath, out xmlDocument);
                 if (nodes != null && nodes.Count > 0)
@@ -419,10 +419,10 @@ namespace DJS.Common
                     {
                         if (node.Attributes[attName] != null && node.Attributes[attName].Name == attName && node.Attributes[attName].Value.ToString() == val.ToString())
                         {
-                            XmlElement xe = (XmlElement)node.ParentNode;   
+                            XmlElement xe = (XmlElement)node.ParentNode;
                             //删除节点
                             xe.RemoveChild(node);
-                        } 
+                        }
                     }
                 }
                 xmlDocument.Save(filePath);
@@ -456,14 +456,22 @@ namespace DJS.Common
                         string[] strs = att.Value.Split('.');
                         if (strs.Length >= 2)
                         {
-                            type = Common.AssemblyHelp.assembly.GetDllType(strs[0], strs[1]);
+                            PropertyInfo info = t.GetType().GetProperty("DLLName");
+                            if (info != null)
+                            { 
+                              XmlAttribute attTemp=  GetAttByName(atts,"DLLName");
+                              if (attTemp != null)
+                              {
+                                  type = Common.AssemblyHelp.assembly.GetDllType(attTemp.Value, strs[0], strs[1]);
+                              }
+                            }
                         }
-                        t.GetType().GetProperty(att.Name).SetValue(t, type);  
+                        t.GetType().GetProperty(att.Name).SetValue(t, type);
                     }
                     else
                     {
                         object obj = SetType(type, att.Value);
-                        t.GetType().GetProperty(att.Name).SetValue(t, obj);  
+                        t.GetType().GetProperty(att.Name).SetValue(t, obj);
                     }
                 }
             }
@@ -550,13 +558,34 @@ namespace DJS.Common
                     }
                     else
                     {
-                        attr.Value = ""; 
+                        attr.Value = "";
                     }
                     node.Attributes.SetNamedItem(attr);
                 }
             }
             return node;
         }
+        #endregion
+
+        #region 根据属性名称获取属性 +XmlAttribute GetAttByName(XmlAttributeCollection atts, string name)
+        /// <summary>
+        /// 根据属性名称获取属性
+        /// </summary>
+        /// <param name="atts"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public XmlAttribute GetAttByName(XmlAttributeCollection atts, string name)
+        {
+            XmlAttribute attt=null;
+            foreach (XmlAttribute att in atts)
+            { 
+                if (att.Name == name)
+                {
+                    attt = att;
+                }
+            }
+            return attt;
+        } 
         #endregion
 
         #endregion

@@ -68,7 +68,7 @@ namespace DJS.WinApp
             {
                 dgvDLLLists.Columns.Remove("dgvlinkDel");
             }
-            List<Model.DllMgr> models = BLL.DllMgr.GetModels(m => m.NameSpace.Contains(name));
+            List<Model.DllMgr> models = BLL.DllMgr.GetModels(m => m.Name.Contains(name));
             if (models != null && models.Count > 0)
             {
                 models = models.OrderBy(m => m.No).ToList();
@@ -103,6 +103,7 @@ namespace DJS.WinApp
         {
             dgvDLLLists.Columns["ID"].Visible = false;//隐藏某列：
             dgvDLLLists.Columns["No"].HeaderText = "序号";
+            dgvDLLLists.Columns["Name"].HeaderText = "名称"; 
             dgvDLLLists.Columns["NameSpace"].HeaderText = "命名空间"; 
             dgvDLLLists.Columns["Url"].HeaderText = "路径"; 
         }
