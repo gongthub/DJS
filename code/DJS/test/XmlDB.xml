@@ -9,4 +9,7 @@
   <DDLMGRS>
     <DDLMGR ID="167ecdf1-f5cd-41d7-afd4-d345b12dadf1" No="1" NameSpace="SinaGP" Url="Stores\SinaGP\C:\Users\gt\Desktop\SinaGP\SinaGP.dll" />
   </DDLMGRS>
+  <JOBS>
+    <JOB ID="ea0712cd-153b-4d2d-99c9-bb8df4454009" Name="job1" GroupName="任务组一" TriggerName="trigger1" TriggerGroup="触发器组一" Crons="" Time="2016/8/24 16:08:22" Type="1" TypeName="" AssType="EmailSeriveZJD.Achieve" State="0" StateName="" DLLID="0c100f64-2e97-4649-9e6b-37f5d1b637ad" DLLName="租金贷预警" ConfigName="EMAILSERVICE" />
+  </JOBS>
 </DB>

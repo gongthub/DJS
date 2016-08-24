@@ -1,4 +1,4 @@
-﻿using DJS.Common; 
+﻿using DJS.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,12 @@ using System.Xml;
 namespace DJS.SDK.Service
 {
     public class ConfigMgr : IConfigMgr
-    {
+    { 
+        public ConfigMgr(string namespaces)
+        {
+            CONFIGPATH = CONFIGSPATH + @"/" + namespaces + @"/" + ELENMENTNAME;
+            CONFIGSPATH = CONFIGSPATH + @"/" + namespaces;
+        }
         /// <summary>
         /// 配置文件路径
         /// </summary>
@@ -18,9 +23,9 @@ namespace DJS.SDK.Service
         /// <summary>
         /// 节点
         /// </summary>
-        private static string CONFIGPATH = @"/CONFIGS/CONFIG";
+        private static string CONFIGPATH = "";
         private static string CONFIGSPATH = @"/CONFIGS";
-          
+
         private static string ELENMENTNAME = "CONFIG";
 
         #region 设置Config值 +bool SetConfig(string name, string value)
@@ -96,7 +101,7 @@ namespace DJS.SDK.Service
         /// <returns></returns>
         public bool IsExist(string name)
         {
-            bool ret = false; 
+            bool ret = false;
             XmlNodeList nodes = XmlHelp.xmlHelp.GetNodes(SDKCONFIGPATH, CONFIGPATH);
             if (nodes != null && nodes.Count > 0)
             {
@@ -131,18 +136,19 @@ namespace DJS.SDK.Service
             }
             else
             {
-               ret= SetConfig(name,value);
-               if (ret)
-               {
-                   msg = "设置成功";
-               }
-               else
-               {
-                   msg = "设置失败"; 
-               }
+                ret = SetConfig(name, value);
+                if (ret)
+                {
+                    msg = "设置成功";
+                }
+                else
+                {
+                    msg = "设置失败";
+                }
             }
             return ret;
-        } 
+        }
         #endregion
+
     }
 }

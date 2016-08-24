@@ -6,5 +6,7 @@
   <TRIGGERGROUPS>
     <TRIGGERGROUP ID="2709b15d-f9e1-4f4e-93c1-dc65434806ae" No="1" Name="触发器组一" TriggerNum="0" />
   </TRIGGERGROUPS>
-  <DDLMGRS> </DDLMGRS>
+  <DDLMGRS>
+    <DDLMGR ID="0c100f64-2e97-4649-9e6b-37f5d1b637ad" No="1" Name="租金贷预警" NameSpace="EmailSeriveZJD" Url="Stores\租金贷预警\EmailSeriveZJD.dll" />
+  </DDLMGRS>
 </DB>

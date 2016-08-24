@@ -46,6 +46,7 @@ namespace DJS.WinApp
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDo_Click);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkReAdd_Click);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDoDel_Click);
+            dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDoConfig_Click);
             BindCombox();
             BindList();
 
@@ -62,17 +63,7 @@ namespace DJS.WinApp
         {
 
             Control.CheckForIllegalCrossThreadCalls = false;
-            List<Model.Jobs> models = BLL.Jobs.GetJobs();
-            if (models != null && models.Count > 0)
-            {
-                dgvJobs.DataSource = models;
-                BLL.JobsListen.jobsCounts = models.Count;
-            }
-            else
-            {
-                dgvJobs.DataSource = null;
-                BLL.JobsListen.jobsCounts = 0;
-            }
+            BindList();
         }
         #endregion
 
@@ -107,7 +98,7 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            BindList(); 
+            BindList();
         }
         #endregion
 
@@ -130,6 +121,10 @@ namespace DJS.WinApp
             if (dgvJobs.Columns.Contains("dgvlinkDoDel"))
             {
                 dgvJobs.Columns.Remove("dgvlinkDoDel");
+            }
+            if (dgvJobs.Columns.Contains("dgvlinkDoConfig"))
+            {
+                dgvJobs.Columns.Remove("dgvlinkDoConfig");
             }
             List<Model.Jobs> models = BLL.Jobs.GetJobs(m => m.Name.Contains(name) && m.GroupName.Contains(group));
 
@@ -182,6 +177,22 @@ namespace DJS.WinApp
             }
             dgvJobs.Columns.Add(dgvlinkDoDel);
 
+
+            DataGridViewLinkColumn dgvlinkDoConfig = new DataGridViewLinkColumn();
+            {
+                dgvlinkDoConfig.Name = "dgvlinkDoConfig";
+                dgvlinkDoConfig.HeaderText = "配置";
+                dgvlinkDoConfig.Text = "配置";
+                dgvlinkDoConfig.LinkColor = Color.Red;
+                dgvlinkDoConfig.ActiveLinkColor = Color.Red;
+                dgvlinkDoConfig.UseColumnTextForLinkValue = true;
+                dgvlinkDoConfig.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                //dgvbtnDel.FlatStyle = FlatStyle.Standard;
+                dgvlinkDoConfig.CellTemplate.Style.BackColor = Color.Honeydew;
+            }
+            dgvJobs.Columns.Add(dgvlinkDoConfig);
+
             dgvJobs.Refresh();
         }
         #endregion
@@ -217,20 +228,35 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void dgvJobs_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dgvJobs.Columns["ID"].Visible = false;//隐藏某列：
-            dgvJobs.Columns["State"].Visible = false;//隐藏某列：
-            dgvJobs.Columns["Type"].Visible = false;//隐藏某列：
-            dgvJobs.Columns["AssType"].Visible = false;//隐藏某列：
-            dgvJobs.Columns["DLLID"].Visible = false;//隐藏某列：
-            dgvJobs.Columns["Name"].HeaderText = "名称";
-            dgvJobs.Columns["GroupName"].HeaderText = "任务组";
-            dgvJobs.Columns["TriggerName"].HeaderText = "触发器";
-            dgvJobs.Columns["TriggerGroup"].HeaderText = "触发器组";
+            if (dgvJobs.Columns["ID"] != null)
+                dgvJobs.Columns["ID"].Visible = false;//隐藏某列：
+            if (dgvJobs.Columns["State"] != null)
+                dgvJobs.Columns["State"].Visible = false;//隐藏某列：
+            if (dgvJobs.Columns["Type"] != null)
+                dgvJobs.Columns["Type"].Visible = false;//隐藏某列：
+            if (dgvJobs.Columns["AssType"] != null)
+                dgvJobs.Columns["AssType"].Visible = false;//隐藏某列：
+            if (dgvJobs.Columns["DLLID"] != null)
+                dgvJobs.Columns["DLLID"].Visible = false;//隐藏某列：
+            if (dgvJobs.Columns["Name"] != null)
+                dgvJobs.Columns["Name"].HeaderText = "名称";
+            if (dgvJobs.Columns["GroupName"] != null)
+                dgvJobs.Columns["GroupName"].HeaderText = "任务组";
+            if (dgvJobs.Columns["TriggerName"] != null)
+                dgvJobs.Columns["TriggerName"].HeaderText = "触发器";
+            if (dgvJobs.Columns["TriggerGroup"] != null)
+                dgvJobs.Columns["TriggerGroup"].HeaderText = "触发器组";
             //dgvJobs.Columns["State"].HeaderText = "状态";
-            dgvJobs.Columns["StateName"].HeaderText = "状态";
-            dgvJobs.Columns["TypeName"].HeaderText = "类型";
-            dgvJobs.Columns["DLLName"].HeaderText = "DLL名称";
-            dgvJobs.Columns["Time"].HeaderText = "执行时间";
+            if (dgvJobs.Columns["StateName"] != null)
+                dgvJobs.Columns["StateName"].HeaderText = "状态";
+            if (dgvJobs.Columns["TypeName"] != null)
+                dgvJobs.Columns["TypeName"].HeaderText = "类型"; ;
+            if (dgvJobs.Columns["DLLName"] != null)
+                dgvJobs.Columns["DLLName"].HeaderText = "DLL名称";
+            if (dgvJobs.Columns["Time"] != null)
+                dgvJobs.Columns["Time"].HeaderText = "执行时间";
+            if (dgvJobs.Columns["ConfigName"] != null)
+                dgvJobs.Columns["ConfigName"].HeaderText = "配置名称";
         }
         #endregion
 
@@ -357,6 +383,46 @@ namespace DJS.WinApp
                             else
                             {
                                 MessageBox.Show("删除失败");
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        #endregion
+
+        #region 配置按钮点击事件 -void dgvlinkDoConfig_Click(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// 配置按钮点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvlinkDoConfig_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && dgvJobs.Columns[e.ColumnIndex] != null && dgvJobs.Columns[e.ColumnIndex].HeaderText == "配置" && e.RowIndex >= 0)
+            {
+                MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+                DialogResult dr = MessageBox.Show("确定要配置吗?", "配置", messButton);
+                if (dr == DialogResult.OK)//如果点击“确定”按钮
+                {
+
+                    if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
+                    {
+                        if (dgvJobs.Rows[e.RowIndex].Cells["ID"] != null)
+                        {
+                            string Ids = dgvJobs.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+
+                            Guid Id = Guid.Empty;
+                            if (Guid.TryParse(Ids, out Id))
+                            {
+                                DJS.WinApp.Setting.JobConfig jobconfig = new Setting.JobConfig();
+                                jobconfig.IDS = Id.ToString();
+                                jobconfig.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("配置失败");
                             }
                         }
                     }

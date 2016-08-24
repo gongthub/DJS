@@ -49,6 +49,8 @@
             this.cbTriggerGroup = new System.Windows.Forms.ComboBox();
             this.cbNameSpace = new System.Windows.Forms.ComboBox();
             this.cbClassName = new System.Windows.Forms.ComboBox();
+            this.txtConfigName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -84,7 +86,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(117, 247);
+            this.label6.Location = new System.Drawing.Point(117, 268);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 25;
@@ -102,7 +104,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(93, 216);
+            this.label7.Location = new System.Drawing.Point(93, 237);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 26;
@@ -111,7 +113,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(87, 123);
+            this.label2.Location = new System.Drawing.Point(87, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 12);
             this.label2.TabIndex = 18;
@@ -120,7 +122,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(75, 154);
+            this.label3.Location = new System.Drawing.Point(75, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 12);
             this.label3.TabIndex = 17;
@@ -128,7 +130,7 @@
             // 
             // txtTriggerName
             // 
-            this.txtTriggerName.Location = new System.Drawing.Point(190, 150);
+            this.txtTriggerName.Location = new System.Drawing.Point(190, 115);
             this.txtTriggerName.Name = "txtTriggerName";
             this.txtTriggerName.Size = new System.Drawing.Size(200, 21);
             this.txtTriggerName.TabIndex = 21;
@@ -137,7 +139,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(63, 185);
+            this.label4.Location = new System.Drawing.Point(63, 206);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 12);
             this.label4.TabIndex = 15;
@@ -212,7 +214,7 @@
             // 
             this.cbJobGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbJobGroup.FormattingEnabled = true;
-            this.cbJobGroup.Location = new System.Drawing.Point(190, 120);
+            this.cbJobGroup.Location = new System.Drawing.Point(190, 169);
             this.cbJobGroup.Name = "cbJobGroup";
             this.cbJobGroup.Size = new System.Drawing.Size(200, 20);
             this.cbJobGroup.TabIndex = 34;
@@ -221,7 +223,7 @@
             // 
             this.cbTriggerGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTriggerGroup.FormattingEnabled = true;
-            this.cbTriggerGroup.Location = new System.Drawing.Point(190, 182);
+            this.cbTriggerGroup.Location = new System.Drawing.Point(190, 203);
             this.cbTriggerGroup.Name = "cbTriggerGroup";
             this.cbTriggerGroup.Size = new System.Drawing.Size(200, 20);
             this.cbTriggerGroup.TabIndex = 35;
@@ -230,7 +232,7 @@
             // 
             this.cbNameSpace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNameSpace.FormattingEnabled = true;
-            this.cbNameSpace.Location = new System.Drawing.Point(190, 213);
+            this.cbNameSpace.Location = new System.Drawing.Point(190, 234);
             this.cbNameSpace.Name = "cbNameSpace";
             this.cbNameSpace.Size = new System.Drawing.Size(200, 20);
             this.cbNameSpace.TabIndex = 35;
@@ -240,10 +242,26 @@
             // 
             this.cbClassName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbClassName.FormattingEnabled = true;
-            this.cbClassName.Location = new System.Drawing.Point(190, 244);
+            this.cbClassName.Location = new System.Drawing.Point(190, 265);
             this.cbClassName.Name = "cbClassName";
             this.cbClassName.Size = new System.Drawing.Size(200, 20);
             this.cbClassName.TabIndex = 36;
+            // 
+            // txtConfigName
+            // 
+            this.txtConfigName.Location = new System.Drawing.Point(190, 142);
+            this.txtConfigName.Name = "txtConfigName";
+            this.txtConfigName.Size = new System.Drawing.Size(200, 21);
+            this.txtConfigName.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(93, 145);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "配置名称：";
             // 
             // AddJob
             // 
@@ -267,6 +285,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtConfigName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtTriggerName);
             this.Controls.Add(this.label4);
@@ -302,5 +322,7 @@
         private System.Windows.Forms.ComboBox cbTriggerGroup;
         private System.Windows.Forms.ComboBox cbNameSpace;
         private System.Windows.Forms.ComboBox cbClassName;
+        private System.Windows.Forms.TextBox txtConfigName;
+        private System.Windows.Forms.Label label5;
     }
 }

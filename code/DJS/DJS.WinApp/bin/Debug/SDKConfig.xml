@@ -1,8 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <CONFIGS>
-  <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
-  <CONFIG Name="SendMailPassword" Value="Vlinker123" />
-  <CONFIG Name="WarningDate" Value="20" />
-  <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
-  <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS;" />
+  
 </CONFIGS>

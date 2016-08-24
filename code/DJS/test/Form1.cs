@@ -24,16 +24,17 @@ namespace test
         public Form1()
         {
             InitializeComponent();
-            iLog = DJS.SDK.DataAccess.CreateILog();
-            iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr();
+            iLog = DJS.SDK.DataAccess.CreateILog(); 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            string names = iLog.GetConfigNameByJobName("job1");
+            iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr(names);
             iConfigMgr.SetConfig("TestConfig", "test");
-            iConfigMgr.GetConfig("TestConfig");
-            bool b = iConfigMgr.IsExist("TestConfig");
+            //iConfigMgr.SetConfig("TestConfig123", "123");
+            //iConfigMgr.GetConfig("TestConfig");
+            //bool b = iConfigMgr.IsExist("TestConfig");
         }
     }
 }

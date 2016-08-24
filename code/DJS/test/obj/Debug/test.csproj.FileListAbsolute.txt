@@ -1,3 +1,7 @@
+D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\RedisConfig.xml
+D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\SDKConfig.xml
+D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\XmlDB.xml
+D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\App.config
 D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\test.exe.config
 D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\test.exe
 D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\test.pdb
@@ -32,7 +36,3 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\test\obj\Debug\test.Properties.Resources.resourc
 D:\MyFiles\GIT\DJS\DJS\code\DJS\test\obj\Debug\test.csproj.GenerateResource.Cache
 D:\MyFiles\GIT\DJS\DJS\code\DJS\test\obj\Debug\test.exe
 D:\MyFiles\GIT\DJS\DJS\code\DJS\test\obj\Debug\test.pdb
-D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\RedisConfig.xml
-D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\XmlDB.xml
-D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\SDKConfig.xml
-D:\MyFiles\GIT\DJS\DJS\code\DJS\test\bin\Debug\App.config

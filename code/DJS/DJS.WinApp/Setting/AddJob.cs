@@ -63,17 +63,20 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string times = dtpTime.Text;
-            string crons = txtCron.Text;
-            string jobNames = txtJobName.Text;
-            string jobGroups = cbJobGroup.Text;
-            string triggerNames = txtTriggerName.Text;
-            string triggerGroups = cbTriggerGroup.Text;
-            string name = cbNameSpace.Text;
-            string classNames = cbClassName.Text;
+            string times = dtpTime.Text.Trim();
+            string crons = txtCron.Text.Trim();
+            string jobNames = txtJobName.Text.Trim();
+            string jobGroups = cbJobGroup.Text.Trim();
+            string triggerNames = txtTriggerName.Text.Trim();
+            string triggerGroups = cbTriggerGroup.Text.Trim();
+            string name = cbNameSpace.Text.Trim();
+            string classNames = cbClassName.Text.Trim();
+            string configNames = txtConfigName.Text.Trim();
 
             string types = cbType.Text;
             string typesval = cbType.SelectedValue.ToString();
+
+
             Model.Jobs model = new Model.Jobs();
             model.ID = Guid.NewGuid();
             model.Name = jobNames;
@@ -81,6 +84,7 @@ namespace DJS.WinApp
             model.TriggerName = triggerNames;
             model.TriggerGroup = triggerGroups;
             model.Crons = crons;
+            model.ConfigName = configNames;
             DateTime time = DateTime.MinValue;
             if (DateTime.TryParse(times, out time))
             {
@@ -91,6 +95,7 @@ namespace DJS.WinApp
             {
                 model.Type = typet;
             }
+
 
             string nameSpaces = "";
             Model.DllMgr ddlmgr = BLL.DllMgr.GetModels(m => m.Name == name).FirstOrDefault();
@@ -103,20 +108,24 @@ namespace DJS.WinApp
             Type type = Common.AssemblyHelp.assembly.GetDllType(name, nameSpaces, classNames);
             model.AssType = type;
             model.State = (int)Model.Enums.TriggerState.Normal;
-            if (!BLL.Jobs.IsExist(jobNames))
+
+            if (CheckTxt(model))
             {
-                if (BLL.Jobs.AddJobs(model))
+                if (!BLL.Jobs.IsExist(jobNames))
                 {
-                    MessageBox.Show("添加成功！");
+                    if (BLL.Jobs.AddJobs(model))
+                    {
+                        MessageBox.Show("添加成功！");
+                    }
+                    else
+                    {
+                        MessageBox.Show("添加失败！");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("添加失败！");
+                    MessageBox.Show("任务已经存在！");
                 }
-            }
-            else
-            {
-                MessageBox.Show("任务已经存在！");
             }
         }
 
@@ -300,6 +309,65 @@ namespace DJS.WinApp
         }
         #endregion
 
+        #endregion
+
+        #region 验证数据 -void CheckTxt(Model.Jobs model)
+        /// <summary>
+        /// 验证数据
+        /// </summary>
+        /// <param name="model"></param>
+        private bool CheckTxt(Model.Jobs model)
+        {
+            bool ret = true;
+            if (model.Type == 0)
+            {
+                if (model.Crons == "")
+                {
+                    MessageBox.Show("策略不能为空！");
+                    ret = false;
+                }
+            }
+
+            if (model.Type == 1)
+            {
+                if (model.Time == DateTime.MinValue)
+                {
+                    MessageBox.Show("时间不能为空！");
+                    ret = false;
+                }
+            }
+            if (model.Name == "")
+            {
+                MessageBox.Show("job名称不能为空！");
+                ret = false;
+            }
+            if (model.TriggerName == "")
+            {
+                MessageBox.Show("trigger名称不能为空！");
+                ret = false;
+            }
+            if (model.ConfigName == "")
+            {
+                MessageBox.Show("配置名称不能为空！");
+                ret = false;
+            }
+            if (model.GroupName == "")
+            {
+                MessageBox.Show("job组名称不能为空！");
+                ret = false;
+            }
+            if (model.TriggerGroup == "")
+            {
+                MessageBox.Show("trigger组名称不能为空！");
+                ret = false;
+            }
+            if (model.AssType != null)
+            {
+                MessageBox.Show("类名不能为空！");
+                ret = false;
+            }
+            return ret;
+        }
         #endregion
 
     }
