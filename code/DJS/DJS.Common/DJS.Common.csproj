@@ -33,6 +33,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\DLL\Quartz\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\DLL\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz">
       <HintPath>..\DLL\Quartz\Quartz.dll</HintPath>
     </Reference>

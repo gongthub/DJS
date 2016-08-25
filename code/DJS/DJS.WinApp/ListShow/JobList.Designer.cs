@@ -63,9 +63,11 @@
             this.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvJobs.Location = new System.Drawing.Point(-12, 1);
             this.dgvJobs.Name = "dgvJobs";
+            this.dgvJobs.RowTemplate.DefaultCellStyle.NullValue = null;
             this.dgvJobs.RowTemplate.Height = 23;
             this.dgvJobs.Size = new System.Drawing.Size(784, 295);
             this.dgvJobs.TabIndex = 1;
+            this.dgvJobs.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvJobs_CellFormatting);
             this.dgvJobs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvJobs_DataBindingComplete);
             // 
             // groupBox2

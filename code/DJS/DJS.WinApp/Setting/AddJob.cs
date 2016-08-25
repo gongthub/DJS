@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,16 @@ namespace DJS.WinApp
     public partial class AddJob : Form
     {
         /// <summary>
-        /// 获取程序集文件所在文件夹名称
+        /// 文件附件路径
         /// </summary>
-        private static string PATH = ConfigHelp.AssemblySrcPath;
+        private static string JobFileSrcPath = ConfigHelp.JobFileSrcPath;
+
+        private static Dictionary<string, string> FILENAMES = new Dictionary<string,string>();
 
         public AddJob()
         {
             InitializeComponent();
+            FILENAMES = new Dictionary<string, string>();
         }
 
         #region 事件
@@ -108,13 +112,29 @@ namespace DJS.WinApp
             Type type = Common.AssemblyHelp.assembly.GetDllType(name, nameSpaces, classNames);
             model.AssType = type;
             model.State = (int)Model.Enums.TriggerState.Normal;
-
             if (CheckTxt(model))
             {
                 if (!BLL.Jobs.IsExist(jobNames))
                 {
                     if (BLL.Jobs.AddJobs(model))
-                    {
+                    { 
+                        if (FILENAMES != null && FILENAMES.Count > 0)
+                        {
+                            BLL.JobFiles.DelByJobName(model.Name);
+                            foreach (var file in FILENAMES)
+                            {
+
+                                Upload(file.Value, model.Name);
+                                Model.JobFiles jobfile = new Model.JobFiles();
+                                jobfile.ID = Guid.NewGuid();
+                                jobfile.JobID = model.ID;
+                                jobfile.JobName = model.Name;
+                                jobfile.Name = file.Key; 
+                                jobfile.Src = JobFileSrcPath + @"\" + model.Name + @"\" + file.Key;
+                                BLL.JobFiles.Add(jobfile);
+                            }
+                        }
+
                         MessageBox.Show("添加成功！");
                     }
                     else
@@ -259,8 +279,9 @@ namespace DJS.WinApp
         /// </summary>
         private void BindNameSpace()
         {
-            ArrayList arry = Common.FileHelp.GetDirectoryList(PATH);
-            cbNameSpace.DataSource = arry;
+            //ArrayList arry = Common.FileHelp.GetDirectoryList(PATH);
+            List<Model.DllMgr> models = BLL.DllMgr.GetModels();
+            cbNameSpace.DataSource = models;
             cbNameSpace.DisplayMember = "Name";
         }
         #endregion
@@ -361,12 +382,72 @@ namespace DJS.WinApp
                 MessageBox.Show("trigger组名称不能为空！");
                 ret = false;
             }
-            if (model.AssType != null)
+            if (model.AssType == null)
             {
                 MessageBox.Show("类名不能为空！");
                 ret = false;
             }
             return ret;
+        }
+        #endregion
+
+        #region 附件双击事件
+        /// <summary>
+        /// 附件双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtFiles_DoubleClick(object sender, EventArgs e)
+        {
+            OpenFileDialog ofdUpLoad = new OpenFileDialog();
+            ofdUpLoad.Multiselect = true;
+            try
+            {
+                if (ofdUpLoad.ShowDialog() == DialogResult.OK)
+                {
+                    string[] filenames = ofdUpLoad.FileNames;
+
+                    string[] safeFileNames = ofdUpLoad.SafeFileNames;
+                    for (int i = 0; i < safeFileNames.Length; i++)
+                    {
+                        FILENAMES.Add(safeFileNames[i], filenames[i]);
+                        txtFiles.Text += safeFileNames[i] + "\r\n";
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 上传文件 +void Upload(string filename, string name)
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="name"></param>
+        public void Upload(string filename, string name)
+        {
+            FileInfo FILE = new FileInfo(filename);
+            if (FILE.Exists)
+            {
+                string paths = JobFileSrcPath + @"\" + name + @"\";
+                if (!DJS.Common.FileHelp.DirectoryIsExists(paths))
+                {
+                    DJS.Common.FileHelp.CreateDirectory(paths);
+                }
+                string fileNamePaths = JobFileSrcPath + @"\" + name + @"\" + FILE.Name;
+                //文件存在时先删除
+                if (FileHelp.FileExists(fileNamePaths))
+                {
+                    FileHelp.DeleteFiles(fileNamePaths);
+                }
+                FILE.CopyTo(JobFileSrcPath + @"\" + name + @"\" + FILE.Name);
+
+            }
         }
         #endregion
 

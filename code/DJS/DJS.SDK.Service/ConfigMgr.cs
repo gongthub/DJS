@@ -9,7 +9,7 @@ using System.Xml;
 namespace DJS.SDK.Service
 {
     public class ConfigMgr : IConfigMgr
-    { 
+    {
         public ConfigMgr(string namespaces)
         {
             CONFIGPATH = CONFIGSPATH + @"/" + namespaces + @"/" + ELENMENTNAME;
@@ -19,6 +19,10 @@ namespace DJS.SDK.Service
         /// 配置文件路径
         /// </summary>
         private static string SDKCONFIGPATH = ConfigHelp.SDKCONFIGPath;
+        /// <summary>
+        /// 文件附件路径
+        /// </summary>
+        private static string JobFileSrcPath = ConfigHelp.JobFileSrcPath;
 
         /// <summary>
         /// 节点
@@ -150,5 +154,37 @@ namespace DJS.SDK.Service
         }
         #endregion
 
+        #region 根据任务名称和文件名称获取路径
+        /// <summary>
+        /// 根据任务名称和文件名称获取路径
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns> 
+        public string GetFileSrc(string name, string fileName)
+        {
+            string src = "";
+            Model.JobFiles model = BLL.JobFiles.GetModels(m => m.JobName == name && m.Name == fileName).FirstOrDefault();
+            if (model != null)
+            {
+                src = model.Src;
+            }
+            return src;
+        }
+        #endregion
+
+        #region 根据任务名称获取文件路径
+        /// <summary>
+        /// 根据任务名称获取文件路径
+        /// </summary>
+        /// <param name="name"></param> 
+        /// <returns></returns> 
+        public string GetFileSrc(string name)
+        {
+            string src = "";
+            src = FileHelp.GetFullPath(JobFileSrcPath) + @"\" + name + @"\";
+            return src;
+        }
+        #endregion
     }
 }

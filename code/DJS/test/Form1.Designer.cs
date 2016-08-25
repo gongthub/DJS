@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.ofdUpLoad = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // button1
@@ -40,6 +41,10 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ofdUpLoad
+            // 
+            this.ofdUpLoad.Multiselect = true;
             // 
             // Form1
             // 
@@ -56,6 +61,7 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.OpenFileDialog ofdUpLoad;
     }
 }
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <DB>
   <JOBGROUPS>
     <JOBGROUP ID="e6f9d1ec-5087-4b93-ac6b-b0cf982ac603" No="1" Name="任务组一" JobNum="0" />
@@ -7,9 +7,18 @@
     <TRIGGERGROUP ID="2709b15d-f9e1-4f4e-93c1-dc65434806ae" No="1" Name="触发器组一" TriggerNum="0" />
   </TRIGGERGROUPS>
   <DDLMGRS>
-    <DDLMGR ID="167ecdf1-f5cd-41d7-afd4-d345b12dadf1" No="1" NameSpace="SinaGP" Url="Stores\SinaGP\C:\Users\gt\Desktop\SinaGP\SinaGP.dll" />
+    <DDLMGR ID="35996769-a867-4299-aed1-ab1bba442b49" No="1" Name="日报表" NameSpace="EmailToRepoertExcel" Url="Stores\日报表\EmailToRepoertExcel.dll" />
   </DDLMGRS>
   <JOBS>
-    <JOB ID="ea0712cd-153b-4d2d-99c9-bb8df4454009" Name="job1" GroupName="任务组一" TriggerName="trigger1" TriggerGroup="触发器组一" Crons="" Time="2016/8/24 16:08:22" Type="1" TypeName="" AssType="EmailSeriveZJD.Achieve" State="0" StateName="" DLLID="0c100f64-2e97-4649-9e6b-37f5d1b637ad" DLLName="租金贷预警" ConfigName="EMAILSERVICE" />
+    <JOB ID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="job1" GroupName="任务组一" TriggerName="trigger1" TriggerGroup="触发器组一" Crons="" Time="2016/8/26 18:43:02" Type="1" TypeName="" AssType="EmailToRepoertExcel.Achieve" State="0" StateName="" DLLID="35996769-a867-4299-aed1-ab1bba442b49" DLLName="日报表" ConfigName="EMAILSERVICESSSSSS" />
   </JOBS>
+  <JOBFILES>
+    <JOBFILE ID="9b4e189a-5285-4e20-96c2-c571c3b24aa9" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="DayRepoertExcel.txt" JobName="job1" Src="JobFiles\job1\DayRepoertExcel.txt" />
+    <JOBFILE ID="8f1829e1-ee72-4744-8bd0-29bea6524935" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="SearchAll.txt" JobName="job1" Src="JobFiles\job1\SearchAll.txt" />
+    <JOBFILE ID="cc554295-5e76-40ed-b972-1238d405df58" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="SearchStore.txt" JobName="job1" Src="JobFiles\job1\SearchStore.txt" />
+    <JOBFILE ID="85463280-b6da-426b-8bb0-0db261c9d7a0" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="Store.txt" JobName="job1" Src="JobFiles\job1\Store.txt" />
+    <JOBFILE ID="298957e6-089f-4499-96d2-ffcfe56f3694" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="Temp_DaylReportSum.xlsx" JobName="job1" Src="JobFiles\job1\Temp_DaylReportSum.xlsx" />
+    <JOBFILE ID="b8df5b6f-6569-46df-898b-d1859ea20d4c" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="Temp_Revpar.xlsx" JobName="job1" Src="JobFiles\job1\Temp_Revpar.xlsx" />
+    <JOBFILE ID="4699416c-d0fc-48ad-b768-579e1a1abe6e" JobID="7789b0bc-fb48-4973-85f8-175b11c0e875" Name="UserStore.txt" JobName="job1" Src="JobFiles\job1\UserStore.txt" />
+  </JOBFILES>
 </DB>

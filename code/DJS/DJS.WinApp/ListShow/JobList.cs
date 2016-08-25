@@ -28,20 +28,6 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void JobList_Load(object sender, EventArgs e)
         {
-            //IList<string> groups = Common.QuartzHelp.quartzHelp.GetJobGroupNames();
-
-            //JobKey job = new JobKey("job1", "jobgroup1");
-
-            //IJobDetail jobd = Common.QuartzHelp.quartzHelp.GetJobDetail(job);
-
-            //TriggerKey triggerKey = new TriggerKey("trigger1", "triggergroup1");
-
-            //ITrigger iTrigger = Common.QuartzHelp.quartzHelp.GetTrigger(triggerKey);
-
-            //Common.QuartzHelp.quartzHelp.GetJobKeys("jobgroup1");
-
-            //Common.QuartzHelp.quartzHelp.GetCurrentlyExecutingJobs();
-
             ControlSetting.controlSetting.DataGridViewSet(dgvJobs);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDo_Click);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkReAdd_Click);
@@ -238,6 +224,8 @@ namespace DJS.WinApp
                 dgvJobs.Columns["AssType"].Visible = false;//隐藏某列：
             if (dgvJobs.Columns["DLLID"] != null)
                 dgvJobs.Columns["DLLID"].Visible = false;//隐藏某列：
+            if (dgvJobs.Columns["Crons"] != null)
+                dgvJobs.Columns["Crons"].HeaderText = "策略";
             if (dgvJobs.Columns["Name"] != null)
                 dgvJobs.Columns["Name"].HeaderText = "名称";
             if (dgvJobs.Columns["GroupName"] != null)
@@ -402,33 +390,48 @@ namespace DJS.WinApp
         {
             if (e.ColumnIndex >= 0 && dgvJobs.Columns[e.ColumnIndex] != null && dgvJobs.Columns[e.ColumnIndex].HeaderText == "配置" && e.RowIndex >= 0)
             {
-                MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
-                DialogResult dr = MessageBox.Show("确定要配置吗?", "配置", messButton);
-                if (dr == DialogResult.OK)//如果点击“确定”按钮
+
+                if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
                 {
-
-                    if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
+                    if (dgvJobs.Rows[e.RowIndex].Cells["ID"] != null)
                     {
-                        if (dgvJobs.Rows[e.RowIndex].Cells["ID"] != null)
-                        {
-                            string Ids = dgvJobs.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+                        string Ids = dgvJobs.Rows[e.RowIndex].Cells["ID"].Value.ToString();
 
-                            Guid Id = Guid.Empty;
-                            if (Guid.TryParse(Ids, out Id))
-                            {
-                                DJS.WinApp.Setting.JobConfig jobconfig = new Setting.JobConfig();
-                                jobconfig.IDS = Id.ToString();
-                                jobconfig.Show();
-                            }
-                            else
-                            {
-                                MessageBox.Show("配置失败");
-                            }
+                        Guid Id = Guid.Empty;
+                        if (Guid.TryParse(Ids, out Id))
+                        {
+                            DJS.WinApp.Setting.JobConfig jobconfig = new Setting.JobConfig();
+                            jobconfig.IDS = Id.ToString();
+                            jobconfig.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("配置失败");
                         }
                     }
                 }
             }
 
+        }
+        #endregion
+
+        #region 格式化 -void dgvJobs_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        /// <summary>
+        /// 格式化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvJobs_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            if (e.ColumnIndex == 6) //哪一列
+            {
+                DateTime times = DateTime.MinValue;
+                if (DateTime.TryParse(e.Value.ToString(), out times))
+                {
+                    e.Value = times.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+            }
         }
         #endregion
     }

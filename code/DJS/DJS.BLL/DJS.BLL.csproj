@@ -49,6 +49,7 @@
     <Compile Include="DllMgr.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="JobFiles.cs" />
     <Compile Include="JobGroup.cs" />
     <Compile Include="Jobs.cs" />
     <Compile Include="JobsListen.cs" />

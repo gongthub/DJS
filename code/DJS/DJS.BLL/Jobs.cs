@@ -346,7 +346,16 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool DelById(Guid Id)
         {
-            return iJobs.DelById(Id);
+            bool ret = true;
+            try
+            {
+                ret = BLL.JobFiles.DelByJobId(Id);
+                ret= iJobs.DelById(Id);
+            }
+            catch (Exception ex)
+            { 
+            }
+            return ret;
         }
         #endregion
 

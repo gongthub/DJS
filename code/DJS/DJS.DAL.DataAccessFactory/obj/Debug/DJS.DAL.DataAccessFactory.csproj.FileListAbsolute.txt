@@ -31,6 +31,7 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.Common.d
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.IDAL.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\Quartz.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\NLog.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\ServiceStack.Redis.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\Common.Logging.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.DataAccessFactory\bin\Debug\ServiceStack.Interfaces.dll

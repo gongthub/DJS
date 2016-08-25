@@ -51,11 +51,13 @@
             this.cbClassName = new System.Windows.Forms.ComboBox();
             this.txtConfigName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtFiles = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(30, 342);
+            this.btnAdd.Location = new System.Drawing.Point(25, 398);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 11;
@@ -65,7 +67,7 @@
             // 
             // btnOperation
             // 
-            this.btnOperation.Location = new System.Drawing.Point(130, 342);
+            this.btnOperation.Location = new System.Drawing.Point(125, 398);
             this.btnOperation.Name = "btnOperation";
             this.btnOperation.Size = new System.Drawing.Size(75, 23);
             this.btnOperation.TabIndex = 12;
@@ -75,7 +77,7 @@
             // 
             // btnListShow
             // 
-            this.btnListShow.Location = new System.Drawing.Point(320, 342);
+            this.btnListShow.Location = new System.Drawing.Point(315, 398);
             this.btnListShow.Name = "btnListShow";
             this.btnListShow.Size = new System.Drawing.Size(75, 23);
             this.btnListShow.TabIndex = 13;
@@ -202,7 +204,7 @@
             // 
             // btnPause
             // 
-            this.btnPause.Location = new System.Drawing.Point(222, 342);
+            this.btnPause.Location = new System.Drawing.Point(217, 398);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(75, 23);
             this.btnPause.TabIndex = 12;
@@ -263,11 +265,32 @@
             this.label5.TabIndex = 17;
             this.label5.Text = "配置名称：";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(117, 294);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.TabIndex = 37;
+            this.label8.Text = "附件：";
+            // 
+            // txtFiles
+            // 
+            this.txtFiles.Location = new System.Drawing.Point(190, 291);
+            this.txtFiles.Multiline = true;
+            this.txtFiles.Name = "txtFiles";
+            this.txtFiles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtFiles.Size = new System.Drawing.Size(200, 80);
+            this.txtFiles.TabIndex = 38;
+            this.txtFiles.DoubleClick += new System.EventHandler(this.txtFiles_DoubleClick);
+            // 
             // AddJob
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 399);
+            this.ClientSize = new System.Drawing.Size(434, 462);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtFiles);
             this.Controls.Add(this.cbClassName);
             this.Controls.Add(this.cbNameSpace);
             this.Controls.Add(this.cbTriggerGroup);
@@ -324,5 +347,7 @@
         private System.Windows.Forms.ComboBox cbClassName;
         private System.Windows.Forms.TextBox txtConfigName;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtFiles;
     }
 }

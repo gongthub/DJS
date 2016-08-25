@@ -39,14 +39,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panlShow.Location = new System.Drawing.Point(6, 12);
             this.panlShow.Name = "panlShow";
-            this.panlShow.Size = new System.Drawing.Size(587, 291);
+            this.panlShow.Size = new System.Drawing.Size(587, 556);
             this.panlShow.TabIndex = 0;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(170, 332);
+            this.btnOK.Location = new System.Drawing.Point(167, 574);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(75, 26);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -54,9 +54,9 @@
             // 
             // btnNo
             // 
-            this.btnNo.Location = new System.Drawing.Point(347, 332);
+            this.btnNo.Location = new System.Drawing.Point(344, 574);
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(75, 23);
+            this.btnNo.Size = new System.Drawing.Size(75, 26);
             this.btnNo.TabIndex = 1;
             this.btnNo.Text = "取消";
             this.btnNo.UseVisualStyleBackColor = true;
@@ -66,11 +66,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 377);
+            this.ClientSize = new System.Drawing.Size(597, 612);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.panlShow);
-            this.MaximizeBox = false;
             this.Name = "JobConfig";
             this.Text = "配置";
             this.Load += new System.EventHandler(this.JobConfig_Load);

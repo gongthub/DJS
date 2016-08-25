@@ -67,7 +67,9 @@ namespace DJS.Model
             [Description("Redis")]
             Redis = 0,
             [Description("File")]
-            File = 1
+            File = 1,
+            [Description("NLog")]
+            NLog = 2
         } 
     }
 }

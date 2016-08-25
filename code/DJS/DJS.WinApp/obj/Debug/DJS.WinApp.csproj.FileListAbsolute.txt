@@ -204,3 +204,5 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.exe
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.pdb
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\NLog.config
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\Newtonsoft.Json.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.WinApp\bin\Debug\ICSharpCode.SharpZipLib.dll

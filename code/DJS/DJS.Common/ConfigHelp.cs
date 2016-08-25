@@ -104,6 +104,18 @@ namespace DJS.Common
             }
         }
 
+
+        /// <summary>
+        /// 获取Nlog日志文件路径
+        /// </summary>
+        public static string NLogUrlPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["NLogUrl"].ToString();
+            }
+        }
+
         /// <summary>
         /// 获取日志文件名称规则
         /// </summary>
@@ -203,6 +215,17 @@ namespace DJS.Common
             get
             {
                 return ConfigurationManager.AppSettings["SDKCONFIG"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 文件附件路径
+        /// </summary>
+        public static string JobFileSrcPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["JobFileSrc"].ToString();
             }
         }
     }
