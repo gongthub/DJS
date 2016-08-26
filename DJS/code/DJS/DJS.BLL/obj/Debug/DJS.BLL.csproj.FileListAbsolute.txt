@@ -78,6 +78,7 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.DAL.DataAccessFactory.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.IDAL.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\Quartz.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\NLog.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Redis.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Interfaces.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Text.dll
@@ -92,3 +93,5 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.SDK.pdb

@@ -380,13 +380,38 @@ namespace DJS.Common
             XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
             XmlNode node = xmlDocument.CreateElement(elenmentName);
             node = SetModelToNode(t, node);
-            XmlNode xmlnode = rootElement.SelectSingleNode(xPath);
-            if (xmlnode == null)
+            XmlNode xmlnode = null;
+            XmlElement rootElementP = null;
+            string[] strs = xPath.Split('/');
+            if (strs != null && strs.Length > 0)
             {
-                string name = elenmentName + "S";
-                xmlnode = xmlDocument.CreateElement(name);
-                //导入节点
-                rootElement.AppendChild(xmlnode);
+                string strt = "";
+                foreach (string str in strs)
+                {
+                    strt = strt + "/" + str;
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        if (rootElement != null)
+                        {
+
+                            xmlnode = xmlDocument.SelectSingleNode(strt);
+                            if (xmlnode != null)
+                            {
+                                if (rootElementP != null)
+                                    xmlnode.AppendChild(rootElementP);
+                            }
+                            else
+                            {
+                                rootElementP = xmlDocument.CreateElement(str);
+                                if (xmlnode == null)
+                                {
+                                    xmlnode = rootElement;
+                                }
+                                xmlnode = xmlnode.AppendChild(rootElementP);
+                            }
+                        }
+                    }
+                }
             }
             //导入节点
             xmlnode.AppendChild(node);
@@ -458,12 +483,12 @@ namespace DJS.Common
                         {
                             PropertyInfo info = t.GetType().GetProperty("DLLName");
                             if (info != null)
-                            { 
-                              XmlAttribute attTemp=  GetAttByName(atts,"DLLName");
-                              if (attTemp != null)
-                              {
-                                  type = Common.AssemblyHelp.assembly.GetDllType(attTemp.Value, strs[0], strs[1]);
-                              }
+                            {
+                                XmlAttribute attTemp = GetAttByName(atts, "DLLName");
+                                if (attTemp != null)
+                                {
+                                    type = Common.AssemblyHelp.assembly.GetDllType(attTemp.Value, strs[0], strs[1]);
+                                }
                             }
                         }
                         t.GetType().GetProperty(att.Name).SetValue(t, type);
@@ -576,18 +601,58 @@ namespace DJS.Common
         /// <returns></returns>
         public XmlAttribute GetAttByName(XmlAttributeCollection atts, string name)
         {
-            XmlAttribute attt=null;
+            XmlAttribute attt = null;
             foreach (XmlAttribute att in atts)
-            { 
+            {
                 if (att.Name == name)
                 {
                     attt = att;
                 }
             }
             return attt;
-        } 
+        }
+
         #endregion
 
+        #region 修改指定XPath表达式节点的值 +bool SetValue(string xmlFilePath, string xPath,string name,string value)
+        /// <summary>
+        /// 修改指定XPath表达式节点的值
+        /// </summary>
+        /// <param name="xmlFilePath">Xml文件的相对路径</param>
+        /// <param name="xPath">XPath表达式,
+        /// 范例1: @"Skill/First/SkillItem", 等效于 @"//Skill/First/SkillItem"
+        /// 范例2: @"Table[USERNAME='a']" , []表示筛选,USERNAME是Table下的一个子节点.
+        /// 范例3: @"ApplyPost/Item[@itemName='岗位编号']",@itemName是Item节点的属性.
+        /// </param>
+        public bool SetValue(string xmlFilePath, string xPath,string attName, string name,string attValue, string value)
+        {
+            bool ret = true;
+            try
+            {
+                //创建XmlDocument对象
+                XmlDocument xmlDocument = new XmlDocument();
+
+                //获取要删除的节点
+                XmlNodeList nodes = GetNodes(xmlFilePath, xPath, out xmlDocument);
+                if (nodes != null && nodes.Count > 0)
+                {
+                    foreach (XmlNode node in nodes)
+                    {
+                        if (node.Attributes[attName] != null && node.Attributes[attName].Value == name)
+                        { 
+                            node.Attributes[attValue].Value = value; 
+                        }
+                    }
+                }
+                xmlDocument.Save(xmlFilePath);
+            }
+            catch (Exception ex)
+            {
+                ret = false;
+            }
+            return ret;
+        }
+        #endregion
         #endregion
 
     }

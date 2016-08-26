@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnOperation = new System.Windows.Forms.Button();
-            this.btnListShow = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -44,16 +42,20 @@
             this.label9 = new System.Windows.Forms.Label();
             this.cbType = new System.Windows.Forms.ComboBox();
             this.dtpTime = new System.Windows.Forms.DateTimePicker();
-            this.btnPause = new System.Windows.Forms.Button();
             this.cbJobGroup = new System.Windows.Forms.ComboBox();
             this.cbTriggerGroup = new System.Windows.Forms.ComboBox();
             this.cbNameSpace = new System.Windows.Forms.ComboBox();
             this.cbClassName = new System.Windows.Forms.ComboBox();
+            this.txtConfigName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtFiles = new System.Windows.Forms.TextBox();
+            this.btnNo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(30, 342);
+            this.btnAdd.Location = new System.Drawing.Point(101, 398);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 11;
@@ -61,30 +63,10 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnOperation
-            // 
-            this.btnOperation.Location = new System.Drawing.Point(130, 342);
-            this.btnOperation.Name = "btnOperation";
-            this.btnOperation.Size = new System.Drawing.Size(75, 23);
-            this.btnOperation.TabIndex = 12;
-            this.btnOperation.Text = "开始";
-            this.btnOperation.UseVisualStyleBackColor = true;
-            this.btnOperation.Click += new System.EventHandler(this.btnOperation_Click);
-            // 
-            // btnListShow
-            // 
-            this.btnListShow.Location = new System.Drawing.Point(320, 342);
-            this.btnListShow.Name = "btnListShow";
-            this.btnListShow.Size = new System.Drawing.Size(75, 23);
-            this.btnListShow.TabIndex = 13;
-            this.btnListShow.Text = "列表";
-            this.btnListShow.UseVisualStyleBackColor = true;
-            this.btnListShow.Click += new System.EventHandler(this.btnListShow_Click);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(117, 247);
+            this.label6.Location = new System.Drawing.Point(117, 268);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 25;
@@ -102,7 +84,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(93, 216);
+            this.label7.Location = new System.Drawing.Point(93, 237);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 26;
@@ -111,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(87, 123);
+            this.label2.Location = new System.Drawing.Point(87, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 12);
             this.label2.TabIndex = 18;
@@ -120,7 +102,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(75, 154);
+            this.label3.Location = new System.Drawing.Point(75, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 12);
             this.label3.TabIndex = 17;
@@ -128,7 +110,7 @@
             // 
             // txtTriggerName
             // 
-            this.txtTriggerName.Location = new System.Drawing.Point(190, 150);
+            this.txtTriggerName.Location = new System.Drawing.Point(190, 115);
             this.txtTriggerName.Name = "txtTriggerName";
             this.txtTriggerName.Size = new System.Drawing.Size(200, 21);
             this.txtTriggerName.TabIndex = 21;
@@ -137,7 +119,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(63, 185);
+            this.label4.Location = new System.Drawing.Point(63, 206);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 12);
             this.label4.TabIndex = 15;
@@ -198,21 +180,11 @@
             this.dtpTime.TabIndex = 33;
             this.dtpTime.Visible = false;
             // 
-            // btnPause
-            // 
-            this.btnPause.Location = new System.Drawing.Point(222, 342);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(75, 23);
-            this.btnPause.TabIndex = 12;
-            this.btnPause.Text = "暂停";
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
-            // 
             // cbJobGroup
             // 
             this.cbJobGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbJobGroup.FormattingEnabled = true;
-            this.cbJobGroup.Location = new System.Drawing.Point(190, 120);
+            this.cbJobGroup.Location = new System.Drawing.Point(190, 169);
             this.cbJobGroup.Name = "cbJobGroup";
             this.cbJobGroup.Size = new System.Drawing.Size(200, 20);
             this.cbJobGroup.TabIndex = 34;
@@ -221,7 +193,7 @@
             // 
             this.cbTriggerGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTriggerGroup.FormattingEnabled = true;
-            this.cbTriggerGroup.Location = new System.Drawing.Point(190, 182);
+            this.cbTriggerGroup.Location = new System.Drawing.Point(190, 203);
             this.cbTriggerGroup.Name = "cbTriggerGroup";
             this.cbTriggerGroup.Size = new System.Drawing.Size(200, 20);
             this.cbTriggerGroup.TabIndex = 35;
@@ -230,7 +202,7 @@
             // 
             this.cbNameSpace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNameSpace.FormattingEnabled = true;
-            this.cbNameSpace.Location = new System.Drawing.Point(190, 213);
+            this.cbNameSpace.Location = new System.Drawing.Point(190, 234);
             this.cbNameSpace.Name = "cbNameSpace";
             this.cbNameSpace.Size = new System.Drawing.Size(200, 20);
             this.cbNameSpace.TabIndex = 35;
@@ -240,16 +212,64 @@
             // 
             this.cbClassName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbClassName.FormattingEnabled = true;
-            this.cbClassName.Location = new System.Drawing.Point(190, 244);
+            this.cbClassName.Location = new System.Drawing.Point(190, 265);
             this.cbClassName.Name = "cbClassName";
             this.cbClassName.Size = new System.Drawing.Size(200, 20);
             this.cbClassName.TabIndex = 36;
+            // 
+            // txtConfigName
+            // 
+            this.txtConfigName.Location = new System.Drawing.Point(190, 142);
+            this.txtConfigName.Name = "txtConfigName";
+            this.txtConfigName.Size = new System.Drawing.Size(200, 21);
+            this.txtConfigName.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(93, 145);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "配置名称：";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(117, 294);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.TabIndex = 37;
+            this.label8.Text = "附件：";
+            // 
+            // txtFiles
+            // 
+            this.txtFiles.Location = new System.Drawing.Point(190, 291);
+            this.txtFiles.Multiline = true;
+            this.txtFiles.Name = "txtFiles";
+            this.txtFiles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtFiles.Size = new System.Drawing.Size(200, 80);
+            this.txtFiles.TabIndex = 38;
+            this.txtFiles.DoubleClick += new System.EventHandler(this.txtFiles_DoubleClick);
+            // 
+            // btnNo
+            // 
+            this.btnNo.Location = new System.Drawing.Point(237, 398);
+            this.btnNo.Name = "btnNo";
+            this.btnNo.Size = new System.Drawing.Size(75, 23);
+            this.btnNo.TabIndex = 39;
+            this.btnNo.Text = "取消";
+            this.btnNo.UseVisualStyleBackColor = true;
+            this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
             // AddJob
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 399);
+            this.ClientSize = new System.Drawing.Size(434, 462);
+            this.Controls.Add(this.btnNo);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtFiles);
             this.Controls.Add(this.cbClassName);
             this.Controls.Add(this.cbNameSpace);
             this.Controls.Add(this.cbTriggerGroup);
@@ -259,14 +279,13 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCron);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.btnPause);
-            this.Controls.Add(this.btnOperation);
-            this.Controls.Add(this.btnListShow);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtConfigName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtTriggerName);
             this.Controls.Add(this.label4);
@@ -282,8 +301,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnOperation;
-        private System.Windows.Forms.Button btnListShow;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label7;
@@ -297,10 +314,14 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.DateTimePicker dtpTime;
-        private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.ComboBox cbJobGroup;
         private System.Windows.Forms.ComboBox cbTriggerGroup;
         private System.Windows.Forms.ComboBox cbNameSpace;
         private System.Windows.Forms.ComboBox cbClassName;
+        private System.Windows.Forms.TextBox txtConfigName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtFiles;
+        private System.Windows.Forms.Button btnNo;
     }
 }

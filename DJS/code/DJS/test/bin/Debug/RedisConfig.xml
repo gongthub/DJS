@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--Redis Key 集合-->
-<KEYS>
-  <KEY Name="JobGroup_K" Value="JobGroup_Key">JobGroup集合对应RedisKey</KEY>
-  <KEY Name="TriggerGroup_K" Value="TriggerGroup_Key">TriggerGroup集合对应RedisKey</KEY>
-  <KEY Name="DLLMgr_K" Value="DLLMgr_Key">DLLMgr集合对应RedisKey</KEY>
-  <KEY Name="LogMgr_K" Value="LogMgr_Key">LogMgr集合对应RedisKey</KEY>
-</KEYS>

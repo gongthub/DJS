@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Center));
             this.tsMenu = new System.Windows.Forms.ToolStrip();
             this.tsbtnMain = new System.Windows.Forms.ToolStripButton();
@@ -44,6 +45,7 @@
             this.panMain = new System.Windows.Forms.Panel();
             this.ssShow = new System.Windows.Forms.StatusStrip();
             this.tsslblTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.niImg = new System.Windows.Forms.NotifyIcon(this.components);
             this.tsMenu.SuspendLayout();
             this.ssShow.SuspendLayout();
             this.SuspendLayout();
@@ -182,6 +184,12 @@
             this.tsslblTime.Name = "tsslblTime";
             this.tsslblTime.Size = new System.Drawing.Size(0, 17);
             // 
+            // niImg
+            // 
+            this.niImg.Icon = ((System.Drawing.Icon)(resources.GetObject("niImg.Icon")));
+            this.niImg.Text = "icon";
+            this.niImg.DoubleClick += new System.EventHandler(this.niImg_DoubleClick);
+            // 
             // Center
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -192,8 +200,10 @@
             this.Controls.Add(this.tsMenu);
             this.Name = "Center";
             this.Text = "Center";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Center_FormClosing);
             this.Load += new System.EventHandler(this.Center_Load);
+            this.SizeChanged += new System.EventHandler(this.Center_SizeChanged);
             this.tsMenu.ResumeLayout(false);
             this.tsMenu.PerformLayout();
             this.ssShow.ResumeLayout(false);
@@ -220,5 +230,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmtDllJob;
         private System.Windows.Forms.ToolStripButton tsbDataShow;
         private System.Windows.Forms.ToolStripMenuItem tsmtRestart;
+        private System.Windows.Forms.NotifyIcon niImg;
     }
 }

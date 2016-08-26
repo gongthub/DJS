@@ -45,6 +45,24 @@ namespace DJS.SDK.Service
             }
         }
         #endregion
-         
+
+
+        #region 根据任务名称查找配置文件名称 +string GetConfigNameByJobName(string jobName)
+        /// <summary>
+        /// 根据任务名称查找配置文件名称
+        /// </summary>
+        /// <param name="jobName"></param>
+        /// <returns></returns>
+        public string GetConfigNameByJobName(string jobName)
+        {
+            string configName = "";
+            Model.Jobs model = BLL.Jobs.GetModels(m => m.Name == jobName).FirstOrDefault();
+            if (model != null)
+            {
+                configName = model.ConfigName;
+            }
+            return configName;
+        }
+        #endregion
     }
 }

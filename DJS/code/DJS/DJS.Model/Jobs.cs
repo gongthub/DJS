@@ -22,6 +22,7 @@ namespace DJS.Model
         public string StateName { set; get; }
         public Guid DLLID { set; get; }
         public string DLLName { set; get; }
+        public string ConfigName { set; get; }
 
     }
 }

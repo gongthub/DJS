@@ -86,3 +86,4 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.Redis\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.Redis\obj\Debug\DJS.DAL.Redis.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.Redis\obj\Debug\DJS.DAL.Redis.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.Redis\obj\Debug\DJS.DAL.Redis.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.Redis\bin\Debug\NLog.dll

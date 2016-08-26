@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\DLL\Quartz\Common.Logging.dll</HintPath>
@@ -40,6 +49,13 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\DLL\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\DLL\NLog.dll</HintPath>
@@ -111,6 +127,12 @@
     <Compile Include="Setting\DLLMgr.Designer.cs">
       <DependentUpon>DLLMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting\JobConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\JobConfig.Designer.cs">
+      <DependentUpon>JobConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting\JobGroupAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +196,9 @@
     <EmbeddedResource Include="Setting\DLLMgr.resx">
       <DependentUpon>DLLMgr.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Setting\JobConfig.resx">
+      <DependentUpon>JobConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Setting\JobGroupAdd.resx">
       <DependentUpon>JobGroupAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,7 +214,10 @@
     <EmbeddedResource Include="ListShow\TriggerList.resx">
       <DependentUpon>TriggerList.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="NLog.config" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -245,6 +273,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Img\icon72.ico" />
     <Content Include="RedisConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

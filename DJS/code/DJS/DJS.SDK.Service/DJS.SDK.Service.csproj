@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DJS.BLL\DJS.BLL.csproj">
+      <Project>{be4c67a7-2989-4cb2-9a89-e1f19cd9af84}</Project>
+      <Name>DJS.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DJS.Common\DJS.Common.csproj">
       <Project>{400b27d7-6f55-4908-8005-b4cfa2583e3b}</Project>
       <Name>DJS.Common</Name>

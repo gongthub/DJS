@@ -67,9 +67,9 @@ namespace DJS.WinApp
             Application.Idle -= Application_Idle;
             if (context.MainForm == null)
             {
-                var mw = new Center(); 
+                var mw = new Center();
                 context.MainForm = mw;
-                var sp = (Center)context.Tag;  
+                var sp = (Center)context.Tag;
             }
         }
 

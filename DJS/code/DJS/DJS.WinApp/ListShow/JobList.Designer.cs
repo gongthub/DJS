@@ -31,6 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvJobs = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStand = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnQuery = new System.Windows.Forms.Button();
             this.cbJobGroup = new System.Windows.Forms.ComboBox();
@@ -50,7 +52,7 @@
             this.groupBox1.Controls.Add(this.dgvJobs);
             this.groupBox1.Location = new System.Drawing.Point(12, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 297);
+            this.groupBox1.Size = new System.Drawing.Size(960, 297);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
@@ -63,15 +65,19 @@
             this.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvJobs.Location = new System.Drawing.Point(-12, 1);
             this.dgvJobs.Name = "dgvJobs";
+            this.dgvJobs.RowTemplate.DefaultCellStyle.NullValue = null;
             this.dgvJobs.RowTemplate.Height = 23;
-            this.dgvJobs.Size = new System.Drawing.Size(784, 295);
+            this.dgvJobs.Size = new System.Drawing.Size(984, 295);
             this.dgvJobs.TabIndex = 1;
+            this.dgvJobs.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvJobs_CellFormatting);
             this.dgvJobs.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvJobs_DataBindingComplete);
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.btnStart);
+            this.groupBox2.Controls.Add(this.btnStand);
             this.groupBox2.Controls.Add(this.btnRefresh);
             this.groupBox2.Controls.Add(this.btnQuery);
             this.groupBox2.Controls.Add(this.cbJobGroup);
@@ -80,13 +86,33 @@
             this.groupBox2.Controls.Add(this.lblJobName);
             this.groupBox2.Location = new System.Drawing.Point(12, 1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(760, 54);
+            this.groupBox2.Size = new System.Drawing.Size(960, 54);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(694, 17);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 6;
+            this.btnStart.Text = "开始Quartz";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnStand
+            // 
+            this.btnStand.Location = new System.Drawing.Point(775, 17);
+            this.btnStand.Name = "btnStand";
+            this.btnStand.Size = new System.Drawing.Size(75, 23);
+            this.btnStand.TabIndex = 5;
+            this.btnStand.Text = "暂停Quartz";
+            this.btnStand.UseVisualStyleBackColor = true;
+            this.btnStand.Click += new System.EventHandler(this.btnStand_Click);
+            // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(613, 18);
+            this.btnRefresh.Location = new System.Drawing.Point(613, 17);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 4;
@@ -96,7 +122,7 @@
             // 
             // btnQuery
             // 
-            this.btnQuery.Location = new System.Drawing.Point(523, 18);
+            this.btnQuery.Location = new System.Drawing.Point(532, 17);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(75, 23);
             this.btnQuery.TabIndex = 4;
@@ -142,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 362);
+            this.ClientSize = new System.Drawing.Size(984, 362);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "JobList";
@@ -167,6 +193,8 @@
         private System.Windows.Forms.TextBox txtJobName;
         private System.Windows.Forms.Label lblJobName;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnStand;
 
 
     }

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DllMgr.cs" />
+    <Compile Include="JobFiles.cs" />
     <Compile Include="JobGroup.cs" />
     <Compile Include="Jobs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

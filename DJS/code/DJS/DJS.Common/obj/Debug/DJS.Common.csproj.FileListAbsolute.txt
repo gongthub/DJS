@@ -78,6 +78,7 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\DJS.Common.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\DJS.Common.pdb
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\Common.Logging.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\NLog.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\Quartz.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\ServiceStack.Client.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Common\bin\Debug\ServiceStack.Common.dll

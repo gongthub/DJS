@@ -26,6 +26,11 @@ namespace DJS.Common
         /// </summary>
         private static string LogFileType = ConfigHelp.LogFileTypePath;
 
+        /// <summary>
+        /// 获取NLog日志存储类型
+        /// </summary>
+        private static string NLOGURL = ConfigHelp.NLogUrlPath;
+
         private static string LOGMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("LogMgr_K");
 
         /// <summary>
@@ -88,6 +93,11 @@ namespace DJS.Common
                 {
                     WriteLogRedis(messages, type);
                 }
+
+                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                {
+                    WriteLogNLog(messages, type);
+                }
             }
         }
         #endregion
@@ -111,6 +121,10 @@ namespace DJS.Common
                 {
                     WriteLogRedis(messages, type);
                 }
+                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                {
+                    WriteLogNLog(messages, type);
+                }
             }
         }
         #endregion
@@ -133,6 +147,10 @@ namespace DJS.Common
                 if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
                 {
                     strs = GetLogsRedis(num);
+                }
+                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                {
+                    strs = GetLogsNLog(num);
                 }
                 return strs;
             }
@@ -176,6 +194,27 @@ namespace DJS.Common
             strs += EnumHelp.enumHelp.GetDescription(type) + " - ";
             strs += messages;
             DJS.Common.FileHelp.WirteStr(LOGURL + @"/" + DateTime.Now.ToString(LOGNAME) + LOGTYPE, strs);
+        }
+        #endregion
+
+        #region 获取文件日志 -string GetLogsFile(int num)
+        /// <summary>
+        /// 获取文件日志
+        /// </summary>
+        /// <returns></returns>
+        private string GetLogsFile(int num)
+        {
+            string strs = "";
+            string paths = LOGURL + @"\";
+            ArrayList files = Common.FileHelp.GetFileslist(paths);
+            if (files != null && files.Count > 0)
+            {
+                files.Sort();
+                string file = files[files.Count - 1].ToString();
+                paths += @"\" + file;
+                strs = Common.FileHelp.ReadTxtFileNumE(paths, num);
+            }
+            return strs.ToString();
         }
         #endregion
 
@@ -233,27 +272,6 @@ namespace DJS.Common
         }
         #endregion
 
-        #region 获取文件日志 -string GetLogsFile(int num)
-        /// <summary>
-        /// 获取文件日志
-        /// </summary>
-        /// <returns></returns>
-        private string GetLogsFile(int num)
-        {
-            string strs = "";
-            string paths = LOGURL + @"\";
-            ArrayList files = Common.FileHelp.GetFileslist(paths);
-            if (files != null && files.Count > 0)
-            {
-                files.Sort();
-                string file = files[files.Count - 1].ToString();
-                paths += @"\" + file;
-                strs = Common.FileHelp.ReadTxtFileNumE(paths, num);
-            }
-            return strs.ToString();
-        }
-        #endregion
-
         #region 获取Redis日志 -string GetLogsRedis(int num)
         /// <summary>
         /// 获取Redis日志
@@ -282,5 +300,71 @@ namespace DJS.Common
             return strs.ToString();
         }
         #endregion
+         
+        #region 写入日志到File -void WriteLogNLog(string int type)
+        /// <summary>
+        /// 写入日志到File
+        /// </summary>
+        /// <param name="messages">描述</param>  
+        private void WriteLogNLog(string messages, int type)
+        {
+
+            if (!DJS.Common.FileHelp.DirectoryIsExists(NLOGURL))
+            {
+                DJS.Common.FileHelp.CreateDirectory(NLOGURL);
+            }
+
+            string strs = "";
+            strs += EnumHelp.enumHelp.GetDescription((Model.Enums.LogType)type) + " - ";
+            strs += messages;
+
+            NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+
+            Log.Info(messages); 
+
+        }
+        #endregion
+
+        #region 写入日志到File -void WriteLogNLog(string Model.Enums.LogType type)
+        /// <summary>
+        /// 写入日志到File
+        /// </summary>
+        /// <param name="messages">描述</param>  
+        private void WriteLogNLog(string messages, Model.Enums.LogType type)
+        {
+            if (!DJS.Common.FileHelp.DirectoryIsExists(NLOGURL))
+            {
+                DJS.Common.FileHelp.CreateDirectory(NLOGURL);
+            }
+            
+            string strs = ""; 
+            strs += EnumHelp.enumHelp.GetDescription(type) + " - ";
+            strs += messages;
+            NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger(); 
+            Log.Info(messages);  
+        }
+        #endregion
+
+        #region 获取文件日志 -string GetLogsNLog(int num)
+        /// <summary>
+        /// 获取文件日志
+        /// </summary>
+        /// <returns></returns>
+        private string GetLogsNLog(int num)
+        {
+            string strs = "";
+            string paths = NLOGURL + @"\";
+            ArrayList files = Common.FileHelp.GetFileslist(paths);
+            if (files != null && files.Count > 0)
+            {
+                files.Sort();
+                string file = files[files.Count - 1].ToString();
+                paths += @"\" + file;
+                strs = Common.FileHelp.ReadTxtFileNumE(paths, num);
+            }
+            return strs.ToString();
+        }
+        #endregion
+
     }
 }

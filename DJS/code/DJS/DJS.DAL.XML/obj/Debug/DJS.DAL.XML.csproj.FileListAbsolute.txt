@@ -20,3 +20,4 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.XML\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.XML\obj\Debug\DJS.DAL.XML.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.XML\obj\Debug\DJS.DAL.XML.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.XML\obj\Debug\DJS.DAL.XML.pdb
+D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.DAL.XML\bin\Debug\NLog.dll

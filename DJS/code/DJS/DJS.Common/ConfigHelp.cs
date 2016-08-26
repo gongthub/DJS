@@ -104,6 +104,18 @@ namespace DJS.Common
             }
         }
 
+
+        /// <summary>
+        /// 获取Nlog日志文件路径
+        /// </summary>
+        public static string NLogUrlPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["NLogUrl"].ToString();
+            }
+        }
+
         /// <summary>
         /// 获取日志文件名称规则
         /// </summary>
@@ -203,6 +215,39 @@ namespace DJS.Common
             get
             {
                 return ConfigurationManager.AppSettings["SDKCONFIG"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 文件附件路径
+        /// </summary>
+        public static string JobFileSrcPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["JobFileSrc"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 程序路径
+        /// </summary>
+        public static string APPURLPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["APPURL"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 是否自启动
+        /// </summary>
+        public static string APPAUTOPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["APPAUTO"].ToString();
             }
         }
     }

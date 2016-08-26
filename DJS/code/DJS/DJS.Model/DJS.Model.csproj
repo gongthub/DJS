@@ -42,6 +42,7 @@
     <Compile Include="ConfigMgr.cs" />
     <Compile Include="DllMgr.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="JobFiles.cs" />
     <Compile Include="JobGroup.cs" />
     <Compile Include="Jobs.cs" />
     <Compile Include="LogModel.cs" />

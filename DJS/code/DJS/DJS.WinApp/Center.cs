@@ -65,6 +65,27 @@ namespace DJS.WinApp
             TIMER.Tick += timer_Tick;
             TIMER.Start();
 
+            //设置开机自启动
+            try
+            {
+                string appurl = Common.ConfigHelp.APPURLPath;
+                string isauto = Common.ConfigHelp.APPAUTOPath;
+                string filenames = Common.FileHelp.GetFullPath(appurl);
+                bool auto = false;
+                bool.TryParse(isauto, out auto);
+                bool isaouto = Common.SecurityHelp.securityHelp.AppIsAutoRun(filenames);
+                if (isaouto != auto)
+                {
+                    Common.SecurityHelp.securityHelp.SetAutoRun(filenames, auto);
+                    Common.LogHelp.logHelp.WriteLog("设置开机启动成功！", 0);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogHelp.logHelp.WriteLog("设置开机启动失败！" + ex.Message, 1);
+            }
+
             //XmlNodeList list = XmlHelp.xmlHelp.GetNodes(xmlDBConfigPath, groupsPath);
             //Model.JobGroup model=new DJS.Model.JobGroup();
             //Common.XmlHelp.xmlHelp.SetNodeToModel(model, list[0]);
@@ -120,7 +141,7 @@ namespace DJS.WinApp
         private void timer_Tick(object sender, EventArgs e)
         {
             tsslblTime.Text = "系统时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            tsslblTime.Text += "   Quartz状态：" + Common.QuartzHelp.quartzHelp.GetState(); 
+            tsslblTime.Text += "   Quartz状态：" + Common.QuartzHelp.quartzHelp.GetState();
         }
         #endregion
 
@@ -290,6 +311,39 @@ namespace DJS.WinApp
             fm.Dock = DockStyle.Fill;
             fm.Show();
 
+        }
+        #endregion
+
+        #region 窗体大小改变事件 -void Center_SizeChanged(object sender, EventArgs e)
+        /// <summary>
+        /// 窗体大小改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Center_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)  //判断是否最小化
+            {
+                this.ShowInTaskbar = false;  //不显示在系统任务栏
+                niImg.Visible = true;  //托盘图标可见
+            }
+        }
+        #endregion
+
+        #region icon 双击事件 -void niImg_DoubleClick(object sender, EventArgs e)
+        /// <summary>
+        /// icon 双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void niImg_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Maximized;  //还原窗体
+                this.ShowInTaskbar = true;
+                niImg.Visible = false;  //托盘图标隐藏
+            }
         }
         #endregion
 

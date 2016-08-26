@@ -118,6 +118,16 @@ namespace DJS.DAL.DataAccessFactory
             object objType = CreateObject(ClassNamespace);
             return (DJS.IDAL.ITriggers)objType;
         }
+        /// <summary>
+        /// 接口IJobFiles映射 
+        /// </summary>
+        /// <returns></returns>
+        public static DJS.IDAL.IJobFiles CreateIJobFiles()
+        {
+            string ClassNamespace = DLLPATH + DBTYPE + ".JobFiles";
+            object objType = CreateObject(ClassNamespace);
+            return (DJS.IDAL.IJobFiles)objType;
+        }
         #endregion
     }
 }

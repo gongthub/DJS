@@ -20,6 +20,7 @@ namespace DJS.Common
         /// </summary>
         private static string FULLPATH = FileHelp.GetFullPath(PATH);
 
+
         #region 单例模式创建对象
         //单例模式创建对象
         private static AssemblyHelp _assembly = null;
@@ -92,7 +93,7 @@ namespace DJS.Common
         /// <returns></returns>
         public Type GetDllType(string name, string nameSpace, string className)
         {
-            string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll"; 
+            string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll";
             string assems = nameSpace + "." + className;
 
             Assembly asm = Assembly.LoadFile(files);
@@ -125,6 +126,27 @@ namespace DJS.Common
         }
 
         #endregion
+
+        #region 动态调用 DLL返回类型 +Type GetDllTypeI(string name,string nameSpace, string className)
+        /// <summary>
+        /// 动态调用 DLL 方法
+        /// </summary>
+        /// <param name="nameSpace">命名空间</param>
+        /// <param name="className">类名</param>
+        /// <param name="methodName">方法名</param>
+        /// <returns></returns>
+        public object GetDllTypeI(string name, string nameSpace, string className)
+        {
+            string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll";
+            string assems = nameSpace + "." + className;
+
+            object asm = Assembly.LoadFile(files).CreateInstance(assems);
+             
+            return asm;
+        }
+
+        #endregion
+
 
     }
 }

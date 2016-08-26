@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,16 @@ namespace DJS.WinApp
     public partial class AddJob : Form
     {
         /// <summary>
-        /// 获取程序集文件所在文件夹名称
+        /// 文件附件路径
         /// </summary>
-        private static string PATH = ConfigHelp.AssemblySrcPath;
+        private static string JobFileSrcPath = ConfigHelp.JobFileSrcPath;
+
+        private static Dictionary<string, string> FILENAMES = new Dictionary<string,string>();
 
         public AddJob()
         {
             InitializeComponent();
+            FILENAMES = new Dictionary<string, string>();
         }
 
         #region 事件
@@ -63,17 +67,20 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string times = dtpTime.Text;
-            string crons = txtCron.Text;
-            string jobNames = txtJobName.Text;
-            string jobGroups = cbJobGroup.Text;
-            string triggerNames = txtTriggerName.Text;
-            string triggerGroups = cbTriggerGroup.Text;
-            string name = cbNameSpace.Text;
-            string classNames = cbClassName.Text;
+            string times = dtpTime.Text.Trim();
+            string crons = txtCron.Text.Trim();
+            string jobNames = txtJobName.Text.Trim();
+            string jobGroups = cbJobGroup.Text.Trim();
+            string triggerNames = txtTriggerName.Text.Trim();
+            string triggerGroups = cbTriggerGroup.Text.Trim();
+            string name = cbNameSpace.Text.Trim();
+            string classNames = cbClassName.Text.Trim();
+            string configNames = txtConfigName.Text.Trim();
 
             string types = cbType.Text;
             string typesval = cbType.SelectedValue.ToString();
+
+
             Model.Jobs model = new Model.Jobs();
             model.ID = Guid.NewGuid();
             model.Name = jobNames;
@@ -81,6 +88,7 @@ namespace DJS.WinApp
             model.TriggerName = triggerNames;
             model.TriggerGroup = triggerGroups;
             model.Crons = crons;
+            model.ConfigName = configNames;
             DateTime time = DateTime.MinValue;
             if (DateTime.TryParse(times, out time))
             {
@@ -91,6 +99,7 @@ namespace DJS.WinApp
             {
                 model.Type = typet;
             }
+
 
             string nameSpaces = "";
             Model.DllMgr ddlmgr = BLL.DllMgr.GetModels(m => m.Name == name).FirstOrDefault();
@@ -103,42 +112,44 @@ namespace DJS.WinApp
             Type type = Common.AssemblyHelp.assembly.GetDllType(name, nameSpaces, classNames);
             model.AssType = type;
             model.State = (int)Model.Enums.TriggerState.Normal;
-            if (!BLL.Jobs.IsExist(jobNames))
+            if (CheckTxt(model))
             {
-                if (BLL.Jobs.AddJobs(model))
+                if (!BLL.Jobs.IsExist(jobNames))
                 {
-                    MessageBox.Show("添加成功！");
+                    if (BLL.Jobs.AddJobs(model))
+                    { 
+                        if (FILENAMES != null && FILENAMES.Count > 0)
+                        {
+                            BLL.JobFiles.DelByJobName(model.Name);
+                            foreach (var file in FILENAMES)
+                            {
+
+                                Upload(file.Value, model.Name);
+                                Model.JobFiles jobfile = new Model.JobFiles();
+                                jobfile.ID = Guid.NewGuid();
+                                jobfile.JobID = model.ID;
+                                jobfile.JobName = model.Name;
+                                jobfile.Name = file.Key; 
+                                jobfile.Src = JobFileSrcPath + @"\" + model.Name + @"\" + file.Key;
+                                BLL.JobFiles.Add(jobfile);
+                            }
+                        }
+
+                        MessageBox.Show("添加成功！");
+                    }
+                    else
+                    {
+                        MessageBox.Show("添加失败！");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("添加失败！");
+                    MessageBox.Show("任务已经存在！");
                 }
             }
-            else
-            {
-                MessageBox.Show("任务已经存在！");
-            }
         }
 
-        #endregion
-
-        #region 开始 结束 -void btnOperation_Click(object sender, EventArgs e)
-        /// <summary>
-        /// 开始 结束
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnOperation_Click(object sender, EventArgs e)
-        {
-            string operations = btnOperation.Text;
-            if (operations == "开始")
-            {
-                Common.QuartzHelp.quartzHelp.Start();
-                btnOperation.Text = "已启动";
-                btnOperation.Enabled = false;
-            }
-        }
-        #endregion
+        #endregion 
 
         #region 策略双击事件 -void txtCron_DoubleClick(object sender, EventArgs e)
         /// <summary>
@@ -177,30 +188,7 @@ namespace DJS.WinApp
                 }
         }
         #endregion
-
-        #region 暂停继续按钮点击事件 -void btnPause_Click(object sender, EventArgs e)
-        /// <summary>
-        /// 暂停继续按钮点击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnPause_Click(object sender, EventArgs e)
-        {
-            string pauses = btnPause.Text;
-            if (pauses == "暂停")
-            {
-                Common.QuartzHelp.quartzHelp.PauseAll();
-                btnPause.Text = "继续";
-            }
-            else
-                if (pauses == "继续")
-                {
-                    Common.QuartzHelp.quartzHelp.ResumeAll();
-                    btnPause.Text = "暂停";
-                }
-        }
-        #endregion
-
+          
         #endregion
 
         #region 绑定下拉选项
@@ -250,8 +238,9 @@ namespace DJS.WinApp
         /// </summary>
         private void BindNameSpace()
         {
-            ArrayList arry = Common.FileHelp.GetDirectoryList(PATH);
-            cbNameSpace.DataSource = arry;
+            //ArrayList arry = Common.FileHelp.GetDirectoryList(PATH);
+            List<Model.DllMgr> models = BLL.DllMgr.GetModels();
+            cbNameSpace.DataSource = models;
             cbNameSpace.DisplayMember = "Name";
         }
         #endregion
@@ -300,6 +289,137 @@ namespace DJS.WinApp
         }
         #endregion
 
+        #endregion
+
+        #region 验证数据 -void CheckTxt(Model.Jobs model)
+        /// <summary>
+        /// 验证数据
+        /// </summary>
+        /// <param name="model"></param>
+        private bool CheckTxt(Model.Jobs model)
+        {
+            bool ret = true;
+            if (model.Type == 0)
+            {
+                if (model.Crons == "")
+                {
+                    MessageBox.Show("策略不能为空！");
+                    ret = false;
+                }
+            }
+
+            if (model.Type == 1)
+            {
+                if (model.Time == DateTime.MinValue)
+                {
+                    MessageBox.Show("时间不能为空！");
+                    ret = false;
+                }
+            }
+            if (model.Name == "")
+            {
+                MessageBox.Show("job名称不能为空！");
+                ret = false;
+            }
+            if (model.TriggerName == "")
+            {
+                MessageBox.Show("trigger名称不能为空！");
+                ret = false;
+            }
+            if (model.ConfigName == "")
+            {
+                MessageBox.Show("配置名称不能为空！");
+                ret = false;
+            }
+            if (model.GroupName == "")
+            {
+                MessageBox.Show("job组名称不能为空！");
+                ret = false;
+            }
+            if (model.TriggerGroup == "")
+            {
+                MessageBox.Show("trigger组名称不能为空！");
+                ret = false;
+            }
+            if (model.AssType == null)
+            {
+                MessageBox.Show("类名不能为空！");
+                ret = false;
+            }
+            return ret;
+        }
+        #endregion
+
+        #region 附件双击事件
+        /// <summary>
+        /// 附件双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtFiles_DoubleClick(object sender, EventArgs e)
+        {
+            OpenFileDialog ofdUpLoad = new OpenFileDialog();
+            ofdUpLoad.Multiselect = true;
+            try
+            {
+                if (ofdUpLoad.ShowDialog() == DialogResult.OK)
+                {
+                    string[] filenames = ofdUpLoad.FileNames;
+
+                    string[] safeFileNames = ofdUpLoad.SafeFileNames;
+                    for (int i = 0; i < safeFileNames.Length; i++)
+                    {
+                        FILENAMES.Add(safeFileNames[i], filenames[i]);
+                        txtFiles.Text += safeFileNames[i] + "\r\n";
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 上传文件 +void Upload(string filename, string name)
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="name"></param>
+        public void Upload(string filename, string name)
+        {
+            FileInfo FILE = new FileInfo(filename);
+            if (FILE.Exists)
+            {
+                string paths = JobFileSrcPath + @"\" + name + @"\";
+                if (!DJS.Common.FileHelp.DirectoryIsExists(paths))
+                {
+                    DJS.Common.FileHelp.CreateDirectory(paths);
+                }
+                string fileNamePaths = JobFileSrcPath + @"\" + name + @"\" + FILE.Name;
+                //文件存在时先删除
+                if (FileHelp.FileExists(fileNamePaths))
+                {
+                    FileHelp.DeleteFiles(fileNamePaths);
+                }
+                FILE.CopyTo(JobFileSrcPath + @"\" + name + @"\" + FILE.Name);
+
+            }
+        }
+        #endregion
+
+        #region 取消按钮 - void btnNo_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 取消按钮 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNo_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        } 
         #endregion
 
     }

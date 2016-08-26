@@ -1,4 +1,5 @@
-﻿using DJS.IDAL;
+﻿using DJS.Common;
+using DJS.IDAL;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -346,7 +347,16 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool DelById(Guid Id)
         {
-            return iJobs.DelById(Id);
+            bool ret = true;
+            try
+            {
+                ret = BLL.JobFiles.DelByJobId(Id);
+                ret = iJobs.DelById(Id);
+            }
+            catch (Exception ex)
+            {
+            }
+            return ret;
         }
         #endregion
 
@@ -361,5 +371,37 @@ namespace DJS.BLL
             return iJobs.Add(model);
         }
         #endregion
+
+        #region 根据id设置配置信息 +static bool SetConfigById(Guid Id)
+        /// <summary>
+        /// 根据id设置配置信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static bool SetConfigById(Guid Id)
+        {
+            bool ret = true;
+            try
+            {
+                Model.Jobs model = GetModelById(Id);
+                if (model != null)
+                {
+                    Model.DllMgr ddlmgr = BLL.DllMgr.GetModelById(model.DLLID);
+                    if (ddlmgr != null)
+                    {
+
+                        DJS.SDK.IConfigClient iconfig = (DJS.SDK.IConfigClient)Common.AssemblyHelp.assembly.GetDllTypeI(model.DLLName, model.AssType.Namespace, model.AssType.Name);
+                      
+                        iconfig.SetConfig(model.Name);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return ret;
+        }
+        #endregion
+         
     }
 }

@@ -33,6 +33,20 @@ namespace DJS.SDK
         string GetConfig(string name);
 
         /// <summary>
+        /// 根据名称查找附件全局路径
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        string GetFileSrc(string name,string fileName);
+         
+        /// <summary>
+        /// 根据名称查找附件存放路径
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        string GetFileSrc(string name);
+
+        /// <summary>
         /// 根据名称判断是否存在
         /// </summary>
         /// <param name="name">名称</param>

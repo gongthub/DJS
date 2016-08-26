@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDllMgr.cs" />
+    <Compile Include="IJobFiles.cs" />
     <Compile Include="IJobGroup.cs" />
     <Compile Include="IJobs.cs" />
     <Compile Include="ITriggerGroup.cs" />
