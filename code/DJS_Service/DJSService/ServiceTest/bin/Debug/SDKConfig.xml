@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CONFIGS>
+  <AAAAA>
+    <CONFIG Name="STATUS" Value="true" />
+    <CONFIG Name="ExecuteStartDate" Value="2015-01-01" />
+    <CONFIG Name="ReCalculationDays" Value="30" />
+    <CONFIG Name="EFDbContext" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS;" />
+  </AAAAA>
+</CONFIGS>

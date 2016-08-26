@@ -1,0 +1,11 @@
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\SyncCustomerCodeService.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\SyncCustomerCodeService.pdb
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\obj\Debug\SyncCustomerCodeService.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\obj\Debug\SyncCustomerCodeService.pdb
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\SyncCustomerCodeService\bin\Debug\Quartz.dll

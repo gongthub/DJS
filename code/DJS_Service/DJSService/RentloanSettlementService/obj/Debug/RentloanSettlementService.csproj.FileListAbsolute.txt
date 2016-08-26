@@ -1,0 +1,10 @@
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\RentloanSettlementService.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\RentloanSettlementService.pdb
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\bin\Debug\Quartz.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\obj\Debug\RentloanSettlementService.dll
+D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\RentloanSettlementService\obj\Debug\RentloanSettlementService.pdb

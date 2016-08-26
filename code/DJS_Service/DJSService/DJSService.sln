@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentLoanService", "RentLoanService\RentLoanService.csproj", "{5AAE46CF-61CE-47E3-9E5C-D8469E5883AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncCustomerCodeService", "SyncCustomerCodeService\SyncCustomerCodeService.csproj", "{C09655A4-86B8-4E06-89A6-1E0C575F7C21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyRentApportionService", "DailyRentApportionService\DailyRentApportionService.csproj", "{CD66C6B2-1549-4106-B9A6-92247547487B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTest", "ServiceTest\ServiceTest.csproj", "{E80D40AA-D1A2-4682-A71D-9D50B45308AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentloanSettlementService", "RentloanSettlementService\RentloanSettlementService.csproj", "{3993D00D-E80D-4CD8-91A3-9FACB4E11CCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailToRepoertExcel", "EmailToRepoertExcel\EmailToRepoertExcel.csproj", "{E9EE093D-7CAE-4E3B-92DA-5BB69C374B7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AAE46CF-61CE-47E3-9E5C-D8469E5883AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AAE46CF-61CE-47E3-9E5C-D8469E5883AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AAE46CF-61CE-47E3-9E5C-D8469E5883AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AAE46CF-61CE-47E3-9E5C-D8469E5883AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C09655A4-86B8-4E06-89A6-1E0C575F7C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C09655A4-86B8-4E06-89A6-1E0C575F7C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C09655A4-86B8-4E06-89A6-1E0C575F7C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C09655A4-86B8-4E06-89A6-1E0C575F7C21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD66C6B2-1549-4106-B9A6-92247547487B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD66C6B2-1549-4106-B9A6-92247547487B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD66C6B2-1549-4106-B9A6-92247547487B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD66C6B2-1549-4106-B9A6-92247547487B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E80D40AA-D1A2-4682-A71D-9D50B45308AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80D40AA-D1A2-4682-A71D-9D50B45308AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80D40AA-D1A2-4682-A71D-9D50B45308AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80D40AA-D1A2-4682-A71D-9D50B45308AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3993D00D-E80D-4CD8-91A3-9FACB4E11CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3993D00D-E80D-4CD8-91A3-9FACB4E11CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3993D00D-E80D-4CD8-91A3-9FACB4E11CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3993D00D-E80D-4CD8-91A3-9FACB4E11CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9EE093D-7CAE-4E3B-92DA-5BB69C374B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9EE093D-7CAE-4E3B-92DA-5BB69C374B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9EE093D-7CAE-4E3B-92DA-5BB69C374B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9EE093D-7CAE-4E3B-92DA-5BB69C374B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
