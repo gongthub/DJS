@@ -21,13 +21,16 @@ namespace SyncCustomerCodeService.Utils
         public ConstUtility()
         {
             //iLog = DJS.SDK.DataAccess.CreateILog();
-            //iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr();
+            iConfigMgr = Achieve.iConfigMgr;
+
+            OfficialWebServiceURL = iConfigMgr.GetConfig("OfficialWebServiceURL"); 
+            IDBRepositorySRC = iConfigMgr.GetConfig("IDBRepository");
         }
 
-        #endregion 
-        public static string OfficialWebServiceURL = iConfigMgr.GetConfig("OfficialWebServiceURL");
+        #endregion
+        public static string OfficialWebServiceURL = "";
 
-        public static string IDBRepositorySRC = iConfigMgr.GetConfig("IDBRepository");
+        public static string IDBRepositorySRC = "";
 
     }
 }

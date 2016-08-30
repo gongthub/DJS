@@ -20,7 +20,7 @@ namespace ServiceTest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DailyRentApportionService.Achieve ac = new DailyRentApportionService.Achieve();
+            EmailToRepoertExcel.Achieve ac = new EmailToRepoertExcel.Achieve(); 
             ac.ExecuteT("job1");
         }
 

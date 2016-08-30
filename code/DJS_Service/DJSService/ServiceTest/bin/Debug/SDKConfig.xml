@@ -5,5 +5,24 @@
     <CONFIG Name="ExecuteStartDate" Value="2015-01-01" />
     <CONFIG Name="ReCalculationDays" Value="30" />
     <CONFIG Name="EFDbContext" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS;" />
+    <CONFIG Name="StoreFileName" Value="Store.txt" />
+    <CONFIG Name="DayRepoertFileName" Value="DayRepoertExcel.txt" />
+    <CONFIG Name="UserStoreName" Value="UserStore.txt" />
+    <CONFIG Name="SearchAll" Value="SearchAll.txt" />
+    <CONFIG Name="SearchStore" Value="SearchStore.txt" />
+    <CONFIG Name="Temp_Revpar" Value="Temp_Revpar.xlsx" />
+    <CONFIG Name="Temp_DaylReportSum" Value="Temp_DaylReportSum.xlsx" />
+    <CONFIG Name="Suffix" Value="xlsx" />
+    <CONFIG Name="EmailTitle" Value="运营日报表汇总" />
+    <CONFIG Name="EmailDesc" Value="运营日报表汇总" />
+    <CONFIG Name="EmailTitleRevpar" Value="收入汇总表" />
+    <CONFIG Name="EmailDescRevpar" Value="收入汇总表" />
+    <CONFIG Name="IsSendRevpar" Value="True" />
+    <CONFIG Name="SavesFilePath" Value="D:\ExcelReport\" />
+    <CONFIG Name="ZipFilePath" Value="D:\ExcelReportZip\" />
+    <CONFIG Name="SendEmail" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendPwd" Value="Vlinker123" />
+    <CONFIG Name="ConnType" Value="SQLServer" />
+    <CONFIG Name="ConnStr" Value="Data Source=.;User Id=sa;Password=1234567890;Database=SmallAmsTemp;" />
   </AAAAA>
 </CONFIGS>

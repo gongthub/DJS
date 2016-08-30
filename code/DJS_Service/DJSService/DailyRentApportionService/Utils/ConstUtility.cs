@@ -22,14 +22,19 @@ namespace DailyRentApportionService.Utils
         public ConstUtility()
         {
             //iLog = DJS.SDK.DataAccess.CreateILog();
-            //iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr();
+            iConfigMgr = Achieve.iConfigMgr;
+
+            //邮件发送邮箱
+            EXECUTE_STARTDATE = DateTime.Parse(iConfigMgr == null ? DateTime.MinValue.ToString() : iConfigMgr.GetConfig("ExecuteStartDate"));
+            RE_CALCULATION_DAYS = int.Parse(iConfigMgr == null ? "0" : iConfigMgr.GetConfig("ReCalculationDays"));
+            ConnectionStrings = iConfigMgr.GetConfig(iConfigMgr == null ? "" : "EFDbContext");
         }
 
         #endregion
         //邮件发送邮箱
-        public static DateTime EXECUTE_STARTDATE = DateTime.Parse(iConfigMgr == null ? DateTime.MinValue.ToString() : iConfigMgr.GetConfig("ExecuteStartDate"));
-        public static int RE_CALCULATION_DAYS = int.Parse(iConfigMgr == null ? "0" : iConfigMgr.GetConfig("ReCalculationDays"));
-        public static string ConnectionStrings = iConfigMgr.GetConfig(iConfigMgr == null ? "" : "EFDbContext");
+        public static DateTime EXECUTE_STARTDATE = DateTime.MinValue;
+        public static int RE_CALCULATION_DAYS = 0;
+        public static string ConnectionStrings = "";
 
 
     }

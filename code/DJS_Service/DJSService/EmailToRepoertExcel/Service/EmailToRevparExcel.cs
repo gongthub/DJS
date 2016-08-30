@@ -376,7 +376,7 @@ namespace EmailToRepoertExcel.Service
                 }
             }
 
-            EmailUtility.SendEmail(sTo, sCC, null, ConstUtility.EmailTitle, ConstUtility.EmailDesc, sfile);
+            EmailUtility.SendEmail(sTo, sCC, null, ConstUtility.EmailTitleRevpar, ConstUtility.EmailDescRevpar, sfile);
             iLog.WriteLog("收入环比报表发送成功", 0);
         }
 

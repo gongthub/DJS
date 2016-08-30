@@ -1,4 +1,5 @@
 ﻿using DJS.SDK;
+using EmailToRepoertExcel.Utils;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace EmailToRepoertExcel
             try
             {
                 SetConfig(context.JobDetail.Key.Name);
-
+                
                 DateTime times = DateTime.Now;
 
                 iLog.WriteLog(context.JobDetail.Key.Name + "接口调用开始！", 0);
@@ -49,7 +50,12 @@ namespace EmailToRepoertExcel
                 Service.EmailToRepoertExcel obj = new Service.EmailToRepoertExcel();
                 Service.EmailToRevparExcel REVPAROBJ = new Service.EmailToRevparExcel();
                 obj.RepoertExcel();
-                REVPAROBJ.RepoertExcel();
+                bool IsSendRevpar = true;
+                bool.TryParse(ConstUtility.IsSendRevpar,out IsSendRevpar);
+                if (IsSendRevpar)
+                {
+                    REVPAROBJ.RepoertExcel();
+                }
 
                 iLog.WriteLog(context.JobDetail.Key.Name + "接口调用结束！", 0);
                 DateTime timee = DateTime.Now;
@@ -88,8 +94,11 @@ namespace EmailToRepoertExcel
                     iConfigMgr.SetConfig("Temp_Revpar", "Temp_Revpar.xlsx");
                     iConfigMgr.SetConfig("Temp_DaylReportSum", "Temp_DaylReportSum.xlsx");
                     iConfigMgr.SetConfig("Suffix", "xlsx");
-                    iConfigMgr.SetConfig("EmailTitle", "日报表");
-                    iConfigMgr.SetConfig("EmailDesc", "日报表");
+                    iConfigMgr.SetConfig("EmailTitle", "运营日报表汇总");
+                    iConfigMgr.SetConfig("EmailDesc", "运营日报表汇总");
+                    iConfigMgr.SetConfig("EmailTitleRevpar", "收入汇总表");
+                    iConfigMgr.SetConfig("EmailDescRevpar", "收入汇总表");
+                    iConfigMgr.SetConfig("IsSendRevpar", "True"); 
                     iConfigMgr.SetConfig("SavesFilePath", @"D:\ExcelReport\");
                     iConfigMgr.SetConfig("ZipFilePath", @"D:\ExcelReportZip\");
 
@@ -103,6 +112,46 @@ namespace EmailToRepoertExcel
             else
             {
                 iLog.WriteLog("获取任务配置名称错误！" + jobName, 1);
+            }
+            ConstUtility cons = new ConstUtility();
+        }
+
+
+
+        /// <summary>
+        /// 任务执行
+        /// </summary>
+        /// <param name="context"></param>
+        public void ExecuteT(string name)
+        {
+
+            try
+            {
+                SetConfig(name);
+                ConstUtility cons = new ConstUtility();
+                DateTime times = DateTime.Now;
+
+                iLog.WriteLog(name + "接口调用开始！", 0);
+
+
+                Service.EmailToRepoertExcel obj = new Service.EmailToRepoertExcel();
+                Service.EmailToRevparExcel REVPAROBJ = new Service.EmailToRevparExcel();
+                obj.RepoertExcel();
+                bool IsSendRevpar = true;
+                bool.TryParse(ConstUtility.IsSendRevpar, out IsSendRevpar);
+                if (IsSendRevpar)
+                {
+                    REVPAROBJ.RepoertExcel();
+                }
+
+                iLog.WriteLog(name + "接口调用结束！", 0);
+                DateTime timee = DateTime.Now;
+                iLog.WriteLog(name + "接口调用耗时:" + (timee - times).Milliseconds, 0);
+
+            }
+            catch (Exception ex)
+            {
+                iLog.WriteLog(name + "接口调用失败！" + ex.Message, 1);
             }
         }
     }

@@ -118,6 +118,7 @@ namespace DailyRentApportionService
             {
                 iLog.WriteLog("获取任务配置名称错误！" + jobName, 1);
             }
+            ConstUtility cons = new ConstUtility();
         }
     }
 }

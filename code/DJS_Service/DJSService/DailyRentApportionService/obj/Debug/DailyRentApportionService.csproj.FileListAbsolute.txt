@@ -9,3 +9,14 @@ D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\DailyRentApportionService\bi
 D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\DailyRentApportionService\obj\Debug\DailyRentApportionService.dll
 D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\DailyRentApportionService\obj\Debug\DailyRentApportionService.pdb
 D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\DailyRentApportionService\obj\Debug\DailyRentApportionService.csprojResolveAssemblyReference.cache
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\DailyRentApportionService.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\DailyRentApportionService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\bin\Debug\Quartz.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\obj\Debug\DailyRentApportionService.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\obj\Debug\DailyRentApportionService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\DailyRentApportionService\obj\Debug\DailyRentApportionService.csprojResolveAssemblyReference.cache

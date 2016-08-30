@@ -56,7 +56,7 @@ namespace RentLoanService
                 iLog.WriteLog(context.JobDetail.Key.Name + "接口调用失败！" + ex.Message, 1);
             }
         }
-         
+
         /// <summary>
         /// 设置配置信息
         /// </summary>
@@ -85,6 +85,7 @@ namespace RentLoanService
             {
                 iLog.WriteLog("获取任务配置名称错误！" + jobName, 1);
             }
+            ConstUtility consts = new ConstUtility();
         }
     }
 }

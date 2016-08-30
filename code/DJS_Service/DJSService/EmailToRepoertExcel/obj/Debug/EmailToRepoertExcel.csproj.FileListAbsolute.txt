@@ -11,3 +11,17 @@ D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debu
 D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\Quartz.dll
 D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\EmailToRepoertExcel\obj\Debug\EmailToRepoertExcel.dll
 D:\WorkFiles\AMS\Files\files\DJS_Service\DJSService\EmailToRepoertExcel\obj\Debug\EmailToRepoertExcel.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\EmailToRepoertExcel.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\EmailToRepoertExcel.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\bin\Debug\Quartz.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\obj\Debug\EmailToRepoertExcel.csproj.ResolveComReference.cache
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\obj\Debug\EmailToRepoertExcel.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\obj\Debug\EmailToRepoertExcel.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DJSService\EmailToRepoertExcel\obj\Debug\EmailToRepoertExcel.csprojResolveAssemblyReference.cache

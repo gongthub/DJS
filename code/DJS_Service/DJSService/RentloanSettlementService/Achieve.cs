@@ -1,6 +1,7 @@
 ﻿using DJS.SDK;
 using Quartz;
 using RentloanSettlementService.Services;
+using RentloanSettlementService.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,7 @@ namespace RentloanSettlementService
             {
                 iLog.WriteLog("获取任务配置名称错误！" + jobName, 1);
             }
+            ConstUtility consts = new ConstUtility();
         }
     }
 }

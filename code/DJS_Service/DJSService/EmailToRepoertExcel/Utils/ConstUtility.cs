@@ -22,32 +22,56 @@ namespace EmailToRepoertExcel.Utils
         public ConstUtility()
         {
             //iLog = DJS.SDK.DataAccess.CreateILog();
-            //iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr();
+            iConfigMgr = Achieve.iConfigMgr;
+
+            SavesFilePath = iConfigMgr.GetConfig("SavesFilePath");
+            ZipFilePath = iConfigMgr.GetConfig("ZipFilePath");
+
+            ConnType = iConfigMgr.GetConfig("ConnType");
+            ConnStr = iConfigMgr.GetConfig("ConnStr");
+
+            SendEmail = iConfigMgr.GetConfig("SendEmail");
+            SendPwd = iConfigMgr.GetConfig("SendPwd");
+
+            Temp_Revpar = iConfigMgr.GetConfig("Temp_Revpar");
+            Temp_DaylReportSum = iConfigMgr.GetConfig("Temp_DaylReportSum");
+
+            StoreFileName = iConfigMgr.GetConfig("StoreFileName");
+            DayRepoertFileName = iConfigMgr.GetConfig("DayRepoertFileName");
+            UserStoreName = iConfigMgr.GetConfig("UserStoreName");
+            SearchAll = iConfigMgr.GetConfig("SearchAll");
+            SearchStore = iConfigMgr.GetConfig("SearchStore");
+            Suffix = iConfigMgr.GetConfig("Suffix");
+            EmailTitle = iConfigMgr.GetConfig("EmailTitle");
+            EmailDesc = iConfigMgr.GetConfig("EmailDesc");
+            EmailTitleRevpar = iConfigMgr.GetConfig("EmailTitleRevpar");
+            EmailDescRevpar = iConfigMgr.GetConfig("EmailDescRevpar");
+            IsSendRevpar = iConfigMgr.GetConfig("IsSendRevpar");
         }
 
         #endregion
-        public static string SavesFilePath = iConfigMgr.GetConfig("SavesFilePath");
-        public static string ZipFilePath = iConfigMgr.GetConfig("ZipFilePath");
+        public static string SavesFilePath ="";
+        public static string ZipFilePath = "";
 
-        public static string ConnType = iConfigMgr.GetConfig("ConnType");
-        public static string ConnStr = iConfigMgr.GetConfig("ConnStr"); 
+        public static string ConnType = "";
+        public static string ConnStr = "";
 
-        public static string SendEmail = iConfigMgr.GetConfig("SendEmail");
-        public static string SendPwd = iConfigMgr.GetConfig("SendPwd");
+        public static string SendEmail = "";
+        public static string SendPwd = "";
 
-        public static string Temp_Revpar = iConfigMgr.GetConfig("Temp_Revpar");
-        public static string Temp_DaylReportSum = iConfigMgr.GetConfig("Temp_DaylReportSum");
+        public static string Temp_Revpar = "";
+        public static string Temp_DaylReportSum = "";
 
-        public static string StoreFileName = iConfigMgr.GetConfig("StoreFileName"); 
-        public static string DayRepoertFileName = iConfigMgr.GetConfig("DayRepoertFileName");
-        public static string UserStoreName = iConfigMgr.GetConfig("UserStoreName");
-        public static string SearchAll = iConfigMgr.GetConfig("SearchAll");
-        public static string SearchStore = iConfigMgr.GetConfig("SearchStore");
-        public static string Suffix = iConfigMgr.GetConfig("Suffix");
-        public static string EmailTitle = iConfigMgr.GetConfig("EmailTitle");
-        public static string EmailDesc = iConfigMgr.GetConfig("EmailDesc");
-
-
-
+        public static string StoreFileName = "";
+        public static string DayRepoertFileName = "";
+        public static string UserStoreName = "";
+        public static string SearchAll = "";
+        public static string SearchStore = "";
+        public static string Suffix = "";
+        public static string EmailTitle = "";
+        public static string EmailDesc = "";
+        public static string EmailTitleRevpar = "";
+        public static string EmailDescRevpar = "";
+        public static string IsSendRevpar = ""; 
     }
 }

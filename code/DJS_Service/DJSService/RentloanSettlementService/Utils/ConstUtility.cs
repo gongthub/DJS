@@ -24,12 +24,14 @@ namespace RentloanSettlementService.Utils
         {
             //iLog = DJS.SDK.DataAccess.CreateILog();
             //iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr();
+            iConfigMgr = Achieve.iConfigMgr;
+            IDBEmailService = iConfigMgr.GetConfig("EFDbContext");
         }
 
-        #endregion 
+        #endregion
 
-        
-        public static string IDBEmailService = iConfigMgr.GetConfig("EFDbContext");
+
+        public static string IDBEmailService = "";
 
     }
 }
