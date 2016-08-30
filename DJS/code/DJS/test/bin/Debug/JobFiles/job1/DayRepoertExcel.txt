@@ -1,7 +1,0 @@
-select convert(varchar(10),Date,120) as Date ,SubjectType,SUMCoutOrAccount, StoreID from
-(
-select Date,SubjectType,SumIncome as SUMCoutOrAccount,StoreID from DaylReportAccoutSum
-union
-select Date,SubjectType,COUNT as SUMCoutOrAccount,StoreID  from DayReportCountSum
-) as  sumTable where  convert(varchar(7),Date,120)=convert(varchar(7),GETDATE()-1,120)
- order by date asc

@@ -1,7 +1,0 @@
-C:\Users\gt\Desktop\HelloWord\Quartz\bin\Debug\Quartz.dll
-C:\Users\gt\Desktop\HelloWord\Quartz\bin\Debug\Quartz.pdb
-C:\Users\gt\Desktop\HelloWord\Quartz\bin\Debug\Common.Logging.dll
-C:\Users\gt\Desktop\HelloWord\Quartz\bin\Debug\C5.dll
-C:\Users\gt\Desktop\HelloWord\Quartz\bin\Debug\Quartz.xml
-C:\Users\gt\Desktop\HelloWord\Quartz\obj\Debug\Quartz.dll
-C:\Users\gt\Desktop\HelloWord\Quartz\obj\Debug\Quartz.pdb
