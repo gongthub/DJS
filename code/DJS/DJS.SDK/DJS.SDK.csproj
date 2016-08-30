@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Factory\DataAccess.cs" />
     <Compile Include="Factory\DataCache.cs" />
+    <Compile Include="Interface\IConfigClient.cs" />
     <Compile Include="Interface\IConfigMgr.cs" />
     <Compile Include="Interface\ILog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -39,7 +39,14 @@ namespace DJS.WinApp.Setting
         /// <param name="e"></param>
         private void JobConfig_Load(object sender, EventArgs e)
         {
-            XmlNodeList nodes = GetNodesById();
+            XmlNodeList nodes = GetNodesById(); 
+            Guid Id = Guid.Empty;
+            if (Guid.TryParse(IDS, out Id))
+            {
+
+                BLL.Jobs.SetConfigById(Id);
+                nodes = GetNodesById();
+            } 
             if (nodes != null && nodes.Count > 0)
             {
                 int xnum = 0;

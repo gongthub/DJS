@@ -12,6 +12,8 @@ namespace DJS.SDK.Service
     {
         public ConfigMgr(string namespaces)
         {
+            CONFIGPATH = "";
+            CONFIGSPATH = @"/CONFIGS";
             CONFIGPATH = CONFIGSPATH + @"/" + namespaces + @"/" + ELENMENTNAME;
             CONFIGSPATH = CONFIGSPATH + @"/" + namespaces;
         }
@@ -54,7 +56,10 @@ namespace DJS.SDK.Service
                 }
                 else
                 {
-                    ret = false;
+                    Model.ConfigMgr model = new Model.ConfigMgr();
+                    model.Name = name;
+                    model.Value = value;
+                    XmlHelp.xmlHelp.SetValue(SDKCONFIGPATH, CONFIGSPATH + @"/" + ELENMENTNAME, "Name", model.Name, "Value", model.Value);
                 }
             }
             catch (Exception ex)

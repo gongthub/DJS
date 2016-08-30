@@ -116,3 +116,5 @@ D:\MyFiles\GIT\DJS\code\DJS\DJS.BLL\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.dll
 D:\MyFiles\GIT\DJS\code\DJS\DJS.BLL\obj\Debug\DJS.BLL.pdb
+D:\MyFiles\GIT\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\code\DJS\DJS.BLL\bin\Debug\DJS.SDK.pdb
