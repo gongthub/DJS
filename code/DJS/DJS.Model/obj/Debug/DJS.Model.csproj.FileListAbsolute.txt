@@ -19,3 +19,7 @@ D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Model\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Model\obj\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\code\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
+D:\MyFiles\GIT\DJS\code\DJS\DJS.Model\bin\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\code\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
+D:\MyFiles\GIT\DJS\code\DJS\DJS.Model\obj\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\code\DJS\DJS.Model\obj\Debug\DJS.Model.pdb

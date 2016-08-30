@@ -73,6 +73,23 @@ namespace DJS.SDK
             }
             return objType;
         }
+        /// <summary>
+        /// 创建对象
+        /// </summary>
+        public static object CreateObjectNCache(string classNamespace, object[] objs)
+        {
+            object objType = null;//从缓存读取 
+            try
+            {
+                objType = Assembly.Load(DLLPATH + DBTYPE).CreateInstance(classNamespace, true, System.Reflection.BindingFlags.Default, null, objs, null, null);//反射创建
+                DataCache.SetCache(classNamespace, objType);// 写入缓存
+            }
+            catch (Exception er)
+            {
+                throw er;
+            }
+            return objType;
+        }
         #endregion 默认方法
 
         #region 功能：创建接口通用方法（接口名称必须等于“I”+ 数据库实现层名称） 
@@ -110,7 +127,7 @@ namespace DJS.SDK
             Object[] parameters = new Object[1]; // 定义构造函数需要的参数，所有参数都必须为Object
             parameters[0] = nameSpaces; 
             string ClassNamespace = DLLPATH + DBTYPE + ".ConfigMgr";
-            object objType = CreateObject(ClassNamespace, parameters);
+            object objType = CreateObjectNCache(ClassNamespace, parameters);
             return (DJS.SDK.IConfigMgr)objType;
         } 
         #endregion

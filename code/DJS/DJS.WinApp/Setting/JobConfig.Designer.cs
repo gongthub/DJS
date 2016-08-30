@@ -37,14 +37,15 @@
             // 
             this.panlShow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panlShow.AutoScroll = true;
             this.panlShow.Location = new System.Drawing.Point(6, 12);
             this.panlShow.Name = "panlShow";
-            this.panlShow.Size = new System.Drawing.Size(587, 556);
+            this.panlShow.Size = new System.Drawing.Size(587, 408);
             this.panlShow.TabIndex = 0;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(167, 574);
+            this.btnOK.Location = new System.Drawing.Point(163, 426);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 26);
             this.btnOK.TabIndex = 1;
@@ -54,7 +55,7 @@
             // 
             // btnNo
             // 
-            this.btnNo.Location = new System.Drawing.Point(344, 574);
+            this.btnNo.Location = new System.Drawing.Point(340, 426);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(75, 26);
             this.btnNo.TabIndex = 1;
@@ -66,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 612);
+            this.ClientSize = new System.Drawing.Size(597, 460);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.panlShow);
