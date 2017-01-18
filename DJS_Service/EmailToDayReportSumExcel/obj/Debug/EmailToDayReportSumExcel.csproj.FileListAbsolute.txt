@@ -1,0 +1,17 @@
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\EmailToDayReportSumExcel.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\EmailToDayReportSumExcel.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\Quartz.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\System.Web.Http.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\Vlinker.Common.ApiInvoker4.0.0.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\System.Net.Http.Formatting.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\System.Net.Http.Formatting.xml
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\obj\Debug\EmailToDayReportSumExcel.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\obj\Debug\EmailToDayReportSumExcel.pdb

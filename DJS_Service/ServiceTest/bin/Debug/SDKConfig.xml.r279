@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CONFIGS>
+  <AAAAA>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="Suffix" Value="xlsx" />
+    <CONFIG Name="EmailReportName" Value="小V" />
+    <CONFIG Name="SavesFilePath" Value="D:\ExcelReport\" />
+    <CONFIG Name="ZipFilePath" Value="D:\ExcelReportZip\" />
+    <CONFIG Name="Temp_DayReprotSum" Value="Temp_DayReprotSum.xlsx" />
+    <CONFIG Name="EmailTitleDayReprotSum" Value="门店汇总日报" />
+    <CONFIG Name="EmailDescDayReprotSum" Value="门店汇总日报" />
+    <CONFIG Name="SendEmail" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendPwd" Value="Vlinker123" />
+    <CONFIG Name="ConnType" Value="SQLServer" />
+    <CONFIG Name="ServiceCode" Value="S011" />
+    <CONFIG Name="ConnStr" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS;" />
+    <CONFIG Name="UserStoreName" Value="UserStore.txt" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="EmailTitle" Value="大V门店到期提醒" />
+    <CONFIG Name="IDBRepository" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS;" />
+    <CONFIG Name="WarningDate" Value="30" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=192.168.25.30;User Id=amssit;Password=amssitVlinker123;Database=AMS_SIT;" />
+    <CONFIG Name="NotApply" Value="5" />
+    <CONFIG Name="NotAudit" Value="15" />
+    <CONFIG Name="AuditOK" Value="8" />
+    <CONFIG Name="AuditRefuse" Value="0" />
+    <CONFIG Name="OverdueNotRepay" Value="45" />
+    <CONFIG Name="WaitIntoPiece" Value="15" />
+    <CONFIG Name="WaitSubmit" Value="5" />
+    <CONFIG Name="OfficialWebServiceURL" Value="http://192.168.25.12:8020/vldservice.asmx" />
+    <CONFIG Name="CRMURL" Value="http://sitwebapi.vlinker.com.cn:8888/" />
+    <CONFIG Name="ApiUserId" Value="10001" />
+    <CONFIG Name="Signature" Value="7c6d977fa475444086f47687f1b8c2ea" />
+    <CONFIG Name="GetCustomerCodeTimeOut" Value="3000" />
+    <CONFIG Name="Temp_Revpar" Value="Temp_Revpar.xlsx" />
+    <CONFIG Name="EmailTitleRevpar" Value="综合收入汇总表" />
+    <CONFIG Name="EmailDescRevpar" Value="综合收入汇总表" />
+    <CONFIG Name="AlreadyLoan" Value="15" />
+    <CONFIG Name="NormalRepayment" Value="0" />
+    <CONFIG Name="EFDbContext" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS_Temp;" />
+    <CONFIG Name="CallFrom" Value="1" />
+  </AAAAA>
+</CONFIGS>

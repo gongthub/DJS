@@ -1,0 +1,35 @@
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\NoChargeWarnService.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\NoChargeWarnService.pdb
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Common.Logging.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\DJS.SDK.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\EntityFramework.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\EntityFramework.SqlServer.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Newtonsoft.Json.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\NLog.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Quartz.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Vlinker.Common.ApiInvoker4.0.0.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\obj\Debug\NoChargeWarnService.dll
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\obj\Debug\NoChargeWarnService.pdb
+<<<<<<< .mine
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\NoChargeWarnService.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\NoChargeWarnService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Quartz.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\System.Web.Http.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\Vlinker.Common.ApiInvoker4.0.0.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\System.Net.Http.Formatting.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\System.Net.Http.Formatting.xml
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\obj\Debug\NoChargeWarnService.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\NoChargeWarnService\obj\Debug\NoChargeWarnService.pdb
+||||||| .r285
+=======
+E:\Vlinker\WindowsService\trunk\DJS_Service\NoChargeWarnService\obj\Debug\NoChargeWarnService.csprojResolveAssemblyReference.cache
+>>>>>>> .r292

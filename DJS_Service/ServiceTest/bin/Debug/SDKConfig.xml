@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CONFIGS>
+  <AAAAA>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="WarningDate" Value="15/10/5/3/1" />
+    <CONFIG Name="WebApiUrl" Value="http://localhost:17990/" />
+    <CONFIG Name="IDBRepository" Value="Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAms;" />
+    <CONFIG Name="AmsType" Value="1" />
+    <CONFIG Name="IsAddNotice" Value="1" />
+    <CONFIG Name="IsSendSMS" Value="0" />
+  </AAAAA>
+</CONFIGS>

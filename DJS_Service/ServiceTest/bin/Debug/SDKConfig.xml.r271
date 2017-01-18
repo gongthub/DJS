@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CONFIGS>
+  <AAAAA>
+    <CONFIG Name="STATUS" Value="true" />
+    <CONFIG Name="ExecuteStartDate" Value="2015-01-01" />
+    <CONFIG Name="ReCalculationDays" Value="30" />
+    <CONFIG Name="EFDbContext" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS;" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="WarningDate" Value="20" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAms;" />
+    <CONFIG Name="ServiceCode" Value="S006" />
+    <CONFIG Name="MailSubject" Value="未日审门店" />
+    <CONFIG Name="IDBRepository" Value="Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAms;" />
+    <CONFIG Name="Temp_Revpar" Value="Temp_Revpar.xlsx" />
+    <CONFIG Name="Suffix" Value="xlsx" />
+    <CONFIG Name="EmailTitleRevpar" Value="综合收入汇总表" />
+    <CONFIG Name="EmailDescRevpar" Value="综合收入汇总表" />
+    <CONFIG Name="EmailReportName" Value="小V" />
+    <CONFIG Name="SavesFilePath" Value="D:\ExcelReport\" />
+    <CONFIG Name="ZipFilePath" Value="D:\ExcelReportZip\" />
+    <CONFIG Name="SendEmail" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendPwd" Value="Vlinker123" />
+    <CONFIG Name="ConnType" Value="SQLServer" />
+    <CONFIG Name="ConnStr" Value="Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAms;" />
+    <CONFIG Name="UserStoreName" Value="UserStore.txt" />
+    <CONFIG Name="Temp_DayReprotSum" Value="Temp_DayReprotSum.xlsx" />
+    <CONFIG Name="EmailTitleDayReprotSum" Value="门店汇总日报" />
+    <CONFIG Name="EmailDescDayReprotSum" Value="门店汇总日报" />
+    <CONFIG Name="ALLdayrepor" Value="ALLdayrepor.txt" />
+    <CONFIG Name="StoreFileName" Value="Store.txt" />
+    <CONFIG Name="DayRepoertFileName" Value="DayRepoertExcel.txt" />
+    <CONFIG Name="SearchAll" Value="SearchAll.txt" />
+    <CONFIG Name="SearchStore" Value="SearchStore.txt" />
+    <CONFIG Name="Temp_DaylReportSum" Value="Temp_DaylReportSum.xlsx" />
+    <CONFIG Name="EmailTitle" Value="运营日报表汇总" />
+    <CONFIG Name="EmailDesc" Value="运营日报表汇总" />
+    <CONFIG Name="IsSendRevpar" Value="True" />
+    <CONFIG Name="NotApply" Value="5" />
+    <CONFIG Name="NotAudit" Value="15" />
+    <CONFIG Name="AuditOK" Value="8" />
+    <CONFIG Name="AuditRefuse" Value="0" />
+    <CONFIG Name="OverdueNotRepay" Value="45" />
+    <CONFIG Name="WaitIntoPiece" Value="15" />
+    <CONFIG Name="WaitSubmit" Value="5" />
+  </AAAAA>
+</CONFIGS>

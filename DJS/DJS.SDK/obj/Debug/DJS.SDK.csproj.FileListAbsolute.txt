@@ -1,0 +1,8 @@
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.SDK\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.SDK\bin\Debug\DJS.SDK.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.SDK\obj\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.SDK\obj\Debug\DJS.SDK.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.SDK\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.SDK\bin\Debug\DJS.SDK.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.SDK\obj\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.SDK\obj\Debug\DJS.SDK.pdb
