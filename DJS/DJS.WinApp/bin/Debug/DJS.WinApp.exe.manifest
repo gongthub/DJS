@@ -169,7 +169,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>FjcOfC+rGBg7f79ILMQQfRp94hEHSMygtdbHaawufbQ=</dsig:DigestValue>
+        <dsig:DigestValue>y3npTprHv7KPqa4ayqTejP7OB3vdi/FG5uWr/flg50U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -329,13 +329,13 @@
       <dsig:DigestValue>VWprUcONl18ZC5icMO/zS5feTb6fqisKdhWboQyqMuM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="XmlDB.xml" size="11998" writeableType="applicationData">
+  <file name="XmlDB.xml" size="12012" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qBXEfvXxSotUkZSstzqjkQUAwi+Y7zI965npqOPtZmE=</dsig:DigestValue>
+      <dsig:DigestValue>oHedUhYEK6AUsHKQAOTVOu9cYnlWFCxIQ2YI68Oom/k=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

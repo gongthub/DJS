@@ -94,7 +94,7 @@
             // 
             // btnAddAll
             // 
-            this.btnAddAll.Location = new System.Drawing.Point(856, 16);
+            this.btnAddAll.Location = new System.Drawing.Point(775, 17);
             this.btnAddAll.Name = "btnAddAll";
             this.btnAddAll.Size = new System.Drawing.Size(85, 23);
             this.btnAddAll.TabIndex = 7;
@@ -114,17 +114,18 @@
             // 
             // btnStand
             // 
-            this.btnStand.Location = new System.Drawing.Point(775, 17);
+            this.btnStand.Location = new System.Drawing.Point(866, 17);
             this.btnStand.Name = "btnStand";
             this.btnStand.Size = new System.Drawing.Size(75, 23);
             this.btnStand.TabIndex = 5;
             this.btnStand.Text = "暂停Quartz";
             this.btnStand.UseVisualStyleBackColor = true;
+            this.btnStand.Visible = false;
             this.btnStand.Click += new System.EventHandler(this.btnStand_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(532, 16);
+            this.btnRefresh.Location = new System.Drawing.Point(532, 17);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 4;

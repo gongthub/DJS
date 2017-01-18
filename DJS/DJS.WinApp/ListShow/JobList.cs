@@ -28,6 +28,11 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void JobList_Load(object sender, EventArgs e)
         {
+            string statusStr = Common.QuartzHelp.quartzHelp.GetState();
+            if (statusStr == "正常运行")
+            {
+                btnStart.Text = "暂停Quartz";
+            }
             ControlSetting.controlSetting.DataGridViewSet(dgvJobs);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDo_Click);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkReAdd_Click);
@@ -578,7 +583,7 @@ namespace DJS.WinApp
                             {
                                 Model.Jobs jobEntity = BLL.Jobs.GetModelById(Id);
                                 if (jobEntity != null && jobEntity.ID != Guid.Empty)
-                                { 
+                                {
                                     MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
                                     if (isAuto == true)
                                     {
@@ -594,7 +599,7 @@ namespace DJS.WinApp
                                         }
                                     }
                                     else
-                                        if (isAuto ==false)
+                                        if (isAuto == false)
                                         {
                                             DialogResult dr = MessageBox.Show("确定要将" + names + "服务设置为不自动启动吗?", "自动启动", messButton);
                                             if (dr == DialogResult.OK)//如果点击“确定”按钮
@@ -680,9 +685,20 @@ namespace DJS.WinApp
             if (operations == "开始Quartz")
             {
                 Common.QuartzHelp.quartzHelp.Start();
-                btnStart.Text = "已启动";
-                btnStart.Enabled = false;
+                btnStart.Text = "暂停Quartz";
             }
+            else if (operations == "暂停Quartz")
+            {
+                Common.QuartzHelp.quartzHelp.PauseAll();
+                btnStart.Text = "继续Quartz";
+            }
+            else
+                if (operations == "继续Quartz")
+                {
+                    Common.QuartzHelp.quartzHelp.ResumeAll();
+                    btnStart.Text = "暂停Quartz";
+                }
+            BindList();
         }
         #endregion
 
