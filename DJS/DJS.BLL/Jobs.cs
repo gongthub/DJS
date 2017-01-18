@@ -546,6 +546,7 @@ namespace DJS.BLL
                             }
                         }
                     }
+                    Common.QuartzHelp.quartzHelp.Start();
                 }
             }
             catch (Exception ex)
