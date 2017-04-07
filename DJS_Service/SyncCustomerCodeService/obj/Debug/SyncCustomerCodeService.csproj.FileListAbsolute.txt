@@ -26,3 +26,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncCustomerCodeService\
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncCustomerCodeService\bin\Debug\System.Net.Http.Formatting.xml
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncCustomerCodeService\bin\Debug\zh-Hans\System.Web.Http.resources.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncCustomerCodeService\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncCustomerCodeService\obj\Debug\SyncCustomerCodeService.csprojResolveAssemblyReference.cache

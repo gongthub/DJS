@@ -15,3 +15,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\obj\Debug\EmailToDayReportSumExcel.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\obj\Debug\EmailToDayReportSumExcel.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\EmailToDayReportSumExcel\obj\Debug\EmailToDayReportSumExcel.csprojResolveAssemblyReference.cache

@@ -22,7 +22,7 @@ namespace RentLoanSummaryService.Service
         private static int NotAudit = 0;
         private static int AuditOK = 0;
         private static int OverdueNotRepay = 0;
-        private static int WaitIntoPiece = 0;
+        //private static int WaitIntoPiece = 0;
         private static int WaitSubmit = 0;
         private static int NormalRepayment = 0;
         private static string SystemName = null;
@@ -44,7 +44,7 @@ namespace RentLoanSummaryService.Service
             NotAudit = Convert.ToInt32(ConstUtility.NotAudit);
             AuditOK = Convert.ToInt32(ConstUtility.AuditOK);
             OverdueNotRepay = Convert.ToInt32(ConstUtility.OverdueNotRepay);
-            WaitIntoPiece = Convert.ToInt32(ConstUtility.WaitIntoPiece);
+            //WaitIntoPiece = Convert.ToInt32(ConstUtility.WaitIntoPiece);
             WaitSubmit = Convert.ToInt32(ConstUtility.WaitSubmit);
             NormalRepayment = Convert.ToInt32(ConstUtility.NormalRepayment);
             SystemName = ConstUtility.SystemName;
@@ -162,10 +162,10 @@ namespace RentLoanSummaryService.Service
                         {
                             riskList.Add(t);
                         }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.待进件 && interval >= WaitIntoPiece)
-                        {
-                            riskList.Add(t);
-                        }
+                        //else if (t.Status == (int)EnumUtility.RLoanStatus.待进件 && interval >= WaitIntoPiece)
+                        //{
+                        //    riskList.Add(t);
+                        //}
                         else if (t.Status == (int)EnumUtility.RLoanStatus.待审核 && interval >= NotAudit)
                         {
                             riskList.Add(t);

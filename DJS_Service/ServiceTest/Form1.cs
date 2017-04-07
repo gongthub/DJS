@@ -19,8 +19,11 @@ namespace ServiceTest
         }
 
         private void button1_Click(object sender, EventArgs e)
-        { 
-            ContractWarningSMS.Achieve ac = new ContractWarningSMS.Achieve(); 
+        {
+            PMPRoomChangeService.Achieve ac = new PMPRoomChangeService.Achieve();
+            //ContractChangeLogService.Achieve ac = new ContractChangeLogService.Achieve();
+            //RentLoanSummaryNewService.Achieve ac = new RentLoanSummaryNewService.Achieve();
+            //RentLoanService.Achieve ac = new RentLoanService.Achieve();
             ac.ExecuteT("job1");
         }
 

@@ -95,7 +95,7 @@ namespace DJS.WinApp
         }
         #endregion
 
-        #region 绑定列表方法
+        #region 绑定列表方法 -void BindList()
         /// <summary>
         /// 绑定列表方法
         /// </summary>

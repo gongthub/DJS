@@ -138,7 +138,8 @@ namespace EmailToRepoertExcel.Service
                                     decimal sumMoney = 0;      //平均房价(月) = 在住合同月租金总和/在住房间数量(包括青硕青客)
                                     decimal telCount = 0;      //来电转化率 = 当日意向量/当日接听量
                                     decimal visitCount = 0;    //来访转化率 = 潜在客户数量/来人数量
-                                    decimal allRooms = 0;      //总房间数
+                                    decimal allRooms = 0;      //总房间数(用于计算出租率等)
+                                    decimal allRoomsTemp = 0;      //总房间数
                                     decimal zaiZhuCount = 0;   //在住房间数
                                     decimal yuDingCount = 0;   //预订房间数
                                     decimal ydAndyyCount = 0;  //预订和预约数 
@@ -174,6 +175,10 @@ namespace EmailToRepoertExcel.Service
                                             if (dayRow.SubjectType == 53)
                                             {
                                                 allRooms = (int)dayRow.SUMCoutOrAccount;
+                                            }
+                                            if (dayRow.SubjectType == 60)
+                                            {
+                                                allRoomsTemp = (int)dayRow.SUMCoutOrAccount;
                                             }
                                             if (dayRow.SubjectType == 51)
                                             {
@@ -299,7 +304,7 @@ namespace EmailToRepoertExcel.Service
                                                     //41可出租房间数（总房量-在住-预定和预约）43空置房间数量（总房量-在住）
 
 
-                                                    excelWorksheet.Cells[36, columnIndex] = allRooms;
+                                                    excelWorksheet.Cells[36, columnIndex] = allRoomsTemp;
 
                                                     excelWorksheet.Cells[37, columnIndex] = dayRow.SUMCoutOrAccount;
                                                     excelWorksheet.Cells[44, columnIndex] = allRooms == 0 ? 0 : dayRow.SUMCoutOrAccount / allRooms;
@@ -325,7 +330,7 @@ namespace EmailToRepoertExcel.Service
                                     }
 
                                     excelWorksheet.Cells[1, 10] = DateTime.Now.AddDays(-1).Month + "月";
-                                    excelWorksheet.Cells[1, 14] = allRooms;
+                                    excelWorksheet.Cells[1, 14] = allRoomsTemp;
                                     oper.ExistFile(strFileName);
                                     workbook.SaveAs(strFileName);
                                     iLog.WriteLog("门店" + s.StoreName + "日报表保存路径" + strFileName, 0);
@@ -380,7 +385,8 @@ namespace EmailToRepoertExcel.Service
                                 decimal sumMoney = 0;    //平均房价(月) = 在住合同月租金总和/在住房间数量(包括青硕青客)
                                 decimal telCount = 0;    //来电转化率 = 当日意向量/当日接听量
                                 decimal visitCount = 0;  //来访转化率 = 潜在客户数量/来人数量
-                                decimal allRooms = 0;    //总房间数
+                                decimal allRooms = 0;    //总房间数(用于计算出租率等)
+                                decimal allRoomsTemp = 0;    //总房间数
                                 decimal zaiZhuCount = 0; //在住房间数
                                 decimal yuDingCount = 0; //预订房间数
                                 decimal ydAndyyCount = 0;  //预订和预约数                       
@@ -416,6 +422,10 @@ namespace EmailToRepoertExcel.Service
                                         if (dayRow.SubjectType == 53)
                                         {
                                             allRooms = (int)dayRow.SUMCoutOrAccount;
+                                        }
+                                        if (dayRow.SubjectType == 60)
+                                        {
+                                            allRoomsTemp = (int)dayRow.SUMCoutOrAccount;
                                         }
                                         if (dayRow.SubjectType == 51)
                                         {
@@ -541,7 +551,7 @@ namespace EmailToRepoertExcel.Service
                                                 //42可出租房间数（总房量-在住-预定和预约）44空置房间数量（总房量-在住）
 
 
-                                                excelWorksheet1.Cells[36, columnIndex] = allRooms;
+                                                excelWorksheet1.Cells[36, columnIndex] = allRoomsTemp;
 
                                                 excelWorksheet1.Cells[37, columnIndex] = dayRow.SUMCoutOrAccount;
                                                 excelWorksheet1.Cells[44, columnIndex] = allRooms == 0 ? 0 : dayRow.SUMCoutOrAccount / allRooms;
@@ -568,7 +578,7 @@ namespace EmailToRepoertExcel.Service
                                 }
 
                                 excelWorksheet1.Cells[1, 10] = DateTime.Now.AddDays(-1).Month + "月";
-                                excelWorksheet1.Cells[1, 14] = allRooms;
+                                excelWorksheet1.Cells[1, 14] = allRoomsTemp;
                                 oper1.ExistFile(strFileName1);
                                 workbook1.SaveAs(strFileName1);
                                 iLog.WriteLog("总部日报表保存路径" + strFileName1, 0);

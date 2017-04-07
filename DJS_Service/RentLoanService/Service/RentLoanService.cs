@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.ComponentModel;
+using System.Data.Entity.SqlServer;
 
 namespace RentLoanService.Service
 {
@@ -16,13 +17,7 @@ namespace RentLoanService.Service
         public static DJS.SDK.ILog iLog = null;
 
         private static int WarningDate = 0;
-        private static int NotApply = 0;
-        private static int NotAudit = 0;
-        private static int AuditOK = 0;
-        private static int OverdueNotRepay = 0;
-        private static int WaitIntoPiece = 0;
-        private static int WaitSubmit = 0;
-        private static int NormalRepayment = 0;
+        private static int MinWarningDate = 0;
 
         #region 属性
         /// <summary>
@@ -37,13 +32,7 @@ namespace RentLoanService.Service
         {
             iLog = DJS.SDK.DataAccess.CreateILog();
             WarningDate = Convert.ToInt32(ConstUtility.WarningDate);
-            NotApply = Convert.ToInt32(ConstUtility.NotApply);
-            NotAudit = Convert.ToInt32(ConstUtility.NotAudit);
-            AuditOK = Convert.ToInt32(ConstUtility.AuditOK);
-            OverdueNotRepay = Convert.ToInt32(ConstUtility.OverdueNotRepay);
-            WaitIntoPiece = Convert.ToInt32(ConstUtility.WaitIntoPiece);
-            WaitSubmit = Convert.ToInt32(ConstUtility.WaitSubmit);
-            NormalRepayment = Convert.ToInt32(ConstUtility.NormalRepayment);
+            MinWarningDate = Convert.ToInt32(ConstUtility.MinWarningDate);
         }
 
         #endregion
@@ -65,30 +54,32 @@ namespace RentLoanService.Service
                         DateTime nowTime = DateTime.Now;
                         string storeName = "";
                         StringBuilder sbTable = new StringBuilder();
-                        sbTable.Append("<table><tr><td style='background: #f69a9a;width:150px;'></td><td>红色预警：负数日期</td></tr>");
-                        sbTable.Append("<tr><td style='background: #e2b86b;width:150px;'></td><td>橙色预警：≤15天</td></tr>");
-                        sbTable.Append("<tr><td style='background: #d3d376;width:150px;'></td><td>黄色预警：16-30天</td></tr>");
-                        sbTable.Append("<tr><td style='background: #86d7fc;width:150px;'></td><td>蓝色预警：31-45天</td></tr></table>");
+
+                        #region 描述
+                        sbTable.Append(@"<table><tr><td style='font-size:14px;'><span style='margin-left:24px;'>预警信息说明：</span></td></tr>
+                                            <tr><td style='font-size:14px;'><span style='background-color:#95CACA'>未申请-已签订租金贷合同，未确定签约银行，社区需提醒客人进行面签，出现在预警报表时社区需进行催费</span></td></tr>
+                                            <tr><td style='font-size:14px;'><span style='background-color:#95CACA'>待提交-已签订租金贷合同，已确定签约银行，社区需提醒客人进行面签，出现在预警报表时社区需进行催费</span></td></tr>
+                                            <tr><td style='font-size:14px;'><span style='background-color:#95CACA'>审核未通过-银行审核未通过，社区需联系客人询问客人意向（换银行继续申请，转普通合同，退租），出现在预警报表时社区需进行催费</span></td></tr>
+                                            <tr><td style='font-size:14px;'><span style='background-color:#FF8000'>待审核-租户已完成面签，等待银行审核，财务部/融资部根据银行回馈信息进行提交，如有意外情况与银行进行沟通核对，出现在预警报表时社区需进行催费</span></td></tr>
+                                            <tr><td style='font-size:14px;'><span style='background-color:#FF8000'>逾期未还款-银行已放款，财务部根据银行反馈信息进行核对是否正常还款，社区根据财务部反馈信息进行催费</span></td></tr>
+                                            <tr><td style='font-size:14px;'>通过未放款-银行审核已通过，财务部/融资部根据银行回馈信息进行提交，如有意外情况与银行进行沟通核对</td></tr>
+                                            <tr><td style='font-size:14px;'>已放款-银行审核已通过并放款成功，财务部/融资部根据银行回馈信息进行提交</td></tr>
+                                            <tr><td style='font-size:14px;'>正常还款-银行审核已通过并放款成功，客人开始正常还款，财务部/融资部根据银行回馈信息进行提交</td></tr>
+                                     </table><br/>");
+                        #endregion
+
                         sbTable.Append("<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\">");
                         sbTable.Append("<tr><td>姓名</td><td>联系电话</td><td>合同编号</td><td>开始时间</td><td>结束时间</td><td>上次缴费覆盖结束日期</td><td>最后操作时间</td><td>房间号</td><td>押金</td><td>补录押金</td><td>押金可住天数</td><td>风控天数</td><td>状态</td><td>预警说明</td><td>申请银行</td></tr>");
                         foreach (var item in RiskList)
                         {
                             sbTable.Append("<tr>");
-                            if (item.DayCountLive < 0)
+                            if (item.Status == (int)EnumUtility.RLoanStatus.未申请租金贷 || item.Status == (int)EnumUtility.RLoanStatus.待提交 || item.Status == (int)EnumUtility.RLoanStatus.审核未通过)
                             {
-                                sbTable.Append("<td style='background:#f69a9a'>" + item.Name + "</td>");
+                                sbTable.Append("<td style='background:#95CACA'>" + item.Name + "</td>");
                             }
-                            else if (item.DayCountLive >= 0 && item.DayCountLive <= 15)
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.待审核 || item.Status == (int)EnumUtility.RLoanStatus.逾期未还款)
                             {
-                                sbTable.Append("<td style='background:#e2b86b'>" + item.Name + "</td>");
-                            }
-                            else if (item.DayCountLive >= 16 && item.DayCountLive <= 30)
-                            {
-                                sbTable.Append("<td style='background:#d3d376'>" + item.Name + "</td>");
-                            }
-                            else if (item.DayCountLive >= 31 && item.DayCountLive <= 45)
-                            {
-                                sbTable.Append("<td style='background:#86d7fc'>" + item.Name + "</td>");
+                                sbTable.Append("<td style='background:#FF8000'>" + item.Name + "</td>");
                             }
                             else
                             {
@@ -104,31 +95,39 @@ namespace RentLoanService.Service
                             sbTable.Append("<td>" + item.Deposit + "</td>");
                             sbTable.Append("<td>" + item.FillDeposit + "</td>");
                             sbTable.Append("<td>" + item.DepositLive + "</td>");
-                            sbTable.Append("<td>" + item.DayCountLive + "</td>");
-                            sbTable.Append("<td>" + GetEnumDescription(typeof(EnumUtility.RLoanStatus), item.Status) + "</td>");
-
-                            int interval = new TimeSpan(nowTime.Ticks - item.ModifiedDate.Date.Ticks).Days;
-                            if (item.Status == (int)EnumUtility.RLoanStatus.未申请租金贷 && interval >= NotApply)
-                                sbTable.Append("<td>" + "资料不全未申请租金贷超过" + interval + "天" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.待提交 && interval >= WaitSubmit)
-                                sbTable.Append("<td>" + "资料齐全待提交超过" + interval + "天" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.待进件 && interval >= WaitIntoPiece)
-                                sbTable.Append("<td>" + "未进件超过" + interval + "天" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.待审核 && interval >= NotAudit)
-                                sbTable.Append("<td>" + "未审核超过" + interval + "天" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.审核通过 && interval >= AuditOK)
-                                sbTable.Append("<td>" + "审核通过超过" + interval + "天" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.审核未通过)
-                                sbTable.Append("<td>" + "审核未通过" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.正常还款 && item.DayCountLive <= NormalRepayment)
-                                sbTable.Append("<td>" + "风控天数等于或低于" + item.DayCountLive + "天" + "</td>");
-                            else if (item.Status == (int)EnumUtility.RLoanStatus.逾期未还款 && item.DayCountLive <= item.DepositDayCount - OverdueNotRepay)
-                                sbTable.Append("<td>" + "逾期未还款超过" + (item.DepositDayCount - item.DayCountLive) + "天" + "</td>");
+                            if (item.Status == (int)EnumUtility.RLoanStatus.未申请租金贷 || item.Status == (int)EnumUtility.RLoanStatus.待提交 || item.Status == (int)EnumUtility.RLoanStatus.审核未通过)
+                            {
+                                sbTable.Append("<td style='background:#95CACA'>" + item.DayCountLive + "</td>");
+                            }
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.待审核 || item.Status == (int)EnumUtility.RLoanStatus.逾期未还款)
+                            {
+                                sbTable.Append("<td style='background:#FF8000'>" + item.DayCountLive + "</td>");
+                            }
                             else
                             {
-                                if (item.Status != (int)EnumUtility.RLoanStatus.正常还款)
-                                    sbTable.Append("<td>" + "风控天数等于或低于" + item.DayCountLive + "天" + "</td>");
+                                sbTable.Append("<td>" + item.DayCountLive + "</td>");
                             }
+                            sbTable.Append("<td>" + GetEnumDescription(typeof(EnumUtility.RLoanStatus), item.Status) + "</td>");
+
+                            if (item.Status == (int)EnumUtility.RLoanStatus.未申请租金贷)
+                                sbTable.Append("<td>" + "资料不全未申请租金贷超过" + WarningDate + "天" + "</td>");
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.待提交)
+                                sbTable.Append("<td>" + "资料齐全待提交超过" + WarningDate + "天" + "</td>");
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.待审核)
+                                sbTable.Append("<td>" + "未审核超过" + WarningDate + "天" + "</td>");
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.审核未通过)
+                                sbTable.Append("<td>" + "审核未通过" + WarningDate + "天" + "</td>");
+
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.审核通过)
+                                sbTable.Append("<td>" + "审核通过超过" + MinWarningDate + "天" + "</td>");
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.正常还款)
+                                sbTable.Append("<td>" + "正常还款超过" + MinWarningDate + "天" + "</td>");
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.逾期未还款)
+                                sbTable.Append("<td>" + "逾期未还款超过" + MinWarningDate + "天" + "</td>");
+                            else if (item.Status == (int)EnumUtility.RLoanStatus.已放款)
+                                sbTable.Append("<td>" + "已放款超过" + MinWarningDate + "天" + "</td>");
+                            else
+                                sbTable.Append("<td></td>");
 
                             sbTable.Append("<td>" + item.BankName + "</td>");
                             sbTable.Append("</tr>");
@@ -148,8 +147,6 @@ namespace RentLoanService.Service
             }
             catch
             {
-                //EmailService.AddEmailLogs(CategoryID, StoreID, (int)EnumUtility.EmailLogStatu.失败, type, e.Message);//日志
-                //iLog.WriteLog("DiaryWarning Error " + e.Message, 1);
                 throw;
             }
         }
@@ -163,59 +160,28 @@ namespace RentLoanService.Service
         {
             try
             {
-                IDBRepository dbContext = new IDBRepository();
-                DateTime nowTime = DateTime.Now.Date;
-
-                //状态不等于正常还款且风控天数<=公共阀值
-                List<RentLoanRisk> riskList = dbContext.RentLoanRisks.Where(c => c.StoreID == StoreID && c.DayCountLive <= WarningDate && c.Status != (int)EnumUtility.RLoanStatus.正常还款).ToList();
-
-                var riskListTemp = dbContext.RentLoanRisks.Where(c => c.StoreID == StoreID).ToList();
-                riskListTemp.ForEach(t =>
-                {
-                    if (!riskList.Contains(t))
-                    {
-                        int interval = new TimeSpan(nowTime.Ticks - t.ModifiedDate.Date.Ticks).Days;
-                        if (t.Status == (int)EnumUtility.RLoanStatus.未申请租金贷 && interval >= NotApply)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.待提交 && interval >= WaitSubmit)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.待进件 && interval >= WaitIntoPiece)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.待审核 && interval >= NotAudit)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.审核通过 && interval >= AuditOK)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.审核未通过)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.正常还款 && t.DayCountLive <= NormalRepayment)
-                        {
-                            riskList.Add(t);
-                        }
-                        else if (t.Status == (int)EnumUtility.RLoanStatus.逾期未还款 && t.DayCountLive <= t.DepositDayCount - OverdueNotRepay)
-                        {
-                            riskList.Add(t);
-                        }
-                    }
-                });
-
-                riskList = riskList.OrderBy(t => t.Status).ThenBy(t => t.DayCountLive).ToList();
+                string strSQL = string.Format(@"select * from (
+	                                                select * from RentLoanRisks
+	                                                 where DayCountLive<={0} 
+	                                                 and Status in (100,0,3,1) 
+	                                                 union 
+	                                                 select * from RentLoanRisks
+	                                                 where DayCountLive<={1} 
+	                                                 and Status in (9,2,4,5)
+                                                 ) te where StoreID = {2}
+                                                 order by case when Status=100 then 1
+				                                                when Status=0 then 2
+				                                                when Status=3 then 3
+				                                                when Status=1 then 4
+				                                                when Status=9 then 5
+				                                                when Status=2 then 6
+				                                                when Status=4 then 7
+				                                                else 8 end asc ,DayCountLive", WarningDate, MinWarningDate, StoreID);
+                List<RentLoanRisk> riskList = SqlHelper.ListEntity<RentLoanRisk>(strSQL);
                 return riskList;
             }
             catch
             {
-                //iLog.WriteLog("DiaryWarning Error " + e.Message, 1);
                 throw;
             }
         }

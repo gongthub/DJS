@@ -18,3 +18,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanService\bin\Debu
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanService\bin\Debug\Quartz.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanService\obj\Debug\RentLoanService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanService\obj\Debug\RentLoanService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanService\obj\Debug\RentLoanService.csprojResolveAssemblyReference.cache

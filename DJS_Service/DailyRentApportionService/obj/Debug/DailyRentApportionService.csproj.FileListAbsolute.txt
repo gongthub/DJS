@@ -18,3 +18,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DailyRentApportionServic
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DailyRentApportionService\bin\Debug\Quartz.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DailyRentApportionService\obj\Debug\DailyRentApportionService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DailyRentApportionService\obj\Debug\DailyRentApportionService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DailyRentApportionService\obj\Debug\DailyRentApportionService.csprojResolveAssemblyReference.cache

@@ -69,23 +69,16 @@ namespace RentLoanService
             {
                 iConfigMgr = DJS.SDK.DataAccess.CreateIConfigMgr(configName);
 
-                iConfigMgr.SetConfig("ServiceCode", "S005");
+                iConfigMgr.SetConfig("ServiceCode", "S013");
                 iConfigMgr.SetConfig("SendMailSender", "testadmin@vlinker.com.cn");
                 iConfigMgr.SetConfig("SendMailPassword", "Vlinker123");
-                iConfigMgr.SetConfig("WarningDate", "20");
                 iConfigMgr.SetConfig("EmailSMTP", "smtp.exmail.qq.com");
-                //iConfigMgr.SetConfig("IDBRepositoryEmailService", "Data Source=192.168.25.12;User Id=amssit;Password=amssitVlinker123;Database=AMS_SIT;");
-                iConfigMgr.SetConfig("IDBRepositoryEmailService", "Data Source=.;User Id=sa;Password=1234567890;Database=AMS;");
+                iConfigMgr.SetConfig("IDBRepositoryEmailService", "Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;");
 
-                iConfigMgr.SetConfig("NotApply", "5");
-                iConfigMgr.SetConfig("NotAudit", "15");
-                iConfigMgr.SetConfig("AuditOK", "8");
-                iConfigMgr.SetConfig("AuditRefuse", "0");
-                iConfigMgr.SetConfig("OverdueNotRepay", "45");
-                iConfigMgr.SetConfig("WaitIntoPiece", "15");
-                iConfigMgr.SetConfig("WaitSubmit", "5");
-
-                iConfigMgr.SetConfig("NormalRepayment", "0");
+                //未申请，待提交，审核未通过，待审核风控天数小于45天
+                iConfigMgr.SetConfig("WarningDate", "45");
+                //逾期未还款，通过未放款，已放款，正常还款风控天数小于5天
+                iConfigMgr.SetConfig("MinWarningDate", "5");
             }
             else
             {

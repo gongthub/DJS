@@ -50,7 +50,7 @@ namespace DJS.SDK.Service
             {
                 Model.ConfigMgr model = new Model.ConfigMgr();
                 model.Name = "STATUS";
-                model.Value =  ((int)Model.Enums.ConfigGetType.Init).ToString();
+                model.Value = ((int)Model.Enums.ConfigGetType.Init).ToString();
                 Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
             }
             else
@@ -104,7 +104,7 @@ namespace DJS.SDK.Service
             {
                 //初始化
                 if ((int)Model.Enums.ConfigGetType.Init == flag)
-                { 
+                {
                     if (!IsExist(name))
                     {
 
@@ -134,7 +134,7 @@ namespace DJS.SDK.Service
                             Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
                         }
                     }
-                     // 清空配置
+                    // 清空配置
                     else
                         if ((int)Model.Enums.ConfigGetType.Clear == flag)
                         {
@@ -152,6 +152,32 @@ namespace DJS.SDK.Service
             catch (Exception ex)
             {
                 Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                ret = false;
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 更新Config值
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param> 
+        /// <returns></returns>
+        public bool UpdateConfig(string name, string value)
+        {
+            bool ret = true;
+            try
+            {
+                if (IsExist(name))
+                {
+                    Model.ConfigMgr model = new Model.ConfigMgr();
+                    model.Name = name;
+                    model.Value = value;
+                    XmlHelp.xmlHelp.SetValue(SDKCONFIGPATH, CONFIGSPATH + @"/" + ELENMENTNAME, "Name", model.Name, "Value", model.Value);
+                } 
+            }
+            catch
+            {
                 ret = false;
             }
             return ret;

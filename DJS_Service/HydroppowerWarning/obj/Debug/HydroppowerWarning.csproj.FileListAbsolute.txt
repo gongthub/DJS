@@ -16,3 +16,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerWarning\bin\D
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerWarning\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerWarning\obj\Debug\HydroppowerWarning.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerWarning\obj\Debug\HydroppowerWarning.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerWarning\obj\Debug\HydroppowerWarning.csprojResolveAssemblyReference.cache

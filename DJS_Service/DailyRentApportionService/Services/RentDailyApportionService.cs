@@ -35,10 +35,10 @@ namespace DailyRentApportionService.Services
         /// </summary>
         public void ApportionService()
         {
+
             iLog.WriteLog("日租金分摊服务运行开始", 0);
             ApportionAction2();
             iLog.WriteLog("日租金分摊服务运行结束", 0);
-
 
             iLog.WriteLog("月租金分摊服务运行开始", 0);
             ApportionActions2();
@@ -76,9 +76,50 @@ namespace DailyRentApportionService.Services
 
                 TimeSpan ts1 = new TimeSpan(startDate.Ticks);
                 TimeSpan ts3 = ts2.Subtract(ts1).Duration();
-                int iCount = ts3.Days;
+                int iCount = ts3.Days + 1;
+                List<string> strList = new List<string>();
+                string strDelete = "";
 
-                string strDelete = string.Format(@"delete from DailyRentApportion where ContractID IN (
+                // 现金合同支付与退款
+                strDelete = string.Format(@"delete from DailyRentApportion where ContractID IN (
+                                    select pc.ContractID from PaymentMethods pm 
+	                                    inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
+                                        inner join Contracts ct on ct.id= pc.ContractID 
+                                    where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
+	                                    and pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 and ct.type <> 1 ) 
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
+                strList.Add(strDelete);
+
+                // 租金贷放款
+                strDelete = string.Format(@"delete from DailyRentApportion where ContractID IN (
+                                            select ct.ID from RentLoanAudits ra 
+	                                            inner join RentLoanAuditContracts rct on ra.id = rct.RentLoanAuditID
+	                                            inner join Contracts ct on rct.ContractID = ct.ID     
+                                            where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1  and ct.status IN (3,5)
+                                            ) and PeriodicChargeID = 0
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
+                strList.Add(strDelete);
+
+                // 租金贷执行中现金支付
+                strDelete = string.Format(@"delete from DailyRentApportion where ContractID IN (
+                                                select ct.ID from PeriodicCharges pc 
+                                                    inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID
+                                                    inner join Contracts ct on pc.ContractID = ct.ID
+                                                    left join (select PaymentMethodID,max(pd.Type) as payType from PaymentDetails pd group by PaymentMethodID) pd on pd.PaymentMethodID = pm.ID
+                                                    inner join (
+                                                        select ContractID,MAX(isnull(pm.Date,pm.CreateDate)) as LastPayDate from PaymentMethods pm 
+	                                                        inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
+                                                        where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
+	                                                        and pc.Status = 1 and pm.Status IN (2,3,4) group by ContractID
+                                                        ) T on ct.ID = T.ContractID
+                                                where  pc.Status = 1 and pm.Status IN (2,3,4) AND ct.type = 1 and ct.Status in (3,5) and isnull(pd.payType,0) != 9
+                                            ) and PeriodicChargeID != 0
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
+                strList.Add(strDelete);
+
+                // 租金贷退租
+                strDelete = string.Format(@"
+                    delete from DailyRentApportion where ContractID IN (
 	                    select ct.ID from Contracts ct
 		                    left join (select ContractID,SUM(Amount) Amount,
 		                    MIN(StartDate) as StartDate,MAX(EndDate) EndDate From (
@@ -88,26 +129,14 @@ namespace DailyRentApportionService.Services
 		                    inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID  
 			                    where pc.status = 1 and pm.Status IN(2,3,4)  ) T group by ContractID) P on ct.ID = p.ContractID
 	                    where ct.Status = 4	 and  p.EndDate >= '{0}' and p.EndDate < '{1}' and ct.type = 1 )
-                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
-
-                List<string> strList = new List<string>();
-                strList.Add(strDelete);
-
-                strDelete = string.Format(@"delete from DailyRentApportion where ContractID IN (
-                                    select pc.ContractID from PaymentMethods pm 
-	                                    inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
-                                        inner join Contracts ct on ct.id= pc.ContractID 
-                                    where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
-	                                    and pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 and ct.type <> 1 ) 
-                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
-
-                strList.Add(strDelete);
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));                
+                strList.Add(strDelete);                
 
                 SQLHelper.ExecuteNonQuery(ConstUtility.ConnectionStrings, strList);
 
                 strSQL = string.Format(@"
                         select ct.StartDate,ct.EndDate,cf.CharterMoney,cf.ContractID,pc.Amount as TotalAmount,
-                                ct.RoomID,pc.ID as PeriodicChargeID,isnull(pm.Date,pm.CreateDate) Date,LastPayDate,pc.FeeType FeeType from PeriodicCharges pc 
+                                ct.RoomID,pc.ID as PeriodicChargeID,Convert(varchar(20),isnull(pm.Date,pm.CreateDate),23) Date,Convert(varchar(20),LastPayDate,23) as LastPayDate,pc.FeeType FeeType from PeriodicCharges pc 
                             inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID
                             inner join Contracts ct on pc.ContractID = ct.ID
                             inner join ContractFees cf on pc.ContractID = cf.ContractID
@@ -115,15 +144,41 @@ namespace DailyRentApportionService.Services
                                 select ContractID,MAX(isnull(pm.Date,pm.CreateDate)) as LastPayDate from PaymentMethods pm 
 	                                inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
                                 where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
+	                                and pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 group by ContractID
+                                ) T on ct.ID = T.ContractID
+                        where  pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 and ct.type != 1 and isnull(pm.Date,pm.CreateDate) < '{1}' and ISNULL(pc.Amount,0)<>0
+                        union all
+                        select ct.StartDate,ct.EndDate,cf.CharterMoney,cf.ContractID,pc.Amount as TotalAmount,
+                                ct.RoomID,pc.ID as PeriodicChargeID,Convert(varchar(20),isnull(pm.Date,pm.CreateDate),23) Date,Convert(varchar(20),LastPayDate,23) as LastPayDate,pc.FeeType FeeType from PeriodicCharges pc 
+                            inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID
+                            inner join Contracts ct on pc.ContractID = ct.ID
+                            inner join ContractFees cf on pc.ContractID = cf.ContractID
+                            left join (select PaymentMethodID,max(pd.Type) as payType from PaymentDetails pd group by PaymentMethodID) pd on pd.PaymentMethodID = pm.ID
+                            inner join (
+                                select ContractID,MAX(isnull(pm.Date,pm.CreateDate)) as LastPayDate from PaymentMethods pm 
+	                                inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
+                                where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
 	                                and pc.Status = 1 and pm.Status IN (2,3,4) group by ContractID
                                 ) T on ct.ID = T.ContractID
-                        where  pc.Status = 1 and pm.Status IN (2,3,4) AND ct.type != 1 and isnull(pm.Date,pm.CreateDate) < '{1}'
+                        where  pc.Status = 1 and pm.Status IN (2,3,4) AND ct.type = 1 and ct.Status in (3,5) and isnull(pd.payType,0) != 9 and isnull(pm.Date,pm.CreateDate) < '{1}'
                         union all
-                        select ct.StartDate,ct.EndDate,ra.MonthlyTotalAmount,ct.ID,ra.TotalAmount,ct.RoomID,null,DateOfLoan,DateOfLoan,31 FeeType from RentLoanAudits ra 
-	                        inner join Contracts ct on ra.RenterID = ct.RenterID
-                        where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1 and ct.Status = 3
+                        select ct.StartDate,ct.EndDate,ra.MonthlyTotalAmount as MonthlyTotalAmount,ct.ID,ra.MonthlyTotalAmount * ra.Periods as TotalAmount,ct.RoomID,null,Convert(varchar(20),DateOfLoan,23),Convert(varchar(20),DateOfLoan,23) as LastPayDate,31 FeeType from RentLoanAudits ra 
+							inner join RentLoanAuditContracts rct on ra.id = rct.RentLoanAuditID
+	                        inner join Contracts ct on rct.ContractID = ct.ID
+                            inner join ContractFees cf on cf.ContractID = ct.ID
+                        where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1 and ct.status IN (3,5)
+                            and ra.ID  in (
+		                        select RentLoanAuditID from RentLoanAuditContracts group by RentLoanAuditID having count(ContractID) = 1)
                         union all
-                        select ct.StartDate,ct.EndDate,cf.CharterMoney,ct.ID,isnull(Amount,0), ct.RoomID,PeriodicChargeID,p.EndDate,p.EndDate,FeeType from Contracts ct inner join (
+                        select ct.StartDate,ct.EndDate,cf.CharterMoney as MonthlyTotalAmount,ct.ID,cf.CharterMoney * ra.Periods as TotalAmount,ct.RoomID,null,Convert(varchar(20),DateOfLoan,23),Convert(varchar(20),DateOfLoan,23) as LastPayDate,31 FeeType from RentLoanAudits ra 
+							inner join RentLoanAuditContracts rct on ra.id = rct.RentLoanAuditID
+	                        inner join Contracts ct on rct.ContractID = ct.ID
+                            inner join ContractFees cf on cf.ContractID = ct.ID
+                        where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1 and ct.status IN (3,5)
+                            and ra.ID  in (
+		                        select RentLoanAuditID from RentLoanAuditContracts group by RentLoanAuditID having count(ContractID) > 1)
+                        union all
+                        select ct.StartDate,ct.EndDate,cf.CharterMoney,ct.ID,isnull(Amount,0), ct.RoomID,PeriodicChargeID,Convert(varchar(20),p.EndDate,23),Convert(varchar(20),p.EndDate,23) as LastPayDate,FeeType from Contracts ct inner join (
 	                        select ContractID,SUM(Amount) Amount,
 		                        MIN(StartDate) as StartDate,MAX(EndDate) EndDate,PeriodicChargeID,T.FeeType 
 	                        From (
@@ -144,27 +199,32 @@ namespace DailyRentApportionService.Services
 		                    from PeriodicCharges pc 
 		                    inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID  
 			                    where pc.status = 1 and pm.Status IN(2,3,4)  ) T group by ContractID) P on ct.ID = p.ContractID
-	                    where ct.Status = 4	 and  p.EndDate >= '{0}' and p.EndDate < '{1}' and ct.type = 1 )                 
+	                    where ct.Status = 4	 and  p.EndDate >= '{0}' and p.EndDate < '{1}' and ct.type = 1 )                           
                     ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
 
                 DataTable allPaymentDt = SQLHelper.ExecuteDataset(ConstUtility.ConnectionStrings, CommandType.Text, strSQL).Tables[0];
 
-                //allPaymentDt = allPaymentDt.Select(" ContractID=28722").CopyToDataTable();
+                //allPaymentDt = allPaymentDt.Select(" ContractID=32024").CopyToDataTable();
 
-                for (int i = 1; i <= iCount; i++)
+                allPaymentDt.DefaultView.Sort = "Date";
+                DataTable dateDt = allPaymentDt.DefaultView.ToTable(true, "Date");
+
+                for (int i = 0; i < dateDt.Rows.Count; i++)
                 {
-                    DateTime actionDate = startDate.AddDays(i).Date;
+                    //DateTime actionDate = startDate.AddDays(i).Date;
+
+                    DateTime payDate = DateTime.Parse(dateDt.Rows[i][0].ToString());
 
                     List<string> sqlList = new List<string>();
                     int daySumCount = 0;
                     TimeSpan ts4 = new TimeSpan(DateTime.Now.Ticks);
 
-                    iLog.WriteLog("日期:" + actionDate + "  开始分摊", 0);
+                    iLog.WriteLog("日期:" + payDate + "  开始分摊", 0);
 
-                    DataRow[] allPaymentDtRows = allPaymentDt.Select("LastPayDate >= '" + actionDate + "' AND LastPayDate < '" + actionDate.AddDays(1) + "'");
+                    DataRow[] allPaymentDtRows = allPaymentDt.Select("Date = '" + payDate.ToString("yyyy-MM-dd") + "'");
                     if (allPaymentDtRows.Length == 0)
                     {
-                        iLog.WriteLog("日期:" + actionDate + "  结束分摊，记录:" + daySumCount + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts4).Duration().TotalSeconds + "秒", 0);
+                        iLog.WriteLog("日期:" + payDate + "  结束分摊，记录:" + daySumCount + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts4).Duration().TotalSeconds + "秒", 0);
                         continue;
                     }
 
@@ -173,7 +233,7 @@ namespace DailyRentApportionService.Services
                     DataTable dtContract = paymentDt.DefaultView.ToTable(true, "ContractID");
                     List<MonthRentApportion> AllRentList = new List<MonthRentApportion>();
 
-                    iLog.WriteLog("查询分摊当日:" + actionDate + " 所有租金支付数据，条数:" + paymentDt.Rows.Count, 0);
+                    iLog.WriteLog("查询分摊当日:" + payDate + " 所有租金支付数据，条数:" + paymentDt.Rows.Count, 0);
 
                     for (int k = 0; k < dtContract.Rows.Count; k++)
                     {
@@ -203,16 +263,28 @@ namespace DailyRentApportionService.Services
                             int iDirection = TotalAmount > 0 ? 1 : -1;
 
                             MonthRentApportion lastItem = ContractRentList.LastOrDefault();
+                            //lastItem = AllRentList.Where(p => p.ContractID == ContractID).LastOrDefault();
+
+                            MonthRentApportion dbLastItem = GetDailyLastItem(ContractID, int.Parse(rows[j]["FeeType"].ToString()));
+
+                            DateTime LastDate = lastItem == null ? cStartDate : lastItem.Date;
+                            LastDate = (dbLastItem == null ? LastDate : (dbLastItem.Date > LastDate ? dbLastItem.Date : LastDate));
 
                             decimal lastTotalAmount = 0;
 
                             if (lastItem != null)
                             {
-                                lastTotalAmount = ContractRentList.Where(p => p.Date == lastItem.Date).Sum(t => t.Amount);
+                                lastTotalAmount = ContractRentList.Where(p => p.Date == LastDate).Sum(t => t.Amount);
                             }
 
-                            DateTime LastDate = lastItem == null ? cStartDate : lastItem.Date;
-                            decimal lastAmount = lastItem == null ? 0 : lastTotalAmount;
+                            if (dbLastItem != null && dbLastItem.Date == LastDate)
+                            {
+                                lastTotalAmount = lastTotalAmount + dbLastItem.Amount;
+                            }
+
+                            if (lastItem == null || (dbLastItem != null && dbLastItem.Date > lastItem.Date)) lastItem = dbLastItem;
+
+                            decimal lastAmount = lastTotalAmount;
 
                             decimal firstRent = iDirection == 1 ? dayRent - lastAmount : lastAmount * iDirection;
                             if (iDirection == 1)
@@ -221,7 +293,7 @@ namespace DailyRentApportionService.Services
                             }
                             else
                             {
-                                firstRent = lastAmount > Math.Abs(TotalAmount) ? TotalAmount : lastAmount - dayRent;
+                                firstRent = lastAmount > Math.Abs(TotalAmount) ? TotalAmount : lastAmount * -1;
                             }
 
                             int dayCount = int.Parse(Math.Ceiling(Math.Abs((TotalAmount - firstRent) / dayRent)).ToString()) + 1;
@@ -264,7 +336,7 @@ namespace DailyRentApportionService.Services
                         dr["RoomID"] = AllRentList[y].RoomID;
                         dr["Amount"] = AllRentList[y].Amount;
                         dr["Date"] = AllRentList[y].Date.ToString();
-                        dr["UpdateDate"] = actionDate;
+                        dr["UpdateDate"] = payDate;
                         dr["PeriodicChargeID"] = AllRentList[y].PeriodicChargeID;
                         dr["Type"] = AllRentList[y].Type;
 
@@ -293,7 +365,7 @@ namespace DailyRentApportionService.Services
                     sqlList = new List<string>();
 
                     strSQL = string.Format(@"INSERT INTO [DailyRentApportionLog]([Date],[UpdateTime],[TakeTime],[ICount])VALUES('{0}','{1}','{2}',{3})"
-                                        , actionDate, DateTime.Now, ts5.Subtract(ts4).Duration().TotalSeconds + "秒", daySumCount);
+                                        , payDate, DateTime.Now, ts5.Subtract(ts4).Duration().TotalSeconds + "秒", daySumCount);
 
                     sqlList.Add(strSQL);
 
@@ -303,7 +375,7 @@ namespace DailyRentApportionService.Services
 
                     totalCount = totalCount + daySumCount;
 
-                    iLog.WriteLog("日期:" + actionDate + "  结束分摊，记录:" + daySumCount + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts4).Duration().TotalSeconds + "秒", 0);
+                    iLog.WriteLog("日期:" + payDate + "  结束分摊，记录:" + daySumCount + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts4).Duration().TotalSeconds + "秒", 0);
                 }
 
                 iLog.WriteLog("日租金分摊结束 总记录:" + totalCount + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts2).Duration().TotalSeconds + "秒", 0);
@@ -348,7 +420,49 @@ namespace DailyRentApportionService.Services
                 TimeSpan ts6 = ts5.Subtract(ts4).Duration();
                 int iCount = ts6.Days;
 
-                string strDelete = string.Format(@"delete from MonthRentApportion where ContractID IN (
+                List<string> strList = new List<string>();
+                string strDelete = "";
+
+                // 现金合同支付与退款
+                strDelete = string.Format(@"delete from MonthRentApportion where ContractID IN (
+                                    select pc.ContractID from PaymentMethods pm 
+	                                    inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
+                                        inner join Contracts ct on ct.id= pc.ContractID 
+                                    where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
+	                                    and pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 and ct.type <> 1 ) 
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
+                strList.Add(strDelete);
+
+                // 租金贷放款
+                strDelete = string.Format(@"delete from MonthRentApportion where ContractID IN (
+                                            select ct.ID from RentLoanAudits ra 
+	                                            inner join RentLoanAuditContracts rct on ra.id = rct.RentLoanAuditID
+	                                            inner join Contracts ct on rct.ContractID = ct.ID     
+                                            where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1  and ct.status IN (3,5)
+                                            ) and PeriodicChargeID = 0
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
+                strList.Add(strDelete);
+
+                // 租金贷执行中现金支付
+                strDelete = string.Format(@"delete from MonthRentApportion where ContractID IN (
+                                                select ct.ID from PeriodicCharges pc 
+                                                    inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID
+                                                    inner join Contracts ct on pc.ContractID = ct.ID
+                                                    left join (select PaymentMethodID,max(pd.Type) as payType from PaymentDetails pd group by PaymentMethodID) pd on pd.PaymentMethodID = pm.ID
+                                                    inner join (
+                                                        select ContractID,MAX(isnull(pm.Date,pm.CreateDate)) as LastPayDate from PaymentMethods pm 
+	                                                        inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
+                                                        where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
+	                                                        and pc.Status = 1 and pm.Status IN (2,3,4) group by ContractID
+                                                        ) T on ct.ID = T.ContractID
+                                                where  pc.Status = 1 and pm.Status IN (2,3,4) AND ct.type = 1 and ct.Status in (3,5) and isnull(pd.payType,0) != 9
+                                            ) and PeriodicChargeID != 0
+                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
+                strList.Add(strDelete);
+
+                // 租金贷退租
+                strDelete = string.Format(@"
+                    delete from MonthRentApportion where ContractID IN (
 	                    select ct.ID from Contracts ct
 		                    left join (select ContractID,SUM(Amount) Amount,
 		                    MIN(StartDate) as StartDate,MAX(EndDate) EndDate From (
@@ -359,25 +473,13 @@ namespace DailyRentApportionService.Services
 			                    where pc.status = 1 and pm.Status IN(2,3,4)  ) T group by ContractID) P on ct.ID = p.ContractID
 	                    where ct.Status = 4	 and  p.EndDate >= '{0}' and p.EndDate < '{1}' and ct.type = 1 )
                     ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
-
-                List<string> strList = new List<string>();
-                strList.Add(strDelete);
-
-                strDelete = string.Format(@"delete from MonthRentApportion where ContractID IN (
-                                    select pc.ContractID from PaymentMethods pm 
-	                                    inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
-                                        inner join Contracts ct on ct.id= pc.ContractID 
-                                    where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
-	                                    and pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 and ct.type <> 1)
-                    ", startDate.AddDays(1), DateTime.Now.Date.AddDays(1));
-
                 strList.Add(strDelete);
 
                 SQLHelper.ExecuteNonQuery(ConstUtility.ConnectionStrings, strList);
 
                 strSQL = string.Format(@"
                         select ct.StartDate,ct.EndDate,cf.CharterMoney,cf.ContractID,pc.Amount as TotalAmount,
-                                ct.RoomID,pc.ID as PeriodicChargeID,isnull(pm.Date,pm.CreateDate) Date,LastPayDate,pc.FeeType FeeType from PeriodicCharges pc 
+                                ct.RoomID,pc.ID as PeriodicChargeID,Convert(varchar(20),isnull(pm.Date,pm.CreateDate),23) Date,Convert(varchar(20),LastPayDate,23) as LastPayDate,pc.FeeType FeeType from PeriodicCharges pc 
                             inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID
                             inner join Contracts ct on pc.ContractID = ct.ID
                             inner join ContractFees cf on pc.ContractID = cf.ContractID
@@ -389,11 +491,37 @@ namespace DailyRentApportionService.Services
                                 ) T on ct.ID = T.ContractID
                         where  pc.Status = 1 and pm.Status IN (2,3,4) AND pc.FeeType= 31 and ct.type != 1 and isnull(pm.Date,pm.CreateDate) < '{1}' and ISNULL(pc.Amount,0)<>0
                         union all
-                        select ct.StartDate,ct.EndDate,ra.MonthlyTotalAmount,ct.ID,ra.TotalAmount,ct.RoomID,null,DateOfLoan,DateOfLoan,31 FeeType from RentLoanAudits ra 
-	                        inner join Contracts ct on ra.RenterID = ct.RenterID
-                        where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1
+                        select ct.StartDate,ct.EndDate,cf.CharterMoney,cf.ContractID,pc.Amount as TotalAmount,
+                                ct.RoomID,pc.ID as PeriodicChargeID,Convert(varchar(20),isnull(pm.Date,pm.CreateDate),23) Date,Convert(varchar(20),LastPayDate,23) as LastPayDate,pc.FeeType FeeType from PeriodicCharges pc 
+                            inner join PaymentMethods pm on pc.PaymentMethodID = pm.ID
+                            inner join Contracts ct on pc.ContractID = ct.ID
+                            inner join ContractFees cf on pc.ContractID = cf.ContractID
+                            left join (select PaymentMethodID,max(pd.Type) as payType from PaymentDetails pd group by PaymentMethodID) pd on pd.PaymentMethodID = pm.ID
+                            inner join (
+                                select ContractID,MAX(isnull(pm.Date,pm.CreateDate)) as LastPayDate from PaymentMethods pm 
+	                                inner join PeriodicCharges pc on pm.ID = pc.PaymentMethodID
+                                where isnull(pm.Date,pm.CreateDate) >= '{0}' and isnull(pm.Date,pm.CreateDate) < '{1}'
+	                                and pc.Status = 1 and pm.Status IN (2,3,4) group by ContractID
+                                ) T on ct.ID = T.ContractID
+                        where  pc.Status = 1 and pm.Status IN (2,3,4) AND ct.type = 1 and ct.Status in (3,5) and isnull(pd.payType,0) != 9 and isnull(pm.Date,pm.CreateDate) < '{1}'
                         union all
-                        select ct.StartDate,ct.EndDate,cf.CharterMoney,ct.ID,isnull(Amount,0), ct.RoomID,PeriodicChargeID,p.EndDate,p.EndDate,FeeType from Contracts ct inner join (
+                        select ct.StartDate,ct.EndDate,ra.MonthlyTotalAmount as MonthlyTotalAmount,ct.ID,ra.MonthlyTotalAmount * ra.Periods as TotalAmount,ct.RoomID,null,Convert(varchar(20),DateOfLoan,23),Convert(varchar(20),DateOfLoan,23) as LastPayDate,31 FeeType from RentLoanAudits ra 
+							inner join RentLoanAuditContracts rct on ra.id = rct.RentLoanAuditID
+	                        inner join Contracts ct on rct.ContractID = ct.ID
+                            inner join ContractFees cf on cf.ContractID = ct.ID
+                        where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1 and ct.status IN (3,5)
+                            and ra.ID  in (
+		                        select RentLoanAuditID from RentLoanAuditContracts group by RentLoanAuditID having count(ContractID) = 1)
+                        union all
+                        select ct.StartDate,ct.EndDate,cf.CharterMoney as MonthlyTotalAmount,ct.ID,cf.CharterMoney * ra.Periods as TotalAmount,ct.RoomID,null,Convert(varchar(20),DateOfLoan,23),Convert(varchar(20),DateOfLoan,23) as LastPayDate,31 FeeType from RentLoanAudits ra 
+							inner join RentLoanAuditContracts rct on ra.id = rct.RentLoanAuditID
+	                        inner join Contracts ct on rct.ContractID = ct.ID
+                            inner join ContractFees cf on cf.ContractID = ct.ID
+                        where  DateOfLoan >= '{0}' and DateOfLoan < '{1}' and ct.type = 1 and ct.status IN (3,5)
+                            and ra.ID  in (
+		                        select RentLoanAuditID from RentLoanAuditContracts group by RentLoanAuditID having count(ContractID) > 1)
+                        union all
+                        select ct.StartDate,ct.EndDate,cf.CharterMoney,ct.ID,isnull(Amount,0), ct.RoomID,PeriodicChargeID,Convert(varchar(20),p.EndDate,23),Convert(varchar(20),p.EndDate,23) as LastPayDate,FeeType from Contracts ct inner join (
 	                        select ContractID,SUM(Amount) Amount,
 		                        MIN(StartDate) as StartDate,MAX(EndDate) EndDate,PeriodicChargeID,T.FeeType 
 	                        From (
@@ -419,22 +547,28 @@ namespace DailyRentApportionService.Services
 
                 DataTable allPaymentDt = SQLHelper.ExecuteDataset(ConstUtility.ConnectionStrings, CommandType.Text, strSQL).Tables[0];
 
-                //allPaymentDt = allPaymentDt.Select(" ContractID=28611").CopyToDataTable();
+                //allPaymentDt = allPaymentDt.Select(" ContractID=30122").CopyToDataTable();
 
-                for (int i = 1; i <= iCount; i++)
+                allPaymentDt.DefaultView.Sort = "Date";
+                DataTable dateDt = allPaymentDt.DefaultView.ToTable(true, "Date");
+
+                for (int i = 0; i < dateDt.Rows.Count; i++)
                 {
-                    DateTime actionDate = startDate.AddDays(i).Date;
+                    //DateTime actionDate = startDate.AddDays(i).Date;
+
+                    DateTime payDate = DateTime.Parse(dateDt.Rows[i][0].ToString());
 
                     List<string> sqlList = new List<string>();
+                    int daySumCount = 0;
 
                     TimeSpan ts2 = new TimeSpan(DateTime.Now.Ticks);
 
-                    iLog.WriteLog("日期:" + actionDate + "  开始分摊", 0);
+                    iLog.WriteLog("日期:" + payDate + "  开始分摊", 0);
 
-                    DataRow[] allPaymentDtRows = allPaymentDt.Select("LastPayDate >= '" + actionDate + "' AND LastPayDate < '" + actionDate.AddDays(1) + "'");
+                    DataRow[] allPaymentDtRows = allPaymentDt.Select("Date = '" + payDate.ToString("yyyy-MM-dd") + "'");
                     if (allPaymentDtRows.Length == 0)
                     {
-                        iLog.WriteLog("日期:" + actionDate + "  结束分摊，记录:" + sqlList.Count + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts2).Duration().TotalSeconds + "秒", 0);
+                        iLog.WriteLog("日期:" + payDate + "  结束分摊，记录:" + sqlList.Count + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts2).Duration().TotalSeconds + "秒", 0);
                         continue;
                     }
 
@@ -449,6 +583,7 @@ namespace DailyRentApportionService.Services
                         DataRow[] rows = paymentDt.Select("ContractID = " + contractID);
 
                         List<MonthRentApportion> ContractRentList = new List<MonthRentApportion>();
+                        ContractRentList = GetMonthAllItem(contractID, int.Parse(paymentDt.Rows[0]["FeeType"].ToString()));
 
                         int cRoomID = int.Parse(rows[0]["RoomID"].ToString());//房间ID
                         decimal iCharterMoney = decimal.Parse(rows[0]["CharterMoney"].ToString());//标准月租金
@@ -464,31 +599,45 @@ namespace DailyRentApportionService.Services
                             DateTime PaymentDate = DateTime.Parse(rows[j]["Date"].ToString());
                             int PeriodicChargeID = rows[j]["PeriodicChargeID"] == null || rows[j]["PeriodicChargeID"].ToString() == "" ? 0 : int.Parse(rows[j]["PeriodicChargeID"].ToString());
                             decimal TotalAmount = decimal.Parse(rows[j]["TotalAmount"].ToString());//当日实收
+                            
+                            MonthRentApportion LastItem = ContractRentList.OrderByDescending(p => p.Month).OrderByDescending(p => p.Year).FirstOrDefault();
+                            //MonthRentApportion dbLastItem = GetMonthLastItem(contractID, int.Parse(rows[j]["FeeType"].ToString()));
+                            MonthRentApportion item = LastItem;
+                            DateTime ShareDate = cStartDate > PaymentDate ? PaymentDate : cStartDate;
+
+                            //if (dbLastItem != null)
+                            //{
+                            //    if (LastItem != null)
+                            //    {
+                            //        if (dbLastItem.Year * 12 + dbLastItem.Month > LastItem.Year * 12 + LastItem.Month)
+                            //        {
+                            //            item = dbLastItem;
+                            //            lastAmount = item.Amount;
+                            //        }else if (dbLastItem.Year * 12 + dbLastItem.Month == LastItem.Year * 12 + LastItem.Month){
+                            //            lastAmount = dbLastItem.Amount + LastItem.Amount;
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        item = dbLastItem;
+                            //        lastAmount = item.Amount;
+                            //    }
+                            //}
+
+                            if (item != null)
+                            {
+                                ShareDate = DateTime.Parse(item.Year + "-" + item.Month + "-01");
+                            }
 
                             if (TotalAmount > 0)
-                            {
-                                DateTime ShareDate = cStartDate > PaymentDate ? PaymentDate : cStartDate;
-
-                                if (ContractRentList != null && ContractRentList.Count > 0)
-                                {
-                                    MonthRentApportion LastItem = ContractRentList.OrderByDescending(p => p.Month).OrderByDescending(p => p.Year).First();
-                                    ShareDate = DateTime.Parse(LastItem.Year + "-" + LastItem.Month + "-01");
-                                }
-
-                                ShareDate = ShareDate > PaymentDate ? PaymentDate : ShareDate;
-
+                            {                                
                                 SetMonthRent(type, contractID, cRoomID, cStartDate, cEndDate, PaymentDate, ShareDate, iCharterMoney, TotalAmount, TotalAmount, PeriodicChargeID, ref ContractRentList);
                             }
                             else
                             {
                                 if (ContractRentList != null && ContractRentList.Count > 0)
                                 {
-                                    MonthRentApportion LastItem = ContractRentList.OrderByDescending(p => p.Month).OrderByDescending(p => p.Year).First();
-                                    DateTime LastDate = DateTime.Parse(LastItem.Year + "-" + LastItem.Month + "-01");
-
-                                    LastDate = LastDate > PaymentDate ? LastDate : PaymentDate;
-
-                                    SetMonthRent(type, contractID, cRoomID, cStartDate, cEndDate, PaymentDate, LastDate, iCharterMoney, TotalAmount, TotalAmount, PeriodicChargeID, ref ContractRentList);
+                                    SetMonthRent(type, contractID, cRoomID, cStartDate, cEndDate, PaymentDate, ShareDate, iCharterMoney, TotalAmount, TotalAmount, PeriodicChargeID, ref ContractRentList);
                                 }
                             }
                         }
@@ -498,11 +647,14 @@ namespace DailyRentApportionService.Services
 
                     for (int x = 0; x < AllRentList.Count; x++)
                     {
-                        strSQL = string.Format(@"
+                        if (AllRentList[x].Active == 1)
+                        {
+                            strSQL = string.Format(@"
                                 INSERT INTO [dbo].[MonthRentApportion] ([ContractID],[RoomID],[Year],[Month],[RealAmount],[Amount],[RsvAmount],[PaymentDate] ,[PeriodicChargeID],[Type])
                                 VALUES ({0},{1},{2},{3},{4},{5},{6},'{7}',{8},{9})
                                 ", AllRentList[x].ContractID, AllRentList[x].RoomID, AllRentList[x].Year, AllRentList[x].Month, AllRentList[x].RealAmount, AllRentList[x].Amount, AllRentList[x].RsvAmount, AllRentList[x].PaymentDate, AllRentList[x].PeriodicChargeID, AllRentList[x].Type);
-                        sqlList.Add(strSQL);
+                            sqlList.Add(strSQL);
+                        }
                     }
 
                     TimeSpan ts3 = new TimeSpan(DateTime.Now.Ticks);
@@ -510,7 +662,7 @@ namespace DailyRentApportionService.Services
                     strSQL = string.Format(@"
                                 INSERT INTO [dbo].[MonthRentApportionLog] ([Year],[Month],[OperateTime],[TakeTime],[ICount],[PaymentDate])
                                 VALUES ({0},{1},'{2}','{3}',{4},'{5}')
-                                        ", actionDate.Year, actionDate.Month, DateTime.Now.ToString(), ts3.Subtract(ts2).Duration().TotalSeconds + "秒", sqlList.Count, actionDate);
+                                        ", payDate.Year, payDate.Month, DateTime.Now.ToString(), ts3.Subtract(ts2).Duration().TotalSeconds + "秒", sqlList.Count, payDate);
 
                     sqlList.Add(strSQL);
 
@@ -518,7 +670,7 @@ namespace DailyRentApportionService.Services
 
                     totalCount = totalCount + sqlList.Count;
 
-                    iLog.WriteLog("日期:" + actionDate + "  结束分摊，记录:" + sqlList.Count + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts2).Duration().TotalSeconds + "秒", 0);
+                    iLog.WriteLog("日期:" + payDate + "  结束分摊，记录:" + sqlList.Count + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts2).Duration().TotalSeconds + "秒", 0);
                 }
 
                 iLog.WriteLog("月租金分摊结束 总记录:" + totalCount + " 耗时:" + (new TimeSpan(DateTime.Now.Ticks)).Subtract(ts1).Duration().TotalSeconds + "秒", 0);
@@ -919,7 +1071,8 @@ namespace DailyRentApportionService.Services
                     RsvAmount = CurrRsvAmount,
                     PaymentDate = PaymentDate,
                     PeriodicChargeID = PeriodicChargeID,
-                    Type = type
+                    Type = type,
+                    Active = 1
                 };
                 ContractRentList.Add(rent);
             }
@@ -944,6 +1097,80 @@ namespace DailyRentApportionService.Services
                 return;
             }
         }
+
+
+        public static MonthRentApportion GetDailyLastItem(int ContractID,int Type)
+        {
+            string strSQL = string.Format(@"select TOP 1 Type,ContractID,RoomID,Sum(Amount) AS Amount,Date from DailyRentApportion where ContractID = {0} AND Type = {1}                                
+                                Group by Type,ContractID,RoomID,Date having Sum(Amount)  > 0 ORDER BY Date DESC ", ContractID, Type);
+
+            DataTable dt = SQLHelper.ExecuteDataset(ConstUtility.ConnectionStrings, CommandType.Text, strSQL).Tables[0];
+
+            if (dt.Rows.Count == 0) return null;
+
+            MonthRentApportion rent = new MonthRentApportion()
+            {
+                Date = DateTime.Parse(dt.Rows[0]["Date"].ToString()),
+                Amount = Decimal.Parse(dt.Rows[0]["Amount"].ToString()),
+                ContractID = int.Parse(dt.Rows[0]["ContractID"].ToString()),
+                RoomID = int.Parse(dt.Rows[0]["RoomID"].ToString()),
+                Type = int.Parse(dt.Rows[0]["Type"].ToString())
+            };
+
+            return rent;
+        }
+
+        public static MonthRentApportion GetMonthLastItem(int ContractID, int Type)
+        {
+            string strSQL = string.Format(@"select TOP 1 Type,ContractID,RoomID,Sum(Amount) AS Amount,Year,Month from MonthRentApportion where ContractID = {0} AND Type = {1}                               
+                                Group by Type,ContractID,RoomID,Year,Month having Sum(Amount)  > 0 ORDER BY Year DESC,Month DESC ", ContractID, Type);
+
+            DataTable dt = SQLHelper.ExecuteDataset(ConstUtility.ConnectionStrings, CommandType.Text, strSQL).Tables[0];
+
+            if (dt.Rows.Count == 0) return null;
+
+            MonthRentApportion rent = new MonthRentApportion()
+            {
+                Year = int.Parse(dt.Rows[0]["Year"].ToString()),
+                Month = int.Parse(dt.Rows[0]["Month"].ToString()),
+                Amount = Decimal.Parse(dt.Rows[0]["Amount"].ToString()),
+                ContractID = int.Parse(dt.Rows[0]["ContractID"].ToString()),
+                RoomID = int.Parse(dt.Rows[0]["RoomID"].ToString()),
+                Type = int.Parse(dt.Rows[0]["Type"].ToString())
+            };
+
+            return rent;
+        }
+
+        public static List<MonthRentApportion> GetMonthAllItem(int ContractID, int Type)
+        {
+            string strSQL = string.Format(@"select Type,ContractID,RoomID,Sum(Amount) AS Amount,Year,Month from MonthRentApportion where ContractID = {0} AND Type = {1}                               
+                                Group by Type,ContractID,RoomID,Year,Month having Sum(Amount)  > 0 ORDER BY Year DESC,Month DESC ", ContractID, Type);
+
+            DataTable dt = SQLHelper.ExecuteDataset(ConstUtility.ConnectionStrings, CommandType.Text, strSQL).Tables[0];            
+
+            List<MonthRentApportion> list = new List<MonthRentApportion>();
+
+            if (dt.Rows.Count == 0) return list;
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                MonthRentApportion rent = new MonthRentApportion()
+                {
+                    Year = int.Parse(dt.Rows[i]["Year"].ToString()),
+                    Month = int.Parse(dt.Rows[i]["Month"].ToString()),
+                    Amount = Decimal.Parse(dt.Rows[i]["Amount"].ToString()),
+                    ContractID = int.Parse(dt.Rows[i]["ContractID"].ToString()),
+                    RoomID = int.Parse(dt.Rows[i]["RoomID"].ToString()),
+                    Type = int.Parse(dt.Rows[i]["Type"].ToString())
+                };
+
+                list.Add(rent);
+            }
+
+            return list;
+        }
+
     }
 
 }

@@ -280,6 +280,7 @@ namespace DJS.BLL
             {
                 if (model.Type == (int)Model.Enums.TimeType.Periodicity)
                 {
+                    //model.Crons = "0 0 0 ? * MON";
                     Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
                 }
                 if (model.Type == (int)Model.Enums.TimeType.Disposable)

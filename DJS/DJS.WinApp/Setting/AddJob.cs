@@ -293,9 +293,9 @@ namespace DJS.WinApp
         private void BindIsAuto()
         { 
             List<Model.SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Model.Enums.AutoStartType));
-            cbType.DataSource = list;
-            cbType.DisplayMember = "Name";
-            cbType.ValueMember = "Value";
+            cbIsAuto.DataSource = list;
+            cbIsAuto.DisplayMember = "Name";
+            cbIsAuto.ValueMember = "Value";
         }
         #endregion
 

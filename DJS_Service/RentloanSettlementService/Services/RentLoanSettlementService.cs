@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WaterElectricService.Model.RentLoan;
 using RentloanSettlementService.Common;
+using RentloanSettlementService.Model.RentLoan;
 
 namespace RentloanSettlementService.Services
 {
@@ -60,6 +61,8 @@ namespace RentloanSettlementService.Services
 
             // 结算缓存池数据
             List<RentLoanPool> rentLoanPools = ReadRentLoanPool();
+            // 结算流程对应合同信息
+            List<RentLoanAuditContract> rentLoanAuditContracts = ReadRentLoanAuditContract();
             // 合同数据
             List<Contract> contracts = ReadContract();
             // 合同费用数据
@@ -78,226 +81,482 @@ namespace RentloanSettlementService.Services
 
             List<Charge> ListCharge = new List<Charge>();
 
+            #region 原结算逻辑：结算流程->结算池->结算合同
+            //try
+            //{
+            //    for (int i = 0; i < rentLoanAudits.Count; i++)
+            //    {
+            //        var rlAuditId = rentLoanAudits[i].ID;
+            //        var rlAuditContracts = dbContext.RentLoanAuditContracts.Where(t => t.RentLoanAuditID == rlAuditId).OrderByDescending(t => t.ID).FirstOrDefault();
+            //        var rlStoreId = rlAuditContracts != null ? rlAuditContracts.StoreID : 0;
+
+            //        List<RentLoanPool> tempRentLoanPools = rentLoanPools.Where(p => p.CertificateNo == rentLoanAudits[i].Renter.SSN
+            //            && p.RenterName == rentLoanAudits[i].Renter.Name
+            //            && rentLoanAudits[i].BankColumn != null
+            //            && p.BankName != null
+            //            && (rentLoanAudits[i].BankColumn.BankName.Trim() + "-" + rentLoanAudits[i].BankColumn.SalesManOrDp.Trim())
+            //            .Equals(p.BankName.Trim())
+            //            && p.StoreID != null
+            //            && p.StoreID == rlStoreId
+            //            ).ToList<RentLoanPool>();
+
+            //        if (tempRentLoanPools.Count > 0)
+            //        {
+            //            //RentLoanPool rentLoanPool = tempRentLoanPools.FirstOrDefault<RentLoanPool>();
+
+            //            foreach (var PoolItem in tempRentLoanPools)
+            //            {
+            //                RentLoanPool rentLoanPool = PoolItem;
+
+            //                RentLoanHistoryPool rentLoanHistoryPool = new RentLoanHistoryPool();
+            //                rentLoanHistoryPool.RenterName = rentLoanPool.RenterName;
+            //                rentLoanHistoryPool.CertificateNo = rentLoanPool.CertificateNo;
+            //                rentLoanHistoryPool.SystemDate = rentLoanPool.SystemDate;
+            //                rentLoanHistoryPool.ApprovalAmount = rentLoanPool.ApprovalAmount;
+            //                rentLoanHistoryPool.AggregatePrice = rentLoanPool.AggregatePrice;
+            //                rentLoanHistoryPool.Periods = rentLoanPool.Periods;
+            //                rentLoanHistoryPool.CurrentPrincipal = rentLoanPool.CurrentPrincipal;
+            //                rentLoanHistoryPool.RepaymentAmount = rentLoanPool.RepaymentAmount;
+            //                rentLoanHistoryPool.RepaymentTime = rentLoanPool.RepaymentTime;
+            //                rentLoanHistoryPool.BankName = rentLoanPool.BankName;
+            //                rentLoanHistoryPool.CreateDate = DateTime.Now;
+            //                rentLoanHistoryPool.CreateUserId = rentLoanPool.CreateUserId;
+            //                rentLoanHistoryPool.StoreID = rentLoanPool.StoreID;
+
+            //                dbContext.RentLoanHistoryPools.Add(rentLoanHistoryPool);
+            //                iLog.WriteLog("生成租金贷结算缓存历史数据，租客：" + rentLoanHistoryPool.CertificateNo, 0);
+
+            //                // 正常还款、生成费用记录
+            //                // rentLoanAudits[i].Status = (byte)CommonEnum.RentLoanStatus.正常还款;
+            //                int alreadyAlsoPeriod = rentLoanAudits[i].AlreadyAlsoPeriod == null ? 0 : rentLoanAudits[i].AlreadyAlsoPeriod.Value;
+            //                rentLoanAudits[i].AlreadyAlsoPeriod = alreadyAlsoPeriod + 1;
+
+            //                //DateTime tempLastFeeDate = new DateTime();
+
+            //                //iLog.WriteLog("设置状态为正在还款，已还期数：" + rentLoanAudits[i].AlreadyAlsoPeriod + " 租客：" + rentLoanHistoryPool.CertificateNo);
+
+            //                List<Contract> tempContracts = contracts.Where(p => p.RenterID == rentLoanAudits[i].RenterID && p.Type == 1 && p.Status != 2).ToList<Contract>();
+
+            //                iLog.WriteLog("合同号数量：" + tempContracts.Count, 0);
+
+            //                foreach (var item in tempContracts)
+            //                {
+            //                    iLog.WriteLog("合同号：" + item.ContractNo + " 结算开始 ", 0);
+
+            //                    ContractFee contractFee = contractFees.Where(p => p.ContractID == item.ID).ToList<ContractFee>().FirstOrDefault<ContractFee>();
+
+            //                    iLog.WriteLog("合同号开始日期：" + item.StartDate + " 合同号结束日期: " + item.EndDate + " 租金:" + contractFee.CharterMoney, 0);
+
+            //                    decimal dayRent = GetDayRent(item.StartDate, item.EndDate, contractFee.CharterMoney);
+
+            //                    iLog.WriteLog("日租金: " + dayRent, 0);
+
+            //                    decimal TotalAmount = 0;
+
+            //                    //List<PeriodicCharge> PeriodicCharges = dbContext.PeriodicCharges.Where(c => c.ContractID == item.ID && c.Status == 1).OrderBy(p=>p.EndDate descending).ToList();
+            //                    List<PeriodicCharge> PeriodicCharges = (from r in dbContext.PeriodicCharges
+            //                                                            where r.ContractID == item.ID
+            //                                                               && r.Status == 1
+            //                                                            orderby r.EndDate descending
+            //                                                            select r).ToList();
+
+            //                    if (PeriodicCharges.Count > 0)
+            //                    {
+            //                        TotalAmount = PeriodicCharges.Sum(c => c.Amount);
+            //                    }
+
+            //                    List<PeriodicCharge> tempPeriodicCharges = (from r in ListPeriodicCharge
+            //                                                                where r.ContractID == item.ID
+            //                                                                orderby r.EndDate descending
+            //                                                                select r).ToList();
+            //                    if (tempPeriodicCharges.Count > 0)
+            //                    {
+            //                        TotalAmount = TotalAmount + tempPeriodicCharges.Sum(c => c.Amount);
+            //                    }
+
+            //                    iLog.WriteLog("已付房租: " + TotalAmount, 0);
+
+            //                    DateTime tempStartDate = item.StartDate;
+            //                    int bDayCount = Math.Abs(int.Parse(Math.Round(TotalAmount / dayRent, 0).ToString()));
+
+            //                    if (bDayCount > 0)
+            //                    {
+            //                        tempStartDate = item.StartDate.AddDays(bDayCount);
+            //                    }
+
+            //                    int dayCount = Math.Abs(int.Parse(Math.Round((TotalAmount + contractFee.CharterMoney) / dayRent, 0).ToString()));
+
+            //                    DateTime tempEndDate = item.StartDate.AddDays(-1).AddDays(dayCount);
+
+            //                    if (payCount == -1) payCount = FirstPaySerialNo(serialNo);
+
+            //                    // 保存支付主表数据
+            //                    PaymentMethod paymentMethod = new PaymentMethod();
+            //                    paymentMethod.Date = rentLoanPool.RepaymentTime;
+            //                    paymentMethod.PayType = (byte)CommonEnum.PayMethodTypeSource.租金贷;
+            //                    paymentMethod.CreateUserID = rentLoanAudits[i].CreateUserId;
+            //                    paymentMethod.CreateDate = DateTime.Now;
+            //                    paymentMethod.TotalAmount = contractFee.CharterMoney;
+            //                    paymentMethod.Status = (byte)CommonEnum.PaymentStatus.已付款;
+            //                    paymentMethod.PaySerialNo = GeneratePaySerialNo(serialNo, payCount + i);
+
+            //                    // 保存支付子表数据
+            //                    PaymentDetails paymentDetials = new PaymentDetails();
+            //                    paymentDetials.Amount = contractFee.CharterMoney;
+            //                    paymentDetials.Type = (byte)CommonEnum.PaymentDetailsType.RentLoan;
+            //                    paymentDetials.SerialNo = GeneratePaySerialNo(serialNo, payCount + i);
+            //                    paymentDetials.PaymentMethod = paymentMethod;
+
+            //                    iLog.WriteLog("生成支付数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 支付金额：" + paymentMethod.TotalAmount + " 流水号：" + paymentMethod.PaySerialNo, 0);
+
+            //                    PeriodicCharge periodicCharge = new PeriodicCharge();
+            //                    PeriodicChargeDetail periodicChargeDetail = new PeriodicChargeDetail();
+            //                    Charge charge = new Charge();
+            //                    ChargeDetail chargeDetail = new ChargeDetail();
+            //                    if (rentLoanAudits[i].Status != 7)
+            //                    {
+
+            //                        periodicCharge.Contract = item;
+            //                        periodicCharge.StartDate = tempStartDate;
+            //                        periodicCharge.EndDate = tempEndDate;
+            //                        periodicCharge.Amount = contractFee.CharterMoney;
+            //                        periodicCharge.FeeType = (byte)CommonEnum.PeriodicFeeType.租金;
+            //                        periodicCharge.PayDate = rentLoanPool.RepaymentTime;
+            //                        periodicCharge.PaymentMethod = paymentMethod;
+            //                        periodicCharge.ReceivableAmount = contractFee.CharterMoney;
+
+            //                        ListPeriodicCharge.Add(periodicCharge);
+
+            //                        periodicChargeDetail.PeriodicCharge = periodicCharge;
+            //                        periodicChargeDetail.Name = "租金";
+            //                        periodicChargeDetail.UnitPrice = contractFee.CharterMoney;
+            //                        periodicChargeDetail.Quantity = 1;
+            //                        periodicChargeDetail.Unit = CommonEnum.Unit_Month;
+            //                        periodicChargeDetail.Type = (byte)CommonEnum.PeriodicFeeType.租金;
+            //                        periodicChargeDetail.ProductType = (byte)CommonEnum.ChargeProductType.产品;
+            //                        periodicChargeDetail.ProductCode = "131001000001";
+
+            //                        iLog.WriteLog("生成收费数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 收费金额：" + periodicCharge.Amount + " 覆盖期间：" + periodicCharge.StartDate + " 至 " + periodicCharge.EndDate, 0);
+            //                        dbContext.PeriodicCharges.Add(periodicCharge);
+            //                        dbContext.PeriodicChargeDetails.Add(periodicChargeDetail);
+            //                    }
+            //                    else
+            //                    {
+            //                        charge.Contract = item;
+            //                        charge.Amount = contractFee.CharterMoney;
+            //                        charge.FeeType = (int)CommonEnum.FeeType.违约金;
+            //                        charge.PaymentMethod = paymentMethod;
+            //                        charge.ReceivableAmount = contractFee.CharterMoney;
+
+            //                        ListCharge.Add(charge);
+
+            //                        chargeDetail.Charge = charge;
+            //                        chargeDetail.Name = "违约金";
+            //                        chargeDetail.UnitPrice = contractFee.CharterMoney;
+            //                        chargeDetail.Quantity = 1;
+            //                        chargeDetail.Unit = CommonEnum.Unit_One;
+            //                        chargeDetail.Type = (int)CommonEnum.FeeType.违约金;
+            //                        chargeDetail.ProductType = (byte)CommonEnum.ChargeProductType.产品;
+            //                        chargeDetail.ProductCode = "114001000001";
+
+            //                        iLog.WriteLog("生成收费数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 收费金额：" + charge.Amount, 0);
+
+            //                        dbContext.Charges.Add(charge);
+            //                        dbContext.ChargeDetails.Add(chargeDetail);
+            //                    }
+
+            //                    // 保存结算日志
+            //                    RentLoanSettlementLog setmentLog = new RentLoanSettlementLog();
+            //                    setmentLog.ContractID = item.ID;
+            //                    setmentLog.RentLoanHistoryPool = rentLoanHistoryPool;
+            //                    setmentLog.RepaymentTime = rentLoanPool.RepaymentTime;
+            //                    setmentLog.RepaymentAmount = contractFee.CharterMoney;
+            //                    setmentLog.CreateDate = DateTime.Now;
+            //                    setmentLog.Periods = alreadyAlsoPeriod + 1;
+            //                    setmentLog.CreateUserId = rentLoanPool.CreateUserId;
+
+            //                    iLog.WriteLog("生成结算日志数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 结算金额：" + setmentLog.RepaymentAmount + " 还款日期：" + setmentLog.RepaymentTime + " 申请银行：" + rentLoanHistoryPool.BankName, 0);
+
+            //                    dbContext.PaymentMethods.Add(paymentMethod);
+            //                    dbContext.PaymentDetails.Add(paymentDetials);
+
+
+            //                    dbContext.RentLoanSettlementLogs.Add(setmentLog);
+            //                }
+
+            //                dbContext.RentLoanPools.Remove(rentLoanPool);
+            //                iLog.WriteLog("清除结算缓存池数据，SSN：" + rentLoanPool.CertificateNo, 0);
+            //            }
+            //        }
+
+            //        dbContext.Entry(rentLoanAudits[i]).State = System.Data.Entity.EntityState.Modified;
+            //    }
+
+            //    dbContext.SaveChanges();
+
+            //}
+            //catch
+            //{
+            //    //iLog.WriteLog("租金贷结算程序运行异常：" + e.Message, 1);
+            //    //if (e.InnerException != null && e.InnerException.InnerException != null)
+            //    //    iLog.WriteLog("租金贷结算程序运行异常：" + e.InnerException.InnerException.Message, 1);
+            //    throw;
+            //}
+            #endregion
+
+            #region 新结算逻辑：结算池->结算流程->结算合同
             try
             {
-                for (int i = 0; i < rentLoanAudits.Count; i++)
+                for (int i = 0; i < rentLoanPools.Count; i++)
                 {
-                    var rlAuditId = rentLoanAudits[i].ID;
-                    var rlAuditContracts = dbContext.RentLoanAuditContracts.Where(t => t.RentLoanAuditID == rlAuditId).OrderByDescending(t => t.ID).FirstOrDefault();
-                    var rlStoreId = rlAuditContracts != null ? rlAuditContracts.StoreID : 0;
+                    RentLoanPool rentLoanPool = rentLoanPools[i];
 
-                    List<RentLoanPool> tempRentLoanPools = rentLoanPools.Where(p => p.CertificateNo == rentLoanAudits[i].Renter.SSN
-                        && p.RenterName == rentLoanAudits[i].Renter.Name
-                        && rentLoanAudits[i].BankColumn != null
-                        && p.BankName != null
-                        && (rentLoanAudits[i].BankColumn.BankName.Trim() + "-" + rentLoanAudits[i].BankColumn.SalesManOrDp.Trim())
-                        .Equals(p.BankName.Trim())
-                        && p.StoreID != null
-                        && p.StoreID == rlStoreId
-                        ).ToList<RentLoanPool>();
+                    //结算池历史
+                    RentLoanHistoryPool rentLoanHistoryPool = new RentLoanHistoryPool();
+                    rentLoanHistoryPool.RenterName = rentLoanPool.RenterName;
+                    rentLoanHistoryPool.CertificateNo = rentLoanPool.CertificateNo;
+                    rentLoanHistoryPool.SystemDate = rentLoanPool.SystemDate;
+                    rentLoanHistoryPool.ApprovalAmount = rentLoanPool.ApprovalAmount;
+                    rentLoanHistoryPool.AggregatePrice = rentLoanPool.AggregatePrice;
+                    rentLoanHistoryPool.Periods = rentLoanPool.Periods;
+                    rentLoanHistoryPool.CurrentPrincipal = rentLoanPool.CurrentPrincipal;
+                    rentLoanHistoryPool.RepaymentAmount = rentLoanPool.RepaymentAmount;
+                    rentLoanHistoryPool.RepaymentTime = rentLoanPool.RepaymentTime;
+                    rentLoanHistoryPool.BankName = rentLoanPool.BankName;
+                    rentLoanHistoryPool.CreateDate = DateTime.Now;
+                    rentLoanHistoryPool.CreateUserId = rentLoanPool.CreateUserId;
+                    rentLoanHistoryPool.StoreID = rentLoanPool.StoreID;
 
-                    if (tempRentLoanPools.Count > 0)
+                  
+
+                    //每条结算池数据只能对应一条结算流程数据
+                    RentLoanAudit tempRentLoanAudit = null;
+                    List<RentLoanAudit> tempRentLoanAuditList = rentLoanAudits.Where(
+                                                                           c => c.Renter.SSN == rentLoanPool.CertificateNo && c.Renter.Name == rentLoanPool.RenterName
+                                                                               && c.BankColumn != null && rentLoanPool.BankName != null && (c.BankColumn.BankName.Trim() + "-" + c.BankColumn.SalesManOrDp.Trim()).Equals(rentLoanPool.BankName.Trim())
+                                                                               && c.MonthlyTotalAmount == rentLoanPool.RepaymentAmount
+                                                                          ).ToList();
+                    for (int j = 0; j < tempRentLoanAuditList.Count; j++)
                     {
-                        //RentLoanPool rentLoanPool = tempRentLoanPools.FirstOrDefault<RentLoanPool>();
-
-                        foreach (var PoolItem in tempRentLoanPools)
+                        var tempRentLoanAuditListID = tempRentLoanAuditList[j].ID;
+                        var rlaContract = dbContext.RentLoanAuditContracts.Where(c => c.RentLoanAuditID == tempRentLoanAuditListID).OrderByDescending(c => c.ID).FirstOrDefault();
+                        int rlaStoreId = rlaContract != null ? rlaContract.StoreID : 0;
+                        if (rentLoanPool.StoreID == rlaStoreId)
                         {
-                            RentLoanPool rentLoanPool = PoolItem;
-
-                            RentLoanHistoryPool rentLoanHistoryPool = new RentLoanHistoryPool();
-                            rentLoanHistoryPool.RenterName = rentLoanPool.RenterName;
-                            rentLoanHistoryPool.CertificateNo = rentLoanPool.CertificateNo;
-                            rentLoanHistoryPool.SystemDate = rentLoanPool.SystemDate;
-                            rentLoanHistoryPool.ApprovalAmount = rentLoanPool.ApprovalAmount;
-                            rentLoanHistoryPool.AggregatePrice = rentLoanPool.AggregatePrice;
-                            rentLoanHistoryPool.Periods = rentLoanPool.Periods;
-                            rentLoanHistoryPool.CurrentPrincipal = rentLoanPool.CurrentPrincipal;
-                            rentLoanHistoryPool.RepaymentAmount = rentLoanPool.RepaymentAmount;
-                            rentLoanHistoryPool.RepaymentTime = rentLoanPool.RepaymentTime;
-                            rentLoanHistoryPool.BankName = rentLoanPool.BankName;
-                            rentLoanHistoryPool.CreateDate = DateTime.Now;
-                            rentLoanHistoryPool.CreateUserId = rentLoanPool.CreateUserId;
-                            rentLoanHistoryPool.StoreID = rentLoanPool.StoreID;
-
-                            dbContext.RentLoanHistoryPools.Add(rentLoanHistoryPool);
-                            iLog.WriteLog("生成租金贷结算缓存历史数据，租客：" + rentLoanHistoryPool.CertificateNo, 0);
-
-                            // 正常还款、生成费用记录
-                            // rentLoanAudits[i].Status = (byte)CommonEnum.RentLoanStatus.正常还款;
-                            int alreadyAlsoPeriod = rentLoanAudits[i].AlreadyAlsoPeriod == null ? 0 : rentLoanAudits[i].AlreadyAlsoPeriod.Value;
-                            rentLoanAudits[i].AlreadyAlsoPeriod = alreadyAlsoPeriod + 1;
-
-                            //DateTime tempLastFeeDate = new DateTime();
-
-                            //iLog.WriteLog("设置状态为正在还款，已还期数：" + rentLoanAudits[i].AlreadyAlsoPeriod + " 租客：" + rentLoanHistoryPool.CertificateNo);
-
-                            List<Contract> tempContracts = contracts.Where(p => p.RenterID == rentLoanAudits[i].RenterID && p.Type == 1).ToList<Contract>();
-
-                            iLog.WriteLog("合同号数量：" + tempContracts.Count, 0);
-
-                            foreach (var item in tempContracts)
-                            {
-                                iLog.WriteLog("合同号：" + item.ContractNo + " 结算开始 ", 0);
-
-                                ContractFee contractFee = contractFees.Where(p => p.ContractID == item.ID).ToList<ContractFee>().FirstOrDefault<ContractFee>();
-
-                                iLog.WriteLog("合同号开始日期：" + item.StartDate + " 合同号结束日期: " + item.EndDate + " 租金:" + contractFee.CharterMoney, 0);
-
-                                decimal dayRent = GetDayRent(item.StartDate, item.EndDate, contractFee.CharterMoney);
-
-                                iLog.WriteLog("日租金: " + dayRent, 0);
-
-                                decimal TotalAmount = 0;
-
-                                //List<PeriodicCharge> PeriodicCharges = dbContext.PeriodicCharges.Where(c => c.ContractID == item.ID && c.Status == 1).OrderBy(p=>p.EndDate descending).ToList();
-                                List<PeriodicCharge> PeriodicCharges = (from r in dbContext.PeriodicCharges
-                                                                        where r.ContractID == item.ID
-                                                                           && r.Status == 1
-                                                                        orderby r.EndDate descending
-                                                                        select r).ToList();
-
-                                if (PeriodicCharges.Count > 0)
-                                {
-                                    TotalAmount = PeriodicCharges.Sum(c => c.Amount);
-                                }
-
-                                List<PeriodicCharge> tempPeriodicCharges = (from r in ListPeriodicCharge
-                                                                            where r.ContractID == item.ID
-                                                                            orderby r.EndDate descending
-                                                                            select r).ToList();
-                                if (tempPeriodicCharges.Count > 0)
-                                {
-                                    TotalAmount = TotalAmount + tempPeriodicCharges.Sum(c => c.Amount);
-                                }
-
-                                iLog.WriteLog("已付房租: " + TotalAmount, 0);
-
-                                DateTime tempStartDate = item.StartDate;
-                                int bDayCount = Math.Abs(int.Parse(Math.Round(TotalAmount / dayRent, 0).ToString()));
-
-                                if (bDayCount > 0)
-                                {
-                                    tempStartDate = item.StartDate.AddDays(bDayCount);
-                                }
-
-                                int dayCount = Math.Abs(int.Parse(Math.Round((TotalAmount + contractFee.CharterMoney) / dayRent, 0).ToString()));
-
-                                DateTime tempEndDate = item.StartDate.AddDays(-1).AddDays(dayCount);
-
-                                if (payCount == -1) payCount = FirstPaySerialNo(serialNo);
-
-                                // 保存支付主表数据
-                                PaymentMethod paymentMethod = new PaymentMethod();
-                                paymentMethod.Date = rentLoanPool.RepaymentTime;
-                                paymentMethod.PayType = (byte)CommonEnum.PayMethodTypeSource.租金贷;
-                                paymentMethod.CreateUserID = rentLoanAudits[i].CreateUserId;
-                                paymentMethod.CreateDate = DateTime.Now;
-                                paymentMethod.TotalAmount = contractFee.CharterMoney;
-                                paymentMethod.Status = (byte)CommonEnum.PaymentStatus.已付款;
-                                paymentMethod.PaySerialNo = GeneratePaySerialNo(serialNo, payCount + i);
-
-                                // 保存支付子表数据
-                                PaymentDetails paymentDetials = new PaymentDetails();
-                                paymentDetials.Amount = contractFee.CharterMoney;
-                                paymentDetials.Type = (byte)CommonEnum.PaymentDetailsType.RentLoan;
-                                paymentDetials.SerialNo = GeneratePaySerialNo(serialNo, payCount + i);
-                                paymentDetials.PaymentMethod = paymentMethod;
-
-                                iLog.WriteLog("生成支付数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 支付金额：" + paymentMethod.TotalAmount + " 流水号：" + paymentMethod.PaySerialNo, 0);
-
-                                PeriodicCharge periodicCharge = new PeriodicCharge();
-                                PeriodicChargeDetail periodicChargeDetail = new PeriodicChargeDetail();
-                                Charge charge = new Charge();
-                                ChargeDetail chargeDetail = new ChargeDetail();
-                                if (rentLoanAudits[i].Status != 7)
-                                {
-
-                                    periodicCharge.Contract = item;
-                                    periodicCharge.StartDate = tempStartDate;
-                                    periodicCharge.EndDate = tempEndDate;
-                                    periodicCharge.Amount = contractFee.CharterMoney;
-                                    periodicCharge.FeeType = (byte)CommonEnum.PeriodicFeeType.租金;
-                                    periodicCharge.PayDate = rentLoanPool.RepaymentTime;
-                                    periodicCharge.PaymentMethod = paymentMethod;
-                                    periodicCharge.ReceivableAmount = contractFee.CharterMoney;
-
-                                    ListPeriodicCharge.Add(periodicCharge);
-
-                                    periodicChargeDetail.PeriodicCharge = periodicCharge;
-                                    periodicChargeDetail.Name = "租金";
-                                    periodicChargeDetail.UnitPrice = contractFee.CharterMoney;
-                                    periodicChargeDetail.Quantity = 1;
-                                    periodicChargeDetail.Unit = CommonEnum.Unit_Month;
-                                    periodicChargeDetail.Type = (byte)CommonEnum.PeriodicFeeType.租金;
-                                    periodicChargeDetail.ProductType = (byte)CommonEnum.ChargeProductType.产品;
-                                    periodicChargeDetail.ProductCode = "131001000001";
-
-                                    iLog.WriteLog("生成收费数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 收费金额：" + periodicCharge.Amount + " 覆盖期间：" + periodicCharge.StartDate + " 至 " + periodicCharge.EndDate, 0);
-                                    dbContext.PeriodicCharges.Add(periodicCharge);
-                                    dbContext.PeriodicChargeDetails.Add(periodicChargeDetail);
-                                }
-                                else
-                                {
-                                    charge.Contract = item;
-                                    charge.Amount = contractFee.CharterMoney;
-                                    charge.FeeType = (int)CommonEnum.FeeType.违约金;
-                                    charge.PaymentMethod = paymentMethod;
-                                    charge.ReceivableAmount = contractFee.CharterMoney;
-
-                                    ListCharge.Add(charge);
-
-                                    chargeDetail.Charge = charge;
-                                    chargeDetail.Name = "违约金";
-                                    chargeDetail.UnitPrice = contractFee.CharterMoney;
-                                    chargeDetail.Quantity = 1;
-                                    chargeDetail.Unit = CommonEnum.Unit_One;
-                                    chargeDetail.Type = (int)CommonEnum.FeeType.违约金;
-                                    chargeDetail.ProductType = (byte)CommonEnum.ChargeProductType.产品;
-                                    chargeDetail.ProductCode = "114001000001";
-
-                                    iLog.WriteLog("生成收费数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 收费金额：" + charge.Amount, 0);
-
-                                    dbContext.Charges.Add(charge);
-                                    dbContext.ChargeDetails.Add(chargeDetail);
-                                }
-
-                                // 保存结算日志
-                                RentLoanSettlementLog setmentLog = new RentLoanSettlementLog();
-                                setmentLog.ContractID = item.ID;
-                                setmentLog.RentLoanHistoryPool = rentLoanHistoryPool;
-                                setmentLog.RepaymentTime = rentLoanPool.RepaymentTime;
-                                setmentLog.RepaymentAmount = contractFee.CharterMoney;
-                                setmentLog.CreateDate = DateTime.Now;
-                                setmentLog.Periods = alreadyAlsoPeriod + 1;
-                                setmentLog.CreateUserId = rentLoanPool.CreateUserId;
-
-                                iLog.WriteLog("生成结算日志数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 结算金额：" + setmentLog.RepaymentAmount + " 还款日期：" + setmentLog.RepaymentTime + " 申请银行：" + rentLoanHistoryPool.BankName, 0);
-
-                                dbContext.PaymentMethods.Add(paymentMethod);
-                                dbContext.PaymentDetails.Add(paymentDetials);
-
-
-                                dbContext.RentLoanSettlementLogs.Add(setmentLog);
-                            }
-
-                            dbContext.RentLoanPools.Remove(rentLoanPool);
-                            iLog.WriteLog("清除结算缓存池数据，SSN：" + rentLoanPool.CertificateNo, 0);
+                            tempRentLoanAudit = tempRentLoanAuditList[j];
                         }
                     }
 
-                    dbContext.Entry(rentLoanAudits[i]).State = System.Data.Entity.EntityState.Modified;
+                    if (tempRentLoanAudit == null)
+                    {
+                        continue;
+                    }
+
+                    dbContext.RentLoanHistoryPools.Add(rentLoanHistoryPool);
+                    iLog.WriteLog("生成租金贷结算缓存历史数据，租客：" + rentLoanHistoryPool.CertificateNo, 0);
+
+                    //记录还款期数
+                    int alreadyAlsoPeriod = tempRentLoanAudit.AlreadyAlsoPeriod == null ? 0 : tempRentLoanAudit.AlreadyAlsoPeriod.Value;
+                    tempRentLoanAudit.AlreadyAlsoPeriod = alreadyAlsoPeriod + 1;
+
+                    List<RentLoanAuditContract> tempRentLoanAuditContracts = rentLoanAuditContracts.Where(c => c.RentLoanAuditID == tempRentLoanAudit.ID).ToList<RentLoanAuditContract>();
+
+
+                    var tempRentLoanAuditContractIDList = tempRentLoanAuditContracts.Select(m => m.ContractID).ToList();
+                    List<Contract> tempContracts = contracts.Where(c => c.Status != 2 && tempRentLoanAuditContractIDList.Contains(c.ID)).ToList<Contract>();
+
+                    iLog.WriteLog("合同号数量：" + tempContracts.Count, 0);
+
+                    //本合同金额
+                    decimal dAmount = 0;
+                    //下个合同金额
+                    decimal dLastAmount = rentLoanPool.RepaymentAmount;
+
+                    foreach (var item in tempContracts)
+                    {
+                        bool isBreak = false;
+
+                        iLog.WriteLog("合同号：" + item.ContractNo + " 结算开始 ", 0);
+
+                        ContractFee contractFee = contractFees.Where(p => p.ContractID == item.ID).ToList<ContractFee>().FirstOrDefault<ContractFee>();
+
+                        if (tempContracts.Count == 1)
+                        {
+                            dAmount = dLastAmount;
+                        }
+                        else
+                        {
+                            if (contractFee.CharterMoney >= dLastAmount)
+                            {
+                                dAmount = dLastAmount;
+                                isBreak = true;
+                            }
+                            else
+                            {
+                                dAmount = contractFee.CharterMoney;
+                            }
+                        }
+
+                        iLog.WriteLog("合同号开始日期：" + item.StartDate + " 合同号结束日期: " + item.EndDate + " 租金:" + dAmount, 0);
+
+                        decimal dayRent = GetDayRent(item.StartDate, item.EndDate, dAmount);
+
+                        iLog.WriteLog("日租金: " + dayRent, 0);
+
+                        decimal TotalAmount = 0;
+
+                        List<PeriodicCharge> PeriodicCharges = (from r in dbContext.PeriodicCharges
+                                                                where r.ContractID == item.ID
+                                                                   && r.Status == 1
+                                                                orderby r.EndDate descending
+                                                                select r).ToList();
+
+                        if (PeriodicCharges.Count > 0)
+                        {
+                            TotalAmount = PeriodicCharges.Sum(c => c.Amount);
+                        }
+
+                        List<PeriodicCharge> tempPeriodicCharges = (from r in ListPeriodicCharge
+                                                                    where r.ContractID == item.ID
+                                                                    orderby r.EndDate descending
+                                                                    select r).ToList();
+                        if (tempPeriodicCharges.Count > 0)
+                        {
+                            TotalAmount = TotalAmount + tempPeriodicCharges.Sum(c => c.Amount);
+                        }
+
+                        iLog.WriteLog("已付房租: " + TotalAmount, 0);
+
+                        DateTime tempStartDate = item.StartDate;
+                        int bDayCount = Math.Abs(int.Parse(Math.Round(TotalAmount / dayRent, 0).ToString()));
+
+                        if (bDayCount > 0)
+                        {
+                            tempStartDate = item.StartDate.AddDays(bDayCount);
+                        }
+
+                        int dayCount = Math.Abs(int.Parse(Math.Round((TotalAmount + dAmount) / dayRent, 0).ToString()));
+
+                        DateTime tempEndDate = item.StartDate.AddDays(-1).AddDays(dayCount);
+
+                        if (payCount == -1) payCount = FirstPaySerialNo(serialNo);
+
+                        // 保存支付主表数据
+                        PaymentMethod paymentMethod = new PaymentMethod();
+                        paymentMethod.Date = rentLoanPool.RepaymentTime;
+                        paymentMethod.PayType = (byte)CommonEnum.PayMethodTypeSource.租金贷;
+                        paymentMethod.CreateUserID = tempRentLoanAudit.CreateUserId;
+                        paymentMethod.CreateDate = DateTime.Now;
+                        paymentMethod.TotalAmount = dAmount;
+                        paymentMethod.Status = (byte)CommonEnum.PaymentStatus.已付款;
+                        paymentMethod.PaySerialNo = GeneratePaySerialNo(serialNo, payCount + i);
+
+                        // 保存支付子表数据
+                        PaymentDetails paymentDetials = new PaymentDetails();
+                        paymentDetials.Amount = dAmount;
+                        paymentDetials.Type = (byte)CommonEnum.PaymentDetailsType.RentLoan;
+                        paymentDetials.SerialNo = GeneratePaySerialNo(serialNo, payCount + i);
+                        paymentDetials.PaymentMethod = paymentMethod;
+
+                        iLog.WriteLog("生成支付数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 支付金额：" + paymentMethod.TotalAmount + " 流水号：" + paymentMethod.PaySerialNo, 0);
+
+                        PeriodicCharge periodicCharge = new PeriodicCharge();
+                        PeriodicChargeDetail periodicChargeDetail = new PeriodicChargeDetail();
+                        Charge charge = new Charge();
+                        ChargeDetail chargeDetail = new ChargeDetail();
+                        if (tempRentLoanAudit.Status != 7)
+                        {
+                            periodicCharge.Contract = item;
+                            periodicCharge.StartDate = tempStartDate;
+                            periodicCharge.EndDate = tempEndDate;
+                            periodicCharge.Amount = dAmount;
+                            periodicCharge.FeeType = (byte)CommonEnum.PeriodicFeeType.租金;
+                            periodicCharge.PayDate = rentLoanPool.RepaymentTime;
+                            periodicCharge.PaymentMethod = paymentMethod;
+                            periodicCharge.ReceivableAmount = dAmount;
+
+                            ListPeriodicCharge.Add(periodicCharge);
+
+                            periodicChargeDetail.PeriodicCharge = periodicCharge;
+                            periodicChargeDetail.Name = "租金";
+                            periodicChargeDetail.UnitPrice = dAmount;
+                            periodicChargeDetail.Quantity = 1;
+                            periodicChargeDetail.Unit = CommonEnum.Unit_Month;
+                            periodicChargeDetail.Type = (byte)CommonEnum.PeriodicFeeType.租金;
+                            periodicChargeDetail.ProductType = (byte)CommonEnum.ChargeProductType.产品;
+                            periodicChargeDetail.ProductCode = "131001000001";
+
+                            iLog.WriteLog("生成收费数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 收费金额：" + periodicCharge.Amount + " 覆盖期间：" + periodicCharge.StartDate + " 至 " + periodicCharge.EndDate, 0);
+                            dbContext.PeriodicCharges.Add(periodicCharge);
+                            dbContext.PeriodicChargeDetails.Add(periodicChargeDetail);
+                        }
+                        else
+                        {
+                            charge.Contract = item;
+                            charge.Amount = dAmount;
+                            charge.FeeType = (int)CommonEnum.FeeType.违约金;
+                            charge.PaymentMethod = paymentMethod;
+                            charge.ReceivableAmount = dAmount;
+
+                            ListCharge.Add(charge);
+
+                            chargeDetail.Charge = charge;
+                            chargeDetail.Name = "违约金";
+                            chargeDetail.UnitPrice = dAmount;
+                            chargeDetail.Quantity = 1;
+                            chargeDetail.Unit = CommonEnum.Unit_One;
+                            chargeDetail.Type = (int)CommonEnum.FeeType.违约金;
+                            chargeDetail.ProductType = (byte)CommonEnum.ChargeProductType.产品;
+                            chargeDetail.ProductCode = "114001000001";
+
+                            iLog.WriteLog("生成收费数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 收费金额：" + charge.Amount, 0);
+
+                            dbContext.Charges.Add(charge);
+                            dbContext.ChargeDetails.Add(chargeDetail);
+                        }
+
+                        // 保存结算日志
+                        RentLoanSettlementLog setmentLog = new RentLoanSettlementLog();
+                        setmentLog.ContractID = item.ID;
+                        setmentLog.RentLoanHistoryPool = rentLoanHistoryPool;
+                        setmentLog.RepaymentTime = rentLoanPool.RepaymentTime;
+                        setmentLog.RepaymentAmount = dAmount;
+                        setmentLog.CreateDate = DateTime.Now;
+                        setmentLog.Periods = alreadyAlsoPeriod + 1;
+                        setmentLog.CreateUserId = rentLoanPool.CreateUserId;
+
+                        iLog.WriteLog("生成结算日志数据，合同号：" + item.ContractNo + " 租客：" + rentLoanHistoryPool.CertificateNo + " 结算金额：" + setmentLog.RepaymentAmount + " 还款日期：" + setmentLog.RepaymentTime + " 申请银行：" + rentLoanHistoryPool.BankName, 0);
+
+                        dbContext.PaymentMethods.Add(paymentMethod);
+                        dbContext.PaymentDetails.Add(paymentDetials);
+
+
+                        dbContext.RentLoanSettlementLogs.Add(setmentLog);
+
+                        if (isBreak)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            dLastAmount = dLastAmount - dAmount;
+                        }
+                    }
+
+                    dbContext.Entry(tempRentLoanAudit).State = System.Data.Entity.EntityState.Modified;
+
+                    dbContext.RentLoanPools.Remove(rentLoanPool);
+                    iLog.WriteLog("清除结算缓存池数据，SSN：" + rentLoanPool.CertificateNo, 0);
+
                 }
 
                 dbContext.SaveChanges();
-
             }
             catch
             {
-                //iLog.WriteLog("租金贷结算程序运行异常：" + e.Message, 1);
-                //if (e.InnerException != null && e.InnerException.InnerException != null)
-                //    iLog.WriteLog("租金贷结算程序运行异常：" + e.InnerException.InnerException.Message, 1);
                 throw;
             }
+            #endregion
 
             iLog.WriteLog("租金贷结算程序运行结束", 0);
         }
@@ -321,7 +580,7 @@ namespace RentloanSettlementService.Services
                 foreach (var item in rentLoanAudits)
                 {
                     BankColumn bankColumn = (from r in bankColumns
-                                             where r.BankCode == item.BankCode
+                                             where r.ID == item.BankColumnID
                                              select r).ToList<BankColumn>().FirstOrDefault<BankColumn>();
 
                     // 账单日
@@ -400,7 +659,14 @@ namespace RentloanSettlementService.Services
         {
             return dbContext.RentLoanPools.ToList<RentLoanPool>();
         }
-
+        /// <summary>
+        /// 读取结算流程对应合同信息
+        /// </summary>
+        /// <returns></returns>
+        public List<RentLoanAuditContract> ReadRentLoanAuditContract()
+        {
+            return dbContext.RentLoanAuditContracts.ToList();
+        }
         /// <summary>
         /// 获取上月历史结算信息
         /// </summary>
@@ -423,7 +689,7 @@ namespace RentloanSettlementService.Services
 
             List<RentLoanAudit> RentLoanAudits = (from r in dbContext.RentLoanAudits
                                                   join c in dbContext.Renters on r.RenterID equals c.ID
-                                                  where r.Status > 3
+                                                  where r.Status > 3 && r.Status != 10
                                                   select r).ToList();
 
             return RentLoanAudits;
@@ -434,7 +700,7 @@ namespace RentloanSettlementService.Services
             // 已放款未进入还款流程、正常还款、逾期不还款
             List<RentLoanAudit> RentLoanAudits = dbContext.RentLoanAudits.Where(p => (p.Status == 4 || p.Status == 5 || p.Status == 9)
                 && p.Periods > p.AlreadyAlsoPeriod
-                && p.DateOfLoan != null).ToList<RentLoanAudit>();
+                && p.DateOfLoan != null && p.BankColumnID != 5).ToList<RentLoanAudit>();
 
             return RentLoanAudits;
         }

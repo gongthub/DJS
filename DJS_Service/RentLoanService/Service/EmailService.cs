@@ -40,25 +40,6 @@ namespace RentLoanService.Service
             {
                 if (EmailUtility.ServiceIsStart(SERVICECODE))
                 {
-                    IDBRepository dbRepository = new IDBRepository();
-                    //var UserProfileList = from q in dbRepository.EmailUserProfileDetails
-                    //                      group q by new { q.CategoryID, q.StoreID, q.Type } into g
-                    //                      select new
-                    //                      {
-                    //                          g.Key.CategoryID,
-                    //                          g.Key.StoreID,
-                    //                          g.Key.Type
-                    //                      };
-                    //foreach (var item in UserProfileList)
-                    //{
-                    //    switch (item.CategoryID)
-                    //    {
-                    //        case (int)EnumUtility.EmailCategory.租金贷预警:
-                    //            RentLoanService.SendRentLoanEmail((int)EnumUtility.EmailCategory.租金贷预警, item.StoreID, item.Type);
-                    //            break;
-                    //    }
-                    //}
-
                     List<Model.AMSServiceSetEmail> emailLists = EmailUtility.GetServiceSetEmailStoresList(SERVICECODE);
                     if (emailLists != null && emailLists.Count > 0)
                     {
@@ -81,7 +62,6 @@ namespace RentLoanService.Service
                             {
                                 iLog.WriteLog(ex.Message, 1);
                             }
-
                         }
                     }
                 }
@@ -89,15 +69,12 @@ namespace RentLoanService.Service
                 {
                     iLog.WriteLog("邮件配置服务不启用！", 0);
                 }
-
             }
             catch (Exception e)
             {
-
                 iLog.WriteLog(e.Message, 0);
                 //NLog.LogManager.GetCurrentClassLogger().Info("DiaryWarning Error " + e.Message);
             }
-
         }
 
 

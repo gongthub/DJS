@@ -46,6 +46,7 @@ namespace DJS.WinApp
         {
             InitializeComponent();
         }
+
         #region 窗体事件
 
         #region 窗体加载事件 -void Center_Load(object sender, EventArgs e)

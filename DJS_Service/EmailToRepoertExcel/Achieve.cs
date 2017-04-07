@@ -89,8 +89,8 @@ namespace EmailToRepoertExcel
                 iConfigMgr.SetConfig("SendEmail", "testadmin@vlinker.com.cn");
                 iConfigMgr.SetConfig("SendPwd", "Vlinker123");
                 iConfigMgr.SetConfig("ConnType", "SQLServer");
-                iConfigMgr.SetConfig("ServiceCode", "S006");
-                iConfigMgr.SetConfig("ConnStr", "Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAms;");
+                iConfigMgr.SetConfig("ServiceCode", "S002");
+                iConfigMgr.SetConfig("ConnStr", "Data Source=.;User Id=sa;Password=1234567890;Database=AMS;");
             }
             else
             {

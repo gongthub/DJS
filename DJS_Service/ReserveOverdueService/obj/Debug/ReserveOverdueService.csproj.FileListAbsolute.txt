@@ -60,3 +60,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ReserveOverdueService\bi
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ReserveOverdueService\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ReserveOverdueService\obj\Debug\ReserveOverdueService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ReserveOverdueService\obj\Debug\ReserveOverdueService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ReserveOverdueService\obj\Debug\ReserveOverdueService.csprojResolveAssemblyReference.cache

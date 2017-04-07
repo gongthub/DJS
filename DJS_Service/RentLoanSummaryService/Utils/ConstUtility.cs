@@ -38,7 +38,7 @@ namespace RentLoanSummaryService.Utils
 
             OverdueNotRepay = iConfigMgr.GetConfig("OverdueNotRepay");
 
-            WaitIntoPiece = iConfigMgr.GetConfig("WaitIntoPiece");
+            //WaitIntoPiece = iConfigMgr.GetConfig("WaitIntoPiece");
 
             WaitSubmit = iConfigMgr.GetConfig("WaitSubmit");
 
@@ -62,18 +62,21 @@ namespace RentLoanSummaryService.Utils
         public static string IDBEmailService = "";
 
 
-
+        // 0）公共阀值：风控天数 20
         // 1）未申请超过5天，邮件预警提醒
-        // 2）未审核超过7天，邮件预警提醒
+        // 2）未审核超过15天，邮件预警提醒
         // 3）审核通过8天以后不放款，邮件预警提醒。
         // 4）审核不通过未处理，邮件预警提醒。
         // 5）逾期未还款45天，邮件预警提醒。
+
+        // 6）待进件超15天，邮件预警提醒
+        // 7）待提交超5天，邮件预警提醒
         public static string NotApply = "";
         public static string NotAudit = "";
         public static string AuditOK = "";
         public static string AuditRefuse = "";
         public static string OverdueNotRepay = "";
-        public static string WaitIntoPiece = "";
+        //public static string WaitIntoPiece = "";
         public static string WaitSubmit = "";
 
 

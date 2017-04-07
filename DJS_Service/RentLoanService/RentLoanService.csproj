@@ -74,8 +74,10 @@
     <Compile Include="Service\IDBRepository.cs" />
     <Compile Include="Service\RentLoanService.cs" />
     <Compile Include="Utils\ConstUtility.cs" />
+    <Compile Include="Utils\DataTableToEntity.cs" />
     <Compile Include="Utils\EmailUtility.cs" />
     <Compile Include="Utils\EnumUtility.cs" />
+    <Compile Include="Utils\SqlHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

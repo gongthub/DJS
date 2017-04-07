@@ -208,8 +208,8 @@ namespace EmailToDayReportSumExcel.Service
                                     //租金贷：累计租金贷退场数量
                                     excelWorksheet.Cells[51, nColumnCount] = dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=551", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString();
                                     //综合：总房间数
-                                    double d53 = double.Parse(dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=53", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString());
-                                    excelWorksheet.Cells[52, nColumnCount] = d53;
+                                    double d60 = double.Parse(dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=60", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString());
+                                    excelWorksheet.Cells[52, nColumnCount] = d60;
                                     //综合：在住房间数【线上】
                                     double d51 = double.Parse(dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=51", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString());
                                     double d511 = double.Parse(dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=511", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString());
@@ -223,6 +223,10 @@ namespace EmailToDayReportSumExcel.Service
                                     excelWorksheet.Cells[56, nColumnCount] = dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=55", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString();
                                     //综合：续租数
                                     excelWorksheet.Cells[57, nColumnCount] = dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=56", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString();
+
+                                    //综合：总房间数(用于计算)
+                                    double d53 = double.Parse(dt.Select(string.Format(@"StoreID='{0}' AND SubjectType=53", storeIDList[i]))[0]["SUMCoutOrAccount"].ToString());
+
                                     //综合：可出租房间数(总房量-在住-预定房间数)
                                     excelWorksheet.Cells[58, nColumnCount] = d53 - d51 - d52;
                                     //综合：日平均去化房间量(MTD)

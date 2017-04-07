@@ -16,3 +16,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentWarningSMS\bin\Debug
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentWarningSMS\bin\Debug\System.Net.Http.Formatting.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentWarningSMS\bin\Debug\System.Net.Http.Formatting.xml
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentWarningSMS\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentWarningSMS\obj\Debug\RentWarningSMS.csprojResolveAssemblyReference.cache

@@ -15,3 +15,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncLowPowerRoomService\
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncLowPowerRoomService\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncLowPowerRoomService\obj\Debug\SyncLowPowerRoomService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncLowPowerRoomService\obj\Debug\SyncLowPowerRoomService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\SyncLowPowerRoomService\obj\Debug\SyncLowPowerRoomService.csprojResolveAssemblyReference.cache

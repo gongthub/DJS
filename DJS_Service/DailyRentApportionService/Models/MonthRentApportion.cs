@@ -28,5 +28,6 @@ namespace DailyRentApportionService.Models
 
         public DateTime Date { get; set; }
         public int Type { get; set; }
+        public int Active { get; set; }
     }
 }

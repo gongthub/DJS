@@ -2,11 +2,13 @@
 <CONFIGS>
   <AAAAA>
     <CONFIG Name="STATUS" Value="1" />
-    <CONFIG Name="WarningDate" Value="15/10/5/3/1" />
-    <CONFIG Name="WebApiUrl" Value="http://localhost:17990/" />
-    <CONFIG Name="IDBRepository" Value="Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAms;" />
-    <CONFIG Name="AmsType" Value="1" />
-    <CONFIG Name="IsAddNotice" Value="1" />
-    <CONFIG Name="IsSendSMS" Value="0" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="LastChangeTime" Value="2017-03-30 14:39:48" />
+    <CONFIG Name="EmailTitle" Value="PMP房(床)数改变邮件提醒" />
+    <CONFIG Name="IDBRepository" Value="Data Source=192.168.25.20;User Id=sitPMP;Password=1234567890;Database=PMP;" />
+    <CONFIG Name="IDBAMSRepository" Value="Data Source=192.168.25.30;User Id=amssit;Password=amssitVlinker123;Database=AMS_SIT;" />
+    <CONFIG Name="ServiceCode" Value="PMP002" />
   </AAAAA>
 </CONFIGS>

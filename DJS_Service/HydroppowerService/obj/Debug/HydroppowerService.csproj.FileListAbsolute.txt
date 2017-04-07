@@ -32,3 +32,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerService\bin\D
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerService\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerService\obj\Debug\HydroppowerService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerService\obj\Debug\HydroppowerService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\HydroppowerService\obj\Debug\HydroppowerService.csprojResolveAssemblyReference.cache

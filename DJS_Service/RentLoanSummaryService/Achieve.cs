@@ -88,7 +88,7 @@ namespace RentLoanSummaryService
                 iConfigMgr.SetConfig("AuditOK", "8");
                 iConfigMgr.SetConfig("AuditRefuse", "0");
                 iConfigMgr.SetConfig("OverdueNotRepay", "45");
-                iConfigMgr.SetConfig("WaitIntoPiece", "15");
+                //iConfigMgr.SetConfig("WaitIntoPiece", "15");
                 iConfigMgr.SetConfig("WaitSubmit", "5");
 
                 iConfigMgr.SetConfig("NormalRepayment", "0");

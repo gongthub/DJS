@@ -62,9 +62,6 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.WinApp\obj\Debug\DJS.
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.WinApp\bin\Debug\RedisConfig.xml
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.WinApp\bin\Debug\SDKConfig.xml
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\V1.0.0\DJS.WinApp\bin\Debug\XmlDB.xml
-D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe
-D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\NLog.dll
-D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\Quartz.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\NLog.config
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\App.config
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\RedisConfig.xml
@@ -73,6 +70,7 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\XmlDB.xml
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe.config
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe.manifest
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.application
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.pdb
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\Common.Logging.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\DJS.BLL.dll
@@ -88,6 +86,8 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\EntityFrame
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\EntityFramework.SqlServer.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\ICSharpCode.SharpZipLib.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\Quartz.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\ServiceStack.Redis.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\ServiceStack.Interfaces.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\bin\Debug\ServiceStack.Text.dll
@@ -126,3 +126,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.application
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.exe
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.Setting.DLLUpdate.resources

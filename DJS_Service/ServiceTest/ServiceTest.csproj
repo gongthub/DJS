@@ -52,6 +52,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PMPSmallNodesExtensionSummary">
+      <HintPath>..\PMPSmallNodesExtensionSummary\bin\Debug\PMPSmallNodesExtensionSummary.dll</HintPath>
+    </Reference>
+    <Reference Include="PMPWeekly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PMPWeekly\bin\Debug\PMPWeekly.dll</HintPath>
+    </Reference>
     <Reference Include="Quartz, Version=2.1.2.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\Quartz.dll</HintPath>
@@ -102,6 +109,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ContractChangeLogService\ContractChangeLogService.csproj">
+      <Project>{da11d6d5-a381-4377-bd2e-d94dc80ce277}</Project>
+      <Name>ContractChangeLogService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ContractExpireService\ContractExpireService.csproj">
       <Project>{aa6ad705-63cb-4129-bad8-55a0a55f30ad}</Project>
       <Name>ContractExpireService</Name>
@@ -113,6 +124,10 @@
     <ProjectReference Include="..\DailyRentApportionService\DailyRentApportionService.csproj">
       <Project>{cd66c6b2-1549-4106-b9a6-92247547487b}</Project>
       <Name>DailyRentApportionService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DayTrialAfterCashService\DayTrialAfterCashService.csproj">
+      <Project>{43a74de5-1330-4f7e-a8d6-4abc2c47dc74}</Project>
+      <Name>DayTrialAfterCashService</Name>
     </ProjectReference>
     <ProjectReference Include="..\DayTrialService\DayTrialService.csproj">
       <Project>{b8f5b5e1-41f3-4a69-9237-bf72b7dd272a}</Project>
@@ -142,6 +157,14 @@
       <Project>{b80d55dc-df73-4cbd-a1a1-d0561ec0a3ac}</Project>
       <Name>NoChargeWarnService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PMPProjectSummary\PMPProjectSummary.csproj">
+      <Project>{ef5247c7-336a-4bac-bff0-191165319851}</Project>
+      <Name>PMPProjectSummary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PMPRoomChangeService\PMPRoomChangeService.csproj">
+      <Project>{23be4be8-baf5-499d-a003-4519951bf574}</Project>
+      <Name>PMPRoomChangeService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RentLoanService\RentLoanService.csproj">
       <Project>{5aae46cf-61ce-47e3-9e5c-d8469e5883ab}</Project>
       <Name>RentLoanService</Name>
@@ -149,6 +172,10 @@
     <ProjectReference Include="..\RentloanSettlementService\RentloanSettlementService.csproj">
       <Project>{3993d00d-e80d-4cd8-91a3-9facb4e11ccf}</Project>
       <Name>RentloanSettlementService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RentLoanSummaryNewService\RentLoanSummaryNewService.csproj">
+      <Project>{808690ca-22e0-4b87-b5ac-c98a74a85616}</Project>
+      <Name>RentLoanSummaryNewService</Name>
     </ProjectReference>
     <ProjectReference Include="..\RentLoanSummaryService\RentLoanSummaryService.csproj">
       <Project>{57f48b6f-ff8d-4675-a9c8-774b0e5b13e5}</Project>
@@ -174,6 +201,11 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\SDKConfig.xml" />
+    <Content Include="bin\Debug\XmlDB.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

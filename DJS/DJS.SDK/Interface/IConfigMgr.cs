@@ -17,6 +17,14 @@ namespace DJS.SDK
         bool SetConfig(string name, string value);
 
         /// <summary>
+        /// 更新Config值
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param> 
+        /// <returns></returns>
+        bool UpdateConfig(string name, string value);
+
+        /// <summary>
         /// 设置Config值
         /// </summary>
         /// <param name="name">名称</param>

@@ -22,3 +22,4 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DayTrialService\bin\Debu
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DayTrialService\bin\Debug\Quartz.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DayTrialService\obj\Debug\DayTrialService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DayTrialService\obj\Debug\DayTrialService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\DayTrialService\obj\Debug\DayTrialService.csprojResolveAssemblyReference.cache
