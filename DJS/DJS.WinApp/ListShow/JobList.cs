@@ -39,6 +39,7 @@ namespace DJS.WinApp
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDoDel_Click);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkDoConfig_Click);
             dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkStart_Click);
+            dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvdgvUpload_Click);
             //dgvJobs.CellClick += new DataGridViewCellEventHandler(dgvlinkAutoStart_Click);
             BindCombox();
             BindList();
@@ -122,6 +123,10 @@ namespace DJS.WinApp
             if (dgvJobs.Columns.Contains("dgvlinkStart"))
             {
                 dgvJobs.Columns.Remove("dgvlinkStart");
+            }
+            if (dgvJobs.Columns.Contains("dgvUpload"))
+            {
+                dgvJobs.Columns.Remove("dgvUpload");
             }
             //if (dgvJobs.Columns.Contains("dgvlinkAutoStart"))
             //{
@@ -209,6 +214,21 @@ namespace DJS.WinApp
             }
             dgvJobs.Columns.Add(dgvlinkStart);
 
+            DataGridViewLinkColumn dgvdgvUpload = new DataGridViewLinkColumn();
+            {
+                dgvdgvUpload.Name = "dgvUpload";
+                dgvdgvUpload.HeaderText = "升级";
+                dgvdgvUpload.Text = "升级";
+                dgvdgvUpload.LinkColor = Color.Red;
+                dgvdgvUpload.ActiveLinkColor = Color.Red;
+                dgvdgvUpload.UseColumnTextForLinkValue = true;
+                dgvdgvUpload.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.AllCells;
+                //dgvbtnDel.FlatStyle = FlatStyle.Standard;
+                dgvdgvUpload.CellTemplate.Style.BackColor = Color.Honeydew;
+            }
+            dgvJobs.Columns.Add(dgvdgvUpload);
+
             //DataGridViewLinkColumn dgvlinkAutoStart = new DataGridViewLinkColumn();
             //{
             //    dgvlinkStart.Name = "dgvlinkAutoStart";
@@ -294,6 +314,8 @@ namespace DJS.WinApp
                 dgvJobs.Columns["ConfigName"].HeaderText = "配置名称";
             if (dgvJobs.Columns["IsAuto"] != null)
                 dgvJobs.Columns["IsAuto"].HeaderText = "是否自启动";
+            if (dgvJobs.Columns["Upload"] != null)
+                dgvJobs.Columns["Upload"].HeaderText = "升级";
         }
         #endregion
 
@@ -630,21 +652,35 @@ namespace DJS.WinApp
         }
         #endregion
 
-        #region 格式化 -void dgvJobs_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        #region 升级按钮点击事件 -void dgvdgvUpload_Click(object sender, DataGridViewCellEventArgs e)
         /// <summary>
-        /// 格式化
+        /// 升级按钮点击事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgvJobs_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dgvdgvUpload_Click(object sender, DataGridViewCellEventArgs e)
         {
-
-            if (e.ColumnIndex == 6) //哪一列
+            if (e.ColumnIndex >= 0 && dgvJobs.Columns[e.ColumnIndex] != null && dgvJobs.Columns[e.ColumnIndex].HeaderText == "升级" && e.RowIndex >= 0)
             {
-                DateTime times = DateTime.MinValue;
-                if (DateTime.TryParse(e.Value.ToString(), out times))
+
+                if (dgvJobs.Rows.Count > e.RowIndex && dgvJobs.Rows[e.RowIndex] != null)
                 {
-                    e.Value = times.ToString("yyyy-MM-dd HH:mm:ss");
+                    if (dgvJobs.Rows[e.RowIndex].Cells["ID"] != null)
+                    {
+                        string Ids = dgvJobs.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+
+                        Guid Id = Guid.Empty;
+                        if (Guid.TryParse(Ids, out Id))
+                        {
+                            DJS.WinApp.Setting.DLLUpdate dllUpdate = new Setting.DLLUpdate();
+                            dllUpdate.IDS = Id.ToString();
+                            dllUpdate.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("升级失败");
+                        }
+                    }
                 }
             }
         }
@@ -732,6 +768,26 @@ namespace DJS.WinApp
             }
             BindList();
             MessageBox.Show("重新添加成功" + josnum + "条！" + "重新添加失败" + josnume + "条！");
+        }
+        #endregion
+
+        #region 格式化 -void dgvJobs_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        /// <summary>
+        /// 格式化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvJobs_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            if (e.ColumnIndex == 6) //哪一列
+            {
+                DateTime times = DateTime.MinValue;
+                if (DateTime.TryParse(e.Value.ToString(), out times))
+                {
+                    e.Value = times.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+            }
         }
         #endregion
 

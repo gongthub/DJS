@@ -52,6 +52,7 @@ namespace DJS.SDK.Service
                 model.Name = "STATUS";
                 model.Value = ((int)Model.Enums.ConfigGetType.Init).ToString();
                 Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
+                flag = 1;
             }
             else
             {
@@ -59,31 +60,7 @@ namespace DJS.SDK.Service
                 Int32.TryParse(flags, out flag);
             }
 
-
             bool ret = true;
-            //try
-            //{
-            //    if (!IsExist(name))
-            //    {
-
-            //        Model.ConfigMgr model = new Model.ConfigMgr();
-            //        model.Name = name;
-            //        model.Value = value;
-            //        Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
-            //    }
-            //    else
-            //    {
-            //        Model.ConfigMgr model = new Model.ConfigMgr();
-            //        model.Name = name;
-            //        model.Value = value;
-            //        XmlHelp.xmlHelp.SetValue(SDKCONFIGPATH, CONFIGSPATH + @"/" + ELENMENTNAME, "Name", model.Name, "Value", model.Value); 
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
-            //    ret = false;
-            //}
             ret = SetConfig(name, value, flag);
             return ret;
         }

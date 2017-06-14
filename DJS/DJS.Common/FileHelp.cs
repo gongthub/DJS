@@ -25,7 +25,7 @@ namespace DJS.Common
         /// 数据保存文件名称
         /// </summary>
         private static string DATANAME = ConfigHelp.DataNamePath;
-        private static object lockObj = new object();  
+        private static object lockObj = new object();
 
         #region 单例模式创建对象
         //单例模式创建对象
@@ -364,20 +364,23 @@ namespace DJS.Common
         /// <returns></returns>
         public static string ReadTxtFile(string FilePath)
         {
-            string content = "";//返回的字符串
-            using (FileStream fs = new FileStream(FilePath, FileMode.Open))
+            lock (lockObj)
             {
-                using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
+                string content = "";//返回的字符串
+                using (FileStream fs = new FileStream(FilePath, FileMode.Open))
                 {
-                    string text = string.Empty;
-                    while (!reader.EndOfStream)
+                    using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
                     {
-                        text += reader.ReadLine() + "\r\n";
-                        content = text;
+                        string text = string.Empty;
+                        while (!reader.EndOfStream)
+                        {
+                            text += reader.ReadLine() + "\r\n";
+                            content = text;
+                        }
                     }
                 }
+                return content;
             }
-            return content;
         }
         /// <summary>
         /// 以只读方式读取文本文件前N条数据
@@ -386,23 +389,26 @@ namespace DJS.Common
         /// <returns></returns>
         public static string ReadTxtFileNum(string FilePath, int num)
         {
-            string content = "";//返回的字符串
-            using (FileStream fs = new FileStream(FilePath, FileMode.Open))
+            lock (lockObj)
             {
-                using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
+                string content = "";//返回的字符串
+                using (FileStream fs = new FileStream(FilePath, FileMode.Open))
                 {
-                    string text = string.Empty;
-                    for (int i = 0; i < num; i++)
+                    using (StreamReader reader = new StreamReader(fs, Encoding.UTF8))
                     {
-                        if (!reader.EndOfStream)
+                        string text = string.Empty;
+                        for (int i = 0; i < num; i++)
                         {
-                            text += reader.ReadLine() + "\r\n";
-                            content = text;
+                            if (!reader.EndOfStream)
+                            {
+                                text += reader.ReadLine() + "\r\n";
+                                content = text;
+                            }
                         }
                     }
                 }
+                return content;
             }
-            return content;
         }
         /// <summary>
         /// 以只读方式读取文本文件后N条数据
@@ -413,7 +419,6 @@ namespace DJS.Common
         {
             lock (lockObj)
             {
-
                 string content = "";//返回的字符串
                 try
                 {
@@ -487,11 +492,18 @@ namespace DJS.Common
         /// <param name="FileModes">写入模式：append 是追加写, CreateNew 是覆盖</param>
         public static void WriteStrToTxtFile(string FilePath, string WriteStr, FileMode FileModes)
         {
-            FileStream fst = new FileStream(FilePath, FileModes);
-            StreamWriter swt = new StreamWriter(fst, System.Text.Encoding.GetEncoding("utf-8"));
-            swt.WriteLine(WriteStr);
-            swt.Close();
-            fst.Close();
+            lock (lockObj)
+            {
+                using (FileStream fst = new FileStream(FilePath, FileModes))
+                {
+                    using (StreamWriter swt = new StreamWriter(fst, System.Text.Encoding.GetEncoding("utf-8")))
+                    {
+                        swt.WriteLine(WriteStr);
+                        swt.Close();
+                        fst.Close();
+                    }
+                }
+            }
         }
         /// <summary>
         /// 写入文件
@@ -500,12 +512,57 @@ namespace DJS.Common
         /// <param name="WriteStr">写入数据</param>
         public static void WirteStr(string FilePath, string WriteStr)
         {
-            try
+            lock (lockObj)
             {
-                //判断文件是否被使用
-                if (!IsFileInUse(FilePath))
+                try
                 {
-                    FileInfo finfo = new FileInfo(FilePath);
+                    //判断文件是否被使用
+                    if (!IsFileInUse(FilePath))
+                    {
+                        FileInfo finfo = new FileInfo(FilePath);
+                        using (FileStream fs = finfo.OpenWrite())
+                        {
+                            //根据上面创建的文件流创建写数据流 
+                            StreamWriter strwriter = new StreamWriter(fs);
+                            //设置写数据流的起始位置为文件流的末尾 
+                            strwriter.BaseStream.Seek(0, SeekOrigin.End);
+                            //写入相关记录信息
+                            strwriter.WriteLine(WriteStr);
+                            //清空缓冲区内容，并把缓冲区内容写入基础流 
+                            strwriter.Flush();
+                            strwriter.Close();
+                            fs.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                }
+            }
+        }
+        /// <summary>
+        /// 写入回调数据文件
+        /// </summary>
+        /// <param name="namespaces">命名空间名称</param>
+        /// <param name="WriteStr">写入数据</param>
+        public static void WirteDatas(string namespaces, string WriteStr)
+        {
+            lock (lockObj)
+            {
+                string files = DATAPATH + @"\" + namespaces + @"\" + DateTime.Now.ToString(DATANAME) + ".dat";
+                if (!DirectoryIsExists(DATAPATH))
+                {
+                    CreateDirectory(DATAPATH);
+                }
+                if (!DirectoryIsExists(DATAPATH + @"\" + namespaces))
+                {
+                    CreateDirectory(DATAPATH + @"\" + namespaces);
+                }
+                //判断文件是否被使用 
+                if (!IsFileInUse(files))
+                {
+                    FileInfo finfo = new FileInfo(files);
                     using (FileStream fs = finfo.OpenWrite())
                     {
                         //根据上面创建的文件流创建写数据流 
@@ -519,45 +576,6 @@ namespace DJS.Common
                         strwriter.Close();
                         fs.Close();
                     }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
-            }
-        }
-        /// <summary>
-        /// 写入回调数据文件
-        /// </summary>
-        /// <param name="namespaces">命名空间名称</param>
-        /// <param name="WriteStr">写入数据</param>
-        public static void WirteDatas(string namespaces, string WriteStr)
-        {
-            string files = DATAPATH + @"\" + namespaces + @"\" + DateTime.Now.ToString(DATANAME) + ".dat";
-            if (!DirectoryIsExists(DATAPATH))
-            {
-                CreateDirectory(DATAPATH);
-            }
-            if (!DirectoryIsExists(DATAPATH + @"\" + namespaces))
-            {
-                CreateDirectory(DATAPATH + @"\" + namespaces);
-            }
-            //判断文件是否被使用 
-            if (!IsFileInUse(files))
-            {
-                FileInfo finfo = new FileInfo(files);
-                using (FileStream fs = finfo.OpenWrite())
-                {
-                    //根据上面创建的文件流创建写数据流 
-                    StreamWriter strwriter = new StreamWriter(fs);
-                    //设置写数据流的起始位置为文件流的末尾 
-                    strwriter.BaseStream.Seek(0, SeekOrigin.End);
-                    //写入相关记录信息
-                    strwriter.WriteLine(WriteStr);
-                    //清空缓冲区内容，并把缓冲区内容写入基础流 
-                    strwriter.Flush();
-                    strwriter.Close();
-                    fs.Close();
                 }
             }
         }
@@ -677,7 +695,7 @@ namespace DJS.Common
                     catch //(Exception e)
                     {
                         //LogHelp.logHelp.WriteLog(e.Message + "IsFileInUse", Model.Enums.LogType.Error); 
-                    } 
+                    }
                     return inUse;           //true表示正在使用,false没有使用
                 }
                 else
@@ -776,6 +794,33 @@ namespace DJS.Common
 
         #endregion
 
+        #region 获取文件流 +static MemoryStream GetFileStream(string FilePath)
+        /// <summary>
+        /// 获取文件流
+        /// </summary>
+        /// <param name="FilePath">文件的具体路径</param>
+        /// <returns></returns>
+        public static MemoryStream GetFileStream(string FilePath)
+        {
+            lock (lockObj)
+            {
+                MemoryStream memStream;
+                using (FileStream stream = new FileStream(FilePath, FileMode.Open))
+                {
+                    using (memStream = new MemoryStream())
+                    {
+                        int res;
+                        byte[] b = new byte[4096];
+                        while ((res = stream.Read(b, 0, b.Length)) > 0)
+                        {
+                            memStream.Write(b, 0, b.Length);
+                        }
+                    }
+                }
+                return memStream;
+            }
+        } 
+        #endregion
 
     }
 }

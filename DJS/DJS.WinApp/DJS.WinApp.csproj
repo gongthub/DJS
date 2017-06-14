@@ -158,6 +158,12 @@
     <Compile Include="Setting\DLLMgr.Designer.cs">
       <DependentUpon>DLLMgr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting\DLLUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\DLLUpdate.Designer.cs">
+      <DependentUpon>DLLUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Setting\JobConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\DLLMgr.resx">
       <DependentUpon>DLLMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\DLLUpdate.resx">
+      <DependentUpon>DLLUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\JobConfig.resx">
       <DependentUpon>JobConfig.cs</DependentUpon>

@@ -61,19 +61,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qPetc97IwCcZgIaUmBbJUjMCC4lZ/aFRuLOHWu/dQHg=</dsig:DigestValue>
+        <dsig:DigestValue>zn3RhzsZX8Xi8o+Dh27AAZEaaC4Gr9ELdQOcAOyEH78=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Common.dll" size="43008">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Common.dll" size="44032">
       <assemblyIdentity name="DJS.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2/7qXupZ3LgbXc/D7tsgM9930Tkj4i7AC9T0Pwlju2g=</dsig:DigestValue>
+        <dsig:DigestValue>qxw7nvHt4oSDc/KKXL45kwhhZV2mt4nj6/C0nkZjH0g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,7 +85,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>y1QIOON8kPZVObx2eRfSXWmaqlzbM9VaDPDR9YtXM/M=</dsig:DigestValue>
+        <dsig:DigestValue>LilBWZyJf+uRnB4QHcrfVmJNkvVxpjAU9sDeDuoF5UY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,7 +97,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5FmHu7IekPcK+nMHmKI8QjP0FDt5DCHIQySx7KjxGKg=</dsig:DigestValue>
+        <dsig:DigestValue>G8KydXH6xlZAkTGIdB6cWcaws+n39M4Ev3KQceJ55Fc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -109,7 +109,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gk7BH74+BwkrjbjmBXB8V34OCFT687qz1SPQQLQpYVU=</dsig:DigestValue>
+        <dsig:DigestValue>pPM3y6ZnY9btyvdVWJkyDzpvHCsfDFYzHdwRVT+Rz8E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,7 +121,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>plv4SHxU6mpLWKr9skwLhar9i2kSwyS9PGg7/+LgF00=</dsig:DigestValue>
+        <dsig:DigestValue>pTNLNB+JlRdeOf9/5TDYqFrBDMijZcnyErzrt7uiK1Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -133,7 +133,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vAcAmEl+AbNTNSo7nGQQ5QZkoE0BaA8l/hPcXTErgHM=</dsig:DigestValue>
+        <dsig:DigestValue>0Z5SnShrmsyQpySxidnvLhzuatySARFpic1fWbr+Zl0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -145,7 +145,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Dq91vDtk/Folk63SKtrqBzaDQ2bhhNX54GCicrC77c4=</dsig:DigestValue>
+        <dsig:DigestValue>WNQ0ARzu7AZkdpUjUOflP+o38MKTrmgi73ZEYZx5Eh8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,19 +157,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZbqvgStjXPqhF9zcjruLtNn7Zkqh/dBta754TL8Yyzs=</dsig:DigestValue>
+        <dsig:DigestValue>gPMbyP/aOTJNaK91372yo8WpTgWiNPH0rL3vAd5udXc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.WinApp.exe" size="107008">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.WinApp.exe" size="105984">
       <assemblyIdentity name="DJS.WinApp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Vg7nhV7pXBZQeRW51MOWcbOCr3l+Hv/PDfSa/gg3s40=</dsig:DigestValue>
+        <dsig:DigestValue>4Qi6VCeMZ7VWWAdmUnS8KXDn4LMfvXeJvIea75N6jpQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -329,13 +329,13 @@
       <dsig:DigestValue>VWprUcONl18ZC5icMO/zS5feTb6fqisKdhWboQyqMuM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="XmlDB.xml" size="12012" writeableType="applicationData">
+  <file name="XmlDB.xml" size="12542" writeableType="applicationData">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Ly9k0OavD9o2cm2vI3pdg2iEj4zXt5CGNc8708JubrE=</dsig:DigestValue>
+      <dsig:DigestValue>eMRmacfz5QtLgrd/iq0PQ6NU0hTUMT9t3/ndPMYFfcQ=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

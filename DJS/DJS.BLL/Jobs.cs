@@ -510,6 +510,7 @@ namespace DJS.BLL
             }
             catch
             {
+                ret = false;
             }
             return ret;
         }

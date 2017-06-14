@@ -14,47 +14,21 @@ namespace DJS.WinApp.Setting
 {
     public partial class DLLUpdate : Form
     {
-        public Guid JOBIDS = Guid.Empty;
-        private FileInfo FILE = null;
+        public string IDS = "";
         /// <summary>
         /// 获取程序集文件所在文件夹名称
         /// </summary>
         private static string PATH = ConfigHelp.AssemblySrcPath;
         private static string DLLMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("DLLMgr_K");
 
+        private FileInfo FILE = null;
         public DLLUpdate()
         {
             InitializeComponent();
         }
-
+        #region url文本框双击事件 -void txtUrl_DoubleClick(object sender, EventArgs e)
         /// <summary>
-        /// 窗体加载事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DLLUpdate_Load(object sender, EventArgs e)
-        {
-            if (JOBIDS != Guid.Empty)
-            {
-                Model.Jobs jobModel = BLL.Jobs.GetModelById(JOBIDS);
-                if (jobModel != null && jobModel.DLLID != null)
-                {
-                    Model.DllMgr dllModel = BLL.DllMgr.GetModelById(jobModel.DLLID);
-                    if (dllModel != null)
-                    {
-                        nudNo.Value = dllModel.No;
-                        txtName.Text = dllModel.Name;
-                        txtNameSpace.Text = dllModel.NameSpace;
-                        nudNo.Enabled = false;
-                        txtName.Enabled = false;
-                        txtNameSpace.Enabled = false;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 上传双击事件
+        /// url文本框双击事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -62,9 +36,9 @@ namespace DJS.WinApp.Setting
         {
             try
             {
-                if (ofdUpLoad.ShowDialog() == DialogResult.OK)
+                if (ofdUpload.ShowDialog() == DialogResult.OK)
                 {
-                    FILE = new FileInfo(ofdUpLoad.FileName);
+                    FILE = new FileInfo(ofdUpload.FileName);
                     if (FILE.Exists)
                     {
                         txtUrl.Text = FILE.FullName;
@@ -77,6 +51,7 @@ namespace DJS.WinApp.Setting
                 MessageBox.Show(ex.Message);
             }
         }
+        #endregion
 
         #region 确定按钮点击事件 -void btnOk_Click(object sender, EventArgs e)
         /// <summary>
@@ -88,24 +63,35 @@ namespace DJS.WinApp.Setting
         {
             try
             {
-                if (JOBIDS != Guid.Empty)
+                Guid Id = Guid.Empty;
+                if (Guid.TryParse(IDS, out Id))
                 {
-                    Model.Jobs jobModel = BLL.Jobs.GetModelById(JOBIDS);
-                    if (jobModel != null && jobModel.DLLID != null)
+                    Model.Jobs jobModel = new Model.Jobs();
+                    jobModel = BLL.Jobs.GetModelById(Id);
+                    if (jobModel != null)
                     {
+                        Model.DllMgr model = new Model.DllMgr();
+                        model = BLL.DllMgr.GetModelById(jobModel.DLLID);
 
-                        Model.DllMgr dllModel = BLL.DllMgr.GetModelById(jobModel.DLLID);
-                        if (dllModel != null)
-                        { //文件存在时先删除
-                            if (FileHelp.FileExists(FileHelp.GetFullPath(dllModel.Url)))
+                        if (FILE.Exists)
+                        {
+                            string fileNamePaths = model.Url;
+                            //文件存在时先删除
+                            if (FileHelp.FileExists(fileNamePaths))
                             {
-                                BLL.Jobs.DelByIdForQuartz(JOBIDS);
-                                FileHelp.DeleteFiles(FileHelp.GetFullPath(dllModel.Url));
+                                FileHelp.DeleteFiles(fileNamePaths);
                             }
-                            FILE.CopyTo(FileHelp.GetFullPath(dllModel.Url));
+                            FILE.CopyTo(fileNamePaths);
+                            MessageBox.Show("升级成功！");
+                            ReAdd(Id);
+                            this.Close();
                         }
-                        BLL.Jobs.UpdateByIdForQuartz(JOBIDS);
+
                     }
+                }
+                else
+                {
+                    MessageBox.Show("升级失败，请重试！");
                 }
             }
             catch (Exception ex)
@@ -125,6 +111,53 @@ namespace DJS.WinApp.Setting
         {
             this.Close();
         }
+        #endregion
+
+        #region 重新添加
+        /// <summary>
+        /// 重新添加
+        /// </summary>
+        /// <param name="Id"></param>
+        private void ReAdd(Guid Id)
+        {
+            MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("确定要重新添加吗?", "重新添加", messButton);
+            if (dr == DialogResult.OK)//如果点击“确定”按钮
+            {
+                //任务已经存在时
+                if (BLL.Jobs.IsExistJobkeyById(Id))
+                {
+                    MessageBoxButtons messButtonKey = MessageBoxButtons.OKCancel;
+                    DialogResult drKey = MessageBox.Show("任务已经存在，是否继续重新添加?", "重新添加", messButtonKey);
+                    if (drKey == DialogResult.OK)//如果点击“确定”按钮
+                    {
+                        if (!BLL.Jobs.DelByIdForQuartz(Id))
+                        {
+                            MessageBox.Show("删除Quartz中任务失败！");
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                Model.Jobs model = BLL.Jobs.GetModelById(Id);
+
+                if (BLL.Jobs.ReAddJobs(model))
+                {
+                    MessageBox.Show("重新添加成功");
+                }
+                else
+                {
+                    MessageBox.Show("重新添加失败");
+                }
+            }
+            else
+            {
+                MessageBox.Show("重新添加失败");
+            }
+        }
+        
         #endregion
     }
 }

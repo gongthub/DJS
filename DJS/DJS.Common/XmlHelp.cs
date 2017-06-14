@@ -14,6 +14,7 @@ namespace DJS.Common
     /// </summary>    
     public class XmlHelp
     {
+        private static readonly object LOCKOBJ = new object();
         #region 单例模式创建对象
         //单例模式创建对象
         private static XmlHelp _xmlHelp = null;
@@ -76,18 +77,20 @@ namespace DJS.Common
         /// </summary>
         private void CreateXMLElement()
         {
-
-            //创建一个XML对象
-            _xml = new XmlDocument();
-
-            if (FileHelp.FileExists(_filePath))
+            lock (LOCKOBJ)
             {
-                //加载XML文件
-                _xml.Load(this._filePath);
-            }
+                //创建一个XML对象
+                _xml = new XmlDocument();
 
-            //为XML的根节点赋值
-            _element = _xml.DocumentElement;
+                if (FileHelp.FileExists(_filePath))
+                {
+                    //加载XML文件
+                    _xml.Load(this._filePath);
+                }
+
+                //为XML的根节点赋值
+                _element = _xml.DocumentElement;
+            }
         }
         #endregion
 
@@ -214,18 +217,21 @@ namespace DJS.Common
         /// <param name="xmlFilePath">Xml文件的相对路径</param>        
         private XmlElement CreateRootElement(string xmlFilePath)
         {
-            //定义变量，表示XML文件的绝对路径
-            string filePath = "";
+            lock (LOCKOBJ)
+            {
+                //定义变量，表示XML文件的绝对路径
+                string filePath = "";
 
-            //获取XML文件的绝对路径
-            filePath = FileHelp.GetFullPath(xmlFilePath);
-            //创建XmlDocument对象
-            XmlDocument xmlDocument = new XmlDocument();
-            //加载XML文件
-            xmlDocument.Load(filePath);
+                //获取XML文件的绝对路径
+                filePath = FileHelp.GetFullPath(xmlFilePath);
+                //创建XmlDocument对象
+                XmlDocument xmlDocument = new XmlDocument();
+                //加载XML文件
+                xmlDocument.Load(filePath);
 
-            //返回根节点
-            return xmlDocument.DocumentElement;
+                //返回根节点
+                return xmlDocument.DocumentElement;
+            }
         }
 
         /// <summary>
@@ -234,20 +240,23 @@ namespace DJS.Common
         /// <param name="xmlFilePath">Xml文件的相对路径</param>        
         private XmlElement CreateRootElement(string xmlFilePath, out XmlDocument xmlDoc)
         {
-            //定义变量，表示XML文件的绝对路径
-            string filePath = "";
+            lock (LOCKOBJ)
+            {
+                //定义变量，表示XML文件的绝对路径
+                string filePath = "";
 
-            //获取XML文件的绝对路径
-            filePath = FileHelp.GetFullPath(xmlFilePath);
+                //获取XML文件的绝对路径
+                filePath = FileHelp.GetFullPath(xmlFilePath);
 
-            //创建XmlDocument对象
-            XmlDocument xmlDocument = new XmlDocument();
-            //加载XML文件
-            xmlDocument.Load(filePath);
+                //创建XmlDocument对象
+                XmlDocument xmlDocument = new XmlDocument();
+                //加载XML文件
+                xmlDocument.Load(filePath);
 
-            xmlDoc = xmlDocument;
-            //返回根节点
-            return xmlDocument.DocumentElement;
+                xmlDoc = xmlDocument;
+                //返回根节点
+                return xmlDocument.DocumentElement;
+            }
         }
         #endregion
 
@@ -433,33 +442,36 @@ namespace DJS.Common
         /// <param name="val">属性值</param>
         public bool RemoveNode(string filePath, string xPath, string attName, object val)
         {
-            bool ret = true;
-            try
+            lock (LOCKOBJ)
             {
-                //创建XmlDocument对象
-                XmlDocument xmlDocument = new XmlDocument();
-
-                //获取要删除的节点
-                XmlNodeList nodes = GetNodes(filePath, xPath, out xmlDocument);
-                if (nodes != null && nodes.Count > 0)
+                bool ret = true;
+                try
                 {
-                    foreach (XmlNode node in nodes)
+                    //创建XmlDocument对象
+                    XmlDocument xmlDocument = new XmlDocument();
+
+                    //获取要删除的节点
+                    XmlNodeList nodes = GetNodes(filePath, xPath, out xmlDocument);
+                    if (nodes != null && nodes.Count > 0)
                     {
-                        if (node.Attributes[attName] != null && node.Attributes[attName].Name == attName && node.Attributes[attName].Value.ToString() == val.ToString())
+                        foreach (XmlNode node in nodes)
                         {
-                            XmlElement xe = (XmlElement)node.ParentNode;
-                            //删除节点
-                            xe.RemoveChild(node);
+                            if (node.Attributes[attName] != null && node.Attributes[attName].Name == attName && node.Attributes[attName].Value.ToString() == val.ToString())
+                            {
+                                XmlElement xe = (XmlElement)node.ParentNode;
+                                //删除节点
+                                xe.RemoveChild(node);
+                            }
                         }
                     }
+                    xmlDocument.Save(filePath);
                 }
-                xmlDocument.Save(filePath);
+                catch
+                {
+                    ret = false;
+                }
+                return ret;
             }
-            catch
-            {
-                ret = false;
-            }
-            return ret;
         }
         /// <summary>
         /// 根据指定属性名称和属性值删除指定节点
@@ -470,30 +482,33 @@ namespace DJS.Common
         /// <param name="val">属性值</param>
         public bool RemoveNode(string filePath, string xPath, string attName)
         {
-            bool ret = true;
-            try
+            lock (LOCKOBJ)
             {
-                //创建XmlDocument对象
-                XmlDocument xmlDocument = new XmlDocument();
-
-                //获取要删除的节点
-                XmlNodeList nodes = GetNodes(filePath, xPath, out xmlDocument);
-                if (nodes != null && nodes.Count > 0)
+                bool ret = true;
+                try
                 {
-                    foreach (XmlNode node in nodes)
+                    //创建XmlDocument对象
+                    XmlDocument xmlDocument = new XmlDocument();
+
+                    //获取要删除的节点
+                    XmlNodeList nodes = GetNodes(filePath, xPath, out xmlDocument);
+                    if (nodes != null && nodes.Count > 0)
                     {
-                        XmlElement xe = (XmlElement)node.ParentNode;
-                        //删除节点
-                        xe.RemoveChild(node);
+                        foreach (XmlNode node in nodes)
+                        {
+                            XmlElement xe = (XmlElement)node.ParentNode;
+                            //删除节点
+                            xe.RemoveChild(node);
+                        }
                     }
+                    xmlDocument.Save(filePath);
                 }
-                xmlDocument.Save(filePath);
+                catch
+                {
+                    ret = false;
+                }
+                return ret;
             }
-            catch
-            {
-                ret = false;
-            }
-            return ret;
         }
         #endregion
 
@@ -663,31 +678,34 @@ namespace DJS.Common
         /// </param>
         public bool SetValue(string xmlFilePath, string xPath, string attName, string name, string attValue, string value)
         {
-            bool ret = true;
-            try
+            lock (LOCKOBJ)
             {
-                //创建XmlDocument对象
-                XmlDocument xmlDocument = new XmlDocument();
-
-                //获取要删除的节点
-                XmlNodeList nodes = GetNodes(xmlFilePath, xPath, out xmlDocument);
-                if (nodes != null && nodes.Count > 0)
+                bool ret = true;
+                try
                 {
-                    foreach (XmlNode node in nodes)
+                    //创建XmlDocument对象
+                    XmlDocument xmlDocument = new XmlDocument();
+
+                    //获取要删除的节点
+                    XmlNodeList nodes = GetNodes(xmlFilePath, xPath, out xmlDocument);
+                    if (nodes != null && nodes.Count > 0)
                     {
-                        if (node.Attributes[attName] != null && node.Attributes[attName].Value == name)
+                        foreach (XmlNode node in nodes)
                         {
-                            node.Attributes[attValue].Value = value;
+                            if (node.Attributes[attName] != null && node.Attributes[attName].Value == name)
+                            {
+                                node.Attributes[attValue].Value = value;
+                            }
                         }
                     }
+                    xmlDocument.Save(xmlFilePath);
                 }
-                xmlDocument.Save(xmlFilePath);
+                catch
+                {
+                    ret = false;
+                }
+                return ret;
             }
-            catch
-            {
-                ret = false;
-            }
-            return ret;
         }
         #endregion
         #endregion

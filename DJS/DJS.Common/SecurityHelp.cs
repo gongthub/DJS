@@ -76,6 +76,35 @@ namespace DJS.Common
             }
         }
         #endregion
+        #region 文件MD5 +string GetMD5HashFromFile(string fileName)
+        /// <summary>
+        /// 文件MD5
+        /// </summary>
+        /// <param name="fileName">文件路径</param>
+        /// <returns></returns>
+        public byte[] GetMD5Hash(string fileName)
+        {
+            lock (lockObj)
+            {
+                try
+                {
+                    using (FileStream file = new FileStream(fileName, FileMode.Open))
+                    {
+                        System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                        byte[] retVal = md5.ComputeHash(file);
+
+                        return retVal;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelp.logHelp.WriteLog("获取文件MD5错误:" + ex.Message, Model.Enums.LogType.Error);
+                    //System.Threading.Thread.Sleep(1000);
+                    return null;
+                }
+            }
+        }
+        #endregion
 
         #region 设置应用程序开机自动运行 +string SetAutoRun(string fileName, bool isAutoRun)
         /// <summary>

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Configuration.Assemblies;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,21 +63,12 @@ namespace DJS.Common
         /// <returns></returns>
         public object Invoke(string nameSpace, string className, string methodName)
         {
-            //string files = FULLPATH + nameSpace + @"\" + nameSpace + ".dll";
-
-
             string files = FULLPATH;
             string assems = nameSpace + "." + className;
 
-            var asm = Assembly.LoadFile(files);
-
+            Assembly asm = GetAsm(files);
             var type = asm.GetType(assems);
-
             var instance = asm.CreateInstance(assems);
-
-            //设置属性
-            //type.GetProperty("Name").SetValue(instance, "http://greenerycn.cnblogs.com", null);
-            //type.GetProperty("IsTest").SetValue(instance, true, null);
 
             var method = type.GetMethod(methodName);
             object obj = method.Invoke(instance, null);
@@ -92,14 +86,13 @@ namespace DJS.Common
         /// <param name="methodName">方法名</param>
         /// <returns></returns>
         public Type GetDllType(string name, string nameSpace, string className)
-        { 
+        {
             string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll";
             string assems = nameSpace + "." + className;
 
-            Assembly asm = Assembly.LoadFile(files);
-
+            Assembly asm = GetAsm(files);
             Type type = asm.GetType(assems);
-             
+
             return type;
         }
 
@@ -117,7 +110,8 @@ namespace DJS.Common
         {
             List<Type> types = new List<Type>();
             string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll";
-            Assembly asm = Assembly.LoadFile(files);
+
+            Assembly asm = GetAsm(files);
             foreach (Type type in asm.GetTypes())
             {
                 types.Add(type);   //显示该dll下所有的类
@@ -140,7 +134,8 @@ namespace DJS.Common
             string files = FULLPATH + @"\" + name + @"\" + nameSpace + ".dll";
             string assems = nameSpace + "." + className;
 
-            object asm = Assembly.LoadFile(files).CreateInstance(assems);
+            Assembly asmT = GetAsm(files);
+            object asm = asmT.CreateInstance(assems);
 
             return asm;
         }
@@ -148,6 +143,13 @@ namespace DJS.Common
         #endregion
 
 
-    }
+        private static Assembly GetAsm(string assemblyFile)
+        {
+            Assembly asm;
+            MemoryStream memStream = FileHelp.GetFileStream(assemblyFile);
+            asm = Assembly.Load(memStream.ToArray());
+            return asm;
+        }
 
+    }
 }

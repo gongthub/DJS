@@ -8,7 +8,7 @@
         <beforeApplicationStartup />
       </update>
     </subscription>
-    <deploymentProvider codebase="http://gt-pc:10020/DJS.WinApp.application" />
+    <deploymentProvider codebase="http://vksh00l067:10020/DJS.WinApp.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
@@ -21,7 +21,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4SgREkwjI7iI1PFGygfZW6y1PM11Y/cs4nbek35Av2Q=</dsig:DigestValue>
+        <dsig:DigestValue>cRRpIYJYP9QoqCZOKP6GSeabxWJ2rDfPNNLN4Y2a2Xk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
