@@ -1,7 +1,0 @@
- select convert(varchar(10),Date,120) as Date ,SubjectType,sum(SUMCoutOrAccount) as SUMCoutOrAccount,'all' from
-(
-select Date,SubjectType,SumIncome as SUMCoutOrAccount from DaylReportAccoutSum
-union
-select Date,SubjectType,COUNT as SUMCoutOrAccount from DayReportCountSum
-) as  sumTable where  convert(varchar(7),Date,120)=convert(varchar(7),GETDATE()-1,120)
-group by convert(varchar(10),Date,120)  ,SubjectType order by date asc
