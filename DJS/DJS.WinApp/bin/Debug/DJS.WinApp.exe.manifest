@@ -9,22 +9,34 @@
   <trustInfo>
     <security>
       <applicationRequestMinimum>
-        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" ID="Custom" SameSite="site">
+          <IPermission Read="USERNAME" version="1" class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+          <IPermission version="1" class="System.Security.Permissions.FileDialogPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          <IPermission version="1" Permanent="True" Expiry="9223372036854775807" UserQuota="9223372036854775807" Allowed="AssemblyIsolationByUser" class="System.Security.Permissions.IsolatedStorageFilePermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+          <IPermission version="1" class="System.Security.Permissions.ReflectionPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Flags="ReflectionEmit, RestrictedMemberAccess" />
+          <IPermission version="1" class="System.Security.Permissions.SecurityPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Flags="Assertion, Execution, BindingRedirects" />
+          <IPermission version="1" class="System.Security.Permissions.UIPermission, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          <IPermission version="1" class="System.Drawing.Printing.PrintingPermission, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" Level="DefaultPrinting" />
+          <IPermission version="1" class="System.Security.Permissions.MediaPermission, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Audio="SafeAudio" Image="SafeImage" Video="SafeVideo" />
+          <IPermission version="1" class="System.Security.Permissions.WebBrowserPermission, WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Level="Safe" />
+          <IPermission version="1" class="System.Net.DnsPermission, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          <IPermission version="1" class="System.Security.Permissions.TypeDescriptorPermission, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+        </PermissionSet>
         <defaultAssemblyRequest permissionSetReference="Custom" />
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
-        <!-- UAC 清单选项
-            如果要更改 Windows 用户帐户控制级别，请用以下节点之一替换 
-            requestedExecutionLevel 节点。
+        <!--
+          UAC 清单选项
+          如果要更改 Windows 用户帐户控制级别，请用以下节点之一替换
+          requestedExecutionLevel 节点。
 
         <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
         <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-            指定 requestedExecutionLevel 节点将会禁用文件和注册表虚拟化。
-            如果要利用文件和注册表虚拟化实现向后 
-            兼容性，则删除 requestedExecutionLevel 节点。
-        -->
+          如果要利用文件和注册表虚拟化提供
+          向后兼容性，请删除 requestedExecutionLevel 节点。
+    -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
     </security>
@@ -61,7 +73,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zn3RhzsZX8Xi8o+Dh27AAZEaaC4Gr9ELdQOcAOyEH78=</dsig:DigestValue>
+        <dsig:DigestValue>PCD74aGWsGLayLQD3F6EAyNQhdjYLvMVdixCPDgchTs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -73,7 +85,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qxw7nvHt4oSDc/KKXL45kwhhZV2mt4nj6/C0nkZjH0g=</dsig:DigestValue>
+        <dsig:DigestValue>Kx3mRH08ogRzI2AK9TGDczHzIngfNsKsj2YMRu2shMo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,7 +97,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LilBWZyJf+uRnB4QHcrfVmJNkvVxpjAU9sDeDuoF5UY=</dsig:DigestValue>
+        <dsig:DigestValue>9FQt4Pnm7h57PSbC9NeCfnat+/VEeVT8O95ygkzDx0g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,7 +109,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>G8KydXH6xlZAkTGIdB6cWcaws+n39M4Ev3KQceJ55Fc=</dsig:DigestValue>
+        <dsig:DigestValue>ZNQE/gZhzT0FbAneD5BW38eUhnLzgVoRqewxHfSvmYs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -109,7 +121,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pPM3y6ZnY9btyvdVWJkyDzpvHCsfDFYzHdwRVT+Rz8E=</dsig:DigestValue>
+        <dsig:DigestValue>MRXnI1q7WG5Gs6+hu2PMn82s7vRetr/gXGVgSMbUUqU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,7 +133,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pTNLNB+JlRdeOf9/5TDYqFrBDMijZcnyErzrt7uiK1Y=</dsig:DigestValue>
+        <dsig:DigestValue>zT8qZ4sWXxRKs3yyp/dUgTdq0UkfrVMOQUcjKrA5i4s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -133,7 +145,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0Z5SnShrmsyQpySxidnvLhzuatySARFpic1fWbr+Zl0=</dsig:DigestValue>
+        <dsig:DigestValue>KhJy7vyaxxCmrZy099mN2JNhnubwdNyGpGhUtbK+EcE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -145,7 +157,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WNQ0ARzu7AZkdpUjUOflP+o38MKTrmgi73ZEYZx5Eh8=</dsig:DigestValue>
+        <dsig:DigestValue>YksHwndCvhv05zab2IxJ7ZE3cbmSsL94AFFC6v8Ag7A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,19 +169,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gPMbyP/aOTJNaK91372yo8WpTgWiNPH0rL3vAd5udXc=</dsig:DigestValue>
+        <dsig:DigestValue>NaDLGfrKFllxy8AJtpBE5LhcV4ALktOYyIFIPNCDj+E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.WinApp.exe" size="105984">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.WinApp.exe" size="104960">
       <assemblyIdentity name="DJS.WinApp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4Qi6VCeMZ7VWWAdmUnS8KXDn4LMfvXeJvIea75N6jpQ=</dsig:DigestValue>
+        <dsig:DigestValue>KnBA6oV77cZiGywLdrZibzTZlf0wR6b5kqI29ykXBhM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -293,13 +305,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="DJS.WinApp.exe.config" size="3077">
+  <file name="DJS.WinApp.exe.config" size="3932">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Eiagpa+mvwEIjSGENIFDpRlWcb/pwE7WqpCgu/Tb7yA=</dsig:DigestValue>
+      <dsig:DigestValue>boVGlmTIcV9hovzGQZaoWgUzKaQxpa51+hQME12JacQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Img\icon72.ico" size="21374">
@@ -338,18 +350,4 @@
       <dsig:DigestValue>eMRmacfz5QtLgrd/iq0PQ6NU0hTUMT9t3/ndPMYFfcQ=</dsig:DigestValue>
     </hash>
   </file>
-  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
-    <application>
-      <!-- 此应用程序设计使用的所有 Windows 版本的列表。
-      Windows 将会自动选择最兼容的环境。-->
-      <!-- 如果应用程序设计为使用 Windows Vista，请取消注释以下 supportedOS 节点-->
-      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}"></supportedOS>-->
-      <!-- 如果应用程序设计使用 Windows 7，请取消注释以下 supportedOS 节点-->
-      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>-->
-      <!-- 如果应用程序设计为使用 Windows 8，请取消注释以下 supportedOS 节点-->
-      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"></supportedOS>-->
-      <!-- 如果应用程序设计为使用 Windows 8.1，请取消对以下 supportedOS 节点的注释-->
-      <!--<supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}"/>-->
-    </application>
-  </compatibility>
 </asmv1:assembly>

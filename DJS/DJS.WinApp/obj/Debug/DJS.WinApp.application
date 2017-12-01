@@ -14,14 +14,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DJS.WinApp.exe.manifest" size="19521">
+    <dependentAssembly dependencyType="install" codebase="DJS.WinApp.exe.manifest" size="20705">
       <assemblyIdentity name="DJS.WinApp.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>cRRpIYJYP9QoqCZOKP6GSeabxWJ2rDfPNNLN4Y2a2Xk=</dsig:DigestValue>
+        <dsig:DigestValue>B4R22Zpjrg1aGcUVvc1DLjgu3Gi7BkN8J0RPKTD16R8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

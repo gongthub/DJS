@@ -804,10 +804,9 @@ namespace DJS.Common
         {
             lock (lockObj)
             {
-                MemoryStream memStream;
-                using (FileStream stream = new FileStream(FilePath, FileMode.Open))
+                using (MemoryStream memStream = new MemoryStream())
                 {
-                    using (memStream = new MemoryStream())
+                    using (FileStream stream = new FileStream(FilePath, FileMode.Open))
                     {
                         int res;
                         byte[] b = new byte[4096];
@@ -815,11 +814,15 @@ namespace DJS.Common
                         {
                             memStream.Write(b, 0, b.Length);
                         }
+                        stream.Flush();
+                        stream.Close();
+                        stream.Dispose();
+                        GC.GetTotalMemory(true);
                     }
+                    return memStream;
                 }
-                return memStream;
             }
-        } 
+        }
         #endregion
 
     }

@@ -143,11 +143,24 @@ namespace DJS.Common
         #endregion
 
 
+        private static Assembly GetAsmOld(string assemblyFile)
+        {
+            Assembly asm;
+            using (MemoryStream memStream = FileHelp.GetFileStream(assemblyFile))
+            {
+                asm = Assembly.Load(memStream.ToArray());
+                memStream.Flush();
+                memStream.Close();
+                memStream.Dispose();
+                GC.GetTotalMemory(true);
+            }
+            return asm;
+        }
         private static Assembly GetAsm(string assemblyFile)
         {
             Assembly asm;
-            MemoryStream memStream = FileHelp.GetFileStream(assemblyFile);
-            asm = Assembly.Load(memStream.ToArray());
+            byte[] fileData = File.ReadAllBytes(assemblyFile);
+            asm = Assembly.Load(fileData);
             return asm;
         }
 

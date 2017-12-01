@@ -4,6 +4,5 @@ D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.Model\obj\Debug\DJS.Model.dll
 D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
