@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.BLL", "DJS.BLL\DJS.BLL.csproj", "{BE4C67A7-2989-4CB2-9A89-E1F19CD9AF84}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{7A721F03-3D5B-430F-B032-3EDF0E4D1675}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{C0D44356-8036-4292-B127-18D8E7937973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.WebApp", "DJS.WebApp\DJS.WebApp.csproj", "{BD27CE8D-5019-4063-A0FB-DFB219075588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,10 @@ Global
 		{C0D44356-8036-4292-B127-18D8E7937973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0D44356-8036-4292-B127-18D8E7937973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0D44356-8036-4292-B127-18D8E7937973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD27CE8D-5019-4063-A0FB-DFB219075588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD27CE8D-5019-4063-A0FB-DFB219075588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD27CE8D-5019-4063-A0FB-DFB219075588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD27CE8D-5019-4063-A0FB-DFB219075588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B23F7D42-A9C8-474C-B484-66B03A5C91EF} = {453FBF2F-3E8A-49F3-B524-CE172F05E70A}
 		{C0D44356-8036-4292-B127-18D8E7937973} = {7A721F03-3D5B-430F-B032-3EDF0E4D1675}
+		{BD27CE8D-5019-4063-A0FB-DFB219075588} = {453FBF2F-3E8A-49F3-B524-CE172F05E70A}
 	EndGlobalSection
 EndGlobal

@@ -10,7 +10,7 @@ namespace DJS.DAL.Redis
     public class TriggerGroup:ITriggerGroup
     {
 
-        private static string TRIGGERGROUP_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("TriggerGroup_K");
+        private static readonly string TRIGGERGROUP_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("TriggerGroup_K");
 
         #region 获取触发器集合 +List<Model.TriggerGroup> GetModels()
         /// <summary>

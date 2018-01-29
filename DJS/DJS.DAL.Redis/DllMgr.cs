@@ -9,7 +9,7 @@ namespace DJS.DAL.Redis
 {
     public class DllMgr : IDllMgr
     {
-        private static string DLLMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("DLLMgr_K");
+        private static readonly string DLLMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("DLLMgr_K");
 
         #region 获取数据集合 +List<Model.DllMgr> GetModels()
         /// <summary>

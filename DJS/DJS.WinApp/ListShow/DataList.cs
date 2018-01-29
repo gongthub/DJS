@@ -174,7 +174,7 @@ namespace DJS.WinApp
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
 
         }
@@ -222,7 +222,7 @@ namespace DJS.WinApp
             catch (Exception ex)
             {
                 //日志
-                DJS.Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                DJS.Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
         }
         #endregion

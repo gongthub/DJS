@@ -127,3 +127,4 @@ D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.exe.manifest
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.application
+D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\Newtonsoft.Json.xml

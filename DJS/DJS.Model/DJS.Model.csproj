@@ -41,16 +41,24 @@
   <ItemGroup>
     <Compile Include="ConfigMgr.cs" />
     <Compile Include="DllMgr.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="EntityCommon\ICreationAudited.cs" />
+    <Compile Include="EntityCommon\IDeleteAudited.cs" />
+    <Compile Include="EntityCommon\IEntity.cs" />
+    <Compile Include="EntityCommon\IModificationAudited.cs" />
     <Compile Include="JobFiles.cs" />
     <Compile Include="JobGroup.cs" />
     <Compile Include="Jobs.cs" />
-    <Compile Include="LogModel.cs" />
+    <Compile Include="SysManage\ModuleEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectLists.cs" />
-    <Compile Include="SinaData\SinaData.cs" />
     <Compile Include="TriggerGroup.cs" />
     <Compile Include="Triggers.cs" />
+    <Compile Include="SysManage\UserEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DJS.Common\DJS.Common.csproj">
+      <Project>{400b27d7-6f55-4908-8005-b4cfa2583e3b}</Project>
+      <Name>DJS.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

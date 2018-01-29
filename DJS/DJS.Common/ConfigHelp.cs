@@ -39,6 +39,23 @@ namespace DJS.Common
         #endregion
 
         /// <summary>
+        /// 系统主键
+        /// </summary>
+        public static readonly string SYSKEYNAME = "ID";
+        /// <summary>
+        /// 系统父级名称
+        /// </summary>
+        public static readonly string SYSPARENTKEYNAME = "ParentId";
+
+        /// <summary>
+        /// 根据Key取Value值
+        /// </summary>
+        /// <param name="key"></param>
+        public static string GetValue(string key)
+        {
+            return ConfigurationManager.AppSettings[key].ToString().Trim();
+        }
+        /// <summary>
         /// Redis配置文件路径
         /// </summary>
         public static string RedisConfigPath
@@ -311,6 +328,20 @@ namespace DJS.Common
             {
                 return ConfigurationManager.AppSettings["ERRORBCUSER"].ToString();
             }
-        } 
+        }
+        /// <summary>
+        /// 更新操作不修改字段
+        /// </summary>
+        public static List<string> UpdateNotChange {
+
+            get
+            {
+                List<string> strList = new List<string>();
+                strList.Add(SYSKEYNAME);
+                strList.Add("CreatorTime");
+                strList.Add("CreatorUserId");
+                return strList;
+            }
+        }
     }
 }

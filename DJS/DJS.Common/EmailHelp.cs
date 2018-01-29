@@ -22,7 +22,7 @@ namespace DJS.Common
         {
             try
             { 
-                Common.LogHelp.logHelp.WriteLog("错误邮件发送开始！", Model.Enums.LogType.Normal);
+                Common.LogHelp.logHelp.WriteLog("错误邮件发送开始！", Enums.LogType.Normal);
                 if (sTo != null && sTo.Count > 0)
                 {
                     string sSender = ConfigHelp.ERRORSENDUSER;
@@ -68,7 +68,7 @@ namespace DJS.Common
                         client.Send(message);
                     }
                 }
-                Common.LogHelp.logHelp.WriteLog("错误邮件发送结束！", Model.Enums.LogType.Normal);
+                Common.LogHelp.logHelp.WriteLog("错误邮件发送结束！", Enums.LogType.Normal);
             }
             catch (Exception e)
             {

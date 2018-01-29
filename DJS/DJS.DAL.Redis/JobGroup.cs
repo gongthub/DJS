@@ -9,7 +9,7 @@ namespace DJS.DAL.Redis
     public class JobGroup : IDAL.IJobGroup
     {
 
-        private static string JOBGROUP_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("JobGroup_K");
+        private static readonly string JOBGROUP_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("JobGroup_K");
 
         #region 获取任务组数据 +List<Model.JobGroup> GetModels()
         /// <summary>

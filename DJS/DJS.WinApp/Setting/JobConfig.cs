@@ -250,7 +250,7 @@ namespace DJS.WinApp.Setting
                             lbl.Text = names;
                             lbl.SetBounds(0, 10, 120, 30);
 
-                            List<Model.SelectLists> lists = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Model.Enums.ConfigGetType));
+                            List<SelectLists> lists = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Enums.ConfigGetType));
                             cbbox.DataSource = lists;
                             cbbox.DisplayMember = "Name";
                             cbbox.ValueMember = "Value";
@@ -269,7 +269,7 @@ namespace DJS.WinApp.Setting
                             var items = cbbox.Items;
                             for (int i = 0; i < items.Count; i++)
                             {
-                                Model.SelectLists item = items[i] as Model.SelectLists;
+                                SelectLists item = items[i] as SelectLists;
                                 if (item.Value.ToString() == vals)
                                 {
                                     cbbox.SelectedItem = item;

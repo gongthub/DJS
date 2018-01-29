@@ -108,7 +108,7 @@ namespace DJS.BLL
         {
             lock (this)
             {
-                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                if (LogFileType == Enums.LogFileType.File.ToString())
                 {
                     string paths = LOGURL + @"\";
                     ArrayList files = Common.FileHelp.GetFileslist(paths);
@@ -134,13 +134,13 @@ namespace DJS.BLL
 
                     }
                 }
-                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                if (LogFileType == Enums.LogFileType.Redis.ToString())
                 {
-                    List<Model.LogModel> models = new List<Model.LogModel>();
-                    models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
+                    List<LogModel> models = new List<LogModel>();
+                    models = Common.RedisHelp.redisHelp.Get<List<LogModel>>(LOGMGR_KEY);
                     if (models != null)
                     {
-                        Model.LogModel model = models.OrderByDescending(m => m.Time).FirstOrDefault();
+                        LogModel model = models.OrderByDescending(m => m.Time).FirstOrDefault();
                         if (model != null)
                         {
                             if (NewTime == DateTime.MinValue)
@@ -155,7 +155,7 @@ namespace DJS.BLL
                         }
                     }
                 }
-                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                if (LogFileType == Enums.LogFileType.NLog.ToString())
                 {
                     string paths = NLOGURL + @"\";
                     ArrayList files = Common.FileHelp.GetFileslist(paths);

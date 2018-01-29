@@ -54,7 +54,9 @@
     <Compile Include="Jobs.cs" />
     <Compile Include="JobsListen.cs" />
     <Compile Include="LogListen.cs" />
+    <Compile Include="SysManage\ModuleMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysManage\UserMgr.cs" />
     <Compile Include="TriggerGroup.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -234,10 +234,10 @@ namespace DJS.BLL
             {
                 models.ForEach(delegate(Model.Jobs job)
                 {
-                    job.State = (int)Model.Enums.TriggerState.Complete;
-                    job.StateName = Common.EnumHelp.enumHelp.GetDescription(Model.Enums.TriggerState.Complete);
+                    job.State = (int)Enums.TriggerState.Complete;
+                    job.StateName = Common.EnumHelp.enumHelp.GetDescription(Enums.TriggerState.Complete);
 
-                    Model.Enums.TimeType st = (Model.Enums.TimeType)job.Type;
+                    Enums.TimeType st = (Enums.TimeType)job.Type;
                     job.TypeName = Common.EnumHelp.enumHelp.GetDescription(st);
                 });
                 foreach (Model.Jobs model in models)
@@ -246,7 +246,7 @@ namespace DJS.BLL
                     if (job != null)
                     {
                         model.State = job.State;
-                        Model.Enums.TriggerState st = (Model.Enums.TriggerState)job.State;
+                        Enums.TriggerState st = (Enums.TriggerState)job.State;
                         model.StateName = Common.EnumHelp.enumHelp.GetDescription(st);
                     }
                 }
@@ -278,12 +278,12 @@ namespace DJS.BLL
             bool ret = true;
             try
             {
-                if (model.Type == (int)Model.Enums.TimeType.Periodicity)
+                if (model.Type == (int)Enums.TimeType.Periodicity)
                 {
                     //model.Crons = "0 0 0 ? * MON";
                     Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
                 }
-                if (model.Type == (int)Model.Enums.TimeType.Disposable)
+                if (model.Type == (int)Enums.TimeType.Disposable)
                 {
                     Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
                 }
@@ -293,7 +293,7 @@ namespace DJS.BLL
             catch (Exception ex)
             {
                 ret = false;
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
             return ret;
         }
@@ -341,7 +341,7 @@ namespace DJS.BLL
             catch (Exception ex)
             {
                 ret = false;
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
             return ret;
         }
@@ -368,7 +368,7 @@ namespace DJS.BLL
             catch (Exception ex)
             {
                 ret = false;
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
             return ret;
         }
@@ -384,11 +384,11 @@ namespace DJS.BLL
             bool ret = true;
             try
             {
-                if (model.Type == (int)Model.Enums.TimeType.Periodicity)
+                if (model.Type == (int)Enums.TimeType.Periodicity)
                 {
                     Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
                 }
-                if (model.Type == (int)Model.Enums.TimeType.Disposable)
+                if (model.Type == (int)Enums.TimeType.Disposable)
                 {
                     Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
                 }
@@ -397,7 +397,7 @@ namespace DJS.BLL
             catch (Exception ex)
             {
                 ret = false;
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
             return ret;
         }

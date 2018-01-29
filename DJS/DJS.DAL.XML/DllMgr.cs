@@ -14,13 +14,13 @@ namespace DJS.DAL.XML
         /// <summary>
         /// 配置文件路径
         /// </summary>
-        private static string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
+        private static readonly string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
 
-        private static string GROUPPATH = @"/DB/DDLMGRS/DDLMGR";
+        private const string GROUPPATH = @"/DB/DDLMGRS/DDLMGR";
 
-        private static string GROUPSPATH = @"/DB/DDLMGRS";
+        private const string GROUPSPATH = @"/DB/DDLMGRS";
 
-        private static string ELENMENTNAME = "DDLMGR";
+        private const string ELENMENTNAME = "DDLMGR";
 
 
         #region 获取数据集合 +List<Model.JobGroup> GetModels()
@@ -77,7 +77,7 @@ namespace DJS.DAL.XML
         public bool DelById(Guid Id)
         {
             bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, "ID", Id);
+            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
             return ret;
         }
         #endregion
@@ -93,7 +93,7 @@ namespace DJS.DAL.XML
             bool ret = true;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.DllMgr>(XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME, model);
+                XmlHelp.xmlHelp.AppendNode<Model.DllMgr>(model, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
             }
             catch
             {

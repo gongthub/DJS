@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace DJS.WinApp
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
                 MessageBox.Show("系统出现未知异常，请重启系统！");
             }
         }
@@ -86,7 +87,7 @@ namespace DJS.WinApp
             var ex = e.Exception;
             if (ex != null)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
 
             MessageBox.Show("系统出现未知异常，请重启系统！");
@@ -97,7 +98,7 @@ namespace DJS.WinApp
             var ex = e.ExceptionObject as Exception;
             if (ex != null)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
 
             MessageBox.Show("系统出现未知异常，请重启系统！");

@@ -66,38 +66,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.BLL.dll" size="22528">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.BLL.dll" size="26624">
       <assemblyIdentity name="DJS.BLL" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PCD74aGWsGLayLQD3F6EAyNQhdjYLvMVdixCPDgchTs=</dsig:DigestValue>
+        <dsig:DigestValue>s4m+Epbr9fr7pmy/wOPYtcweI56potTzP62fq6Mx+l8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Common.dll" size="44032">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Common.dll" size="74752">
       <assemblyIdentity name="DJS.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Kx3mRH08ogRzI2AK9TGDczHzIngfNsKsj2YMRu2shMo=</dsig:DigestValue>
+        <dsig:DigestValue>VLkGGXSa/bhhAxPR2teB7tmtgCxZw01aGX+fIeM6GXc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.DataAccessFactory.dll" size="6144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.DataAccessFactory.dll" size="6656">
       <assemblyIdentity name="DJS.DAL.DataAccessFactory" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9FQt4Pnm7h57PSbC9NeCfnat+/VEeVT8O95ygkzDx0g=</dsig:DigestValue>
+        <dsig:DigestValue>tl3fIgi+UFf+5SjvuGDlwWvC/icoyAUKnqg4TdrNAWE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -109,43 +109,43 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZNQE/gZhzT0FbAneD5BW38eUhnLzgVoRqewxHfSvmYs=</dsig:DigestValue>
+        <dsig:DigestValue>lvQIZZ8DXIc48wjRNeO6zAYW5fBJu8wTZCInTSuEyHA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.XML.dll" size="11264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.XML.dll" size="17408">
       <assemblyIdentity name="DJS.DAL.XML" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MRXnI1q7WG5Gs6+hu2PMn82s7vRetr/gXGVgSMbUUqU=</dsig:DigestValue>
+        <dsig:DigestValue>UMWX08V+9NGL6LKalHfLE++OKYY2DrrL+WJ1gfLLlyQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.IDAL.dll" size="5120">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.IDAL.dll" size="5632">
       <assemblyIdentity name="DJS.IDAL" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zT8qZ4sWXxRKs3yyp/dUgTdq0UkfrVMOQUcjKrA5i4s=</dsig:DigestValue>
+        <dsig:DigestValue>dfLxjuvVcL2Nkxuotm3guaCA69opt4zVsSqlnM2ZVE4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Model.dll" size="18432">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Model.dll" size="18944">
       <assemblyIdentity name="DJS.Model" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KhJy7vyaxxCmrZy099mN2JNhnubwdNyGpGhUtbK+EcE=</dsig:DigestValue>
+        <dsig:DigestValue>uXm7y8PxTK7JMq7MSkmEojsp+l5U3h9sgAZ4qCttY1M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,7 +157,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>YksHwndCvhv05zab2IxJ7ZE3cbmSsL94AFFC6v8Ag7A=</dsig:DigestValue>
+        <dsig:DigestValue>DtSIBr5TLi8ZIlz6nZEPN1nQD1z87i+IUswc/0OfqsE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -169,7 +169,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NaDLGfrKFllxy8AJtpBE5LhcV4ALktOYyIFIPNCDj+E=</dsig:DigestValue>
+        <dsig:DigestValue>bNdm7EQdi+K/U5u3ZB3W+40e+ESQpniG/Ab/R2iT/SM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -181,7 +181,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KnBA6oV77cZiGywLdrZibzTZlf0wR6b5kqI29ykXBhM=</dsig:DigestValue>
+        <dsig:DigestValue>Du/nqJRFycoRGOzWzyv1aRzI4LTrvNwXh78YIXRSLw4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

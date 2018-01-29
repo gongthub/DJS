@@ -43,9 +43,11 @@
     <Compile Include="JobFiles.cs" />
     <Compile Include="JobGroup.cs" />
     <Compile Include="Jobs.cs" />
+    <Compile Include="SysManage\ModuleMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TriggerGroup.cs" />
     <Compile Include="Triggers.cs" />
+    <Compile Include="SysManage\UserMgr.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DJS.Common\DJS.Common.csproj">

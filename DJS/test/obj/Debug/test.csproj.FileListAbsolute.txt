@@ -68,3 +68,5 @@ D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.Properties.Resources.resources
 D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.csproj.GenerateResource.Cache
 D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.exe
 D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.pdb
+D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Newtonsoft.Json.dll
+D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Newtonsoft.Json.xml

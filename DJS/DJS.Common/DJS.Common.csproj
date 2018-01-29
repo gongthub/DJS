@@ -33,6 +33,10 @@
     <Reference Include="Common.Logging">
       <HintPath>..\DLL\Quartz\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\DLL\NLog.dll</HintPath>
     </Reference>
@@ -66,6 +70,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,26 +80,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyHelp.cs" />
+    <Compile Include="CommonModel\Enums.cs" />
+    <Compile Include="CommonModel\LogModel.cs" />
+    <Compile Include="CommonModel\OperatorModel.cs" />
+    <Compile Include="CommonModel\SelectLists.cs" />
+    <Compile Include="CommonModel\TreeGridModel.cs" />
+    <Compile Include="CommonModel\TreeSelectModel.cs" />
     <Compile Include="ConfigHelp.cs" />
     <Compile Include="EmailHelp.cs" />
     <Compile Include="EnumHelp.cs" />
     <Compile Include="ExceptionHelp.cs" />
+    <Compile Include="Ext.cs" />
+    <Compile Include="ExtLinq.cs" />
     <Compile Include="FileHelp.cs" />
+    <Compile Include="JsonHelp.cs" />
     <Compile Include="LogHelp.cs" />
     <Compile Include="MessageHelp.cs" />
     <Compile Include="NetHelp.cs" />
+    <Compile Include="OperatorProvider.cs" />
+    <Compile Include="Pagination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuartzHelp.cs" />
     <Compile Include="RedisConfigHelp.cs" />
     <Compile Include="RedisHelp.cs" />
     <Compile Include="SecurityHelp.cs" />
+    <Compile Include="TreeGrid.cs" />
+    <Compile Include="TreeQuery.cs" />
+    <Compile Include="TreeSelect.cs" />
+    <Compile Include="VerifyCode.cs" />
+    <Compile Include="WebHelper.cs" />
     <Compile Include="XmlHelp.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DJS.Model\DJS.Model.csproj">
-      <Project>{9583daaa-114e-4777-a344-9f87c8560c9e}</Project>
-      <Name>DJS.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

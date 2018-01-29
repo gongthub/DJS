@@ -57,7 +57,7 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void Center_Load(object sender, EventArgs e)
         {
-            Common.LogHelp.logHelp.WriteLog("进入系统！", Model.Enums.LogType.Normal);
+            Common.LogHelp.logHelp.WriteLog("进入系统！", Enums.LogType.Normal);
             //初始打开时就加载窗体
             string formClass = MAINFROM;
             GenerateForm(formClass, panMain);
@@ -112,7 +112,7 @@ namespace DJS.WinApp
                 result = MessageBox.Show("确定退出吗？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
-                    Common.LogHelp.logHelp.WriteLog("系统退出！", Model.Enums.LogType.Normal);
+                    Common.LogHelp.logHelp.WriteLog("系统退出！", Enums.LogType.Normal);
                     System.Environment.Exit(0);
                 }
                 else

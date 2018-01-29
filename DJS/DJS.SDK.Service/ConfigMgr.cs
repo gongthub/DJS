@@ -50,8 +50,8 @@ namespace DJS.SDK.Service
             {
                 Model.ConfigMgr model = new Model.ConfigMgr();
                 model.Name = "STATUS";
-                model.Value = ((int)Model.Enums.ConfigGetType.Init).ToString();
-                Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
+                model.Value = ((int)Enums.ConfigGetType.Init).ToString();
+                Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(model, SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME);
                 flag = 1;
             }
             else
@@ -80,7 +80,7 @@ namespace DJS.SDK.Service
             try
             {
                 //初始化
-                if ((int)Model.Enums.ConfigGetType.Init == flag)
+                if ((int)Enums.ConfigGetType.Init == flag)
                 {
                     if (!IsExist(name))
                     {
@@ -88,7 +88,7 @@ namespace DJS.SDK.Service
                         Model.ConfigMgr model = new Model.ConfigMgr();
                         model.Name = name;
                         model.Value = value;
-                        Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
+                        Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(model, SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME);
                     }
                     else
                     {
@@ -100,7 +100,7 @@ namespace DJS.SDK.Service
                 }
                 // 加载未配置信息
                 else
-                    if ((int)Model.Enums.ConfigGetType.getNew == flag)
+                    if ((int)Enums.ConfigGetType.getNew == flag)
                     {
                         if (!IsExist(name))
                         {
@@ -108,12 +108,12 @@ namespace DJS.SDK.Service
                             Model.ConfigMgr model = new Model.ConfigMgr();
                             model.Name = name;
                             model.Value = value;
-                            Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
+                            Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(model, SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME);
                         }
                     }
                     // 清空配置
                     else
-                        if ((int)Model.Enums.ConfigGetType.Clear == flag)
+                        if ((int)Enums.ConfigGetType.Clear == flag)
                         {
                             Common.XmlHelp.xmlHelp.RemoveNode(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME);
 
@@ -122,13 +122,13 @@ namespace DJS.SDK.Service
                                 Model.ConfigMgr model = new Model.ConfigMgr();
                                 model.Name = "STATUS";
                                 model.Value = flag.ToString();
-                                Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME, model);
+                                Common.XmlHelp.xmlHelp.AppendNode<Model.ConfigMgr>(model, SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME);
                             }
                         }
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
                 ret = false;
             }
             return ret;

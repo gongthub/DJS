@@ -208,6 +208,31 @@ namespace DJS.Common
         }
         #endregion //保存XML文件
 
+        #region 获取xml节点
+        /// <summary>
+        /// 获取xml节点
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private XmlNode GetXmlNode(XmlNodeList nodes, string name)
+        {
+            XmlNode node = null;
+
+            if (nodes != null && nodes.Count > 0)
+            {
+                foreach (XmlNode nodeT in nodes)
+                {
+                    if (nodeT.Attributes[name] != null && nodeT.Attributes[name].Name == name)
+                    {
+                        node = nodeT;
+                    }
+                }
+            }
+            return node;
+        }
+        #endregion
+
         #region 方法
 
         #region 创建根节点对象 -XmlElement CreateRootElement(string xmlFilePath)
@@ -273,14 +298,11 @@ namespace DJS.Common
         public string GetValue(string xmlFilePath, string xPath)
         {
             string strs = "";
-            if (FileHelp.FileExists(xmlFilePath))
-            {
-                //创建根对象
-                XmlElement rootElement = CreateRootElement(xmlFilePath);
+            //创建根对象
+            XmlElement rootElement = CreateRootElement(xmlFilePath);
 
-                //返回XPath节点的值
-                strs = rootElement.SelectSingleNode(xPath).InnerText;
-            }
+            //返回XPath节点的值
+            strs = rootElement.SelectSingleNode(xPath).InnerText;
             return strs;
         }
         #endregion
@@ -299,14 +321,11 @@ namespace DJS.Common
         public string GetAttributeValue(string xmlFilePath, string xPath, string attributeName)
         {
             string strs = "";
-            if (FileHelp.FileExists(xmlFilePath))
-            {
-                //创建根对象
-                XmlElement rootElement = CreateRootElement(xmlFilePath);
+            //创建根对象
+            XmlElement rootElement = CreateRootElement(xmlFilePath);
 
-                //返回XPath节点的属性值
-                strs = rootElement.SelectSingleNode(xPath).Attributes[attributeName].Value;
-            }
+            //返回XPath节点的属性值
+            strs = rootElement.SelectSingleNode(xPath).Attributes[attributeName].Value;
             return strs;
         }
         #endregion
@@ -322,19 +341,12 @@ namespace DJS.Common
         /// </param>
         public XmlNodeList GetNodes(string filePath, string xPath)
         {
-            if (FileHelp.FileExists(filePath))
-            {
-                //创建XML的根节点
-                //创建根对象
-                XmlElement rootElement = CreateRootElement(filePath);
+            //创建XML的根节点
+            //创建根对象
+            XmlElement rootElement = CreateRootElement(filePath);
 
-                //返回XPath节点
-                return rootElement.SelectNodes(xPath);
-            }
-            else
-            {
-                return null;
-            }
+            //返回XPath节点
+            return rootElement.SelectNodes(xPath);
         }
         /// <summary>
         /// 获取指定XPath表达式的节点对象集合
@@ -363,15 +375,12 @@ namespace DJS.Common
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void AppendNode(string filePath, string xPath, XmlNode node)
         {
-            if (FileHelp.FileExists(filePath))
-            {
-                //创建XML的根节点
-                //创建根对象
-                XmlElement rootElement = CreateRootElement(filePath);
-                XmlNode xmlnode = rootElement.SelectSingleNode(xPath);
-                //导入节点
-                xmlnode.AppendChild(node);
-            }
+            //创建XML的根节点
+            //创建根对象
+            XmlElement rootElement = CreateRootElement(filePath);
+            XmlNode xmlnode = rootElement.SelectSingleNode(xPath);
+            //导入节点
+            xmlnode.AppendChild(node);
 
         }
 
@@ -383,7 +392,7 @@ namespace DJS.Common
         /// 2. 使用条件：将任意节点插入到当前Xml文件中。
         /// </summary>        
         /// <param name="xmlNode">要插入的Xml节点</param>
-        public void AppendNode<T>(string xmlFilePath, string xPath, string elenmentName, T t)
+        public void AppendNode<T>(T t, string xmlFilePath, string xPath, string elenmentName)
         {
             //创建XmlDocument对象
             XmlDocument xmlDocument = new XmlDocument();
@@ -425,9 +434,181 @@ namespace DJS.Common
                     }
                 }
             }
+
+            if (!FileHelp.FileExists(xmlFilePath))
+            {
+                xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+            }
             //导入节点
             xmlnode.AppendChild(node);
             xmlDocument.Save(xmlFilePath);
+        }
+
+        #endregion
+
+        #region 指定路径更新节点
+        /// <summary>
+        /// 1. 功能：更新节点。
+        /// 2. 使用条件：将任意节点插入到当前Xml文件中。
+        /// </summary>        
+        /// <param name="xmlNode">要插入的Xml节点</param>
+        public void UpdateNode<T>(T t, string xmlFilePath, string xPath, string keyName, string keyValue)
+        {
+            xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+            //创建XmlDocument对象
+            XmlDocument xmlDocument = new XmlDocument();
+            //创建XML的根节点
+            //创建根对象
+            XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
+            XmlNode node = GetXmlNodeByAttKeyValue(xmlFilePath, xPath, keyName, keyValue, out xmlDocument);
+            if (node != null)
+            {
+                XmlDocument doc = node.OwnerDocument;
+                PropertyInfo[] infos = t.GetType().GetProperties();
+                if (infos != null && infos.Count() > 0)
+                {
+                    XmlAttributeCollection atts = node.Attributes;
+                    foreach (PropertyInfo info in infos)
+                    {
+                        XmlAttribute attr = GetAttByName(atts, info.Name);
+                        if (attr != null)
+                        {
+                            if (!ConfigHelp.UpdateNotChange.Contains(info.Name))
+                            {
+                                if (info.GetValue(t) != null)
+                                {
+                                    attr.Value = info.GetValue(t).ToString();
+                                }
+                                else
+                                {
+                                    attr.Value = "";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            attr = doc.CreateAttribute(info.Name);
+                            if (info.GetValue(t) != null)
+                            {
+                                attr.Value = info.GetValue(t).ToString();
+                            }
+                            else
+                            {
+                                attr.Value = "";
+                            }
+                        }
+                        node.Attributes.SetNamedItem(attr);
+
+                    }
+                }
+                if (!FileHelp.FileExists(xmlFilePath))
+                {
+                    xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+                }
+                xmlDocument.Save(xmlFilePath);
+            }
+        }
+        /// <summary>
+        /// 1. 功能：更新节点。
+        /// 2. 使用条件：将任意节点插入到当前Xml文件中。
+        /// </summary>        
+        /// <param name="xmlNode">要插入的Xml节点</param>
+        public void UpdateNode<T>(T t, string xmlFilePath, string xPath, string keyName, string keyValue, List<string> notChange)
+        {
+            if (notChange != null)
+            {
+                ConfigHelp.UpdateNotChange.AddRange(notChange);
+            }
+
+            xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+            //创建XmlDocument对象
+            XmlDocument xmlDocument = new XmlDocument();
+            //创建XML的根节点
+            //创建根对象
+            XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
+            XmlNode node = GetXmlNodeByAttKeyValue(xmlFilePath, xPath, keyName, keyValue, out xmlDocument);
+            if (node != null)
+            {
+                XmlDocument doc = node.OwnerDocument;
+                PropertyInfo[] infos = t.GetType().GetProperties();
+                if (infos != null && infos.Count() > 0)
+                {
+                    XmlAttributeCollection atts = node.Attributes;
+                    foreach (PropertyInfo info in infos)
+                    {
+                        XmlAttribute attr = GetAttByName(atts, info.Name);
+                        if (attr != null)
+                        {
+                            if (!ConfigHelp.UpdateNotChange.Contains(info.Name))
+                            {
+                                if (info.GetValue(t) != null)
+                                {
+                                    attr.Value = info.GetValue(t).ToString();
+                                }
+                                else
+                                {
+                                    attr.Value = "";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            attr = doc.CreateAttribute(info.Name);
+                            if (info.GetValue(t) != null)
+                            {
+                                attr.Value = info.GetValue(t).ToString();
+                            }
+                            else
+                            {
+                                attr.Value = "";
+                            }
+                        }
+                        node.Attributes.SetNamedItem(attr);
+
+                    }
+                }
+                if (!FileHelp.FileExists(xmlFilePath))
+                {
+                    xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+                }
+                xmlDocument.Save(xmlFilePath);
+            }
+        }
+
+        /// <summary>
+        /// 根据指定属性名称属性值获取节点
+        /// </summary>
+        /// <param name="xmlFilePath"></param>
+        /// <param name="xPath"></param>
+        /// <param name="elenmentName"></param>
+        /// <param name="keyName"></param>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        private XmlNode GetXmlNodeByAttKeyValue(string xmlFilePath, string xPath, string keyName, string keyValue, out XmlDocument xmlDocument)
+        {
+            XmlNode xmlnode = null;
+
+            XmlNodeList list = GetNodes(xmlFilePath, xPath, out xmlDocument);
+            if (list != null && list.Count > 0)
+            {
+                foreach (XmlNode node in list)
+                {
+                    XmlAttributeCollection atts = node.Attributes;
+                    if (atts != null && atts.Count > 0)
+                    {
+                        XmlAttribute att = GetAttByName(atts, keyName);
+                        if (att != null)
+                        {
+                            if (att.Value == keyValue)
+                            {
+                                xmlnode = node;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return xmlnode;
         }
 
         #endregion
@@ -463,6 +644,10 @@ namespace DJS.Common
                                 xe.RemoveChild(node);
                             }
                         }
+                    }
+                    if (!FileHelp.FileExists(filePath))
+                    {
+                        filePath = FileHelp.GetFullPath(filePath);
                     }
                     xmlDocument.Save(filePath);
                 }
@@ -606,6 +791,78 @@ namespace DJS.Common
                 Guid.TryParse(val, out temp);
                 obj = temp;
             }
+            else if (type.Equals(typeof(int?)))
+            {
+                int temp = 0;
+                if (Int32.TryParse(val, out temp))
+                {
+                    obj = temp;
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            else if (type.Equals(typeof(decimal?)))
+            {
+                Decimal temp = 0;
+                if (Decimal.TryParse(val, out temp))
+                {
+                    obj = temp;
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            else if (type.Equals(typeof(System.DateTime?)))
+            {
+                DateTime temp = DateTime.MinValue;
+                if (DateTime.TryParse(val, out temp))
+                {
+                    obj = temp;
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            else if (type.Equals(typeof(double?)))
+            {
+                double temp = 0;
+                if (double.TryParse(val, out temp))
+                {
+                    obj = temp;
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            else if (type.Equals(typeof(bool?)))
+            {
+                bool temp = true;
+                if (bool.TryParse(val, out temp))
+                {
+                    obj = temp;
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            else if (type.Equals(typeof(Guid?)))
+            {
+                Guid temp = Guid.Empty;
+                if (Guid.TryParse(val, out temp))
+                {
+                    obj = temp;
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
 
             return obj;
         }
@@ -686,7 +943,7 @@ namespace DJS.Common
                     //创建XmlDocument对象
                     XmlDocument xmlDocument = new XmlDocument();
 
-                    //获取要删除的节点
+                    //获取节点
                     XmlNodeList nodes = GetNodes(xmlFilePath, xPath, out xmlDocument);
                     if (nodes != null && nodes.Count > 0)
                     {
@@ -697,6 +954,10 @@ namespace DJS.Common
                                 node.Attributes[attValue].Value = value;
                             }
                         }
+                    }
+                    if (!FileHelp.FileExists(xmlFilePath))
+                    {
+                        xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
                     }
                     xmlDocument.Save(xmlFilePath);
                 }

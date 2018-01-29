@@ -120,7 +120,7 @@ namespace DJS.WinApp
             }
             Type type = Common.AssemblyHelp.assembly.GetDllType(name, nameSpaces, classNames);
             model.AssType = type;
-            model.State = (int)Model.Enums.TriggerState.Normal;
+            model.State = (int)Enums.TriggerState.Normal;
             if (CheckTxt(model))
             {
                 if (!BLL.Jobs.IsExist(jobNames))
@@ -279,7 +279,7 @@ namespace DJS.WinApp
         private void BindType()
         {
             //ArrayList arry = Common.EnumHelp.enumHelp.ToArrayList(typeof(Model.Enums.TimeType));
-            List<Model.SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Model.Enums.TimeType));
+            List<SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Enums.TimeType));
             cbType.DataSource = list;
             cbType.DisplayMember = "Name";
             cbType.ValueMember = "Value";
@@ -292,7 +292,7 @@ namespace DJS.WinApp
         /// </summary>
         private void BindIsAuto()
         { 
-            List<Model.SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Model.Enums.AutoStartType));
+            List<SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Enums.AutoStartType));
             cbIsAuto.DataSource = list;
             cbIsAuto.DisplayMember = "Name";
             cbIsAuto.ValueMember = "Value";

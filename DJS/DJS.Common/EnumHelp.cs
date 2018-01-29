@@ -147,15 +147,15 @@ namespace DJS.Common
         /// </summary>
         /// <param name="type">枚举类型</param>
         /// <returns>SelectLists</returns>
-        public List<Model.SelectLists> ToSelectLists(Type type)
+        public List<SelectLists> ToSelectLists(Type type)
         {
             if (type.IsEnum)
             {
-                List<Model.SelectLists> lists = new List<Model.SelectLists>();
+                List<SelectLists> lists = new List<SelectLists>();
                 Array _enumValues = Enum.GetValues(type);
                 foreach (Enum value in _enumValues)
                 {
-                    Model.SelectLists list = new Model.SelectLists();
+                    SelectLists list = new SelectLists();
                     list.Value = Convert.ToInt32(value);
                     list.Name = GetDescription(value);
                     lists.Add(list);

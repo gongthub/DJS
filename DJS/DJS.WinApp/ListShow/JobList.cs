@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using DJS.Common;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -339,7 +340,7 @@ namespace DJS.WinApp
                         int state = 0;
                         if (dgvJobs.Rows[e.RowIndex].Cells["State"] != null && Int32.TryParse(dgvJobs.Rows[e.RowIndex].Cells["State"].Value.ToString(), out state))
                         {
-                            if (state == (int)Model.Enums.TriggerState.Normal)
+                            if (state == (int)Enums.TriggerState.Normal)
                             {
                                 if (dgvJobs.Rows[e.RowIndex].Cells["GroupName"] != null && dgvJobs.Rows[e.RowIndex].Cells["Name"] != null)
                                 {
@@ -538,7 +539,7 @@ namespace DJS.WinApp
                             string groupNames = dgvJobs.Rows[e.RowIndex].Cells["GroupName"].Value.ToString();
                             string names = dgvJobs.Rows[e.RowIndex].Cells["Name"].Value.ToString();
                             MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
-                            if (state == (int)Model.Enums.TriggerState.Normal)
+                            if (state == (int)Enums.TriggerState.Normal)
                             {
                                 DialogResult dr = MessageBox.Show("确定要暂停服务吗?", "暂停服务", messButton);
                                 if (dr == DialogResult.OK)//如果点击“确定”按钮
@@ -551,7 +552,7 @@ namespace DJS.WinApp
                                 }
                             }
                             else
-                                if (state == (int)Model.Enums.TriggerState.Paused)
+                                if (state == (int)Enums.TriggerState.Paused)
                                 {
                                     DialogResult dr = MessageBox.Show("启动时会执行一次任务，确定要启动服务吗?", "启动服务", messButton);
                                     if (dr == DialogResult.OK)//如果点击“确定”按钮

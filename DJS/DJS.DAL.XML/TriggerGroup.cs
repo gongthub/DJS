@@ -14,13 +14,13 @@ namespace DJS.DAL.XML
         /// <summary>
         /// 配置文件路径
         /// </summary>
-        private static string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
+        private static readonly string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
 
-        private static string GROUPPATH = @"/DB/TRIGGERGROUPS/TRIGGERGROUP";
+        private const string GROUPPATH = @"/DB/TRIGGERGROUPS/TRIGGERGROUP";
 
-        private static string GROUPSPATH = @"/DB/TRIGGERGROUPS";
+        private const string GROUPSPATH = @"/DB/TRIGGERGROUPS";
 
-        private static string ELENMENTNAME = "TRIGGERGROUP";
+        private const string ELENMENTNAME = "TRIGGERGROUP";
 
         #region 获取数据集合 +List<Model.TriggerGroup> GetModels()
         /// <summary>
@@ -76,7 +76,7 @@ namespace DJS.DAL.XML
         public bool DelById(Guid Id)
         {
             bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, "ID", Id);
+            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
             return ret;
         }
         #endregion
@@ -92,7 +92,7 @@ namespace DJS.DAL.XML
             bool ret = true;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.TriggerGroup>(XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME, model);
+                XmlHelp.xmlHelp.AppendNode<Model.TriggerGroup>(model, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
             }
             catch
             {

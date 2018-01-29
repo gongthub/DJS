@@ -84,17 +84,17 @@ namespace DJS.Common
             {
                 MsgQueue.Enqueue(messages);
                 messages = System.Convert.ToString(MsgQueue.Dequeue());
-                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                if (LogFileType == Enums.LogFileType.File.ToString())
                 {
                     WriteLogFile(messages, type);
                 }
 
-                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                if (LogFileType == Enums.LogFileType.Redis.ToString())
                 {
                     WriteLogRedis(messages, type);
                 }
 
-                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                if (LogFileType == Enums.LogFileType.NLog.ToString())
                 {
                     WriteLogNLog(messages, type);
                 }
@@ -107,21 +107,21 @@ namespace DJS.Common
         /// 写入日志
         /// </summary>
         /// <param name="messages"></param> 
-        public void WriteLog(string messages, Model.Enums.LogType type)
+        public void WriteLog(string messages, Enums.LogType type)
         {
             lock (MsgQueue.SyncRoot)
             {
                 MsgQueue.Enqueue(messages);
                 messages = System.Convert.ToString(MsgQueue.Dequeue());
-                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                if (LogFileType == Enums.LogFileType.File.ToString())
                 {
                     WriteLogFile(messages, type);
                 }
-                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                if (LogFileType == Enums.LogFileType.Redis.ToString())
                 {
                     WriteLogRedis(messages, type);
                 }
-                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                if (LogFileType == Enums.LogFileType.NLog.ToString())
                 {
                     WriteLogNLog(messages, type);
                 }
@@ -140,15 +140,15 @@ namespace DJS.Common
             {
                 string strs = "";
 
-                if (LogFileType == Model.Enums.LogFileType.File.ToString())
+                if (LogFileType == Enums.LogFileType.File.ToString())
                 {
                     strs = GetLogsFile(num);
                 }
-                if (LogFileType == Model.Enums.LogFileType.Redis.ToString())
+                if (LogFileType == Enums.LogFileType.Redis.ToString())
                 {
                     strs = GetLogsRedis(num);
                 }
-                if (LogFileType == Model.Enums.LogFileType.NLog.ToString())
+                if (LogFileType == Enums.LogFileType.NLog.ToString())
                 {
                     strs = GetLogsNLog(num);
                 }
@@ -171,7 +171,7 @@ namespace DJS.Common
             }
             string strs = "";
             strs += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ";
-            strs += EnumHelp.enumHelp.GetDescription((Model.Enums.LogType)type) + " - ";
+            strs += EnumHelp.enumHelp.GetDescription((Enums.LogType)type) + " - ";
             strs += messages;
             DJS.Common.FileHelp.WirteStr(LOGURL + @"/" + DateTime.Now.ToString(LOGNAME) + LOGTYPE, strs);
 
@@ -183,7 +183,7 @@ namespace DJS.Common
         /// 写入日志到File
         /// </summary>
         /// <param name="messages">描述</param>  
-        private void WriteLogFile(string messages, Model.Enums.LogType type)
+        private void WriteLogFile(string messages, Enums.LogType type)
         {
             if (!DJS.Common.FileHelp.DirectoryIsExists(LOGURL))
             {
@@ -225,22 +225,21 @@ namespace DJS.Common
         /// <param name="messages">描述</param>  
         private void WriteLogRedis(string messages, int type)
         {
-
-            List<Model.LogModel> models = new List<Model.LogModel>();
-            models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
+            List<LogModel> models = new List<LogModel>();
+            models = Common.RedisHelp.redisHelp.Get<List<LogModel>>(LOGMGR_KEY);
             if (models == null)
             {
-                models = new List<Model.LogModel>();
+                models = new List<LogModel>();
             }
-            string typename = EnumHelp.enumHelp.GetDescription((Model.Enums.LogType)type);
-            Model.LogModel model = new Model.LogModel();
+            string typename = EnumHelp.enumHelp.GetDescription((Enums.LogType)type);
+            LogModel model = new LogModel();
             model.ID = Guid.NewGuid();
             model.Type = (int)type;
             model.TypeName = typename;
             model.Time = DateTime.Now;
             model.Desc = messages;
             models.Add(model);
-            Common.RedisHelp.redisHelp.Set<List<Model.LogModel>>(LOGMGR_KEY, models);
+            Common.RedisHelp.redisHelp.Set<List<LogModel>>(LOGMGR_KEY, models);
 
         }
         #endregion
@@ -250,24 +249,23 @@ namespace DJS.Common
         /// 写入日志到Redis
         /// </summary>
         /// <param name="messages">描述</param>  
-        private void WriteLogRedis(string messages, Model.Enums.LogType type)
+        private void WriteLogRedis(string messages, Enums.LogType type)
         {
-
-            List<Model.LogModel> models = new List<Model.LogModel>();
-            models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
+            List<LogModel> models = new List<LogModel>();
+            models = Common.RedisHelp.redisHelp.Get<List<LogModel>>(LOGMGR_KEY);
             if (models == null)
             {
-                models = new List<Model.LogModel>();
+                models = new List<LogModel>();
             }
             string typename = EnumHelp.enumHelp.GetDescription(type);
-            Model.LogModel model = new Model.LogModel();
+            LogModel model = new LogModel();
             model.ID = Guid.NewGuid();
             model.Type = (int)type;
             model.TypeName = typename;
             model.Time = DateTime.Now;
             model.Desc = messages;
             models.Add(model);
-            Common.RedisHelp.redisHelp.Set<List<Model.LogModel>>(LOGMGR_KEY, models);
+            Common.RedisHelp.redisHelp.Set<List<LogModel>>(LOGMGR_KEY, models);
 
         }
         #endregion
@@ -280,8 +278,8 @@ namespace DJS.Common
         private string GetLogsRedis(int num)
         {
             StringBuilder strs = new StringBuilder();
-            List<Model.LogModel> models = new List<Model.LogModel>();
-            models = Common.RedisHelp.redisHelp.Get<List<Model.LogModel>>(LOGMGR_KEY);
+            List<LogModel> models = new List<LogModel>();
+            models = Common.RedisHelp.redisHelp.Get<List<LogModel>>(LOGMGR_KEY);
 
             string str = null;
             if (models != null && models.Count > 0)
@@ -291,7 +289,7 @@ namespace DJS.Common
                 {
                     models = models.Take(num).ToList();
                 }
-                foreach (Model.LogModel model in models)
+                foreach (LogModel model in models)
                 {
                     str = model.Time.ToString("yyyy-MM-dd HH:mm:ss") + " - " + model.TypeName + " - " + model.Desc + "\r\n";
                     strs.Append(str);
@@ -315,7 +313,7 @@ namespace DJS.Common
             }
 
             string strs = "";
-            strs += EnumHelp.enumHelp.GetDescription((Model.Enums.LogType)type) + " - ";
+            strs += EnumHelp.enumHelp.GetDescription((Enums.LogType)type) + " - ";
             strs += messages;
 
             NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
@@ -330,7 +328,7 @@ namespace DJS.Common
         /// 写入日志到File
         /// </summary>
         /// <param name="messages">描述</param>  
-        private void WriteLogNLog(string messages, Model.Enums.LogType type)
+        private void WriteLogNLog(string messages, Enums.LogType type)
         {
             if (!DJS.Common.FileHelp.DirectoryIsExists(NLOGURL))
             {

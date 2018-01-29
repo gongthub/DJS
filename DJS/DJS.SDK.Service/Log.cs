@@ -23,7 +23,7 @@ namespace DJS.SDK.Service
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
         }
         #endregion
@@ -47,7 +47,7 @@ namespace DJS.SDK.Service
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
         }
         #endregion
@@ -66,7 +66,7 @@ namespace DJS.SDK.Service
             }
             catch (Exception ex)
             {
-                Common.LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
             }
         }
         #endregion

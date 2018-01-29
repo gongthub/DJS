@@ -52,3 +52,5 @@ D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\obj\Debug\DJS.SDK.Service.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\obj\Debug\DJS.SDK.Service.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\obj\Debug\DJS.SDK.Service.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Newtonsoft.Json.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Newtonsoft.Json.xml

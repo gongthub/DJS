@@ -66,7 +66,7 @@ namespace DJS.DAL.DataAccessFactory
         } 
         #endregion
 
-        #region 自定义接口
+        #region DJS Core自定义接口
 
         /// <summary>
         /// 接口IJobGroup映射 
@@ -128,6 +128,29 @@ namespace DJS.DAL.DataAccessFactory
             object objType = CreateObject(ClassNamespace);
             return (DJS.IDAL.IJobFiles)objType;
         }
+        #endregion
+
+        #region 系统管理相关接口
+        /// <summary>
+        /// 接口IModuleMgr映射 
+        /// </summary>
+        /// <returns></returns>
+        public static DJS.IDAL.IModuleMgr CreateIModuleMgr()
+        {
+            string ClassNamespace = DLLPATH + DBTYPE + ".ModuleMgr";
+            object objType = CreateObject(ClassNamespace);
+            return (DJS.IDAL.IModuleMgr)objType;
+        } 
+        /// <summary>
+        /// 接口IUserMgr映射 
+        /// </summary>
+        /// <returns></returns>
+        public static DJS.IDAL.IUserMgr CreateIUserMgr()
+        {
+            string ClassNamespace = DLLPATH + DBTYPE + ".UserMgr";
+            object objType = CreateObject(ClassNamespace);
+            return (DJS.IDAL.IUserMgr)objType;
+        } 
         #endregion
     }
 }

@@ -14,13 +14,13 @@ namespace DJS.DAL.XML
         /// <summary>
         /// 配置文件路径
         /// </summary>
-        private static string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
+        private static readonly string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
 
-        private static string GROUPPATH = @"/DB/JOBFILES/JOBFILE";
+        private const string GROUPPATH = @"/DB/JOBFILES/JOBFILE";
 
-        private static string GROUPSPATH = @"/DB/JOBFILES";
+        private const string GROUPSPATH = @"/DB/JOBFILES";
 
-        private static string ELENMENTNAME = "JOBFILE";
+        private const string ELENMENTNAME = "JOBFILE";
 
         #region  获取所有jobs +List<Model.JobFiles> GetModels()
         /// <summary>
@@ -97,7 +97,7 @@ namespace DJS.DAL.XML
             bool ret = true;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.JobFiles>(XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME, model);
+                XmlHelp.xmlHelp.AppendNode<Model.JobFiles>(model, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
             }
             catch
             {
@@ -116,7 +116,7 @@ namespace DJS.DAL.XML
         public bool DelById(Guid Id)
         {
             bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, "ID", Id);
+            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
             return ret;
         }
         #endregion

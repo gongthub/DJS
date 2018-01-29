@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace DJS.Common
 {
@@ -64,7 +65,18 @@ namespace DJS.Common
         /// <returns></returns>
         public static string GetFullPath(string path)
         {
-            return System.IO.Path.GetFullPath(path);
+            if (HttpContext.Current != null)
+            {
+                if (!FileExists(path))
+                {
+                    path= HttpContext.Current.Server.MapPath(path); 
+                }
+                return path;
+            }
+            else
+            {
+                return System.IO.Path.GetFullPath(path); 
+            }
         }
         #endregion
 
@@ -76,7 +88,9 @@ namespace DJS.Common
         /// <returns>是否存在</returns>
         public static bool FileExists(string filename)
         {
-            return System.IO.File.Exists(filename);
+            bool bState = false;
+            bState = System.IO.File.Exists(filename);
+            return bState;
         }
         #endregion
 
@@ -476,7 +490,7 @@ namespace DJS.Common
                 }
                 catch (Exception ex)
                 {
-                    LogHelp.logHelp.WriteLog(ex.Message + "ReadTxtFileNumE", Model.Enums.LogType.Error);
+                    LogHelp.logHelp.WriteLog(ex.Message + "ReadTxtFileNumE", Enums.LogType.Error);
                     return content;
                 }
             }
@@ -537,7 +551,7 @@ namespace DJS.Common
                 }
                 catch (Exception ex)
                 {
-                    LogHelp.logHelp.WriteLog(ex.Message, Model.Enums.LogType.Error);
+                    LogHelp.logHelp.WriteLog(ex.Message, DJS.Common.Enums.LogType.Error);
                 }
             }
         }

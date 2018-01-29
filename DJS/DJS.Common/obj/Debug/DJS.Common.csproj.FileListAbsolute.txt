@@ -26,7 +26,7 @@ D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.Common\obj\Debug\DJS.Common.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\DJS.Common.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\DJS.Common.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\Common.Logging.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\Newtonsoft.Json.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\NLog.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\Quartz.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Client.dll
@@ -37,7 +37,7 @@ D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.OrmLite.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Redis.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Server.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Text.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\DJS.Model.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\Newtonsoft.Json.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Client.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Common.xml
@@ -45,6 +45,5 @@ D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.OrmLite.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Redis.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Server.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Text.xml
-D:\MyFiles\GIT\DJS\DJS\DJS.Common\obj\Debug\DJS.Common.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\obj\Debug\DJS.Common.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\obj\Debug\DJS.Common.pdb
