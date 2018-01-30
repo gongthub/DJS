@@ -32,9 +32,9 @@ namespace DJS.BLL
         /// 获取所有数据集合（包括已删除数据）
         /// </summary>
         /// <returns></returns>
-        public static List<Model.ModuleEntity> GetModels()
+        public static List<Model.ModuleEntity> GetAllList()
         {
-            return iModuleMgr.GetModels();
+            return iModuleMgr.GetAllList();
         }
         /// <summary>
         /// 获取所有数据集合（包括已删除数据）
@@ -42,7 +42,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.ModuleEntity> GetModels(Predicate<Model.ModuleEntity> pre)
         {
-            List<Model.ModuleEntity> models = GetModels();
+            List<Model.ModuleEntity> models = GetAllList();
             if (models != null && models.Count > 0)
             {
                 models = models.FindAll(pre);
@@ -58,7 +58,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<ModuleEntity> GetList()
         {
-            List<Model.ModuleEntity> models = GetModels();
+            List<Model.ModuleEntity> models = GetAllList();
             if (models != null && models.Count > 0)
             {
                 models = models.FindAll(m => m.DeleteMark != true);

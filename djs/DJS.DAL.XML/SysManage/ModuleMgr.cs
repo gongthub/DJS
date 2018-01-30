@@ -1,5 +1,7 @@
 ﻿using DJS.Common;
+using DJS.Common.Util;
 using DJS.IDAL;
+using DJS.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Xml;
 
 namespace DJS.DAL.XML
 {
-    public class ModuleMgr : IModuleMgr
+    public class ModuleMgr : XmlDB, IModuleMgr
     {
         /// <summary>
         /// 配置文件路径
@@ -22,39 +24,32 @@ namespace DJS.DAL.XML
 
         private const string ELENMENTNAME = "SYSMODULEMGR";
 
+        public ModuleMgr()
+            : base(XMLDBCONFIGPATH, GROUPPATH, GROUPSPATH, ELENMENTNAME)
+        {
+        }
+
         #region 获取数据
         /// <summary>
         /// 获取数据集合
         /// </summary>
         /// <returns></returns>
-        public List<Model.ModuleEntity> GetModels()
+        public List<Model.ModuleEntity> GetAllList()
         {
-            List<Model.ModuleEntity> models = new List<Model.ModuleEntity>();
-            XmlNodeList list = XmlHelp.xmlHelp.GetNodes(XMLDBCONFIGPATH, GROUPPATH);
-            if (list != null && list.Count > 0)
-            {
-                Model.ModuleEntity group = new Model.ModuleEntity();
-                foreach (XmlNode node in list)
-                {
-                    group = new Model.ModuleEntity();
-                    group = XmlHelp.xmlHelp.SetNodeToModel(group, node);
-                    models.Add(group);
-                }
-            }
-            return models;
+            return GetModels<ModuleEntity>();
         }
 
 
         public List<Model.ModuleEntity> GetList()
         {
-            List<Model.ModuleEntity> models = GetModels();
+            List<Model.ModuleEntity> models = GetAllList();
             models = models.FindAll(m => m.DeleteMark != true);
             return models;
         }
 
         public List<Model.ModuleEntity> GetList(Pagination pagination)
         {
-            List<Model.ModuleEntity> models = GetModels();
+            List<Model.ModuleEntity> models = GetAllList();
             models = models.FindAll(m => m.DeleteMark != true);
             if (models == null)
             {
@@ -72,7 +67,7 @@ namespace DJS.DAL.XML
         /// <returns></returns>
         public List<Model.ModuleEntity> GetList(Pagination pagination, string keyword)
         {
-            List<Model.ModuleEntity> models = GetModels();
+            List<Model.ModuleEntity> models = GetAllList();
 
             models = models.FindAll(m => m.DeleteMark != true);
             if (keyword != null)
@@ -89,14 +84,7 @@ namespace DJS.DAL.XML
 
         public Model.ModuleEntity GetForm(string keyValue)
         {
-            Model.ModuleEntity model = new Model.ModuleEntity();
-            List<Model.ModuleEntity> models = GetList();
-            if (models != null && models.Count > 0)
-            {
-                model = models.Find(m => m.ID == keyValue);
-
-            }
-            return model;
+            return GetModel<ModuleEntity>(keyValue);
         }
 
         #endregion
@@ -107,37 +95,50 @@ namespace DJS.DAL.XML
         /// <returns></returns>
         public bool DeleteForm(string keyValue)
         {
-            bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, keyValue);
-            return ret;
+            bool bState = false;
+            try
+            {
+                Remove(ConfigHelp.SYSKEYNAME, keyValue);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
         }
 
         public bool AddForm(Model.ModuleEntity moduleEntity)
         {
-            bool ret = true;
+            bool bState = false;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.ModuleEntity>(moduleEntity, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
+                Add(moduleEntity);
+                bState = true;
             }
-            catch
+            catch (Exception e)
             {
-                ret = false;
+                bState = false;
+                throw e;
             }
-            return ret;
+            return bState;
         }
 
         public bool UpdateForm(Model.ModuleEntity moduleEntity)
         {
-            bool ret = true;
+            bool bState = false;
             try
             {
-                XmlHelp.xmlHelp.UpdateNode<Model.ModuleEntity>(moduleEntity, XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, moduleEntity.ID);
+                Update(moduleEntity, ConfigHelp.SYSKEYNAME, moduleEntity.ID);
+                bState = true;
             }
-            catch
+            catch (Exception e)
             {
-                ret = false;
+                bState = false;
+                throw e;
             }
-            return ret;
+            return bState;
         }
 
     }

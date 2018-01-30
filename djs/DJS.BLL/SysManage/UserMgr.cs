@@ -33,9 +33,9 @@ namespace DJS.BLL
         /// 获取所有数据集合（包括已删除数据）
         /// </summary>
         /// <returns></returns>
-        public static List<UserEntity> GetModels()
+        public static List<UserEntity> GetAllList()
         {
-            return iUserMgr.GetModels();
+            return iUserMgr.GetAllList();
         }
         /// <summary>
         /// 获取所有数据集合（包括已删除数据）
@@ -43,7 +43,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<UserEntity> GetModels(Predicate<UserEntity> pre)
         {
-            List<UserEntity> models = GetModels();
+            List<UserEntity> models = GetAllList();
             if (models != null && models.Count > 0)
             {
                 models = models.FindAll(pre);
@@ -59,7 +59,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<UserEntity> GetList()
         {
-            List<UserEntity> models = GetModels();
+            List<UserEntity> models = GetAllList();
             if (models != null && models.Count > 0)
             {
                 models = models.FindAll(m => m.DeleteMark != true);
@@ -270,5 +270,7 @@ namespace DJS.BLL
             strpwds = Common.SecurityHelp.md5(Common.SecurityHelp.Encrypt(pwds.ToLower(), SECRETKEY).ToLower(), 32).ToLower();
             return strpwds;
         }
+
+
     }
 }

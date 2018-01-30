@@ -1,5 +1,7 @@
 ﻿using DJS.Common;
+using DJS.Common.Util;
 using DJS.IDAL;
+using DJS.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Xml;
 
 namespace DJS.DAL.XML
 {
-    public class UserMgr : IUserMgr
+    public class UserMgr : XmlDB, IUserMgr
     {
         /// <summary>
         /// 配置文件路径
@@ -22,33 +24,26 @@ namespace DJS.DAL.XML
 
         private const string ELENMENTNAME = "SYSUSERMGR";
 
-        public List<Model.UserEntity> GetModels()
+        public UserMgr()
+            : base(XMLDBCONFIGPATH, GROUPPATH, GROUPSPATH, ELENMENTNAME)
         {
-            List<Model.UserEntity> models = new List<Model.UserEntity>();
-            XmlNodeList list = XmlHelp.xmlHelp.GetNodes(XMLDBCONFIGPATH, GROUPPATH);
-            if (list != null && list.Count > 0)
-            {
-                Model.UserEntity group = new Model.UserEntity();
-                foreach (XmlNode node in list)
-                {
-                    group = new Model.UserEntity();
-                    group = XmlHelp.xmlHelp.SetNodeToModel(group, node);
-                    models.Add(group);
-                }
-            }
-            return models;
+        }
+
+        public List<Model.UserEntity> GetAllList()
+        {
+            return GetModels<UserEntity>();
         }
 
         public List<Model.UserEntity> GetList()
         {
-            List<Model.UserEntity> models = GetModels();
+            List<Model.UserEntity> models = GetAllList();
             models = models.FindAll(m => m.DeleteMark != true);
             return models;
         }
 
         public List<Model.UserEntity> GetList(Pagination pagination)
         {
-            List<Model.UserEntity> models = GetModels();
+            List<Model.UserEntity> models = GetAllList();
             models = models.FindAll(m => m.DeleteMark != true);
             if (models == null)
             {
@@ -60,7 +55,7 @@ namespace DJS.DAL.XML
 
         public List<Model.UserEntity> GetList(Common.Pagination pagination, string keyword)
         {
-            List<Model.UserEntity> models = GetModels();
+            List<Model.UserEntity> models = GetAllList();
 
             models = models.FindAll(m => m.DeleteMark != true);
             if (keyword != null)
@@ -77,14 +72,7 @@ namespace DJS.DAL.XML
 
         public Model.UserEntity GetForm(string keyValue)
         {
-            Model.UserEntity model = new Model.UserEntity();
-            List<Model.UserEntity> models = GetList();
-            if (models != null && models.Count > 0)
-            {
-                model = models.Find(m => m.ID == keyValue);
-
-            }
-            return model;
+            return GetModel<UserEntity>(keyValue);
         }
         public Model.UserEntity GetFormEnableByUserName(string userName)
         {
@@ -101,37 +89,50 @@ namespace DJS.DAL.XML
 
         public bool DeleteForm(string keyValue)
         {
-            bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, keyValue);
-            return ret;
+            bool bState = false;
+            try
+            {
+                Remove(ConfigHelp.SYSKEYNAME, keyValue);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
         }
 
         public bool AddForm(Model.UserEntity userEntity)
         {
-            bool ret = true;
+            bool bState = false;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.UserEntity>(userEntity, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
+                Add(userEntity);
+                bState = true;
             }
-            catch
+            catch (Exception e)
             {
-                ret = false;
+                bState = false;
+                throw e;
             }
-            return ret;
+            return bState;
         }
 
         public bool UpdateForm(Model.UserEntity userEntity)
         {
-            bool ret = true;
+            bool bState = false;
             try
             {
-                XmlHelp.xmlHelp.UpdateNode<Model.UserEntity>(userEntity, XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, userEntity.ID);
+                Update(userEntity, ConfigHelp.SYSKEYNAME, userEntity.ID);
+                bState = true;
             }
-            catch
+            catch (Exception e)
             {
-                ret = false;
+                bState = false;
+                throw e;
             }
-            return ret;
+            return bState;
         }
 
     }

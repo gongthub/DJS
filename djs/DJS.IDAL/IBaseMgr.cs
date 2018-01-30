@@ -13,7 +13,7 @@ namespace DJS.IDAL
         /// 获取所有数据集合（包括未删除）
         /// </summary>
         /// <returns></returns>
-        List<TEntity> GetModels();
+        List<TEntity> GetAllList();
         /// <summary>
         /// 获取所有数据集合（不包括未删除）
         /// </summary>

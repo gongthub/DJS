@@ -23,7 +23,7 @@ namespace DJS.WebApp.Controllers
         }
         private object GetMenuList()
         {
-            List<ModuleEntity> models = DJS.BLL.ModuleMgr.GetModels();
+            List<ModuleEntity> models = DJS.BLL.ModuleMgr.GetAllList();
             return ToMenuJson(models, "0");
         }
         private string ToMenuJson(List<ModuleEntity> data, string parentId)
