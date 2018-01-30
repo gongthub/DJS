@@ -4,8 +4,6 @@ D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.Model\obj\Debug\DJS.Model.dll
 D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\DJS.Model.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\DJS.Common.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\Newtonsoft.Json.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\Quartz.dll
@@ -21,3 +19,5 @@ D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\ServiceStack.Redis.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.Model\obj\Debug\DJS.Model.pdb

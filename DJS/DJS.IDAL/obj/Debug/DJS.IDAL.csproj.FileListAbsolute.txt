@@ -7,12 +7,8 @@ D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.dll
 D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.IDAL.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.IDAL.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.Model.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.Model.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.csprojResolveAssemblyReference.cache
-D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.Common.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\Newtonsoft.Json.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\Quartz.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\NLog.dll
@@ -22,7 +18,11 @@ D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\ServiceStack.Interfaces.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\ServiceStack.Text.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\ServiceStack.Common.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.Common.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\Newtonsoft.Json.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\ServiceStack.Redis.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\bin\Debug\ServiceStack.Common.xml
+D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.IDAL\obj\Debug\DJS.IDAL.pdb

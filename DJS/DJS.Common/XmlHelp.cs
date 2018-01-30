@@ -15,6 +15,7 @@ namespace DJS.Common
     public class XmlHelp
     {
         private static readonly object LOCKOBJ = new object();
+        private static readonly object LOCKOBJW = new object();
         #region 单例模式创建对象
         //单例模式创建对象
         private static XmlHelp _xmlHelp = null;
@@ -263,7 +264,7 @@ namespace DJS.Common
         /// 创建根节点对象
         /// </summary>
         /// <param name="xmlFilePath">Xml文件的相对路径</param>        
-        private XmlElement CreateRootElement(string xmlFilePath, out XmlDocument xmlDoc)
+        internal XmlElement CreateRootElement(string xmlFilePath, out XmlDocument xmlDoc)
         {
             lock (LOCKOBJ)
             {
@@ -394,54 +395,57 @@ namespace DJS.Common
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void AppendNode<T>(T t, string xmlFilePath, string xPath, string elenmentName)
         {
-            //创建XmlDocument对象
-            XmlDocument xmlDocument = new XmlDocument();
-            //创建XML的根节点
-            //创建根对象
-            XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
-            XmlNode node = xmlDocument.CreateElement(elenmentName);
-            node = SetModelToNode(t, node);
-            XmlNode xmlnode = null;
-            XmlElement rootElementP = null;
-            string[] strs = xPath.Split('/');
-            if (strs != null && strs.Length > 0)
+            lock (LOCKOBJW)
             {
-                string strt = "";
-                foreach (string str in strs)
+                //创建XmlDocument对象
+                XmlDocument xmlDocument = new XmlDocument();
+                //创建XML的根节点
+                //创建根对象
+                XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
+                XmlNode node = xmlDocument.CreateElement(elenmentName);
+                node = SetModelToNode(t, node);
+                XmlNode xmlnode = null;
+                XmlElement rootElementP = null;
+                string[] strs = xPath.Split('/');
+                if (strs != null && strs.Length > 0)
                 {
-                    strt = strt + "/" + str;
-                    if (!string.IsNullOrEmpty(str))
+                    string strt = "";
+                    foreach (string str in strs)
                     {
-                        if (rootElement != null)
+                        strt = strt + "/" + str;
+                        if (!string.IsNullOrEmpty(str))
                         {
+                            if (rootElement != null)
+                            {
 
-                            xmlnode = xmlDocument.SelectSingleNode(strt);
-                            if (xmlnode != null)
-                            {
-                                if (rootElementP != null)
-                                    xmlnode.AppendChild(rootElementP);
-                            }
-                            else
-                            {
-                                rootElementP = xmlDocument.CreateElement(str);
-                                if (xmlnode == null)
+                                xmlnode = xmlDocument.SelectSingleNode(strt);
+                                if (xmlnode != null)
                                 {
-                                    xmlnode = rootElement;
+                                    if (rootElementP != null)
+                                        xmlnode.AppendChild(rootElementP);
                                 }
-                                xmlnode = xmlnode.AppendChild(rootElementP);
+                                else
+                                {
+                                    rootElementP = xmlDocument.CreateElement(str);
+                                    if (xmlnode == null)
+                                    {
+                                        xmlnode = rootElement;
+                                    }
+                                    xmlnode = xmlnode.AppendChild(rootElementP);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            if (!FileHelp.FileExists(xmlFilePath))
-            {
-                xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+                if (!FileHelp.FileExists(xmlFilePath))
+                {
+                    xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+                }
+                //导入节点
+                xmlnode.AppendChild(node);
+                xmlDocument.Save(xmlFilePath);
             }
-            //导入节点
-            xmlnode.AppendChild(node);
-            xmlDocument.Save(xmlFilePath);
         }
 
         #endregion
@@ -454,27 +458,42 @@ namespace DJS.Common
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void UpdateNode<T>(T t, string xmlFilePath, string xPath, string keyName, string keyValue)
         {
-            xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
-            //创建XmlDocument对象
-            XmlDocument xmlDocument = new XmlDocument();
-            //创建XML的根节点
-            //创建根对象
-            XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
-            XmlNode node = GetXmlNodeByAttKeyValue(xmlFilePath, xPath, keyName, keyValue, out xmlDocument);
-            if (node != null)
+            lock (LOCKOBJW)
             {
-                XmlDocument doc = node.OwnerDocument;
-                PropertyInfo[] infos = t.GetType().GetProperties();
-                if (infos != null && infos.Count() > 0)
+                xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+                //创建XmlDocument对象
+                XmlDocument xmlDocument = new XmlDocument();
+                //创建XML的根节点
+                //创建根对象
+                XmlElement rootElement = CreateRootElement(xmlFilePath, out xmlDocument);
+                XmlNode node = GetXmlNodeByAttKeyValue(xmlFilePath, xPath, keyName, keyValue, out xmlDocument);
+                if (node != null)
                 {
-                    XmlAttributeCollection atts = node.Attributes;
-                    foreach (PropertyInfo info in infos)
+                    XmlDocument doc = node.OwnerDocument;
+                    PropertyInfo[] infos = t.GetType().GetProperties();
+                    if (infos != null && infos.Count() > 0)
                     {
-                        XmlAttribute attr = GetAttByName(atts, info.Name);
-                        if (attr != null)
+                        XmlAttributeCollection atts = node.Attributes;
+                        foreach (PropertyInfo info in infos)
                         {
-                            if (!ConfigHelp.UpdateNotChange.Contains(info.Name))
+                            XmlAttribute attr = GetAttByName(atts, info.Name);
+                            if (attr != null)
                             {
+                                if (!ConfigHelp.UpdateNotChange.Contains(info.Name))
+                                {
+                                    if (info.GetValue(t) != null)
+                                    {
+                                        attr.Value = info.GetValue(t).ToString();
+                                    }
+                                    else
+                                    {
+                                        attr.Value = "";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                attr = doc.CreateAttribute(info.Name);
                                 if (info.GetValue(t) != null)
                                 {
                                     attr.Value = info.GetValue(t).ToString();
@@ -484,28 +503,16 @@ namespace DJS.Common
                                     attr.Value = "";
                                 }
                             }
-                        }
-                        else
-                        {
-                            attr = doc.CreateAttribute(info.Name);
-                            if (info.GetValue(t) != null)
-                            {
-                                attr.Value = info.GetValue(t).ToString();
-                            }
-                            else
-                            {
-                                attr.Value = "";
-                            }
-                        }
-                        node.Attributes.SetNamedItem(attr);
+                            node.Attributes.SetNamedItem(attr);
 
+                        }
                     }
+                    if (!FileHelp.FileExists(xmlFilePath))
+                    {
+                        xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
+                    }
+                    xmlDocument.Save(xmlFilePath);
                 }
-                if (!FileHelp.FileExists(xmlFilePath))
-                {
-                    xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
-                }
-                xmlDocument.Save(xmlFilePath);
             }
         }
         /// <summary>
@@ -584,7 +591,7 @@ namespace DJS.Common
         /// <param name="keyName"></param>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        private XmlNode GetXmlNodeByAttKeyValue(string xmlFilePath, string xPath, string keyName, string keyValue, out XmlDocument xmlDocument)
+        internal XmlNode GetXmlNodeByAttKeyValue(string xmlFilePath, string xPath, string keyName, string keyValue, out XmlDocument xmlDocument)
         {
             XmlNode xmlnode = null;
 
@@ -623,7 +630,7 @@ namespace DJS.Common
         /// <param name="val">属性值</param>
         public bool RemoveNode(string filePath, string xPath, string attName, object val)
         {
-            lock (LOCKOBJ)
+            lock (LOCKOBJW)
             {
                 bool ret = true;
                 try
@@ -667,7 +674,7 @@ namespace DJS.Common
         /// <param name="val">属性值</param>
         public bool RemoveNode(string filePath, string xPath, string attName)
         {
-            lock (LOCKOBJ)
+            lock (LOCKOBJW)
             {
                 bool ret = true;
                 try
@@ -908,7 +915,7 @@ namespace DJS.Common
         /// <param name="atts"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public XmlAttribute GetAttByName(XmlAttributeCollection atts, string name)
+        internal XmlAttribute GetAttByName(XmlAttributeCollection atts, string name)
         {
             XmlAttribute attt = null;
             foreach (XmlAttribute att in atts)

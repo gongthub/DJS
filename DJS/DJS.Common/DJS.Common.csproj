@@ -107,10 +107,12 @@
     <Compile Include="TreeGrid.cs" />
     <Compile Include="TreeQuery.cs" />
     <Compile Include="TreeSelect.cs" />
+    <Compile Include="Util\XmlDB.cs" />
     <Compile Include="VerifyCode.cs" />
     <Compile Include="WebHelper.cs" />
     <Compile Include="XmlHelp.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

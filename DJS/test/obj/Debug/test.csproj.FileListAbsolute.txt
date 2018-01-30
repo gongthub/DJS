@@ -45,6 +45,7 @@ D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.Model.dll
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.SDK.dll
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.SDK.Service.dll
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Quartz.dll
+D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Newtonsoft.Json.dll
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\NLog.dll
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\ServiceStack.Redis.dll
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Common.Logging.dll
@@ -59,6 +60,7 @@ D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.IDAL.pdb
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.SDK.Service.pdb
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\DJS.SDK.pdb
+D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Newtonsoft.Json.xml
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\ServiceStack.Redis.pdb
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\ServiceStack.Common.xml
@@ -68,5 +70,3 @@ D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.Properties.Resources.resources
 D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.csproj.GenerateResource.Cache
 D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.exe
 D:\MyFiles\GIT\DJS\DJS\test\obj\Debug\test.pdb
-D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Newtonsoft.Json.dll
-D:\MyFiles\GIT\DJS\DJS\test\bin\Debug\Newtonsoft.Json.xml

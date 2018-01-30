@@ -52,7 +52,7 @@ namespace DJS.DAL.DataAccessFactory
         }
         #endregion 默认方法
 
-        #region 功能：创建接口通用方法（接口名称必须等于“I”+ 数据库实现层名称） 
+        #region 功能：创建接口通用方法（接口名称必须等于“I”+ 数据库实现层名称）
         /// <summary>
         /// 功能：创建接口通用方法（接口名称必须等于“I”+ 数据库实现层名称） 
         /// </summary>
@@ -63,7 +63,7 @@ namespace DJS.DAL.DataAccessFactory
             string ClassNamespace = DLLPATH + DBTYPE + "." + typeof(T).Name.Substring(1);
             object objType = CreateObject(ClassNamespace);
             return (T)objType;
-        } 
+        }
         #endregion
 
         #region DJS Core自定义接口
@@ -140,7 +140,7 @@ namespace DJS.DAL.DataAccessFactory
             string ClassNamespace = DLLPATH + DBTYPE + ".ModuleMgr";
             object objType = CreateObject(ClassNamespace);
             return (DJS.IDAL.IModuleMgr)objType;
-        } 
+        }
         /// <summary>
         /// 接口IUserMgr映射 
         /// </summary>
@@ -150,7 +150,7 @@ namespace DJS.DAL.DataAccessFactory
             string ClassNamespace = DLLPATH + DBTYPE + ".UserMgr";
             object objType = CreateObject(ClassNamespace);
             return (DJS.IDAL.IUserMgr)objType;
-        } 
+        }
         #endregion
     }
 }

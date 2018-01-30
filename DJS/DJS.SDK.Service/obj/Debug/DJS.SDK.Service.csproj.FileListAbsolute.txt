@@ -34,6 +34,7 @@ D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.SDK.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.IDAL.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Quartz.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.DAL.DataAccessFactory.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Newtonsoft.Json.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\NLog.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\ServiceStack.Redis.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Common.Logging.dll
@@ -46,11 +47,10 @@ D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.Model.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.SDK.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.IDAL.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\DJS.DAL.DataAccessFactory.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Newtonsoft.Json.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\ServiceStack.Redis.pdb
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\ServiceStack.Common.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\obj\Debug\DJS.SDK.Service.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\obj\Debug\DJS.SDK.Service.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\obj\Debug\DJS.SDK.Service.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Newtonsoft.Json.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK.Service\bin\Debug\Newtonsoft.Json.xml
