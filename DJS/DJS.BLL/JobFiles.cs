@@ -63,26 +63,26 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据 +static bool DelById(Guid Id)
+        #region 根据id删除数据 +static bool DelById(string Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelById(Guid Id)
+        public static bool DelById(string Id)
         {
             DelByFileId(Id);
             return iJobFiles.DelById(Id);
         }
         #endregion
 
-        #region 根据id删除数据 +static bool  DelByJobId(Guid JobId)
+        #region 根据id删除数据 +static bool  DelByJobId(string JobId)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelByJobId(Guid JobId)
+        public static bool DelByJobId(string JobId)
         {
             DelByFilesId(JobId);
             return iJobFiles.DelByJobId(JobId);
@@ -102,25 +102,25 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id获取数据 +static Model.JobFiles GetModelById(Guid Id)
+        #region 根据id获取数据 +static Model.JobFiles GetModelById(string Id)
         /// <summary>
         /// 根据id获取数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static Model.JobFiles GetModelById(Guid Id)
+        public static Model.JobFiles GetModelById(string Id)
         {
             return iJobFiles.GetModelById(Id);
         }
         #endregion
 
-        #region 根据id删除DLL +void DelByFileId(Guid Id)
+        #region 根据id删除DLL +void DelByFileId(string Id)
         /// <summary>
         /// 根据id删除DLL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static void DelByFileId(Guid Id)
+        public static void DelByFileId(string Id)
         {
             Model.JobFiles model = GetModelById(Id);
             if (model != null)
@@ -135,13 +135,13 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除DLL +void DelByFilesId(Guid JobId)
+        #region 根据id删除DLL +void DelByFilesId(string JobId)
         /// <summary>
         /// 根据id删除DLL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static void DelByFilesId(Guid JobId)
+        public static void DelByFilesId(string JobId)
         {
             List<Model.JobFiles> models = GetModels(m => m.JobID == JobId).ToList();
             if (models != null && models.Count > 0)

@@ -88,7 +88,7 @@ namespace DJS.WinApp
             List<Model.JobGroup> models = BLL.JobGroup.GetModels(m => m.Name.Contains(name));
             if (models != null && models.Count > 0)
             {
-                models = models.OrderBy(m => m.No).ToList();
+                models = models.OrderBy(m => m.SortCode).ToList();
             }
             dgvJobGroups.DataSource = models;
 
@@ -133,7 +133,7 @@ namespace DJS.WinApp
                             Guid id = Guid.Empty;
                             if (Guid.TryParse(ids, out id))
                             {
-                                if (BLL.JobGroup.DelById(id))
+                                if (BLL.JobGroup.DelById(ids))
                                 {
                                     BindList();
                                 }

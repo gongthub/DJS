@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace DJS.Model
 {
-    public class TriggerGroup
+    public class TriggerGroup : IEntity<TriggerGroup>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         //主键
-        public Guid ID { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// 序号
         /// </summary>
-        public decimal No { set; get; }
+        public int SortCode { set; get; }
 
         /// <summary>
         /// 名称
@@ -25,5 +25,19 @@ namespace DJS.Model
         /// 触发器数量
         /// </summary>
         public int TriggerNum { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Description { set; get; }
+
+        public bool? DeleteMark { get; set; }
+        public bool? EnabledMark { get; set; }
+        public DateTime? CreatorTime { get; set; }
+        public string CreatorUserId { get; set; }
+        public DateTime? LastModifyTime { get; set; }
+        public string LastModifyUserId { get; set; }
+        public DateTime? DeleteTime { get; set; }
+        public string DeleteUserId { get; set; }
     }
 }

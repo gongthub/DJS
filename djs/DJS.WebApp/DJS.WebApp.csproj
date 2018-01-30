@@ -147,6 +147,10 @@
     <Compile Include="App_Start\Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\JobGroupMgrController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\JobMgrController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\TriggerGroupMgrController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\UserMgrController.cs" />
     <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
@@ -492,6 +496,27 @@
     <Content Include="Areas\SystemManage\Views\UserMgr\Form.cshtml" />
     <Content Include="Areas\SystemManage\Views\UserMgr\Index.cshtml" />
     <Content Include="Areas\SystemManage\Views\UserMgr\RevisePassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\TriggerGroupMgr\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\TriggerGroupMgr\Form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\TriggerGroupMgr\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\JobGroupMgr\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\JobGroupMgr\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\JobGroupMgr\Form.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

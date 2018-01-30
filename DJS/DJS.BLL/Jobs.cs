@@ -193,13 +193,13 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id判断JobKey是否存在 +static bool IsExistJobkeyById(Guid Id)
+        #region 根据id判断JobKey是否存在 +static bool IsExistJobkeyById(string Id)
         /// <summary>
         /// 根据id判断JobKey是否存在
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool IsExistJobkeyById(Guid Id)
+        public static bool IsExistJobkeyById(string Id)
         {
             bool retState = false;
             JobKey key = new JobKey("", "");
@@ -287,7 +287,7 @@ namespace DJS.BLL
                 {
                     Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
                 }
-                ret = iJobs.Add(model);
+                ret = iJobs.AddForm(model);
 
             }
             catch (Exception ex)
@@ -299,13 +299,13 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id获取JobKey -static JobKey GetJobkeyById(Guid Id)
+        #region 根据id获取JobKey -static JobKey GetJobkeyById(string Id)
         /// <summary>
         /// 根据id获取JobKey
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        private static JobKey GetJobkeyById(Guid Id)
+        private static JobKey GetJobkeyById(string Id)
         {
             JobKey key = new JobKey("", "");
             Model.Jobs model = GetModelById(Id);
@@ -321,13 +321,13 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除Quartz中任务 +static bool DelByIdForQuartz(Guid Id)
+        #region 根据id删除Quartz中任务 +static bool DelByIdForQuartz(string Id)
         /// <summary>
         /// 根据id删除Quartz中任务
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelByIdForQuartz(Guid Id)
+        public static bool DelByIdForQuartz(string Id)
         {
             bool ret = true;
             try
@@ -347,13 +347,13 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据包括删除Quartz +static bool DelByIdAndQuartz(Guid Id)
+        #region 根据id删除数据包括删除Quartz +static bool DelByIdAndQuartz(string Id)
         /// <summary>
         /// 根据id删除数据包括删除Quartz
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelByIdAndQuartz(Guid Id)
+        public static bool DelByIdAndQuartz(string Id)
         {
             bool ret = true;
             try
@@ -427,14 +427,14 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据ID获取任务数据 +static Model.Jobs GetModelById(Guid Id)
+        #region 根据ID获取任务数据 +static Model.Jobs GetModelById(string Id)
         /// <summary>
         /// 根据ID获取任务数据
         /// </summary>
         /// <returns></returns>
-        public static Model.Jobs GetModelById(Guid Id)
+        public static Model.Jobs GetModelById(string Id)
         {
-            Model.Jobs model = iJobs.GetModelById(Id);
+            Model.Jobs model = iJobs.GetForm(Id);
             return model;
         }
         #endregion
@@ -449,21 +449,55 @@ namespace DJS.BLL
         {
             return iJobs.IsExist(name);
         }
+        /// <summary>
+        /// 验证名称是否已存在
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static bool IsExistName(string name, string keyvalue = "")
+        {
+            bool bSatae = false;
+            if (!string.IsNullOrEmpty(keyvalue))
+            {
+                List<Model.Jobs> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.Jobs model = models.Where(m => m.Name == name && m.ID != keyvalue).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            else
+            {
+                List<Model.Jobs> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.Jobs model = models.Where(m => m.Name == name).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            return bSatae;
+        }
         #endregion
 
-        #region 根据id删除数据 +static bool DelById(Guid Id)
+        #region 根据id删除数据 +static bool DelById(string Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelById(Guid Id)
+        public static bool DelById(string Id)
         {
             bool ret = true;
             try
             {
                 ret = BLL.JobFiles.DelByJobId(Id);
-                ret = iJobs.DelById(Id);
+                ret = iJobs.DeleteForm(Id);
             }
             catch
             {
@@ -480,17 +514,17 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool Add(Model.Jobs model)
         {
-            return iJobs.Add(model);
+            return iJobs.AddForm(model);
         }
         #endregion
 
-        #region 根据id设置配置信息 +static bool SetConfigById(Guid Id)
+        #region 根据id设置配置信息 +static bool SetConfigById(string Id)
         /// <summary>
         /// 根据id设置配置信息
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool SetConfigById(Guid Id)
+        public static bool SetConfigById(string Id)
         {
             bool ret = true;
             try
@@ -557,6 +591,102 @@ namespace DJS.BLL
             }
         }
         #endregion
+
+        #region 获取所有数据集合（包括已删除数据） +static List<Model.Jobs> GetAllList()
+        /// <summary>
+        /// 获取所有数据集合（包括已删除数据）
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Jobs> GetAllList()
+        {
+            return iJobs.GetAllList();
+        }
+        #endregion
+
+        #region 获取所有未删除数据集合
+        /// <summary>
+        /// 获取所有未删除数据集合
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Jobs> GetList()
+        {
+            List<Model.Jobs> models = GetAllList();
+            if (models != null && models.Count > 0)
+            {
+                models = models.FindAll(m => m.DeleteMark != true);
+            }
+            return models;
+        }
+
+        /// <summary>
+        /// 获取所有未删除数据集合
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public static List<Model.Jobs> GetList(Pagination pagination, string keyword)
+        {
+            return iJobs.GetList(pagination, keyword);
+        }
+        #endregion
+
+        public static Model.Jobs GetForm(string keyValue)
+        {
+            return iJobs.GetForm(keyValue);
+        }
+
+        public static bool SubmitForm(Model.Jobs modelEntity, string keyValue)
+        {
+            if (IsExistName(modelEntity.Name, keyValue))
+            {
+                throw new Exception("名称已存在！");
+            }
+            if (!string.IsNullOrEmpty(keyValue))
+            {
+                modelEntity.Modify(keyValue);
+                return UpdateForm(modelEntity);
+            }
+            else
+            {
+                modelEntity.Create();
+                return AddForm(modelEntity);
+            }
+        }
+        public static bool AddForm(Model.Jobs modelEntity)
+        {
+            return iJobs.AddForm(modelEntity);
+        }
+        public static bool UpdateForm(Model.Jobs modelEntity)
+        {
+            return iJobs.UpdateForm(modelEntity);
+        }
+
+        /// <summary>
+        /// 物理删除
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool DeleteForm(string keyValue)
+        {
+            return iJobs.DeleteForm(keyValue);
+        }
+
+        /// <summary>
+        /// 逻辑删除
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool DeleteByID(string keyValue)
+        {
+            bool ret = false;
+            Model.Jobs model = GetForm(keyValue);
+            if (model != null)
+            {
+                model.Remove();
+                ret = UpdateForm(model);
+            }
+            return ret;
+        }
        
     }
 }

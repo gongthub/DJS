@@ -8,8 +8,8 @@ namespace DJS.Model
 {
     public class JobFiles
     {
-        public Guid ID { set; get; }
-        public Guid JobID { set; get; }
+        public string ID { set; get; }
+        public string JobID { set; get; }
         public string Name { set; get; }
         public string JobName { set; get; }
         public string Src { set; get; }

@@ -67,14 +67,14 @@ namespace DJS.DAL.XML
             return ret;
         }
         #endregion
-         
-        #region 根据id删除数据 +bool DelById(Guid Id)
+
+        #region 根据id删除数据 +bool DelById(string Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public bool DelById(Guid Id)
+        public bool DelById(string Id)
         {
             bool ret = false;
             ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
@@ -103,13 +103,13 @@ namespace DJS.DAL.XML
         }
         #endregion
 
-        #region 根据id获取数据 +Model.DllMgr GetModelById(Guid Id)
+        #region 根据id获取数据 +Model.DllMgr GetModelById(string Id)
         /// <summary>
         /// 根据id获取数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public Model.DllMgr GetModelById(Guid Id)
+        public Model.DllMgr GetModelById(string Id)
         {
             Model.DllMgr model = new Model.DllMgr();
             List<Model.DllMgr> models = GetModels();

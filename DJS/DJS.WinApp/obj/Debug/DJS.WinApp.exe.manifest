@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.BLL.dll" size="26624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.BLL.dll" size="31232">
       <assemblyIdentity name="DJS.BLL" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IjR/8682k2BR4UcWSSyOPCvzcursfy6r/BNYIpud/nc=</dsig:DigestValue>
+        <dsig:DigestValue>aNlgoFdtojaiuUeugOw0Tei5bH5doirqRN6tVGrK5Mo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,7 +85,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RX4zLkBYTeSo4SQ6Er7HQTdiDLFf8aEUov3vQdMzfGA=</dsig:DigestValue>
+        <dsig:DigestValue>fsNDEWEmoRmJ7PooK2fJxg1tSWhXrjc6imcTY1imu1Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,31 +97,31 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5Bf0snWLCXWnYRxf/L1DSMwHtMYaWUSVQt1FyGafI/I=</dsig:DigestValue>
+        <dsig:DigestValue>RHUVHURFBuy0lVzWP/LvAxqhM+RyLUvxdwJ2K5XHD1M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.Redis.dll" size="7680">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.Redis.dll" size="8704">
       <assemblyIdentity name="DJS.DAL.Redis" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NVM4v3EluDZU7sySpzs8b2IWyT6vczRBSPy7nVrs/sA=</dsig:DigestValue>
+        <dsig:DigestValue>8kD5++UCchRMTkbU9sw6+9Pjkq1IperNWb3rn41qOjw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.XML.dll" size="16896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.DAL.XML.dll" size="19456">
       <assemblyIdentity name="DJS.DAL.XML" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>zvQauKR+qAXbCEyHKRhAHQ/0jzL+qLGEiE1Js47LR2E=</dsig:DigestValue>
+        <dsig:DigestValue>54ToCychR8otXPLJ359RyPNPSilf8MfrZqP0Zl2ZrqY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -133,19 +133,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2pdMOQxkkua6ycgOrI3zgE9rbq5Ptl/OdmRvfmhsnvA=</dsig:DigestValue>
+        <dsig:DigestValue>ZrH/ZIe656ibH8SqgMiKZ9WkSFTISMjowrQI6Hwel8s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Model.dll" size="18944">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DJS.Model.dll" size="22016">
       <assemblyIdentity name="DJS.Model" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>g6FOKrbsVdkbv8//74nH0/ZbrtnV0KLZXdyfbt7MXxw=</dsig:DigestValue>
+        <dsig:DigestValue>Sr+5PLZe9pgtvsBT+9Ov3NhOP8BBm/QvhAIkyhE8t8E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,7 +157,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MwDXNGsaydpo0MOuBTFbhEnjnnlyS7rW3HLDiTU8qRU=</dsig:DigestValue>
+        <dsig:DigestValue>LzitiEv7O3Vfoh9e+ti9YqiUBSijWkC1SRpx9x1O/ts=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -169,7 +169,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>dZd4jX3ZgwubCs/N3Y14yHBu9J5hKt0AcB95/EqSxKg=</dsig:DigestValue>
+        <dsig:DigestValue>n+QqEjShKwG5nRR/tQOsSPer3i2ZdsGzDItRz5cwIWg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -181,7 +181,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>d5dKkys9+sEyk8NO6YGcxyuqYzMaGvTE6o67gqB0muY=</dsig:DigestValue>
+        <dsig:DigestValue>jt0kLXXM9HdyODFGCb/WYlf4OD4vS4D/8i3BPzSBSkU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

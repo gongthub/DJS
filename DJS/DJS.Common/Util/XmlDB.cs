@@ -179,9 +179,9 @@ namespace DJS.Common.Util
                 XmlNodeList list = XmlHelp.xmlHelp.GetNodes(xPath, groupPath);
                 if (list != null && list.Count > 0)
                 {
-                    T t = System.Activator.CreateInstance<T>();
                     foreach (XmlNode node in list)
                     {
+                        T t = System.Activator.CreateInstance<T>();
                         t = XmlHelp.xmlHelp.SetNodeToModel(t, node);
                         models.Add(t);
                     }

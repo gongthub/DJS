@@ -73,7 +73,7 @@ namespace DJS.WinApp.Setting
                     Guid Id = Guid.Empty;
                     if (Guid.TryParse(IDS, out Id))
                     {
-                        Model.Jobs model = BLL.Jobs.GetModelById(Id);
+                        Model.Jobs model = BLL.Jobs.GetModelById(IDS);
                         if (model != null)
                         {
                             string cponfignames = CONFIGSPATH + @"/" + model.ConfigName + @"/" + "CONFIG";
@@ -116,7 +116,7 @@ namespace DJS.WinApp.Setting
             Guid Id = Guid.Empty;
             if (Guid.TryParse(IDS, out Id))
             {
-                Model.Jobs model = BLL.Jobs.GetModelById(Id);
+                Model.Jobs model = BLL.Jobs.GetModelById(IDS);
                 if (model != null)
                 {
                     string cponfignames = CONFIGSPATH + @"/" + model.ConfigName + @"/" + "CONFIG";
@@ -137,7 +137,7 @@ namespace DJS.WinApp.Setting
             Guid Id = Guid.Empty;
             if (Guid.TryParse(IDS, out Id))
             {
-                Model.Jobs model = BLL.Jobs.GetModelById(Id);
+                Model.Jobs model = BLL.Jobs.GetModelById(IDS);
                 if (model != null)
                 {
                     string cponfignames = CONFIGSPATH + @"/" + model.ConfigName + @"/" + "CONFIG";
@@ -207,7 +207,7 @@ namespace DJS.WinApp.Setting
             if (Guid.TryParse(IDS, out Id))
             {
 
-                BLL.Jobs.SetConfigById(Id);
+                BLL.Jobs.SetConfigById(IDS);
                 nodes = GetNodesById();
             } 
             if (nodes != null && nodes.Count > 0)

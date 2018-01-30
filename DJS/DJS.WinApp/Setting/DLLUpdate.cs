@@ -67,7 +67,7 @@ namespace DJS.WinApp.Setting
                 if (Guid.TryParse(IDS, out Id))
                 {
                     Model.Jobs jobModel = new Model.Jobs();
-                    jobModel = BLL.Jobs.GetModelById(Id);
+                    jobModel = BLL.Jobs.GetModelById(IDS);
                     if (jobModel != null)
                     {
                         Model.DllMgr model = new Model.DllMgr();
@@ -83,7 +83,7 @@ namespace DJS.WinApp.Setting
                             }
                             FILE.CopyTo(fileNamePaths);
                             MessageBox.Show("升级成功！");
-                            ReAdd(Id);
+                            ReAdd(IDS);
                             this.Close();
                         }
 
@@ -118,7 +118,7 @@ namespace DJS.WinApp.Setting
         /// 重新添加
         /// </summary>
         /// <param name="Id"></param>
-        private void ReAdd(Guid Id)
+        private void ReAdd(string Id)
         {
             MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
             DialogResult dr = MessageBox.Show("确定要重新添加吗?", "重新添加", messButton);

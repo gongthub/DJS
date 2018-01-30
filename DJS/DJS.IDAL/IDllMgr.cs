@@ -18,7 +18,7 @@ namespace DJS.IDAL
         /// 根据id获取job
         /// </summary>
         /// <returns></returns>
-        Model.DllMgr GetModelById(Guid Id);
+        Model.DllMgr GetModelById(string Id);
 
         /// <summary>
         /// 根据名称判断是否存在
@@ -39,6 +39,6 @@ namespace DJS.IDAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        bool DelById(Guid Id);
+        bool DelById(string Id);
     }
 }

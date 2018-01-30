@@ -80,7 +80,7 @@ namespace DJS.WinApp
                 else
                 {
                     Model.DllMgr model = new Model.DllMgr();
-                    model.ID = Guid.NewGuid();
+                    model.ID = Guid.NewGuid().ToString();
                     model.No = nos;
                     model.NameSpace = namespaces;
                     model.Name = names;

@@ -51,7 +51,7 @@ namespace DJS.DAL.Redis
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public bool DelById(Guid Id)
+        public bool DeleteForm(string Id)
         {
             bool ret = false;
 
@@ -77,7 +77,7 @@ namespace DJS.DAL.Redis
         /// <param name="model"></param>
         /// <returns></returns>
 
-        public bool Add(Model.TriggerGroup model)
+        public bool AddForm(Model.TriggerGroup model)
         {
             List<Model.TriggerGroup> models = new List<Model.TriggerGroup>();
             models = Common.RedisHelp.redisHelp.Get<List<Model.TriggerGroup>>(TRIGGERGROUP_KEY);
@@ -90,5 +90,35 @@ namespace DJS.DAL.Redis
             return ret;
         }
         #endregion
+
+        public List<Model.TriggerGroup> GetAllList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.TriggerGroup> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.TriggerGroup> GetList(Common.Pagination pagination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.TriggerGroup> GetList(Common.Pagination pagination, string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Model.TriggerGroup GetForm(string keyValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateForm(Model.TriggerGroup moduleEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

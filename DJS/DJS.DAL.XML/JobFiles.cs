@@ -45,13 +45,13 @@ namespace DJS.DAL.XML
         }
         #endregion
 
-        #region 根据id获取job +Model.JobFiles GetModelById(Guid Id)
+        #region 根据id获取job +Model.JobFiles GetModelById(string Id)
         /// <summary>
         /// 根据id获取job
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public Model.JobFiles GetModelById(Guid Id)
+        public Model.JobFiles GetModelById(string Id)
         {
             Model.JobFiles model = new Model.JobFiles();
             List<Model.JobFiles> models = GetModels();
@@ -107,13 +107,13 @@ namespace DJS.DAL.XML
         }
         #endregion
 
-        #region 根据id删除数据 +bool DelById(Guid Id)
+        #region 根据id删除数据 +bool DelById(string Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public bool DelById(Guid Id)
+        public bool DelById(string Id)
         {
             bool ret = false;
             ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
@@ -121,13 +121,13 @@ namespace DJS.DAL.XML
         }
         #endregion
 
-        #region 根据JobId删除数据 +bool DelByJobId(Guid JobId)
+        #region 根据JobId删除数据 +bool DelByJobId(string JobId)
         /// <summary>
         /// 根据JobId删除数据
         /// </summary>
         /// <param name="JobId"></param>
         /// <returns></returns>
-        public bool DelByJobId(Guid JobId)
+        public bool DelByJobId(string JobId)
         {
             bool ret = false;
             ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, "JobID", JobId);

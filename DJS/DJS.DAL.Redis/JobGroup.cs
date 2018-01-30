@@ -50,7 +50,7 @@ namespace DJS.DAL.Redis
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public bool DelById(Guid Id)
+        public bool DeleteForm(string Id)
         {
             bool ret = false;
 
@@ -77,7 +77,7 @@ namespace DJS.DAL.Redis
         /// <param name="model"></param>
         /// <returns></returns>
 
-        public bool Add(Model.JobGroup model)
+        public bool AddForm(Model.JobGroup model)
         { 
             List<Model.JobGroup> models = new List<Model.JobGroup>();
             models = Common.RedisHelp.redisHelp.Get<List<Model.JobGroup>>(JOBGROUP_KEY);
@@ -90,5 +90,35 @@ namespace DJS.DAL.Redis
             return ret;
         }
         #endregion
+
+        public List<Model.JobGroup> GetAllList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.JobGroup> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.JobGroup> GetList(Common.Pagination pagination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.JobGroup> GetList(Common.Pagination pagination, string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Model.JobGroup GetForm(string keyValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateForm(Model.JobGroup moduleEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

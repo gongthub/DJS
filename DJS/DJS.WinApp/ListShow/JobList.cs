@@ -395,13 +395,13 @@ namespace DJS.WinApp
                             if (Guid.TryParse(Ids, out Id))
                             {
                                 //任务已经存在时
-                                if (BLL.Jobs.IsExistJobkeyById(Id))
+                                if (BLL.Jobs.IsExistJobkeyById(Ids))
                                 {
                                     MessageBoxButtons messButtonKey = MessageBoxButtons.OKCancel;
                                     DialogResult drKey = MessageBox.Show("任务已经存在，是否继续重新添加?", "重新添加", messButtonKey);
                                     if (drKey == DialogResult.OK)//如果点击“确定”按钮
                                     {
-                                        if (!BLL.Jobs.DelByIdForQuartz(Id))
+                                        if (!BLL.Jobs.DelByIdForQuartz(Ids))
                                         {
                                             MessageBox.Show("删除Quartz中任务失败！");
                                         }
@@ -412,7 +412,7 @@ namespace DJS.WinApp
                                     }
                                 }
 
-                                Model.Jobs model = BLL.Jobs.GetModelById(Id);
+                                Model.Jobs model = BLL.Jobs.GetModelById(Ids);
 
                                 if (BLL.Jobs.ReAddJobs(model))
                                 {
@@ -460,7 +460,7 @@ namespace DJS.WinApp
                             Guid Id = Guid.Empty;
                             if (Guid.TryParse(Ids, out Id))
                             {
-                                if (BLL.Jobs.DelByIdAndQuartz(Id))
+                                if (BLL.Jobs.DelByIdAndQuartz(Ids))
                                 {
                                     BindList();
                                     MessageBox.Show("删除成功");
@@ -604,8 +604,8 @@ namespace DJS.WinApp
                             Guid Id = Guid.Empty;
                             if (Guid.TryParse(ids, out Id))
                             {
-                                Model.Jobs jobEntity = BLL.Jobs.GetModelById(Id);
-                                if (jobEntity != null && jobEntity.ID != Guid.Empty)
+                                Model.Jobs jobEntity = BLL.Jobs.GetModelById(ids);
+                                if (jobEntity != null && !string.IsNullOrEmpty(jobEntity.ID))
                                 {
                                     MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
                                     if (isAuto == true)

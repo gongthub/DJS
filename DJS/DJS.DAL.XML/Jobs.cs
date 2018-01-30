@@ -1,4 +1,6 @@
 ﻿using DJS.Common;
+using DJS.Common.Util;
+using DJS.IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Xml;
 
 namespace DJS.DAL.XML
 {
-    public class Jobs : IDAL.IJobs
+    public class Jobs : XmlDB, IJobs
     {
         /// <summary>
         /// 配置文件路径
@@ -21,45 +23,19 @@ namespace DJS.DAL.XML
 
         private const string ELENMENTNAME = "JOB";
 
-        #region  获取所有jobs +List<Model.Jobs> GetJobs()
+        public Jobs()
+            : base(XMLDBCONFIGPATH, GROUPPATH, GROUPSPATH, ELENMENTNAME)
+        {
+        }
+
+        #region  获取所有jobs +List<Model.Jobs> GetModels()
         /// <summary>
         /// 获取所有jobs
         /// </summary>
         /// <returns></returns>
         public List<Model.Jobs> GetModels()
         {
-            List<Model.Jobs> models = new List<Model.Jobs>();
-            XmlNodeList list = XmlHelp.xmlHelp.GetNodes(XMLDBCONFIGPATH, GROUPPATH);
-            if (list != null && list.Count > 0)
-            {
-                Model.Jobs group = new Model.Jobs();
-                foreach (XmlNode node in list)
-                {
-                    group = new Model.Jobs();
-                    group = XmlHelp.xmlHelp.SetNodeToModel(group, node);
-                    models.Add(group);
-                }
-            }
-            return models;
-        }
-        #endregion
-
-        #region 根据id获取job +Model.Jobs GetModelById(Guid Id)
-        /// <summary>
-        /// 根据id获取job
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public Model.Jobs GetModelById(Guid Id)
-        {
-            Model.Jobs model = new Model.Jobs();
-            List<Model.Jobs> models = GetModels();
-            if (models != null && models.Count > 0)
-            {
-                model = models.Find(m => m.ID == Id);
-
-            }
-            return model;
+            return GetList();
         }
         #endregion
 
@@ -85,40 +61,98 @@ namespace DJS.DAL.XML
         }
         #endregion
 
-        #region 添加 +bool Add(Model.Jobs model)
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public bool Add(Model.Jobs model)
+        public List<Model.Jobs> GetAllList()
         {
-            bool ret = true;
+            return GetModels<Model.Jobs>();
+        }
+
+        public List<Model.Jobs> GetList()
+        {
+            List<Model.Jobs> models = GetAllList();
+            models = models.FindAll(m => m.DeleteMark != true);
+            return models;
+        }
+
+        public List<Model.Jobs> GetList(Pagination pagination)
+        {
+            List<Model.Jobs> models = GetAllList();
+            models = models.FindAll(m => m.DeleteMark != true);
+            if (models == null)
+            {
+                models = new List<Model.Jobs>();
+            }
+            models = models.Skip<Model.Jobs>(pagination.rows * (pagination.page - 1)).Take<Model.Jobs>(pagination.rows).ToList();
+            return models;
+        }
+
+        public List<Model.Jobs> GetList(Pagination pagination, string keyword)
+        {
+            List<Model.Jobs> models = GetAllList();
+
+            models = models.FindAll(m => m.DeleteMark != true);
+            if (keyword != null)
+            {
+                models = models.FindAll(m => (m.Name.Contains(keyword)));
+            }
+            if (models == null)
+            {
+                models = new List<Model.Jobs>();
+            }
+            models = models.Skip<Model.Jobs>(pagination.rows * (pagination.page - 1)).Take<Model.Jobs>(pagination.rows).ToList();
+            return models;
+        }
+
+        public Model.Jobs GetForm(string keyValue)
+        {
+            return GetModel<Model.Jobs>(keyValue);
+        }
+
+        public bool DeleteForm(string keyValue)
+        {
+            bool bState = false;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.Jobs>(model, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
+                Remove(ConfigHelp.SYSKEYNAME, keyValue);
+                bState = true;
             }
-            catch
+            catch (Exception e)
             {
-                ret = false;
+                bState = false;
+                throw e;
             }
-            return ret;
+            return bState;
         }
-        #endregion
 
-        #region 根据id删除数据 +bool DelById(Guid Id)
-        /// <summary>
-        /// 根据id删除数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public bool DelById(Guid Id)
+        public bool AddForm(Model.Jobs modelEntity)
         {
-            bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
-            return ret;
+            bool bState = false;
+            try
+            {
+                Add(modelEntity);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
         }
-        #endregion
 
+        public bool UpdateForm(Model.Jobs modelEntity)
+        {
+            bool bState = false;
+            try
+            {
+                Update(modelEntity, ConfigHelp.SYSKEYNAME, modelEntity.ID);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
     }
 }

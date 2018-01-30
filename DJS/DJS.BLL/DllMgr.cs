@@ -62,38 +62,38 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据 +static bool DelById(Guid Id)
+        #region 根据id删除数据 +static bool DelById(string Id)
         /// <summary>
         /// 根据id删除数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static bool DelById(Guid Id)
+        public static bool DelById(string Id)
         {
             DelByDllId(Id);
             return iDllMgr.DelById(Id);
         }
         #endregion
-         
-        #region 根据id获取数据 +static Model.DllMgr GetModelById(Guid Id)
+
+        #region 根据id获取数据 +static Model.DllMgr GetModelById(string Id)
         /// <summary>
         /// 根据id获取数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static Model.DllMgr GetModelById(Guid Id)
+        public static Model.DllMgr GetModelById(string Id)
         {
             return iDllMgr.GetModelById(Id);
         }
         #endregion
 
-        #region 根据id删除DLL +void DelByDllId(Guid Id)
+        #region 根据id删除DLL +void DelByDllId(string Id)
         /// <summary>
         /// 根据id删除DLL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public static void DelByDllId(Guid Id)
+        public static void DelByDllId(string Id)
         {
             Model.DllMgr model = GetModelById(Id);
             if (model != null)

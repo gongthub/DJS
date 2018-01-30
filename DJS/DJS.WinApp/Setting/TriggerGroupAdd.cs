@@ -28,7 +28,8 @@ namespace DJS.WinApp
         /// <param name="e"></param>
         private void btnOk_Click(object sender, EventArgs e)
         {
-            decimal nos = nudNo.Value;
+            int nos = 0;
+            int.TryParse(nudNo.Value.ToString(), out  nos);
             string names = txtName.Text;
             //判断名称是否存在
             if (BLL.TriggerGroup.IsExist(names))
@@ -38,8 +39,8 @@ namespace DJS.WinApp
             else
             {
                 Model.TriggerGroup group = new Model.TriggerGroup();
-                group.ID = Guid.NewGuid();
-                group.No = nos;
+                group.ID = Guid.NewGuid().ToString();
+                group.SortCode = nos;
                 group.Name = names;
                 bool ret = DJS.BLL.TriggerGroup.Add(group);
                 if (ret)

@@ -9,7 +9,7 @@ namespace DJS.Model
     public class DllMgr
     {
         //主键
-        public Guid ID { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// 序号

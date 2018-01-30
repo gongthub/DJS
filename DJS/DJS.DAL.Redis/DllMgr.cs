@@ -51,13 +51,13 @@ namespace DJS.DAL.Redis
             throw new NotImplementedException();
         }
 
-        public bool DelById(Guid Id)
+        public bool DelById(string Id)
         {
             throw new NotImplementedException();
         }
 
 
-        public Model.DllMgr GetModelById(Guid Id)
+        public Model.DllMgr GetModelById(string Id)
         {
             throw new NotImplementedException();
         }

@@ -41,7 +41,8 @@ namespace DJS.WinApp
         private void btnOk_Click(object sender, EventArgs e)
         {
 
-            decimal nos = nudNo.Value;
+            int nos = 0;
+            int.TryParse(nudNo.Value.ToString(), out nos);
             string names = txtName.Text;
 
             //判断名称是否存在
@@ -52,10 +53,10 @@ namespace DJS.WinApp
             else
             {
                 Model.JobGroup group = new Model.JobGroup();
-                group.ID = Guid.NewGuid();
-                group.No = nos;
+                group.ID = Guid.NewGuid().ToString();
+                group.SortCode = nos;
                 group.Name = names;
-                bool ret = DJS.BLL.JobGroup.Add(group);
+                bool ret = DJS.BLL.JobGroup.AddForm(group);
                 if (ret)
                 {
                     MessageBox.Show("添加成功"); 

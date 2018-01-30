@@ -85,7 +85,7 @@ namespace DJS.WinApp
 
 
             Model.Jobs model = new Model.Jobs();
-            model.ID = Guid.NewGuid();
+            model.ID = Guid.NewGuid().ToString();
             model.Name = jobNames;
             model.GroupName = jobGroups;
             model.TriggerName = triggerNames;
@@ -135,7 +135,7 @@ namespace DJS.WinApp
 
                                 Upload(file.Value, model.Name);
                                 Model.JobFiles jobfile = new Model.JobFiles();
-                                jobfile.ID = Guid.NewGuid();
+                                jobfile.ID = Guid.NewGuid().ToString();
                                 jobfile.JobID = model.ID;
                                 jobfile.JobName = model.Name;
                                 jobfile.Name = file.Key; 

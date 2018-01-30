@@ -86,7 +86,7 @@ namespace DJS.WinApp
             List<Model.TriggerGroup> models = BLL.TriggerGroup.GetModels(m => m.Name.Contains(name));
             if (models != null && models.Count > 0)
             {
-                models = models.OrderBy(m => m.No).ToList();
+                models = models.OrderBy(m => m.SortCode).ToList();
             }
             dgvTriggerGroups.DataSource = models;
 
@@ -131,7 +131,7 @@ namespace DJS.WinApp
                             Guid id = Guid.Empty;
                             if (Guid.TryParse(ids, out id))
                             {
-                                if (BLL.TriggerGroup.DelById(id))
+                                if (BLL.TriggerGroup.DeleteForm(ids))
                                 {
                                     BindList();
                                 }

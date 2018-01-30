@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace DJS.Model
 {
-    public class JobGroup
+    public class JobGroup : IEntity<JobGroup>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         //主键
-        public Guid ID { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// 序号
         /// </summary>
-        public decimal No { set; get; }
+        public int SortCode { set; get; }
 
         /// <summary>
         /// 名称
@@ -25,5 +25,18 @@ namespace DJS.Model
         /// 任务数量
         /// </summary>
         public int JobNum { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Description { set; get; }
+
+        public bool? DeleteMark { get; set; }
+        public bool? EnabledMark { get; set; }
+        public DateTime? CreatorTime { get; set; }
+        public string CreatorUserId { get; set; }
+        public DateTime? LastModifyTime { get; set; }
+        public string LastModifyUserId { get; set; }
+        public DateTime? DeleteTime { get; set; }
+        public string DeleteUserId { get; set; }
     }
 }

@@ -65,14 +65,6 @@ namespace DJS.WebApp.Controllers
                         operatorModel.LoginIPAddress = NetHelp.Ip;
                         operatorModel.LoginTime = DateTime.Now;
                         operatorModel.LoginToken = SecurityHelp.Encrypt(Guid.NewGuid().ToString());
-                        if (userEntity.Account == "admin")
-                        {
-                            operatorModel.IsSystem = true;
-                        }
-                        else
-                        {
-                            operatorModel.IsSystem = false;
-                        }
                         OperatorProvider.Provider.AddCurrent(operatorModel);
                         //logEntity.Account = userEntity.Account;
                         //logEntity.NickName = userEntity.RealName;

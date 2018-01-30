@@ -133,7 +133,7 @@ namespace DJS.WinApp
                             Guid id = Guid.Empty;
                             if (Guid.TryParse(ids, out id))
                             {
-                                if (BLL.DllMgr.DelById(id))
+                                if (BLL.DllMgr.DelById(ids))
                                 {
                                     BindList();
                                 }

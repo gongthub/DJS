@@ -19,7 +19,7 @@ namespace DJS.IDAL
         /// 根据id获取job
         /// </summary>
         /// <returns></returns>
-        JobFiles GetModelById(Guid Id);
+        JobFiles GetModelById(string Id);
 
         /// <summary>
         /// 根据名称判断是否存在
@@ -40,14 +40,14 @@ namespace DJS.IDAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        bool DelById(Guid Id);
+        bool DelById(string Id);
 
         /// <summary>
         /// 根据JobId删除
         /// </summary>
         /// <param name="JobId"></param>
         /// <returns></returns>
-        bool DelByJobId(Guid JobId);
+        bool DelByJobId(string JobId);
 
         /// <summary>
         /// 根据JobName删除
