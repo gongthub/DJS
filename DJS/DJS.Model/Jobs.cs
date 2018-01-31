@@ -25,6 +25,11 @@ namespace DJS.Model
         public bool IsAuto { set; get; }
 
         /// <summary>
+        /// Dll版本
+        /// </summary>
+        public string DllVersion { set; get; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         public string Description { set; get; }

@@ -79,5 +79,11 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
             }
         }
 
+        [HttpGet]
+        [HandlerAuthorize]
+        public virtual ActionResult UpForm()
+        {
+            return View();
+        }
     }
 }

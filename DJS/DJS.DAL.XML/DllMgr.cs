@@ -124,9 +124,7 @@ namespace DJS.DAL.XML
             bool bState = false;
             try
             {
-                List<string> notChangelst = new List<string>();
-                notChangelst.Add("Url");
-                Update(modelEntity, ConfigHelp.SYSKEYNAME, modelEntity.ID, notChangelst);
+                Update(modelEntity, ConfigHelp.SYSKEYNAME, modelEntity.ID);
                 bState = true;
             }
             catch (Exception e)

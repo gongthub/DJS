@@ -47,3 +47,4 @@ D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Server.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\bin\Debug\ServiceStack.Text.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\obj\Debug\DJS.Common.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.Common\obj\Debug\DJS.Common.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.Common\obj\Debug\DJS.Common.csprojResolveAssemblyReference.cache

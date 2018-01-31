@@ -9,7 +9,7 @@
     <TRIGGERGROUP ID="ce4352d3-743e-42fe-913b-d212597cad87" Name="触发器组二" TriggerNum="0" SortCode="6" Description="4444" DeleteMark="" EnabledMark="" CreatorTime="2018/1/31 15:59:27" CreatorUserId="23541763-9b02-4f56-9f96-022f3eb0a196" LastModifyTime="2018/1/31 14:28:30" LastModifyUserId="23541763-9b02-4f56-9f96-022f3eb0a196" DeleteTime="" DeleteUserId="" />
   </TRIGGERGROUPS>
   <DDLMGRS>
-    <DDLMGR ID="12f68863-948c-4305-9783-d0cc19dc25ff" No="1" Name="日租金分摊" NameSpace="DailyRentApportionService" Url="Stores\日租金分摊\DailyRentApportionService.dll" />
+    <DDLMGR ID="12f68863-948c-4305-9783-d0cc19dc25ff" No="1" Name="日租金分摊" NameSpace="DailyRentApportionService" Url="Stores\日租金分摊\DailyRentApportionService.dll" SortCode="0" CreatorTime="" Description="&amp;nbsp;" CreatorUserId="" LastModifyTime="2018/1/31 17:05:59" LastModifyUserId="23541763-9b02-4f56-9f96-022f3eb0a196" DeleteMark="" DeleteTime="" DeleteUserId="" />
     <DDLMGR ID="7a9e4c3f-81a5-449b-914a-631f7e9942e4" No="3" Name="租金贷预警" NameSpace="RentLoanService" Url="Stores\租金贷预警\RentLoanService.dll" />
     <DDLMGR ID="0ab9de91-b2db-45d9-8ae5-2b16dc49baa7" No="2" Name="日报表发送" NameSpace="EmailToRepoertExcel" Url="Stores\日报表发送\EmailToRepoertExcel.dll" />
     <DDLMGR ID="c41bb1f1-5de4-4d81-b995-f0d3d51b2847" No="4" Name="日审预警" NameSpace="DayTrialService" Url="Stores\日审预警\DayTrialService.dll" />
@@ -19,6 +19,7 @@
     <DDLMGR ID="49017a71-7624-488b-93df-2028511ca480" No="8" Name="预定超期发送" NameSpace="ReserveOverdueService" Url="Stores\预定超期发送\ReserveOverdueService.dll" />
     <DDLMGR ID="c5671111-281d-43a8-b983-4e74fa0deb36" No="9" Name="收入汇总报表" NameSpace="EmailToRevparExcel" Url="Stores\收入汇总报表\EmailToRevparExcel.dll" />
     <DDLMGR ID="30ba3fa6-f131-4b2a-bf9d-108999dd65e6" No="10" Name="汇总报表" NameSpace="EmailToDayReportSumExcel" Url="Stores\汇总报表\EmailToDayReportSumExcel.dll" />
+    <DDLMGR ID="b592cab2-673f-44bf-9d24-93e0ac44f2b8" Name="111" NameSpace="111" Url="/Resources/Stores/111/EntityFramework.dll" SortCode="11" CreatorTime="2018/1/31 17:13:11" Description="1" CreatorUserId="23541763-9b02-4f56-9f96-022f3eb0a196" LastModifyTime="2018/1/31 17:24:57" LastModifyUserId="23541763-9b02-4f56-9f96-022f3eb0a196" DeleteMark="" DeleteTime="" DeleteUserId="" Version="v1.3" />
   </DDLMGRS>
   <JOBS>
     <JOB ID="a0c82a16-d6a8-4f3d-a4ea-4ebc6c0162f0" Name="日租金分摊任务" GroupName="任务组一" TriggerName="日租金分摊触发器" TriggerGroup="触发器组一" Crons="0 0 17 * * ?" Time="0001/1/1 0:00:00" Type="0" TypeName="" AssType="DailyRentApportionService.Achieve" State="0" StateName="" DLLID="12f68863-948c-4305-9783-d0cc19dc25ff" DLLName="日租金分摊" ConfigName="DailyRentApportionService" />

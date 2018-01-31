@@ -531,6 +531,9 @@
   <ItemGroup>
     <Content Include="Areas\BaseManage\Views\DllMgr\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\DllMgr\UpForm.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

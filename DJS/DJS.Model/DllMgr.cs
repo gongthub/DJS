@@ -23,6 +23,10 @@ namespace DJS.Model
         /// 命名空间
         /// </summary>
         public string NameSpace { set; get; }
+        /// <summary>
+        /// 版本
+        /// </summary>
+        public string Version { set; get; }
 
         /// <summary>
         /// 路径
