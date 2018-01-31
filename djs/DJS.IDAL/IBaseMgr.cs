@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace DJS.IDAL
         /// <param name="pagination"></param>
         /// <param name="keyword"></param>
         /// <returns></returns>
-        List<TEntity> GetList(Pagination pagination, string keyword);
+        List<TEntity> GetList(Pagination pagination, Expression<Func<TEntity, bool>> predicate);
         /// <summary>
         /// 获取一个对象
         /// </summary>
@@ -47,14 +48,14 @@ namespace DJS.IDAL
         /// <summary>
         /// 添加一条数据
         /// </summary>
-        /// <param name="moduleEntity"></param>
+        /// <param name="modelEntity"></param>
         /// <returns></returns>
-        bool AddForm(TEntity moduleEntity);
+        bool AddForm(TEntity modelEntity);
         /// <summary>
         /// 更新一条数据
         /// </summary>
-        /// <param name="moduleEntity"></param>
+        /// <param name="modelEntity"></param>
         /// <returns></returns>
-        bool UpdateForm(TEntity moduleEntity);
+        bool UpdateForm(TEntity modelEntity);
     }
 }

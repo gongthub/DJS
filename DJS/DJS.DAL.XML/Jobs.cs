@@ -4,6 +4,7 @@ using DJS.IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -63,43 +64,22 @@ namespace DJS.DAL.XML
 
         public List<Model.Jobs> GetAllList()
         {
-            return GetModels<Model.Jobs>();
+            return GetAllModels<Model.Jobs>();
         }
 
         public List<Model.Jobs> GetList()
         {
-            List<Model.Jobs> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            return models;
+            return GetModels<Model.Jobs>();
         }
 
         public List<Model.Jobs> GetList(Pagination pagination)
         {
-            List<Model.Jobs> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (models == null)
-            {
-                models = new List<Model.Jobs>();
-            }
-            models = models.Skip<Model.Jobs>(pagination.rows * (pagination.page - 1)).Take<Model.Jobs>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.Jobs>(pagination);
         }
 
-        public List<Model.Jobs> GetList(Pagination pagination, string keyword)
+        public List<Model.Jobs> GetList(Pagination pagination, Expression<Func<Model.Jobs, bool>> predicate)
         {
-            List<Model.Jobs> models = GetAllList();
-
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (keyword != null)
-            {
-                models = models.FindAll(m => (m.Name.Contains(keyword)));
-            }
-            if (models == null)
-            {
-                models = new List<Model.Jobs>();
-            }
-            models = models.Skip<Model.Jobs>(pagination.rows * (pagination.page - 1)).Take<Model.Jobs>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.Jobs>(pagination, predicate);
         }
 
         public Model.Jobs GetForm(string keyValue)

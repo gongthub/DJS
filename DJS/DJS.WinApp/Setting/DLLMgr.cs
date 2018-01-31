@@ -72,7 +72,7 @@ namespace DJS.WinApp
             List<Model.DllMgr> models = BLL.DllMgr.GetModels(m => m.Name.Contains(name));
             if (models != null && models.Count > 0)
             {
-                models = models.OrderBy(m => m.No).ToList();
+                models = models.OrderBy(m => m.SortCode).ToList();
             }
             dgvDLLLists.DataSource = models;
 

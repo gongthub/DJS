@@ -4,6 +4,7 @@ using DJS.IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -64,43 +65,22 @@ namespace DJS.DAL.XML
 
         public List<Model.JobGroup> GetAllList()
         {
-            return GetModels<Model.JobGroup>();
+            return GetAllModels<Model.JobGroup>();
         }
 
         public List<Model.JobGroup> GetList()
         {
-            List<Model.JobGroup> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            return models;
+            return GetModels<Model.JobGroup>();
         }
 
         public List<Model.JobGroup> GetList(Pagination pagination)
         {
-            List<Model.JobGroup> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (models == null)
-            {
-                models = new List<Model.JobGroup>();
-            }
-            models = models.Skip<Model.JobGroup>(pagination.rows * (pagination.page - 1)).Take<Model.JobGroup>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.JobGroup>(pagination);
         }
 
-        public List<Model.JobGroup> GetList(Pagination pagination, string keyword)
+        public List<Model.JobGroup> GetList(Pagination pagination, Expression<Func<Model.JobGroup, bool>> predicate)
         {
-            List<Model.JobGroup> models = GetAllList();
-
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (keyword != null)
-            {
-                models = models.FindAll(m => (m.Name.Contains(keyword)));
-            }
-            if (models == null)
-            {
-                models = new List<Model.JobGroup>();
-            }
-            models = models.Skip<Model.JobGroup>(pagination.rows * (pagination.page - 1)).Take<Model.JobGroup>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.JobGroup>(pagination, predicate);
         }
 
         public Model.JobGroup GetForm(string keyValue)

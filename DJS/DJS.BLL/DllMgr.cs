@@ -50,6 +50,40 @@ namespace DJS.BLL
         }
         #endregion
 
+        /// <summary>
+        /// 验证名称是否已存在
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static bool IsExistName(string name, string keyvalue = "")
+        {
+            bool bSatae = false;
+            if (!string.IsNullOrEmpty(keyvalue))
+            {
+                List<Model.DllMgr> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.DllMgr model = models.Where(m => m.Name == name && m.ID != keyvalue).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            else
+            {
+                List<Model.DllMgr> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.DllMgr model = models.Where(m => m.Name == name).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            return bSatae;
+        }
         #region 根据名称判断是否存在 +static bool IsExist(string name)
         /// <summary>
         /// 根据名称判断是否存在
@@ -71,7 +105,7 @@ namespace DJS.BLL
         public static bool DelById(string Id)
         {
             DelByDllId(Id);
-            return iDllMgr.DelById(Id);
+            return iDllMgr.DeleteForm(Id);
         }
         #endregion
 
@@ -83,7 +117,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static Model.DllMgr GetModelById(string Id)
         {
-            return iDllMgr.GetModelById(Id);
+            return iDllMgr.GetForm(Id);
         }
         #endregion
 
@@ -103,8 +137,8 @@ namespace DJS.BLL
                 if (FileHelp.FileExists(filepath))
                 {
                     FileHelp.DeleteFiles(filepath);
-                } 
-            } 
+                }
+            }
         }
         #endregion
 
@@ -116,10 +150,120 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool Add(Model.DllMgr model)
         {
-            return iDllMgr.Add(model);
+            return iDllMgr.AddForm(model);
         }
         #endregion
 
+        #region 获取所有数据集合（包括已删除数据） +static List<Model.DllMgr> GetAllList()
+        /// <summary>
+        /// 获取所有数据集合（包括已删除数据）
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.DllMgr> GetAllList()
+        {
+            return iDllMgr.GetAllList();
+        }
+        #endregion
+
+        #region 获取所有未删除数据集合
+        /// <summary>
+        /// 获取所有未删除数据集合
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.DllMgr> GetList()
+        {
+            List<Model.DllMgr> models = GetAllList();
+            if (models != null && models.Count > 0)
+            {
+                models = models.FindAll(m => m.DeleteMark != true);
+            }
+            return models;
+        }
+
+        /// <summary>
+        /// 获取所有未删除数据集合
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public static List<Model.DllMgr> GetList(Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<Model.DllMgr>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.Name.Contains(keyword));
+                expression = expression.Or(t => t.NameSpace.Contains(keyword));
+            }
+            return iDllMgr.GetList(pagination, expression);
+        }
+        #endregion
+
+        public static Model.DllMgr GetForm(string keyValue)
+        {
+            return iDllMgr.GetForm(keyValue);
+        }
+
+        public static bool SubmitForm(Model.DllMgr modelEntity, string keyValue)
+        {
+            if (IsExistName(modelEntity.Name, keyValue))
+            {
+                throw new Exception("名称已存在！");
+            }
+            if (!string.IsNullOrEmpty(keyValue))
+            {
+                modelEntity.Modify(keyValue);
+                return UpdateForm(modelEntity);
+            }
+            else
+            {
+                modelEntity.Create();
+                return AddForm(modelEntity);
+            }
+        }
+        public static bool AddForm(Model.DllMgr modelEntity)
+        {
+            return iDllMgr.AddForm(modelEntity);
+        }
+        public static bool UpdateForm(Model.DllMgr modelEntity)
+        {
+            return iDllMgr.UpdateForm(modelEntity);
+        }
+
+        /// <summary>
+        /// 物理删除
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool DeleteForm(string keyValue)
+        {
+            return iDllMgr.DeleteForm(keyValue);
+        }
+
+        /// <summary>
+        /// 逻辑删除
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool DeleteByID(string keyValue)
+        {
+            bool ret = false;
+            Model.DllMgr model = GetForm(keyValue);
+            if (model != null)
+            {
+                model.Remove();
+                ret = UpdateForm(model);
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 生成文件保存目录
+        /// </summary>
+        /// <returns></returns>
+        public static string GenFilePath(string name)
+        {
+            return ConfigHelp.AssemblySrcPath + "/" + name + "/";
+        }
 
     }
 }

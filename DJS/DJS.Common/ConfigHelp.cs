@@ -46,6 +46,14 @@ namespace DJS.Common
         /// 系统父级名称
         /// </summary>
         public static readonly string SYSPARENTKEYNAME = "ParentId";
+        /// <summary>
+        /// 系统删除标识
+        /// </summary>
+        public static readonly string SYSDELETEMARK = "DeleteMark";
+        /// <summary>
+        /// 上传DLL后缀
+        /// </summary>
+        public static readonly string UPLOADDLLEXT = ".dll";
 
         /// <summary>
         /// 根据Key取Value值

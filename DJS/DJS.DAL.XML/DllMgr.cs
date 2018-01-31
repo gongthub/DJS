@@ -1,15 +1,18 @@
 ﻿using DJS.Common;
+using DJS.Common.Util;
 using DJS.IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace DJS.DAL.XML
 {
-    public class DllMgr : IDllMgr
+    public class DllMgr : XmlDB, IDllMgr
     {
         /// <summary>
         /// 配置文件路径
@@ -22,6 +25,10 @@ namespace DJS.DAL.XML
 
         private const string ELENMENTNAME = "DDLMGR";
 
+        public DllMgr()
+            : base(XMLDBCONFIGPATH, GROUPPATH, GROUPSPATH, ELENMENTNAME)
+        {
+        }
 
         #region 获取数据集合 +List<Model.JobGroup> GetModels()
         /// <summary>
@@ -30,19 +37,7 @@ namespace DJS.DAL.XML
         /// <returns></returns>
         public List<Model.DllMgr> GetModels()
         {
-            List<Model.DllMgr> models = new List<Model.DllMgr>();
-            XmlNodeList list = XmlHelp.xmlHelp.GetNodes(XMLDBCONFIGPATH, GROUPPATH);
-            if (list != null && list.Count > 0)
-            {
-                Model.DllMgr group = new Model.DllMgr();
-                foreach (XmlNode node in list)
-                {
-                    group = new Model.DllMgr();
-                    group = XmlHelp.xmlHelp.SetNodeToModel(group, node);
-                    models.Add(group);
-                }
-            }
-            return models;
+            return GetList();
         }
         #endregion
 
@@ -68,58 +63,79 @@ namespace DJS.DAL.XML
         }
         #endregion
 
-        #region 根据id删除数据 +bool DelById(string Id)
-        /// <summary>
-        /// 根据id删除数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public bool DelById(string Id)
+        public List<Model.DllMgr> GetAllList()
         {
-            bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
-            return ret;
+            return GetAllModels<Model.DllMgr>();
         }
-        #endregion
 
-        #region 添加 +bool Add(Model.DllMgr model)
-        /// <summary>
-        /// 添加实体
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public bool Add(Model.DllMgr model)
+        public List<Model.DllMgr> GetList()
         {
-            bool ret = true;
+            return GetModels<Model.DllMgr>();
+        }
+
+        public List<Model.DllMgr> GetList(Pagination pagination)
+        {
+            return GetModels<Model.DllMgr>(pagination);
+        }
+
+        public List<Model.DllMgr> GetList(Pagination pagination, Expression<Func<Model.DllMgr, bool>> predicate)
+        {
+            return GetModels<Model.DllMgr>(pagination, predicate);
+        }
+        public Model.DllMgr GetForm(string keyValue)
+        {
+            return GetModel<Model.DllMgr>(keyValue);
+        }
+
+        public bool DeleteForm(string keyValue)
+        {
+            bool bState = false;
             try
             {
-                XmlHelp.xmlHelp.AppendNode<Model.DllMgr>(model, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
+                Remove(ConfigHelp.SYSKEYNAME, keyValue);
+                bState = true;
             }
-            catch
+            catch (Exception e)
             {
-                ret = false;
+                bState = false;
+                throw e;
             }
-            return ret;
+            return bState;
         }
-        #endregion
 
-        #region 根据id获取数据 +Model.DllMgr GetModelById(string Id)
-        /// <summary>
-        /// 根据id获取数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public Model.DllMgr GetModelById(string Id)
+        public bool AddForm(Model.DllMgr modelEntity)
         {
-            Model.DllMgr model = new Model.DllMgr();
-            List<Model.DllMgr> models = GetModels();
-            if (models != null && models.Count > 0)
+            bool bState = false;
+            try
             {
-                model = models.Find(m => m.ID == Id);
-
+                Add(modelEntity);
+                bState = true;
             }
-            return model;
-        } 
-        #endregion
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
+
+        public bool UpdateForm(Model.DllMgr modelEntity)
+        {
+            bool bState = false;
+            try
+            {
+                List<string> notChangelst = new List<string>();
+                notChangelst.Add("Url");
+                Update(modelEntity, ConfigHelp.SYSKEYNAME, modelEntity.ID, notChangelst);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
+
     }
 }

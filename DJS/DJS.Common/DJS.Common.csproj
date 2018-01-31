@@ -86,6 +86,7 @@
     <Compile Include="CommonModel\SelectLists.cs" />
     <Compile Include="CommonModel\TreeGridModel.cs" />
     <Compile Include="CommonModel\TreeSelectModel.cs" />
+    <Compile Include="CommonModel\UpFileDTO.cs" />
     <Compile Include="ConfigHelp.cs" />
     <Compile Include="EmailHelp.cs" />
     <Compile Include="EnumHelp.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Ext.cs" />
     <Compile Include="ExtLinq.cs" />
     <Compile Include="FileHelp.cs" />
+    <Compile Include="HttpUploadFileHelp.cs" />
     <Compile Include="JsonHelp.cs" />
     <Compile Include="LogHelp.cs" />
     <Compile Include="MessageHelp.cs" />

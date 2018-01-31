@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ConfigMgr.cs" />
     <Compile Include="DllMgr.cs" />
+    <Compile Include="EntityCommon\BaseEntity.cs" />
     <Compile Include="EntityCommon\ICreationAudited.cs" />
     <Compile Include="EntityCommon\IDeleteAudited.cs" />
     <Compile Include="EntityCommon\IEntity.cs" />

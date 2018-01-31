@@ -148,12 +148,14 @@
     <Compile Include="App_Start\Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\DllMgrController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\JobGroupMgrController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\JobMgrController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\TriggerGroupMgrController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\UserMgrController.cs" />
     <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\ModuleMgrController.cs" />
@@ -208,6 +210,7 @@
     <Content Include="Content\js\bootstrap\bootstrap.min.css" />
     <Content Include="Content\js\charts\Chart.js" />
     <Content Include="Content\js\charts\Chart.min.js" />
+    <Content Include="Content\js\Common.js" />
     <Content Include="Content\js\cookie\jquery.cookie.js" />
     <Content Include="Content\js\datepicker\calendar.js" />
     <Content Include="Content\js\datepicker\DatePicker.js" />
@@ -416,6 +419,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -517,6 +521,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\BaseManage\Views\JobGroupMgr\Form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\DllMgr\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\DllMgr\Form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\DllMgr\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

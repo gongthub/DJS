@@ -626,7 +626,12 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.Jobs> GetList(Pagination pagination, string keyword)
         {
-            return iJobs.GetList(pagination, keyword);
+            var expression = ExtLinq.True<Model.Jobs>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.Name.Contains(keyword));
+            }
+            return iJobs.GetList(pagination, expression);
         }
         #endregion
 

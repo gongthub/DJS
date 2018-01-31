@@ -45,19 +45,43 @@ namespace DJS.DAL.Redis
         #endregion
 
 
-
-        public bool Add(Model.DllMgr model)
+        public Model.DllMgr GetForm(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public bool DelById(string Id)
+        public List<Model.DllMgr> GetAllList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.DllMgr> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Model.DllMgr> GetList(Common.Pagination pagination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteForm(string keyValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddForm(Model.DllMgr moduleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateForm(Model.DllMgr moduleEntity)
         {
             throw new NotImplementedException();
         }
 
 
-        public Model.DllMgr GetModelById(string Id)
+        public List<Model.DllMgr> GetList(Common.Pagination pagination, System.Linq.Expressions.Expression<Func<Model.DllMgr, bool>> predicate)
         {
             throw new NotImplementedException();
         }

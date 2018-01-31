@@ -569,3 +569,56 @@ a:hover,a:focus{color:#475059;}
 @media (max-width:991px){.theme-whbl #logo.navbar-brand > img.normal-logo.logo-white{display:block;}
 .theme-whbl #logo.navbar-brand > img.normal-logo.logo-black{display:none;}
 .theme-whbl .navbar > .container .navbar-brand{background-color:#1ABC9C;}}
+
+
+/**************************************自定义样式 开始******************************************/
+
+
+    .sys-div-imgupload .sys-div-upload {
+        padding: 0px 10px;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+    }
+
+    .sys-div-imgupload .sys-div-upload input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer;
+    }
+
+    .sys-div-imgupload img {
+        position: absolute;
+        margin-left: 5px;
+        top: 5;
+        filter: alpha(opacity=0);
+        cursor: not-allowed;
+        border: 1px solid #ddd;
+    }
+    .sys-div-imgupload label {
+        position: absolute;
+        margin-left: 5px;
+        margin-top:5px;
+        cursor: not-allowed;
+    }
+
+    .sys-div-imgupload .sys-div-upload:hover {
+        color: #444;
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none;
+    }
+/**************************************自定义样式 结束******************************************/

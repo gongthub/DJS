@@ -143,7 +143,12 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.TriggerGroup> GetList(Pagination pagination, string keyword)
         {
-            return iTriggerGroup.GetList(pagination, keyword);
+            var expression = ExtLinq.True<Model.TriggerGroup>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.Name.Contains(keyword));
+            }
+            return iTriggerGroup.GetList(pagination, expression);
         }
         #endregion
 

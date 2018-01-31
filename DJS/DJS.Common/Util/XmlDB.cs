@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -33,7 +35,7 @@ namespace DJS.Common.Util
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
-        public void Add<T>(T t)
+        protected void Add<T>(T t)
         {
             lock (LOCKOBJ)
             {
@@ -86,7 +88,7 @@ namespace DJS.Common.Util
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
-        public void Update<T>(T t, string keyName, string keyValue)
+        protected void Update<T>(T t, string keyName, string keyValue)
         {
             lock (LOCKOBJ)
             {
@@ -144,7 +146,7 @@ namespace DJS.Common.Util
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
-        public void Remove(string keyName, string keyValue)
+        protected void Remove(string keyName, string keyValue)
         {
             lock (LOCKOBJ)
             {
@@ -167,11 +169,79 @@ namespace DJS.Common.Util
             }
         }
 
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        protected void Update<T>(T t, string keyName, string keyValue,List<string> notChange)
+        {
+            lock (LOCKOBJ)
+            {
+                List<string> notChangelst = new List<string>();
+                if (notChange != null && notChange.Count > 0)
+                {
+                    notChangelst.AddRange(notChange);
+                }
+                if (ConfigHelp.UpdateNotChange != null && ConfigHelp.UpdateNotChange.Count > 0)
+                {
+                    notChangelst.AddRange(ConfigHelp.UpdateNotChange);
+                }
+                //创建XML的根节点
+                //创建根对象
+                XmlElement rootElement = XmlHelp.xmlHelp.CreateRootElement(xPath, out xmlDocument);
+                XmlNode node = XmlHelp.xmlHelp.GetXmlNodeByAttKeyValue(xPath, groupPath, keyName, keyValue, out xmlDocument);
+                if (node != null)
+                {
+                    XmlDocument doc = node.OwnerDocument;
+                    PropertyInfo[] infos = t.GetType().GetProperties();
+                    if (infos != null && infos.Count() > 0)
+                    {
+                        XmlAttributeCollection atts = node.Attributes;
+                        foreach (PropertyInfo info in infos)
+                        {
+                            XmlAttribute attr = XmlHelp.xmlHelp.GetAttByName(atts, info.Name);
+                            if (attr != null)
+                            {
+                                if (!notChangelst.Contains(info.Name))
+                                {
+                                    if (info.GetValue(t) != null)
+                                    {
+                                        attr.Value = info.GetValue(t).ToString();
+                                    }
+                                    else
+                                    {
+                                        attr.Value = "";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                attr = doc.CreateAttribute(info.Name);
+                                if (info.GetValue(t) != null)
+                                {
+                                    attr.Value = info.GetValue(t).ToString();
+                                }
+                                else
+                                {
+                                    attr.Value = "";
+                                }
+                            }
+                            node.Attributes.SetNamedItem(attr);
+
+                        }
+                    }
+                    Save();
+                }
+            }
+        }
+
         /// <summary>
         /// 获取所有数据
         /// </summary>
         /// <returns></returns>
-        public List<T> GetModels<T>()
+        protected List<T> GetAllModels<T>()
         {
             lock (LOCKOBJ)
             {
@@ -189,14 +259,120 @@ namespace DJS.Common.Util
                 return models;
             }
         }
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
+        protected List<T> GetModels<T>()
+        {
+            lock (LOCKOBJ)
+            {
+                List<T> models = new List<T>();
+                XmlNodeList list = XmlHelp.xmlHelp.GetNodes(xPath, groupPath);
+                if (list != null && list.Count > 0)
+                {
+                    foreach (XmlNode node in list)
+                    {
+                        XmlAttributeCollection attrs = node.Attributes;
+                        if (attrs != null && attrs.Count > 0)
+                        {
+                            XmlAttribute attr = XmlHelp.xmlHelp.GetAttByName(attrs, ConfigHelp.SYSDELETEMARK);
+                            bool deleteMark = false;
+                            if (attr != null && !string.IsNullOrEmpty(attr.Value))
+                            {
+                                bool.TryParse(attr.Value, out deleteMark);
+                            }
+                            if (deleteMark != true)
+                            {
+                                T t = System.Activator.CreateInstance<T>();
+                                t = XmlHelp.xmlHelp.SetNodeToModel(t, node);
+                                models.Add(t);
+                            }
+                        }
+                    }
+                }
+                return models;
+            }
+        }
 
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
+        protected List<T> GetModels<T>(Pagination pagination)
+        {
+            lock (LOCKOBJ)
+            {
+                IQueryable<T> tempData = GetModels<T>().AsQueryable();
+                bool isAsc = pagination.sord.ToLower() == "asc" ? true : false;
+                string[] _order = pagination.sidx.Split(',');
+                MethodCallExpression resultExp = null;
+                foreach (string item in _order)
+                {
+                    string _orderPart = item;
+                    _orderPart = Regex.Replace(_orderPart, @"\s+", " ");
+                    string[] _orderArry = _orderPart.Split(' ');
+                    string _orderField = _orderArry[0];
+                    bool sort = isAsc;
+                    if (_orderArry.Length == 2)
+                    {
+                        isAsc = _orderArry[1].ToUpper() == "ASC" ? true : false;
+                    }
+                    var parameter = Expression.Parameter(typeof(T), "t");
+                    var property = typeof(T).GetProperty(_orderField);
+                    var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+                    var orderByExp = Expression.Lambda(propertyAccess, parameter);
+                    resultExp = Expression.Call(typeof(Queryable), isAsc ? "OrderBy" : "OrderByDescending", new Type[] { typeof(T), property.PropertyType }, tempData.Expression, Expression.Quote(orderByExp));
+                }
+                tempData = tempData.Provider.CreateQuery<T>(resultExp);
+                pagination.records = tempData.Count();
+                tempData = tempData.Skip<T>(pagination.rows * (pagination.page - 1)).Take<T>(pagination.rows).AsQueryable();
+                return tempData.ToList();
+            }
+        }
+
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
+        protected List<T> GetModels<T>(Pagination pagination, Expression<Func<T, bool>> predicate)
+        {
+            lock (LOCKOBJ)
+            {
+                IQueryable<T> tempData = GetModels<T>().AsQueryable().Where(predicate);
+                bool isAsc = pagination.sord.ToLower() == "asc" ? true : false;
+                string[] _order = pagination.sidx.Split(',');
+                MethodCallExpression resultExp = null;
+                foreach (string item in _order)
+                {
+                    string _orderPart = item;
+                    _orderPart = Regex.Replace(_orderPart, @"\s+", " ");
+                    string[] _orderArry = _orderPart.Split(' ');
+                    string _orderField = _orderArry[0];
+                    bool sort = isAsc;
+                    if (_orderArry.Length == 2)
+                    {
+                        isAsc = _orderArry[1].ToUpper() == "ASC" ? true : false;
+                    }
+                    var parameter = Expression.Parameter(typeof(T), "t");
+                    var property = typeof(T).GetProperty(_orderField);
+                    var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+                    var orderByExp = Expression.Lambda(propertyAccess, parameter);
+                    resultExp = Expression.Call(typeof(Queryable), isAsc ? "OrderBy" : "OrderByDescending", new Type[] { typeof(T), property.PropertyType }, tempData.Expression, Expression.Quote(orderByExp));
+                }
+                tempData = tempData.Provider.CreateQuery<T>(resultExp);
+                pagination.records = tempData.Count();
+                tempData = tempData.Skip<T>(pagination.rows * (pagination.page - 1)).Take<T>(pagination.rows).AsQueryable();
+                return tempData.ToList();
+            }
+        }
 
         /// <summary>
         /// 获取指定数据
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        public T GetModel<T>(string keyValue)
+        protected T GetModel<T>(string keyValue)
         {
             lock (LOCKOBJ)
             {

@@ -75,7 +75,14 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<UserEntity> GetList(Pagination pagination, string keyword)
         {
-            return iUserMgr.GetList(pagination, keyword);
+            var expression = ExtLinq.True<Model.UserEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.Account.Contains(keyword));
+                expression = expression.And(t => t.RealName.Contains(keyword));
+                expression = expression.And(t => t.MobilePhone.Contains(keyword));
+            }
+            return iUserMgr.GetList(pagination, expression);
         }
         #endregion
 

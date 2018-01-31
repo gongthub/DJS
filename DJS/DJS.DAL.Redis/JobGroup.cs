@@ -106,10 +106,6 @@ namespace DJS.DAL.Redis
             throw new NotImplementedException();
         }
 
-        public List<Model.JobGroup> GetList(Common.Pagination pagination, string keyword)
-        {
-            throw new NotImplementedException();
-        }
 
         public Model.JobGroup GetForm(string keyValue)
         {
@@ -117,6 +113,12 @@ namespace DJS.DAL.Redis
         }
 
         public bool UpdateForm(Model.JobGroup moduleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<Model.JobGroup> GetList(Common.Pagination pagination, System.Linq.Expressions.Expression<Func<Model.JobGroup, bool>> predicate)
         {
             throw new NotImplementedException();
         }

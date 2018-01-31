@@ -106,10 +106,6 @@ namespace DJS.DAL.Redis
             throw new NotImplementedException();
         }
 
-        public List<Model.TriggerGroup> GetList(Common.Pagination pagination, string keyword)
-        {
-            throw new NotImplementedException();
-        }
 
         public Model.TriggerGroup GetForm(string keyValue)
         {
@@ -117,6 +113,12 @@ namespace DJS.DAL.Redis
         }
 
         public bool UpdateForm(Model.TriggerGroup moduleEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public List<Model.TriggerGroup> GetList(Common.Pagination pagination, System.Linq.Expressions.Expression<Func<Model.TriggerGroup, bool>> predicate)
         {
             throw new NotImplementedException();
         }

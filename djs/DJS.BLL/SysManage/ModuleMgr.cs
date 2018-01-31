@@ -74,7 +74,12 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<ModuleEntity> GetList(Pagination pagination, string keyword)
         {
-            return iModuleMgr.GetList(pagination, keyword);
+            var expression = ExtLinq.True<Model.ModuleEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.FullName.Contains(keyword));
+            }
+            return iModuleMgr.GetList(pagination, expression);
         }
         #endregion
 

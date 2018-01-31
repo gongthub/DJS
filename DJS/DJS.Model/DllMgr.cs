@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace DJS.Model
 {
-    public class DllMgr
+    public class DllMgr : BaseEntity<DllMgr>
     {
-        //主键
-        public string ID { get; set; }
 
         /// <summary>
         /// 序号
         /// </summary>
-        public decimal No { set; get; }
+        public int SortCode { set; get; }
 
         /// <summary>
         /// 名称
@@ -30,5 +28,10 @@ namespace DJS.Model
         /// 路径
         /// </summary>
         public string Url { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Description { set; get; }
     }
 }

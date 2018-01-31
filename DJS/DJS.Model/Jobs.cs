@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DJS.Model
 {
-    public class Jobs : IEntity<Jobs>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class Jobs : BaseEntity<Jobs>
     {
-        public string ID { set; get; }
         public string Name { set; get; }
         public string GroupName { set; get; }
         public string TriggerName { set; get; }
@@ -30,14 +29,7 @@ namespace DJS.Model
         /// </summary>
         public string Description { set; get; }
 
-        public bool? DeleteMark { get; set; }
         public bool? EnabledMark { get; set; }
-        public DateTime? CreatorTime { get; set; }
-        public string CreatorUserId { get; set; }
-        public DateTime? LastModifyTime { get; set; }
-        public string LastModifyUserId { get; set; }
-        public DateTime? DeleteTime { get; set; }
-        public string DeleteUserId { get; set; }
 
     }
 }

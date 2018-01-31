@@ -4,6 +4,7 @@ using DJS.IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -88,43 +89,22 @@ namespace DJS.DAL.XML
 
         public List<Model.TriggerGroup> GetAllList()
         {
-            return GetModels<Model.TriggerGroup>();
+            return GetAllModels<Model.TriggerGroup>();
         }
 
         public List<Model.TriggerGroup> GetList()
         {
-            List<Model.TriggerGroup> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            return models;
+            return GetModels<Model.TriggerGroup>();
         }
 
         public List<Model.TriggerGroup> GetList(Pagination pagination)
         {
-            List<Model.TriggerGroup> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (models == null)
-            {
-                models = new List<Model.TriggerGroup>();
-            }
-            models = models.Skip<Model.TriggerGroup>(pagination.rows * (pagination.page - 1)).Take<Model.TriggerGroup>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.TriggerGroup>(pagination);
         }
 
-        public List<Model.TriggerGroup> GetList(Pagination pagination, string keyword)
+        public List<Model.TriggerGroup> GetList(Pagination pagination, Expression<Func<Model.TriggerGroup, bool>> predicate)
         {
-            List<Model.TriggerGroup> models = GetAllList();
-
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (keyword != null)
-            {
-                models = models.FindAll(m => m.Name.Contains(keyword));
-            }
-            if (models == null)
-            {
-                models = new List<Model.TriggerGroup>();
-            }
-            models = models.Skip<Model.TriggerGroup>(pagination.rows * (pagination.page - 1)).Take<Model.TriggerGroup>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.TriggerGroup>(pagination, predicate);
         }
 
         public Model.TriggerGroup GetForm(string keyValue)

@@ -5,6 +5,7 @@ using DJS.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -31,43 +32,22 @@ namespace DJS.DAL.XML
 
         public List<Model.UserEntity> GetAllList()
         {
-            return GetModels<UserEntity>();
+            return GetAllModels<UserEntity>();
         }
 
         public List<Model.UserEntity> GetList()
         {
-            List<Model.UserEntity> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            return models;
+            return GetModels<Model.UserEntity>();
         }
 
         public List<Model.UserEntity> GetList(Pagination pagination)
         {
-            List<Model.UserEntity> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (models == null)
-            {
-                models = new List<Model.UserEntity>();
-            }
-            models = models.Skip<Model.UserEntity>(pagination.rows * (pagination.page - 1)).Take<Model.UserEntity>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.UserEntity>(pagination);
         }
 
-        public List<Model.UserEntity> GetList(Common.Pagination pagination, string keyword)
+        public List<Model.UserEntity> GetList(Common.Pagination pagination, Expression<Func<Model.UserEntity, bool>> predicate)
         {
-            List<Model.UserEntity> models = GetAllList();
-
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (keyword != null)
-            {
-                models = models.FindAll(m => (m.Account.Contains(keyword) || m.RealName.Contains(keyword) || m.MobilePhone.Contains(keyword)));
-            }
-            if (models == null)
-            {
-                models = new List<Model.UserEntity>();
-            }
-            models = models.Skip<Model.UserEntity>(pagination.rows * (pagination.page - 1)).Take<Model.UserEntity>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.UserEntity>(pagination, predicate);
         }
 
         public Model.UserEntity GetForm(string keyValue)

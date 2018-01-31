@@ -68,7 +68,8 @@ namespace DJS.WinApp
         {
             try
             {
-                decimal nos = nudNo.Value;
+                int nos = 0;
+                int.TryParse(nudNo.Value.ToString(), out nos);
                 string namespaces = txtNameSpace.Text;
                 string names = txtName.Text;
 
@@ -81,7 +82,7 @@ namespace DJS.WinApp
                 {
                     Model.DllMgr model = new Model.DllMgr();
                     model.ID = Guid.NewGuid().ToString();
-                    model.No = nos;
+                    model.SortCode = nos;
                     model.NameSpace = namespaces;
                     model.Name = names;
 

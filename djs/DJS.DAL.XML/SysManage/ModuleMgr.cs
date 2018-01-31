@@ -5,6 +5,7 @@ using DJS.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -36,27 +37,18 @@ namespace DJS.DAL.XML
         /// <returns></returns>
         public List<Model.ModuleEntity> GetAllList()
         {
-            return GetModels<ModuleEntity>();
+            return GetAllModels<ModuleEntity>();
         }
 
 
         public List<Model.ModuleEntity> GetList()
         {
-            List<Model.ModuleEntity> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            return models;
+            return GetModels<Model.ModuleEntity>();
         }
 
         public List<Model.ModuleEntity> GetList(Pagination pagination)
         {
-            List<Model.ModuleEntity> models = GetAllList();
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (models == null)
-            {
-                models = new List<Model.ModuleEntity>();
-            }
-            models = models.Skip<Model.ModuleEntity>(pagination.rows * (pagination.page - 1)).Take<Model.ModuleEntity>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.ModuleEntity>(pagination);
         }
 
         /// <summary>
@@ -65,21 +57,9 @@ namespace DJS.DAL.XML
         /// <param name="pagination"></param>
         /// <param name="keyword"></param>
         /// <returns></returns>
-        public List<Model.ModuleEntity> GetList(Pagination pagination, string keyword)
+        public List<Model.ModuleEntity> GetList(Pagination pagination, Expression<Func<Model.ModuleEntity, bool>> predicate)
         {
-            List<Model.ModuleEntity> models = GetAllList();
-
-            models = models.FindAll(m => m.DeleteMark != true);
-            if (keyword != null)
-            {
-                models = models.FindAll(m => m.FullName.Contains(keyword));
-            }
-            if (models == null)
-            {
-                models = new List<Model.ModuleEntity>();
-            }
-            models = models.Skip<Model.ModuleEntity>(pagination.rows * (pagination.page - 1)).Take<Model.ModuleEntity>(pagination.rows).ToList();
-            return models;
+            return GetModels<Model.ModuleEntity>(pagination, predicate);
         }
 
         public Model.ModuleEntity GetForm(string keyValue)
