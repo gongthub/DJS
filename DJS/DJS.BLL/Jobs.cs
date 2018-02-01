@@ -592,6 +592,36 @@ namespace DJS.BLL
         }
         #endregion
 
+        /// <summary>
+        /// 处理任务状态
+        /// </summary>
+        /// <param name="models"></param>
+        /// <param name="quartzs"></param>
+        private static void InitJobs(List<Model.Jobs> models, List<Model.Jobs> quartzs)
+        {
+            if (models != null && models.Count > 0)
+            {
+                models.ForEach(delegate(Model.Jobs job)
+                {
+                    job.State = (int)Enums.TriggerState.None;
+                    job.StateName = Common.EnumHelp.enumHelp.GetDescription(Enums.TriggerState.Complete);
+
+                    Enums.TimeType st = (Enums.TimeType)job.Type;
+                    job.TypeName = Common.EnumHelp.enumHelp.GetDescription(st);
+                });
+                foreach (Model.Jobs model in models)
+                {
+                    Model.Jobs job = quartzs.Find(m => m.Name == model.Name);
+                    if (job != null)
+                    {
+                        model.State = job.State;
+                        Enums.TriggerState st = (Enums.TriggerState)job.State;
+                        model.StateName = Common.EnumHelp.enumHelp.GetDescription(st);
+                    }
+                }
+            }
+        }
+
         #region 获取所有数据集合（包括已删除数据） +static List<Model.Jobs> GetAllList()
         /// <summary>
         /// 获取所有数据集合（包括已删除数据）
@@ -599,8 +629,12 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.Jobs> GetAllList()
         {
-            return iJobs.GetAllList();
+            List<Model.Jobs> models= iJobs.GetAllList();
+            List<Model.Jobs> quartzs = GetJobsForQuartz();
+            InitJobs(models, quartzs);
+            return models;
         }
+
         #endregion
 
         #region 获取所有未删除数据集合
@@ -610,11 +644,9 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.Jobs> GetList()
         {
-            List<Model.Jobs> models = GetAllList();
-            if (models != null && models.Count > 0)
-            {
-                models = models.FindAll(m => m.DeleteMark != true);
-            }
+            List<Model.Jobs> models = iJobs.GetList();
+            List<Model.Jobs> quartzs = GetJobsForQuartz();
+            InitJobs(models, quartzs);
             return models;
         }
 
@@ -626,12 +658,16 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.Jobs> GetList(Pagination pagination, string keyword)
         {
+            List<Model.Jobs> models = new List<Model.Jobs>();
             var expression = ExtLinq.True<Model.Jobs>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.Name.Contains(keyword));
             }
-            return iJobs.GetList(pagination, expression);
+            models= iJobs.GetList(pagination, expression);
+            List<Model.Jobs> quartzs = GetJobsForQuartz();
+            InitJobs(models, quartzs);
+            return models;
         }
         #endregion
 

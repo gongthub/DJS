@@ -30,6 +30,13 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
             var data = BLL.TriggerGroup.GetForm(keyValue);
             return Content(data.ToJson());
         }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSelectGridJson()
+        {
+            var data = BLL.TriggerGroup.GetList();
+            return Content(data.ToJson());
+        }
 
         [HttpPost]
         [HandlerAjaxOnly]

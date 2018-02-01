@@ -31,6 +31,13 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
             return Content(data.ToJson());
         }
 
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSelectGridJson()
+        {
+            var data = BLL.JobGroup.GetList();
+            return Content(data.ToJson());
+        }
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]

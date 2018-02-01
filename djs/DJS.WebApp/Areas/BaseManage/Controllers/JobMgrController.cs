@@ -15,7 +15,7 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
         {
             var data = new
             {
-                rows = BLL.JobGroup.GetList(pagination, keyword),
+                rows = BLL.Jobs.GetList(pagination, keyword),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -27,18 +27,26 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
-            var data = BLL.JobGroup.GetForm(keyValue);
+            var data = BLL.Jobs.GetForm(keyValue);
             return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetTypeGridJson()
+        {
+            List<SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Enums.TimeType));
+            return Content(list.ToJson());
         }
 
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(Model.JobGroup modelEntity, string keyValue)
+        public ActionResult SubmitForm(Model.Jobs modelEntity, string keyValue)
         {
             try
             {
-                bool bState = BLL.JobGroup.SubmitForm(modelEntity, keyValue);
+                bool bState = BLL.Jobs.SubmitForm(modelEntity, keyValue);
                 if (bState)
                 {
                     return Success("操作成功。");
@@ -62,7 +70,7 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
         {
             try
             {
-                bool bState = BLL.JobGroup.DeleteByID(keyValue);
+                bool bState = BLL.Jobs.DeleteByID(keyValue);
                 if (bState)
                 {
                     return Success("删除成功。");

@@ -166,6 +166,72 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Cron\css\easyui.css" />
+    <Content Include="Content\Cron\css\images\accordion_arrows.png" />
+    <Content Include="Content\Cron\css\images\blank.gif" />
+    <Content Include="Content\Cron\css\images\calendar_arrows.png" />
+    <Content Include="Content\Cron\css\images\combo_arrow.png" />
+    <Content Include="Content\Cron\css\images\datagrid_icons.png" />
+    <Content Include="Content\Cron\css\images\datebox_arrow.png" />
+    <Content Include="Content\Cron\css\images\layout_arrows.png" />
+    <Content Include="Content\Cron\css\images\linkbutton_bg.png" />
+    <Content Include="Content\Cron\css\images\loading.gif" />
+    <Content Include="Content\Cron\css\images\menu_arrows.png" />
+    <Content Include="Content\Cron\css\images\messager_icons.png" />
+    <Content Include="Content\Cron\css\images\pagination_icons.png" />
+    <Content Include="Content\Cron\css\images\panel_tools.png" />
+    <Content Include="Content\Cron\css\images\searchbox_button.png" />
+    <Content Include="Content\Cron\css\images\slider_handle.png" />
+    <Content Include="Content\Cron\css\images\spinner_arrows.png" />
+    <Content Include="Content\Cron\css\images\tabs_icons.png" />
+    <Content Include="Content\Cron\css\images\tree_icons.png" />
+    <Content Include="Content\Cron\css\images\validatebox_warning.png" />
+    <Content Include="Content\Cron\index.htm" />
+    <Content Include="Content\Cron\js\cron.js" />
+    <Content Include="Content\Cron\js\jquery.easyui.min.js" />
+    <Content Include="Content\Cron\js\jquery.min.js" />
+    <Content Include="Content\Cron\js\themes\bootstrap\easyui.css" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\accordion_arrows.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\blank.gif" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\calendar_arrows.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\combo_arrow.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\datagrid_icons.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\datebox_arrow.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\layout_arrows.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\linkbutton_bg.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\loading.gif" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\menu_arrows.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\messager_icons.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\pagination_icons.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\panel_tools.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\searchbox_button.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\slider_handle.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\spinner_arrows.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\tabs_icons.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\tree_icons.png" />
+    <Content Include="Content\Cron\js\themes\bootstrap\images\validatebox_warning.png" />
+    <Content Include="Content\Cron\js\themes\icon.css" />
+    <Content Include="Content\Cron\js\themes\icons\back.png" />
+    <Content Include="Content\Cron\js\themes\icons\blank.gif" />
+    <Content Include="Content\Cron\js\themes\icons\cancel.png" />
+    <Content Include="Content\Cron\js\themes\icons\cut.png" />
+    <Content Include="Content\Cron\js\themes\icons\edit_add.png" />
+    <Content Include="Content\Cron\js\themes\icons\edit_remove.png" />
+    <Content Include="Content\Cron\js\themes\icons\filesave.png" />
+    <Content Include="Content\Cron\js\themes\icons\help.png" />
+    <Content Include="Content\Cron\js\themes\icons\mini_add.png" />
+    <Content Include="Content\Cron\js\themes\icons\mini_edit.png" />
+    <Content Include="Content\Cron\js\themes\icons\mini_refresh.png" />
+    <Content Include="Content\Cron\js\themes\icons\no.png" />
+    <Content Include="Content\Cron\js\themes\icons\ok.png" />
+    <Content Include="Content\Cron\js\themes\icons\pencil.png" />
+    <Content Include="Content\Cron\js\themes\icons\print.png" />
+    <Content Include="Content\Cron\js\themes\icons\redo.png" />
+    <Content Include="Content\Cron\js\themes\icons\reload.png" />
+    <Content Include="Content\Cron\js\themes\icons\search.png" />
+    <Content Include="Content\Cron\js\themes\icons\sum.png" />
+    <Content Include="Content\Cron\js\themes\icons\tip.png" />
+    <Content Include="Content\Cron\js\themes\icons\undo.png" />
     <Content Include="Content\css\framework-about.css" />
     <Content Include="Content\css\framework-font.css" />
     <Content Include="Content\css\framework-login.css" />
@@ -533,6 +599,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\BaseManage\Views\DllMgr\UpForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\JobMgr\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\JobMgr\Form.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\BaseManage\Views\JobMgr\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
