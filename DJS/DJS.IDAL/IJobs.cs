@@ -1,4 +1,5 @@
-﻿using DJS.Model;
+﻿using DJS.Common;
+using DJS.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,20 @@ namespace DJS.IDAL
         /// <param name="name">名称</param>
         /// <returns>true:存在 false:不存在</returns>
         bool IsExist(string name);
+
+        /// <summary>
+        /// 获取任务配置信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        List<SelectStrLists> GetConfigs(string keyValue);
+
+        /// <summary>
+        /// 保存任务配置信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <param name="selConfigs"></param>
+        /// <returns></returns>
+        bool SaveConfigs(string keyValue,List<SelectStrLists> selConfigs);
     }
 }

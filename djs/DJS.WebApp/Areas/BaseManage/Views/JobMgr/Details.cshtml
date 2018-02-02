@@ -5,18 +5,60 @@
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
-        $.ajax({
-            url: "/BaseManage/JobMgr/GetFormJson",
-            data: { keyValue: keyValue },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $("#form1").formSerialize(data);
-                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
-                $("#form1").find('div.ckbox label').attr('for', '');
-            }
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/BaseManage/JobMgr/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                    processTypeChange();
+                    $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                    $("#form1").find('div.ckbox label').attr('for', '');
+                }
+            });
+        }
+        $("#Type").change(function () {
+            processTypeChange();
         });
     });
+
+    function initControl() {
+        $("#Type").bindSelect({
+            url: "/BaseManage/JobMgr/GetTypeGridJson",
+            id: "Value",
+            text: "Name" 
+        });
+        $("#GroupName").bindSelect({
+            url: "/BaseManage/JobGroupMgr/GetSelectGridJson",
+            id: "ID",
+            text: "Name"
+        });
+        $("#TriggerGroup").bindSelect({
+            url: "/BaseManage/TriggerGroupMgr/GetSelectGridJson",
+            id: "ID",
+            text: "Name"
+        });
+        $("#DLLID").bindSelect({
+            url: "/BaseManage/DllMgr/GetSelectGridJson",
+            id: "ID",
+            text: "Name"
+        });
+    }
+
+    function processTypeChange() {
+        var type = $("#Type").val();
+        if (type == 0) {
+            $("#Crons").show();
+            $("#Time").hide();
+        } else if (type == 1) {
+            $("#Time").show();
+            $("#Crons").hide();
+        }
+    }
+
 </script>
 <form id="form1">
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
@@ -26,17 +68,63 @@
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
                 <tr>
-                    <th class="formTitle">序号</th>
-                    <td class="formValue">
-                        <input id="SortCode" name="SortCode" type="text" class="form-control" />
-                    </td>
                     <th class="formTitle">名称</th>
                     <td class="formValue">
                         <input id="Name" name="Name" type="text" class="form-control" />
                     </td>
+                    <th class="formTitle">触发器名称</th>
+                    <td class="formValue">
+                        <input id="TriggerName" name="TriggerName" type="text" class="form-control" />
+                    </td>
                 </tr>
                 <tr>
-                    <th class="formTitle" valign="top" style="padding-top: 5px;">备注
+                    <th class="formTitle">自启动</th>
+                    <td class="formValue">
+                        <select id="IsAuto" name="IsAuto" class="form-control">
+                            <option value="false">否</option>
+                            <option value="true">是</option>
+                        </select>
+                    </td>
+                    <th class="formTitle">配置名称</th>
+                    <td class="formValue">
+                        <input id="ConfigName" name="ConfigName" type="text" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">任务类型</th>
+                    <td class="formValue">
+                        <select id="Type" name="Type" class="form-control"></select>
+                    </td>
+                    <th class="formTitle">策略</th>
+                    <td class="formValue">
+                        <input type="text" id="Crons" name="Crons" style="border:none;" />
+                        <input id="Time" name="Time" type="text" class="form-control  input-wdatepicker" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">任务组</th>
+                    <td class="formValue">
+                        <select id="GroupName" name="GroupName" class="form-control"></select>
+                    </td>
+                    <th class="formTitle">触发器组</th>
+                    <td class="formValue">
+                        <select id="TriggerGroup" name="TriggerGroup" class="form-control" ></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">程序集</th>
+                    <td class="formValue">
+                        <select id="DLLID" name="DLLID" class="form-control"></select>
+                        <input type="hidden" id="DLLName" name="DLLName" />
+                    </td>
+                    <th class="formTitle">实现类</th>
+                    <td class="formValue">
+                        <input id="ClassName" name="ClassName" class="form-control" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">
+                        备注
                     </th>
                     <td class="formValue" colspan="3">
                         <textarea id="Description" name="Description" class="form-control" style="height: 60px;"></textarea>

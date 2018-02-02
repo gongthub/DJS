@@ -1,5 +1,6 @@
 ﻿using DJS.Common;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -78,6 +79,75 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
                 else
                 {
                     return Error("删除失败。");
+                }
+            }
+            catch (Exception e)
+            {
+                return Error(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult Configs()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetJobConfigs(string keyValue)
+        {
+            var data = BLL.Jobs.GetConfigs(keyValue);
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetConfigTypeGridJson()
+        {
+            List<SelectLists> list = Common.EnumHelp.enumHelp.ToSelectLists(typeof(Enums.ConfigGetType));
+            return Content(list.ToJson());
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitConfigs(string keyValue)
+        {
+            try
+            {
+                bool bState = false;
+                string hdConfigSels = Request["hdConfigSels"];
+                if (hdConfigSels != null)
+                {
+                    List<string> configNames = hdConfigSels.Split('&').ToList();
+                    configNames = configNames.Where(m => !string.IsNullOrEmpty(m)).ToList();
+                    if (configNames != null && configNames.Count > 0)
+                    {
+                        List<SelectStrLists> configSels = new List<SelectStrLists>();
+                        foreach (var configName in configNames)
+                        {
+                            string configVal = Request[configName];
+                            if (configVal != null)
+                            {
+                                SelectStrLists configSel = new SelectStrLists();
+                                configSel.Name = configName;
+                                configSel.Value = configVal;
+                                configSels.Add(configSel);
+                            }
+                        }
+                        bState = BLL.Jobs.SaveConfigs(keyValue, configSels);
+                    }
+                }
+
+                if (bState)
+                {
+                    return Success("操作成功。");
+                }
+                else
+                {
+                    return Error("操作失败。");
                 }
             }
             catch (Exception e)

@@ -17,23 +17,25 @@
                 }
             });
         }
-        $("#TypeName").change(function () {
+        $("#Type").change(function () {
             processTypeChange();
+        });
+        $("#DLLID").change(function () {
+            processDllClass();
         });
         $("#selCron").click(function () {
             $.modalOpen({
                 id: "SysMainCron",
                 title: "选择策略",
                 url: "/Content/Cron/index.htm",
-                width: "700px",
-                height: "510px",
+                width: "580px",
+                height: "450px",
                 callBack: function (iframeId) {
                     var syscrons = top.frames[iframeId].selectCron();
                     $("#Crons").val(syscrons);
                 }
             });
         });
-        processTypeChange();
     });
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -47,11 +49,15 @@
             }
         })
     }
+
     function initControl() {
-        $("#TypeName").bindSelect({
+        $("#Type").bindSelect({
             url: "/BaseManage/JobMgr/GetTypeGridJson",
             id: "Value",
-            text: "Name"
+            text: "Name",
+            callBack: function () {
+                processTypeChange();
+            }
         });
         $("#GroupName").bindSelect({
             url: "/BaseManage/JobGroupMgr/GetSelectGridJson",
@@ -66,11 +72,15 @@
         $("#DLLID").bindSelect({
             url: "/BaseManage/DllMgr/GetSelectGridJson",
             id: "ID",
-            text: "Name"
+            text: "Name",
+            callBack: function () {
+                processDllClass();
+            }
         });
     }
+
     function processTypeChange() {
-        var type = $("#TypeName").val();
+        var type = $("#Type").val();
         if (type == 0) {
             $("#divselCron").show();
             $("#Time").hide();
@@ -86,6 +96,20 @@
             $("#Crons").val("");
             $("#Time").val("");
         }
+    }
+
+    function processDllClass()
+    {
+        $("#ClassName").empty();
+        $("#ClassName").find("option").remove();
+        var ddlId = $("#DLLID").val();
+        var ddlName = $("#DLLID").find("option:selected").text();
+        $("#DLLName").val(ddlName);
+        $("#ClassName").bindSelect({
+            url: "/BaseManage/DllMgr/GetDllNameGridJson?keyValue=" + ddlId,
+            id: "Name",
+            text: "Name"
+        });
     }
 </script>
 <form id="form1">
@@ -109,8 +133,8 @@
                     <th class="formTitle">自启动</th>
                     <td class="formValue">
                         <select id="IsAuto" name="IsAuto" class="form-control required">
-                            <option value="0">否</option>
-                            <option value="1">是</option>
+                            <option value="false">否</option>
+                            <option value="true">是</option>
                         </select>
                     </td>
                     <th class="formTitle">配置名称</th>
@@ -121,7 +145,7 @@
                 <tr>
                     <th class="formTitle">任务类型</th>
                     <td class="formValue">
-                        <select id="TypeName" name="TypeName" class="form-control required"></select>
+                        <select id="Type" name="Type" class="form-control required"></select>
                     </td>
                     <th class="formTitle">策略</th>
                     <td class="formValue">
@@ -152,10 +176,11 @@
                     <th class="formTitle">程序集</th>
                     <td class="formValue">
                         <select id="DLLID" name="DLLID" class="form-control required"></select>
+                        <input type="hidden" id="DLLName" name="DLLName" />
                     </td>
                     <th class="formTitle">实现类</th>
                     <td class="formValue">
-                        <select id="AssType" name="AssType" class="form-control required"></select>
+                        <select id="ClassName" name="ClassName" class="form-control required"></select>
                     </td>
                 </tr>
                 <tr>

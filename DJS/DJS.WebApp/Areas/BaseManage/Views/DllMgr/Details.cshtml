@@ -13,7 +13,7 @@
             success: function (data) {
                 $("#form1").formSerialize(data);
                 $("#Url")[0].innerText = data.Url;
-                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
                 $("#form1").find('div.ckbox label').attr('for', '');
             }
         });

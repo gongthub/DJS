@@ -1,6 +1,7 @@
 ﻿using DJS.Common;
 using DJS.Common.CommonModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,6 +40,15 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
             var data = BLL.DllMgr.GetList();
             return Content(data.ToJson());
         }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetDllNameGridJson(string keyValue)
+        {
+            List<SelectLists> list = BLL.DllMgr.GetDllNameList(keyValue);
+            return Content(list.ToJson());
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]

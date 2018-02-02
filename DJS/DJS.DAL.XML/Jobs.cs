@@ -18,6 +18,15 @@ namespace DJS.DAL.XML
         /// </summary>
         private static readonly string XMLDBCONFIGPATH = ConfigHelp.XmlDBConfigPath;
 
+        /// <summary>
+        /// SDK配置文件路径
+        /// </summary>
+        private static readonly string SDKCONFIGPATH = ConfigHelp.SDKCONFIGPath;
+        /// <summary>
+        /// 节点
+        /// </summary>
+        private const string CONFIGSPATH = @"/CONFIGS";
+
         private const string GROUPPATH = @"/DB/JOBS/JOB";
 
         private const string GROUPSPATH = @"/DB/JOBS";
@@ -87,6 +96,32 @@ namespace DJS.DAL.XML
             return GetModel<Model.Jobs>(keyValue);
         }
 
+        public List<SelectStrLists> GetConfigs(string keyValue)
+        {
+            string cponfignames = string.Empty;
+            List<SelectStrLists> dicLst = new List<SelectStrLists>();
+            Model.Jobs modelJpb = GetForm(keyValue);
+            if (modelJpb != null && !string.IsNullOrEmpty(modelJpb.ID))
+            {
+                cponfignames = CONFIGSPATH + @"/" + modelJpb.ConfigName + @"/" + "CONFIG";
+                XmlNodeList list = XmlHelp.xmlHelp.GetNodes(SDKCONFIGPATH, cponfignames);
+                foreach (XmlNode node in list)
+                {
+                    if (node.Attributes["Name"] != null && node.Attributes["Value"] != null)
+                    {
+                        SelectStrLists sel = new SelectStrLists();
+                        string name = node.Attributes["Name"].Value;
+                        string val = node.Attributes["Value"].Value;
+                        sel.Name = name;
+                        sel.Value = val;
+                        dicLst.Add(sel);
+                    }
+
+                }
+            }
+            return dicLst;
+        }
+
         public bool DeleteForm(string keyValue)
         {
             bool bState = false;
@@ -131,6 +166,30 @@ namespace DJS.DAL.XML
             {
                 bState = false;
                 throw e;
+            }
+            return bState;
+        }
+
+
+        public bool SaveConfigs(string keyValue, List<SelectStrLists> selConfigs)
+        {
+            bool bState = false;
+            try
+            {
+                Model.Jobs model = GetForm(keyValue);
+                if (model != null)
+                {
+                    string cponfignames = CONFIGSPATH + @"/" + model.ConfigName + @"/" + "CONFIG";
+                    foreach (SelectStrLists selConfig in selConfigs)
+                    {
+                        XmlHelp.xmlHelp.SetValue(SDKCONFIGPATH, cponfignames, "Name", selConfig.Name, "Value", selConfig.Value);
+                    }
+                    bState = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return bState;
         }

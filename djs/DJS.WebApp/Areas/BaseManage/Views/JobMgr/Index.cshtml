@@ -13,24 +13,31 @@
             height: $(window).height() - 128,
             colModel: [
                 { label: '主键', name: 'ID', hidden: true },
-                { label: '名称', name: 'Name', width: 80, align: 'left' },
-                { label: '任务组', name: 'GroupName', width: 80, align: 'left' },
-                { label: '触发器', name: 'TriggerName', width: 80, align: 'left' },
-                { label: '触发器组', name: 'TriggerGroup', width: 80, align: 'left' },
+                { label: '名称', name: 'Name', width: 120, align: 'left' },
+                { label: '触发器', name: 'TriggerName', width: 120, align: 'left' },
+                { label: '配置名称', name: 'ConfigName', width: 150, align: 'left' },
                 { label: '策略', name: 'Crons', width: 80, align: 'left' },
-                { label: '时间', name: 'Time', width: 80, align: 'left' },
+                { label: '时间', name: 'Time', width: 120, align: 'left' },
                 { label: '类型', name: 'TypeName', width: 80, align: 'left' },
-                { label: '状态', name: 'StateName', width: 80, align: 'left' },
-                { label: '程序集', name: 'DLLName', width: 80, align: 'left' },
+                { label: '程序集', name: 'DLLName', width: 120, align: 'left' },
                 { label: '程序集版本', name: 'DllVersion', width: 80, align: 'left' },
-                { label: '备注', name: 'Description', width: 200, align: 'left' },
+                {
+                    label: '已加入任务池', name: 'IsAddPool', width: 80, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue == true) {
+                            return '是';
+                        } else {
+                            return '否';
+                        }
+                    }
+                },
                 {
                     label: '创建时间', name: 'CreatorTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 }
             ],
             pager: "#gridPager",
-            sortname: 'SortCode asc,CreatorTime desc',
+            sortname: 'Name asc,CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -39,6 +46,7 @@
             }).trigger('reloadGrid');
         });
     }
+
     function btn_add() {
         $.modalOpen({
             id: "Form",
@@ -51,6 +59,7 @@
             }
         });
     }
+
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().ID;
         if (keyValue != null && keyValue != undefined && keyValue != "") {
@@ -59,15 +68,13 @@
                 title: "修改任务组",
                 url: "/BaseManage/JobMgr/Form?keyValue=" + keyValue,
                 width: "700px",
-                height: "510px",
-                callBack: function (iframeId) {
-                    top.frames[iframeId].submitForm();
-                }
+                height: "510px"
             });
         } else {
             $.modalMsgWarning("请选择一行数据！");
         }
     }
+
     function btn_delete() {
         var keyValue = $("#gridList").jqGridRowValue().ID;
         if (keyValue != null && keyValue != undefined && keyValue != "") {
@@ -82,6 +89,7 @@
             $.modalMsgWarning("请选择一行数据！");
         }
     }
+
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().ID;
         if (keyValue != null && keyValue != undefined && keyValue != "") {
@@ -92,6 +100,24 @@
                 width: "700px",
                 height: "550px",
                 btn: null,
+            });
+        } else {
+            $.modalMsgWarning("请选择一行数据！");
+        }
+    }
+
+    function btn_configs() {
+        var keyValue = $("#gridList").jqGridRowValue().ID;
+        if (keyValue != null && keyValue != undefined && keyValue != "") {
+            $.modalOpen({
+                id: "Details",
+                title: "配置管理",
+                url: "/BaseManage/JobMgr/Configs?keyValue=" + keyValue,
+                width: "700px",
+                height: "550px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
             });
         } else {
             $.modalMsgWarning("请选择一行数据！");
@@ -113,8 +139,8 @@
                 <li><a id="NF-edit" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改任务</a></li>
                 <li><a id="NF-delete" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除任务</a></li>
                 <li><a id="NF-Details" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看任务</a></li>
-                <li><a id="NF-Files" onclick="btn_files()"><i class="fa fa-search-plus"></i>附件管理</a></li>
                 <li><a id="NF-Configs" onclick="btn_configs()"><i class="fa fa-search-plus"></i>配置管理</a></li>
+                <li><a id="NF-Files" onclick="btn_files()"><i class="fa fa-search-plus"></i>附件管理</a></li>
                 <li><a id="NF-AddPools" onclick="btn_addpools()"><i class="fa fa-search-plus"></i>加入任务池</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>

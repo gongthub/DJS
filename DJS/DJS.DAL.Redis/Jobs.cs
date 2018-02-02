@@ -59,5 +59,17 @@ namespace DJS.DAL.Redis
         {
             throw new NotImplementedException();
         }
+
+
+        public List<Common.SelectStrLists> GetConfigs(string keyValue)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public bool SaveConfigs(string keyValue, List<Common.SelectStrLists> selConfigs)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

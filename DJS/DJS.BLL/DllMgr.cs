@@ -1,5 +1,6 @@
 ﻿using DJS.Common;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -106,6 +107,38 @@ namespace DJS.BLL
         {
             DelByDllId(Id);
             return iDllMgr.DeleteForm(Id);
+        }
+        #endregion
+
+        #region 根据id获取程序集实现类集合 +static List<SelectLists> GetDllNameList(string keyValue)
+        /// <summary>
+        /// 根据id删除数据
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static List<SelectLists> GetDllNameList(string keyValue)
+        {
+            List<SelectLists> list = new List<SelectLists>();
+            Model.DllMgr modelEntity = BLL.DllMgr.GetForm(keyValue);
+            if (modelEntity != null && !string.IsNullOrEmpty(modelEntity.ID))
+            {
+                ArrayList arry = Common.QuartzHelp.quartzHelp.GetIClassName(modelEntity.Name, modelEntity.NameSpace);
+                if (arry != null && arry.Count > 0)
+                {
+                    for (int i = 0; i < arry.Count; i++)
+                    {
+                        string val = string.Empty;
+                        if (arry[i] != null)
+                        {
+                            val = arry[i].ToString();
+                        }
+                        SelectLists sel = new SelectLists();
+                        sel.Name = val;
+                        list.Add(sel);
+                    }
+                }
+            }
+            return list;
         }
         #endregion
 

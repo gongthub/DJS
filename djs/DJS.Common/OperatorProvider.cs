@@ -24,7 +24,14 @@ namespace DJS.Common
             }
             else
             {
-                operatorModel = SecurityHelp.Decrypt(WebHelper.GetSession(LoginUserKey).ToString()).ToObject<OperatorModel>();
+                if (WebHelper.GetSession(LoginUserKey) != null)
+                {
+                    operatorModel = SecurityHelp.Decrypt(WebHelper.GetSession(LoginUserKey).ToString()).ToObject<OperatorModel>();
+                }
+                else
+                {
+                    operatorModel = null; 
+                }
             }
             return operatorModel;
         }

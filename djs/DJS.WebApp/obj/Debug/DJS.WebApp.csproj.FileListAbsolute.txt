@@ -1,6 +1,3 @@
-D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\RedisConfig.xml
-D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\SDKConfig.xml
-D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\XmlDB.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.WebApp.dll.config
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.WebApp.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.WebApp.pdb
@@ -98,3 +95,8 @@ D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\zh-Hant\System.Spatial.resources.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\obj\Debug\DJS.WebApp.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\obj\Debug\DJS.WebApp.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\obj\Debug\DJS.WebApp.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\RedisConfig.db
+D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\SDKConfig.db
+D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\XmlDB.db
+D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.SDK.Service.dll
+D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.SDK.Service.pdb

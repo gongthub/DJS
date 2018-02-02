@@ -635,6 +635,7 @@ namespace DJS.Common
                 bool ret = true;
                 try
                 {
+                    filePath = FileHelp.GetFullPath(filePath);
                     //创建XmlDocument对象
                     XmlDocument xmlDocument = new XmlDocument();
 
@@ -679,6 +680,7 @@ namespace DJS.Common
                 bool ret = true;
                 try
                 {
+                    filePath = FileHelp.GetFullPath(filePath);
                     //创建XmlDocument对象
                     XmlDocument xmlDocument = new XmlDocument();
 

@@ -483,6 +483,75 @@ namespace DJS.BLL
             }
             return bSatae;
         }
+
+        /// <summary>
+        /// 验证触发器名称是否已存在
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static bool IsExistTriggerName(string name, string keyvalue = "")
+        {
+            bool bSatae = false;
+            if (!string.IsNullOrEmpty(keyvalue))
+            {
+                List<Model.Jobs> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.Jobs model = models.Where(m => m.TriggerName == name && m.ID != keyvalue).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            else
+            {
+                List<Model.Jobs> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.Jobs model = models.Where(m => m.TriggerName == name).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            return bSatae;
+        }
+        /// <summary>
+        /// 验证配置名称是否已存在
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static bool IsExistConfigName(string name, string keyvalue = "")
+        {
+            bool bSatae = false;
+            if (!string.IsNullOrEmpty(keyvalue))
+            {
+                List<Model.Jobs> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.Jobs model = models.Where(m => m.ConfigName == name && m.ID != keyvalue).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            else
+            {
+                List<Model.Jobs> models = GetList();
+                if (models != null && models.Count > 0)
+                {
+                    Model.Jobs model = models.Where(m => m.ConfigName == name).FirstOrDefault();
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        bSatae = true;
+                    }
+                }
+            }
+            return bSatae;
+        }
         #endregion
 
         #region 根据id删除数据 +static bool DelById(string Id)
@@ -535,9 +604,7 @@ namespace DJS.BLL
                     Model.DllMgr ddlmgr = BLL.DllMgr.GetModelById(model.DLLID);
                     if (ddlmgr != null)
                     {
-
                         DJS.SDK.IConfigClient iconfig = (DJS.SDK.IConfigClient)Common.AssemblyHelp.assembly.GetDllTypeI(model.DLLName, model.AssType.Namespace, model.AssType.Name);
-
                         iconfig.SetConfig(model.Name);
                     }
                 }
@@ -611,15 +678,37 @@ namespace DJS.BLL
                 });
                 foreach (Model.Jobs model in models)
                 {
+                    model.IsAddPool = false;
                     Model.Jobs job = quartzs.Find(m => m.Name == model.Name);
                     if (job != null)
                     {
+                        model.IsAddPool = true;
                         model.State = job.State;
                         Enums.TriggerState st = (Enums.TriggerState)job.State;
                         model.StateName = Common.EnumHelp.enumHelp.GetDescription(st);
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取任务配置信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static List<SelectStrLists> GetConfigs(string keyValue)
+        {
+            SetConfigById(keyValue);
+            return iJobs.GetConfigs(keyValue);
+        }
+        /// <summary>
+        /// 保存任务配置信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool SaveConfigs(string keyValue, List<SelectStrLists> selConfigs)
+        {
+            return iJobs.SaveConfigs(keyValue, selConfigs);
         }
 
         #region 获取所有数据集合（包括已删除数据） +static List<Model.Jobs> GetAllList()
@@ -629,7 +718,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static List<Model.Jobs> GetAllList()
         {
-            List<Model.Jobs> models= iJobs.GetAllList();
+            List<Model.Jobs> models = iJobs.GetAllList();
             List<Model.Jobs> quartzs = GetJobsForQuartz();
             InitJobs(models, quartzs);
             return models;
@@ -664,7 +753,7 @@ namespace DJS.BLL
             {
                 expression = expression.And(t => t.Name.Contains(keyword));
             }
-            models= iJobs.GetList(pagination, expression);
+            models = iJobs.GetList(pagination, expression);
             List<Model.Jobs> quartzs = GetJobsForQuartz();
             InitJobs(models, quartzs);
             return models;
@@ -680,7 +769,22 @@ namespace DJS.BLL
         {
             if (IsExistName(modelEntity.Name, keyValue))
             {
-                throw new Exception("名称已存在！");
+                throw new Exception("任务名称已存在！");
+            }
+            if (IsExistTriggerName(modelEntity.TriggerName, keyValue))
+            {
+                throw new Exception("触发器名称已存在！");
+            }
+            if (IsExistConfigName(modelEntity.ConfigName, keyValue))
+            {
+                throw new Exception("配置名称已存在！");
+            }
+            Model.DllMgr ddlmgr = BLL.DllMgr.GetForm(modelEntity.DLLID);
+            if (ddlmgr != null)
+            {
+                modelEntity.DllVersion = ddlmgr.Version;
+                Type type = Common.AssemblyHelp.assembly.GetDllType(ddlmgr.Name, ddlmgr.NameSpace, modelEntity.ClassName);
+                modelEntity.AssType = type;
             }
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -728,6 +832,6 @@ namespace DJS.BLL
             }
             return ret;
         }
-       
+
     }
 }

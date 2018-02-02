@@ -19,7 +19,7 @@ namespace DJS.WebApp
             if (OperatorProvider.Provider.GetCurrent() == null)
             {
                 WebHelper.WriteCookie("djs_login_error", "overdue");
-                filterContext.HttpContext.Response.Write("<script>top.location.href = '/Login/Index';</script>");
+                filterContext.HttpContext.Response.Redirect("/Login/Index");
                 return;
             }
         }

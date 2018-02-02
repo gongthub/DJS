@@ -17,12 +17,14 @@ namespace DJS.Model
         public int Type { set; get; }
         public string TypeName { set; get; }
         public Type AssType { set; get; }
+        public string ClassName { set; get; }
         public int State { set; get; }
         public string StateName { set; get; }
         public string DLLID { set; get; }
         public string DLLName { set; get; }
         public string ConfigName { set; get; }
         public bool IsAuto { set; get; }
+        public bool IsAddPool { set; get; }
 
         /// <summary>
         /// Dll版本
