@@ -73,22 +73,70 @@ namespace DJS.DAL.XML
 
         public List<Model.Jobs> GetAllList()
         {
-            return GetAllModels<Model.Jobs>();
+            List<Model.Jobs> models = GetAllModels<Model.Jobs>();
+            if (models != null && models.Count > 0)
+            {
+                foreach (var item in models)
+                {
+                    item.TimeShow = string.Empty;
+                    if (item.Time != DateTime.MinValue)
+                    {
+                        item.TimeShow = item.Time.ToString("yyyy-MM-dd HH;mm:ss");
+                    }
+                }
+            }
+            return models;
         }
 
         public List<Model.Jobs> GetList()
         {
-            return GetModels<Model.Jobs>();
+            List<Model.Jobs> models = GetModels<Model.Jobs>();
+            if (models != null && models.Count > 0)
+            {
+                foreach (var item in models)
+                {
+                    item.TimeShow = string.Empty;
+                    if(item.Time!=DateTime.MinValue)
+                    {
+                        item.TimeShow = item.Time.ToString("yyyy-MM-dd HH;mm:ss");
+                    }
+                }
+            }
+            return models;
         }
 
         public List<Model.Jobs> GetList(Pagination pagination)
         {
-            return GetModels<Model.Jobs>(pagination);
+            List<Model.Jobs> models = GetModels<Model.Jobs>(pagination);
+            if (models != null && models.Count > 0)
+            {
+                foreach (var item in models)
+                {
+                    item.TimeShow = string.Empty;
+                    if (item.Time != DateTime.MinValue)
+                    {
+                        item.TimeShow = item.Time.ToString("yyyy-MM-dd HH;mm:ss");
+                    }
+                }
+            }
+            return models;
         }
 
         public List<Model.Jobs> GetList(Pagination pagination, Expression<Func<Model.Jobs, bool>> predicate)
         {
-            return GetModels<Model.Jobs>(pagination, predicate);
+            List<Model.Jobs> models = GetModels<Model.Jobs>(pagination, predicate);
+            if (models != null && models.Count > 0)
+            {
+                foreach (var item in models)
+                {
+                    item.TimeShow = string.Empty;
+                    if (item.Time != DateTime.MinValue)
+                    {
+                        item.TimeShow = item.Time.ToString("yyyy-MM-dd HH;mm:ss");
+                    }
+                }
+            }
+            return models;
         }
 
         public Model.Jobs GetForm(string keyValue)
@@ -96,6 +144,10 @@ namespace DJS.DAL.XML
             return GetModel<Model.Jobs>(keyValue);
         }
 
+        public Model.Jobs GetFormByName(string keyValue)
+        {
+            return GetModel<Model.Jobs>("Name", keyValue);
+        }
         public List<SelectStrLists> GetConfigs(string keyValue)
         {
             string cponfignames = string.Empty;
@@ -143,6 +195,10 @@ namespace DJS.DAL.XML
             bool bState = false;
             try
             {
+                if (modelEntity.Time != DateTime.MinValue)
+                {
+                    modelEntity.TimeShow = modelEntity.Time.ToString("yyyy-MM-dd HH;mm:ss");
+                }
                 Add(modelEntity);
                 bState = true;
             }
@@ -159,6 +215,10 @@ namespace DJS.DAL.XML
             bool bState = false;
             try
             {
+                if (modelEntity.Time != DateTime.MinValue)
+                {
+                    modelEntity.TimeShow = modelEntity.Time.ToString("yyyy-MM-dd HH;mm:ss");
+                }
                 Update(modelEntity, ConfigHelp.SYSKEYNAME, modelEntity.ID);
                 bState = true;
             }
@@ -193,5 +253,25 @@ namespace DJS.DAL.XML
             }
             return bState;
         }
+        public bool RemoveConfigs(string keyValue)
+        {
+            bool bState = false;
+            try
+            {
+                Model.Jobs model = GetForm(keyValue);
+                if (model != null)
+                {
+                    string cponfignames = CONFIGSPATH + @"/" + model.ConfigName;
+                    XmlHelp.xmlHelp.RemoveNode(SDKCONFIGPATH, cponfignames);
+                    bState = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return bState;
+        }
+
     }
 }

@@ -69,7 +69,7 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
         {
             try
             {
-                bool bState = BLL.TriggerGroup.DeleteByID(keyValue);
+                bool bState = BLL.TriggerGroup.RemoveByID(keyValue);
                 if (bState)
                 {
                     return Success("删除成功。");

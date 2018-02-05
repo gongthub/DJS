@@ -129,7 +129,7 @@ namespace DJS.WinApp
                     { 
                         if (FILENAMES != null && FILENAMES.Count > 0)
                         {
-                            BLL.JobFiles.DelByJobName(model.Name);
+                            BLL.JobFiles.RemoveByJobName(model.Name);
                             foreach (var file in FILENAMES)
                             {
 

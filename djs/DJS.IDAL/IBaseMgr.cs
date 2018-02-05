@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace DJS.IDAL
 {
     public interface IBaseMgr<TEntity>
+        where TEntity : class
     {
         /// <summary>
         /// 获取所有数据集合（包括未删除）

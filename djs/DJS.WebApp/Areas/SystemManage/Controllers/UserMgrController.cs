@@ -64,7 +64,7 @@ namespace DJS.WebApp.Areas.SystemManage.Controllers
         {
             try
             {
-                bool bState = BLL.UserMgr.DeleteByID(keyValue);
+                bool bState = BLL.UserMgr.RemoveByID(keyValue);
                 if (bState)
                 {
                     return Success("删除成功。");

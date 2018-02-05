@@ -4,7 +4,9 @@ using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -64,6 +66,7 @@ namespace DJS.BLL
                                     model.TriggerName = iTrigger.Key.Name;
                                     model.State = (int)state;
                                 }
+                                model.AddPoolTime = iTrigger.StartTimeUtc.LocalDateTime;
                                 models.Add(model);
                             }
                         }
@@ -86,6 +89,39 @@ namespace DJS.BLL
                 models = models.FindAll(m);
             }
             return models;
+        }
+        /// <summary>
+        /// 获取所有Quartz中 Jobs
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Jobs> GetJobsForQuartz(Pagination pagination, Expression<Func<Model.Jobs, bool>> predicate)
+        {
+            List<Model.Jobs> models = GetJobsForQuartz();
+            IQueryable<Model.Jobs> tempData = models.AsQueryable().Where(predicate);
+            bool isAsc = pagination.sord.ToLower() == "asc" ? true : false;
+            string[] _order = pagination.sidx.Split(',');
+            MethodCallExpression resultExp = null;
+            foreach (string item in _order)
+            {
+                string _orderPart = item;
+                _orderPart = Regex.Replace(_orderPart, @"\s+", " ");
+                string[] _orderArry = _orderPart.Split(' ');
+                string _orderField = _orderArry[0];
+                bool sort = isAsc;
+                if (_orderArry.Length == 2)
+                {
+                    isAsc = _orderArry[1].ToUpper() == "ASC" ? true : false;
+                }
+                var parameter = Expression.Parameter(typeof(Model.Jobs), "t");
+                var property = typeof(Model.Jobs).GetProperty(_orderField);
+                var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+                var orderByExp = Expression.Lambda(propertyAccess, parameter);
+                resultExp = Expression.Call(typeof(Queryable), isAsc ? "OrderBy" : "OrderByDescending", new Type[] { typeof(Model.Jobs), property.PropertyType }, tempData.Expression, Expression.Quote(orderByExp));
+            }
+            tempData = tempData.Provider.CreateQuery<Model.Jobs>(resultExp);
+            pagination.records = tempData.Count();
+            tempData = tempData.Skip<Model.Jobs>(pagination.rows * (pagination.page - 1)).Take<Model.Jobs>(pagination.rows).AsQueryable();
+            return tempData.ToList();
         }
         #endregion
 
@@ -135,6 +171,38 @@ namespace DJS.BLL
         }
         #endregion
 
+        #region 根据任务ID触发任务 +static bool TriggerJob(string jobID)
+        /// <summary>
+        /// 根据任务ID触发任务
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static bool TriggerJob(string jobID)
+        {
+            bool ret = false;
+
+            Model.Jobs model = GetForm(jobID);
+            if (model != null)
+            {
+                ISet<JobKey> jobkeys = Common.QuartzHelp.quartzHelp.GetJobKeys(model.GroupName);
+                if (jobkeys != null && jobkeys.Count > 0)
+                {
+                    JobKey key = jobkeys.First(m => m.Name == model.Name && m.Group == model.GroupName);
+                    if (key != null)
+                    {
+                        ret = Common.QuartzHelp.quartzHelp.TriggerJob(key);
+                    }
+                }
+                else
+                {
+                    ret = false;
+                }
+            }
+
+            return ret;
+        }
+        #endregion
+
         #region 根据任务组和任务名称暂停任务 +static bool PauseJob(string groupName,string name)
         /// <summary>
         /// 根据任务组和任务名称暂停任务
@@ -158,6 +226,39 @@ namespace DJS.BLL
             else
             {
                 ret = false;
+            }
+
+            return ret;
+        }
+        #endregion
+
+        #region 根据jobID暂停任务 +static bool PauseJob(string jobID)
+        /// <summary>
+        /// 根据jobID暂停任务
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static bool PauseJob(string jobID)
+        {
+            bool ret = false;
+            Model.Jobs model = GetForm(jobID);
+            if (model != null)
+            {
+                ISet<JobKey> jobkeys = Common.QuartzHelp.quartzHelp.GetJobKeys(model.GroupName);
+
+                if (jobkeys != null && jobkeys.Count > 0)
+                {
+                    JobKey key = jobkeys.First(m => m.Name == model.Name && m.Group == model.GroupName);
+                    if (key != null)
+                    {
+                        Common.QuartzHelp.quartzHelp.PauseJob(key);
+                        ret = true;
+                    }
+                }
+                else
+                {
+                    ret = false;
+                }
             }
 
             return ret;
@@ -189,6 +290,38 @@ namespace DJS.BLL
                 ret = false;
             }
 
+            return ret;
+        }
+        #endregion
+
+        #region 根据jobID继续任务 +static bool ResumeJob(string jobID)
+        /// <summary>
+        /// 根据jobID继续任务
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public static bool ResumeJob(string jobID)
+        {
+            bool ret = false;
+            Model.Jobs model = GetForm(jobID);
+            if (model != null)
+            {
+                ISet<JobKey> jobkeys = Common.QuartzHelp.quartzHelp.GetJobKeys(model.GroupName);
+
+                if (jobkeys != null && jobkeys.Count > 0)
+                {
+                    JobKey key = jobkeys.First(m => m.Name == model.Name && m.Group == model.GroupName);
+                    if (key != null)
+                    {
+                        Common.QuartzHelp.quartzHelp.ResumeJob(key);
+                        ret = true;
+                    }
+                }
+                else
+                {
+                    ret = false;
+                }
+            }
             return ret;
         }
         #endregion
@@ -268,6 +401,48 @@ namespace DJS.BLL
         }
         #endregion
 
+        #region 添加任务包括添加到Quartz +bool AddJobs(string jobID)
+        /// <summary>
+        /// 添加任务包括添加到Quartz
+        /// </summary>
+        /// <returns></returns>
+        public static bool AddJobs(string jobID)
+        {
+            if (IsExistJobkeyById(jobID))
+            {
+                throw new Exception("该任务已在任务池，禁止重复添加！");
+            }
+            bool ret = true;
+            try
+            {
+                Model.Jobs model = GetForm(jobID);
+                if (model != null)
+                {
+                    if (model.Type == (int)Enums.TimeType.Periodicity)
+                    {
+                        //model.Crons = "0 0 0 ? * MON";
+                        Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                    }
+                    if (model.Type == (int)Enums.TimeType.Disposable)
+                    {
+                        Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                    }
+                }
+                else
+                {
+                    ret = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ret = false;
+                Common.LogHelp.logHelp.WriteLog(ex.Message, Enums.LogType.Error);
+            }
+            return ret;
+        }
+        #endregion
+
         #region 添加任务包括添加到Quartz +bool AddJobs(Model.Jobs model)
         /// <summary>
         /// 添加任务包括添加到Quartz
@@ -329,7 +504,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool DelByIdForQuartz(string Id)
         {
-            bool ret = true;
+            bool ret = false;
             try
             {
                 JobKey key = GetJobkeyById(Id);
@@ -363,7 +538,7 @@ namespace DJS.BLL
                 {
                     ret = Common.QuartzHelp.quartzHelp.DeleteJob(key);
                 }
-                ret = DelById(Id);
+                ret = RemoveByID(Id);
             }
             catch (Exception ex)
             {
@@ -554,27 +729,6 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据 +static bool DelById(string Id)
-        /// <summary>
-        /// 根据id删除数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public static bool DelById(string Id)
-        {
-            bool ret = true;
-            try
-            {
-                ret = BLL.JobFiles.DelByJobId(Id);
-                ret = iJobs.DeleteForm(Id);
-            }
-            catch
-            {
-            }
-            return ret;
-        }
-        #endregion
-
         #region 添加 +static bool Add(Model.Jobs model)
         /// <summary>
         /// 添加实体
@@ -664,6 +818,50 @@ namespace DJS.BLL
         /// </summary>
         /// <param name="models"></param>
         /// <param name="quartzs"></param>
+        private static void InitJobs(List<Model.Jobs> quartzs)
+        {
+            if (quartzs != null && quartzs.Count > 0)
+            {
+                quartzs.ForEach(delegate(Model.Jobs job)
+                {
+                    Model.Jobs model = GetFormByName(job.Name);
+                    if (model != null)
+                    {
+                        job.ID = model.ID;
+                        job.Name = model.Name;
+                        job.GroupName = model.GroupName;
+                        job.TriggerName = model.TriggerName;
+                        job.TriggerGroup = model.TriggerGroup;
+                        job.Crons = model.Crons;
+                        job.Time = model.Time;
+                        job.Type = model.Type;
+                        job.TypeName = model.TypeName;
+                        job.AssType = model.AssType;
+                        job.ClassName = model.ClassName;
+                        job.DLLID = model.DLLID;
+                        job.DLLName = model.DLLName;
+                        job.ConfigName = model.ConfigName;
+                        job.IsAuto = model.IsAuto;
+                        job.DllVersion = model.DllVersion;
+                        job.Description = model.Description;
+                        job.CreatorTime = model.CreatorTime;
+                    }
+                    job.IsAddPool = true;
+
+                    Enums.TimeType st = (Enums.TimeType)job.Type;
+                    job.TypeName = Common.EnumHelp.enumHelp.GetDescription(st);
+
+                    Enums.TriggerState sts = (Enums.TriggerState)job.State;
+                    job.StateName = Common.EnumHelp.enumHelp.GetDescription(sts);
+                });
+            }
+        }
+
+        /// <summary>
+        /// 处理任务状态
+        /// </summary>
+        /// <param name="models"></param>
+        /// <param name="quartzs"></param>
         private static void InitJobs(List<Model.Jobs> models, List<Model.Jobs> quartzs)
         {
             if (models != null && models.Count > 0)
@@ -709,6 +907,40 @@ namespace DJS.BLL
         public static bool SaveConfigs(string keyValue, List<SelectStrLists> selConfigs)
         {
             return iJobs.SaveConfigs(keyValue, selConfigs);
+        }
+        /// <summary>
+        /// 获取任务文件信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static List<Model.JobFiles> GetJobFiles(string keyValue)
+        {
+            return BLL.JobFiles.GetModels(keyValue);
+        }
+        /// <summary>
+        /// 获取任务文件信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static void SaveJobFiles(List<Model.JobFiles> jobFiles)
+        {
+            if (jobFiles != null && jobFiles.Count > 0)
+            {
+                foreach (var jobFile in jobFiles)
+                {
+                    BLL.JobFiles.Add(jobFile);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取任务文件信息
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static void DeleteFile(string keyValue)
+        {
+            BLL.JobFiles.RemoveByID(keyValue);
         }
 
         #region 获取所有数据集合（包括已删除数据） +static List<Model.Jobs> GetAllList()
@@ -758,6 +990,25 @@ namespace DJS.BLL
             InitJobs(models, quartzs);
             return models;
         }
+
+        /// <summary>
+        /// 获取所有任务池数据
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public static List<Model.Jobs> GetJobPoolList(Pagination pagination, string keyword)
+        {
+            List<Model.Jobs> models = new List<Model.Jobs>();
+            var expression = ExtLinq.True<Model.Jobs>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.Name.Contains(keyword));
+            }
+            models = GetJobsForQuartz(pagination, expression);
+            InitJobs(models);
+            return models;
+        }
         #endregion
 
         public static Model.Jobs GetForm(string keyValue)
@@ -765,8 +1016,16 @@ namespace DJS.BLL
             return iJobs.GetForm(keyValue);
         }
 
+        public static Model.Jobs GetFormByName(string keyValue)
+        {
+            return iJobs.GetFormByName(keyValue);
+        }
         public static bool SubmitForm(Model.Jobs modelEntity, string keyValue)
         {
+            if (IsExistJobkeyById(keyValue))
+            {
+                throw new Exception("该任务已在任务池，请先移除任务池！");
+            }
             if (IsExistName(modelEntity.Name, keyValue))
             {
                 throw new Exception("任务名称已存在！");
@@ -813,7 +1072,18 @@ namespace DJS.BLL
         /// <returns></returns>
         public static bool DeleteForm(string keyValue)
         {
-            return iJobs.DeleteForm(keyValue);
+            bool ret = false;
+            Model.Jobs model = GetForm(keyValue);
+            if (model != null)
+            {
+                ret = BLL.JobFiles.DelByJobId(keyValue);
+                ret = iJobs.RemoveConfigs(keyValue);
+                if (ret)
+                {
+                    ret = iJobs.DeleteForm(keyValue);
+                }
+            }
+            return ret;
         }
 
         /// <summary>
@@ -827,11 +1097,39 @@ namespace DJS.BLL
             Model.Jobs model = GetForm(keyValue);
             if (model != null)
             {
-                model.Remove();
-                ret = UpdateForm(model);
+                ret = BLL.JobFiles.RemoveByJobId(keyValue);
+                ret = iJobs.RemoveConfigs(keyValue);
+                if (ret)
+                {
+                    model.Remove();
+                    ret = UpdateForm(model);
+                }
             }
             return ret;
         }
 
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool RemoveByID(string keyValue)
+        {
+            if (IsExistJobkeyById(keyValue))
+            {
+                throw new Exception("该任务已在任务池，请先移除任务池！");
+            }
+            bool bState = true;
+            if (ConfigHelp.SYSDELETEMODEL == 0)
+            {
+                bState = DeleteByID(keyValue);
+            }
+            else
+                if (ConfigHelp.SYSDELETEMODEL == 1)
+                {
+                    bState = DeleteForm(keyValue);
+                }
+            return bState;
+        }
     }
 }

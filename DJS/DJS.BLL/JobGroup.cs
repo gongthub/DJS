@@ -97,18 +97,6 @@ namespace DJS.BLL
         }
         #endregion
 
-        #region 根据id删除数据 +static bool DelById(Guid Id)
-        /// <summary>
-        /// 根据id删除数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public static bool DelById(string Ids)
-        {
-            return iJobGroup.DeleteForm(Ids);
-        } 
-        #endregion
-
         #region 获取所有数据集合（包括已删除数据） +static List<Model.JobGroup> GetAllList()
         /// <summary>
         /// 获取所有数据集合（包括已删除数据）
@@ -208,6 +196,51 @@ namespace DJS.BLL
                 ret = UpdateForm(model);
             }
             return ret;
+        }
+
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool RemoveByID(string keyValue)
+        {
+            if (IsHasQuote(keyValue))
+            {
+                throw new Exception("该数据已被引用！");
+            }
+            bool bState = true;
+            if (ConfigHelp.SYSDELETEMODEL == 0)
+            {
+                bState = DeleteByID(keyValue);
+            }
+            else
+                if (ConfigHelp.SYSDELETEMODEL == 1)
+                {
+                    bState = DeleteForm(keyValue);
+                }
+            return bState;
+        }
+
+        /// <summary>
+        /// 判断是否被引用
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        private static bool IsHasQuote(string keyValue)
+        {
+            bool bState = false;
+            List<Model.Jobs> models = BLL.Jobs.GetList();
+            if (models != null && models.Count > 0)
+            {
+                models = models.Where(m => m.GroupName == keyValue).ToList();
+                if (models != null && models.Count > 0)
+                {
+                    bState = true;
+                }
+            }
+            return bState;
         }
     }
 }

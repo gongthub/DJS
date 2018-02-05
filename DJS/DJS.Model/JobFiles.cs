@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DJS.Model
 {
-    public class JobFiles
+    public class JobFiles : BaseEntity<JobFiles>
     {
-        public string ID { set; get; }
         public string JobID { set; get; }
         public string Name { set; get; }
         public string JobName { set; get; }

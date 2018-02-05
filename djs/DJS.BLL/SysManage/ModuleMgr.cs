@@ -135,5 +135,25 @@ namespace DJS.BLL
             }
             return ret;
         }
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool RemoveByID(string keyValue)
+        {
+            bool bState = true;
+            if (ConfigHelp.SYSDELETEMODEL == 0)
+            {
+                bState = DeleteByID(keyValue);
+            }
+            else
+                if (ConfigHelp.SYSDELETEMODEL == 1)
+                {
+                    bState = DeleteForm(keyValue);
+                }
+            return bState;
+        }
     }
 }

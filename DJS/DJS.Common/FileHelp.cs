@@ -69,13 +69,13 @@ namespace DJS.Common
             {
                 if (!FileExists(path))
                 {
-                    path= HttpContext.Current.Server.MapPath(path); 
+                    path = HttpContext.Current.Server.MapPath(path);
                 }
                 return path;
             }
             else
             {
-                return System.IO.Path.GetFullPath(path); 
+                return System.IO.Path.GetFullPath(path);
             }
         }
         #endregion
@@ -185,6 +185,24 @@ namespace DJS.Common
         }
         #endregion
 
+        #region 移动指定文件到指定路径
+        /// <summary>
+        /// 移动指定文件到指定路径
+        /// </summary>
+        /// <param name="sourcePath">源文件路径</param>
+        /// <param name="targetPath">目标文件路径</param>
+        /// <param name="delSourceFile">是否删除原文件</param>
+        public static void MoveFiles(string sourcePath, string targetPath)
+        {
+            sourcePath = GetFullPath(sourcePath);
+            string filename = System.IO.Path.GetFileName(sourcePath);
+            targetPath = GetFullPath(targetPath);
+            CreateDirectory(targetPath);
+            targetPath = targetPath + @"/" + filename;
+            File.Move(sourcePath, targetPath);
+        }
+        #endregion
+
         #region 删除指定目录的所有文件和子目录
         /// <summary>
         /// 删除指定目录的所有文件和子目录
@@ -228,6 +246,7 @@ namespace DJS.Common
         /// <param name="targetDir"></param>
         public static void CreateDirectory(string targetDir)
         {
+            targetDir = GetFullPath(targetDir);
             DirectoryInfo dir = new DirectoryInfo(targetDir);
             if (!dir.Exists)
                 dir.Create();

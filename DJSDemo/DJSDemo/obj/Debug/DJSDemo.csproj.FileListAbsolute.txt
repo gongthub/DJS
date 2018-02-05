@@ -1,0 +1,13 @@
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\DJSDemo.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\DJSDemo.pdb
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\Common.Logging.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\DJS.SDK.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\EntityFramework.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\NLog.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\Quartz.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\bin\Debug\Vlinker.Common.ApiInvoker4.0.0.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\obj\Debug\DJSDemo.dll
+C:\Users\Tony\Desktop\DJSDemo\DJSDemo\obj\Debug\DJSDemo.pdb

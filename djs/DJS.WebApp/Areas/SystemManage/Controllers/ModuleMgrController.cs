@@ -79,7 +79,7 @@ namespace DJS.WebApp.Areas.SystemManage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
-            bool bState = BLL.ModuleMgr.DeleteByID(keyValue);
+            bool bState = BLL.ModuleMgr.RemoveByID(keyValue);
             if (bState)
             {
                 return Success("删除成功。");

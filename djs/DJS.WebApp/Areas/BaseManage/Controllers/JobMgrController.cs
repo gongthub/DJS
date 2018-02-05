@@ -71,7 +71,7 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
         {
             try
             {
-                bool bState = BLL.Jobs.DeleteByID(keyValue);
+                bool bState = BLL.Jobs.RemoveByID(keyValue);
                 if (bState)
                 {
                     return Success("删除成功。");
@@ -141,6 +141,84 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
                     }
                 }
 
+                if (bState)
+                {
+                    return Success("操作成功。");
+                }
+                else
+                {
+                    return Error("操作失败。");
+                }
+            }
+            catch (Exception e)
+            {
+                return Error(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult Files()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetJobFiles(string keyValue)
+        {
+            var data = BLL.Jobs.GetJobFiles(keyValue);
+            return Content(data.ToJson());
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitJobFiles()
+        {
+            try
+            {
+                if (Request["jobFiles"] != null)
+                {
+                    List<Model.JobFiles> jobFiles = JsonHelp.ToObject<List<Model.JobFiles>>(Request["jobFiles"].ToString());
+                    BLL.Jobs.SaveJobFiles(jobFiles);
+
+                }
+                return Success("操作成功。");
+            }
+            catch (Exception e)
+            {
+                return Error(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [HandlerAuthorize]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteFile(string keyValue)
+        {
+            try
+            {
+                BLL.Jobs.DeleteFile(keyValue);
+                return Success("删除成功。");
+            }
+            catch (Exception e)
+            {
+                return Error("删除失败。");
+            }
+        }
+
+
+        [HttpPost]
+        [HandlerAuthorize]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPools(string keyValue)
+        {
+            try
+            {
+                bool bState = BLL.Jobs.AddJobs(keyValue);
                 if (bState)
                 {
                     return Success("操作成功。");

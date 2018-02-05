@@ -104,3 +104,6 @@ D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ServiceTest\bin\Debug\PM
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ServiceTest\bin\Debug\PMPRoomChangeService.pdb
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ServiceTest\bin\Debug\ContractChangeLogService.dll
 D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ServiceTest\bin\Debug\ContractChangeLogService.pdb
+D:\MyFiles\GIT\DJS\DJS_Service\ServiceTest\bin\Debug\ServiceTest.exe.config
+D:\MyFiles\GIT\DJS\DJS_Service\ServiceTest\obj\Debug\ServiceTest.exe
+D:\MyFiles\GIT\DJS\DJS_Service\ServiceTest\obj\Debug\ServiceTest.pdb

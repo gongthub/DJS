@@ -103,7 +103,10 @@ $.modalOpen = function (options) {
         btn: options.btn,
         btnclass: options.btnclass,
         yes: function () {
-            options.callBack(options.id)
+            if (options.callBack != null)
+            {
+                options.callBack(options.id)
+            }
         }, cancel: function () {
             return true;
         }

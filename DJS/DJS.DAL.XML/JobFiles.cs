@@ -1,4 +1,5 @@
 ﻿using DJS.Common;
+using DJS.Common.Util;
 using DJS.IDAL;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Xml;
 
 namespace DJS.DAL.XML
 {
-    public class JobFiles : IJobFiles
+    public class JobFiles : XmlDB, IJobFiles
     {
         /// <summary>
         /// 配置文件路径
@@ -22,101 +23,29 @@ namespace DJS.DAL.XML
 
         private const string ELENMENTNAME = "JOBFILE";
 
-        #region  获取所有jobs +List<Model.JobFiles> GetModels()
-        /// <summary>
-        /// 获取所有jobs
-        /// </summary>
-        /// <returns></returns>
-        public List<Model.JobFiles> GetModels()
+        public JobFiles()
+            : base(XMLDBCONFIGPATH, GROUPPATH, GROUPSPATH, ELENMENTNAME)
         {
-            List<Model.JobFiles> models = new List<Model.JobFiles>();
-            XmlNodeList list = XmlHelp.xmlHelp.GetNodes(XMLDBCONFIGPATH, GROUPPATH);
-            if (list != null && list.Count > 0)
-            {
-                Model.JobFiles group = new Model.JobFiles();
-                foreach (XmlNode node in list)
-                {
-                    group = new Model.JobFiles();
-                    group = XmlHelp.xmlHelp.SetNodeToModel(group, node);
-                    models.Add(group);
-                }
-            }
-            return models;
         }
-        #endregion
 
-        #region 根据id获取job +Model.JobFiles GetModelById(string Id)
-        /// <summary>
-        /// 根据id获取job
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public Model.JobFiles GetModelById(string Id)
-        {
-            Model.JobFiles model = new Model.JobFiles();
-            List<Model.JobFiles> models = GetModels();
-            if (models != null && models.Count > 0)
-            {
-                model = models.Find(m => m.ID == Id);
-
-            }
-            return model;
-        }
-        #endregion
-
-        #region 根据名称判断是否存在 +bool IsExist(string name)
+        #region 根据名称判断是否存在 +bool IsExist(string name,string jobID)
         /// <summary>
         /// 根据名称判断是否存在
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public bool IsExist(string name)
+        public bool IsExist(string name, string jobID)
         {
             bool ret = false;
-            List<Model.JobFiles> models = GetModels();
+            List<Model.JobFiles> models = GetList();
             if (models != null && models.Count > 0)
             {
-                Model.JobFiles model = models.Find(m => m.Name == name);
+                Model.JobFiles model = models.Find(m => m.Name == name && m.JobID == jobID);
                 if (model != null)
                 {
                     ret = true;
                 }
             }
-            return ret;
-        }
-        #endregion
-
-        #region 添加 +bool Add(Model.JobFiles model)
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public bool Add(Model.JobFiles model)
-        {
-            bool ret = true;
-            try
-            {
-                XmlHelp.xmlHelp.AppendNode<Model.JobFiles>(model, XMLDBCONFIGPATH, GROUPSPATH, ELENMENTNAME);
-            }
-            catch
-            {
-                ret = false;
-            }
-            return ret;
-        }
-        #endregion
-
-        #region 根据id删除数据 +bool DelById(string Id)
-        /// <summary>
-        /// 根据id删除数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public bool DelById(string Id)
-        {
-            bool ret = false;
-            ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, ConfigHelp.SYSKEYNAME, Id);
             return ret;
         }
         #endregion
@@ -132,7 +61,7 @@ namespace DJS.DAL.XML
             bool ret = false;
             ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, "JobID", JobId);
             return ret;
-        } 
+        }
         #endregion
 
         #region 根据JobName删除数据 +bool DelByJobName(string JobName)
@@ -146,7 +75,103 @@ namespace DJS.DAL.XML
             bool ret = false;
             ret = XmlHelp.xmlHelp.RemoveNode(XMLDBCONFIGPATH, GROUPPATH, "JobName", JobName);
             return ret;
-        } 
+        }
         #endregion
+
+        public List<Model.JobFiles> GetAllList()
+        {
+            return GetAllModels<Model.JobFiles>();
+        }
+
+        public List<Model.JobFiles> GetList()
+        {
+            return GetModels<Model.JobFiles>();
+        }
+
+        public List<Model.JobFiles> GetList(Pagination pagination)
+        {
+            return GetModels<Model.JobFiles>(pagination);
+        }
+
+        public List<Model.JobFiles> GetList(Pagination pagination, System.Linq.Expressions.Expression<Func<Model.JobFiles, bool>> predicate)
+        {
+            return GetModels<Model.JobFiles>(pagination, predicate);
+        }
+
+        public Model.JobFiles GetForm(string keyValue)
+        {
+            return GetModel<Model.JobFiles>(keyValue);
+        }
+
+        public bool DeleteForm(string keyValue)
+        {
+            bool bState = false;
+            try
+            {
+                Remove(ConfigHelp.SYSKEYNAME, keyValue);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
+
+        public bool DeleteByName(string name)
+        {
+            bool bState = false;
+            try
+            {
+                Remove("Name", name);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
+
+        public bool AddForm(Model.JobFiles modelEntity)
+        {
+            bool bState = false;
+            try
+            {
+                Add(modelEntity);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
+
+        public bool UpdateForm(Model.JobFiles modelEntity)
+        {
+            bool bState = false;
+            try
+            {
+                Update(modelEntity, ConfigHelp.SYSKEYNAME, modelEntity.ID);
+                bState = true;
+            }
+            catch (Exception e)
+            {
+                bState = false;
+                throw e;
+            }
+            return bState;
+        }
+
+        public List<Model.JobFiles> GetModels(string jobId)
+        {
+            List<Model.JobFiles> models = GetList();
+            models = models.Where(m => m.JobID == jobId).ToList();
+            return models;
+        }
     }
 }

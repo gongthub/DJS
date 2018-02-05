@@ -25,6 +25,7 @@ namespace DJS.Model
         public string ConfigName { set; get; }
         public bool IsAuto { set; get; }
         public bool IsAddPool { set; get; }
+        public string TimeShow { set; get; }
 
         /// <summary>
         /// Dll版本
@@ -37,6 +38,7 @@ namespace DJS.Model
         public string Description { set; get; }
 
         public bool? EnabledMark { get; set; }
+        public DateTime AddPoolTime { set; get; }
 
     }
 }

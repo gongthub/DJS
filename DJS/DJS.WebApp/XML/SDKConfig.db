@@ -108,4 +108,14 @@
     <CONFIG Name="ReCalculationDays" Value="90" />
     <CONFIG Name="EFDbContext" Value="Data Source=192.168.20.15;User Id=AMS;Password=amsVlinker123;Database=AMS;" />
   </DailyRentApportionService>
+  <DJSDemo>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </DJSDemo>
 </CONFIGS>

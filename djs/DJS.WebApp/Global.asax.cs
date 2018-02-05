@@ -22,6 +22,9 @@ namespace DJS.WebApp
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //自启动程序
+            BLL.Jobs.StartAutoJobs();
         }
     }
 }

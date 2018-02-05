@@ -400,6 +400,38 @@ namespace DJS.Common.Util
         }
 
         /// <summary>
+        /// 获取指定数据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        protected T GetModel<T>(string keyName,string keyValue)
+        {
+            lock (LOCKOBJ)
+            {
+                T t = System.Activator.CreateInstance<T>();
+                List<T> models = new List<T>();
+                XmlNodeList list = XmlHelp.xmlHelp.GetNodes(xPath, groupPath);
+                if (list != null && list.Count > 0)
+                {
+                    foreach (XmlNode node in list)
+                    {
+                        XmlAttributeCollection attrs = node.Attributes;
+                        if (attrs != null && attrs.Count > 0)
+                        {
+                            XmlAttribute attr = XmlHelp.xmlHelp.GetAttByName(attrs, keyName);
+                            if (attr != null && attr.Value == keyValue)
+                            {
+                                t = XmlHelp.xmlHelp.SetNodeToModel(t, node);
+                                break;
+                            }
+                        }
+                    }
+                }
+                return t;
+            }
+        }
+
+        /// <summary>
         /// 保存
         /// </summary>
         private void Save()

@@ -40,6 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DJS_Service\DLL\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -151,6 +155,7 @@
     <Compile Include="Areas\BaseManage\Controllers\DllMgrController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\JobGroupMgrController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\JobMgrController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\JobPoolController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\TriggerGroupMgrController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\UserMgrController.cs" />
     <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
@@ -473,6 +478,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="packages.config" />
     <Content Include="Areas\BaseManage\Views\JobMgr\Configs.cshtml" />
+    <Content Include="Areas\BaseManage\Views\JobMgr\Files.cshtml" />
+    <Content Include="Areas\BaseManage\Views\JobPool\Index.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="XML\RedisConfig.db">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

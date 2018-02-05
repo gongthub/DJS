@@ -11,6 +11,8 @@ namespace DJS.Common
 {
     public class HttpUploadFileHelp
     {
+        private const string DLL_TYPE = "dll";
+        private const string JOBFILES_TYPE = "jobfiles";
         #region 单例模式创建对象
         //单例模式创建对象
         private static HttpUploadFileHelp _httpUploadFileHelp = null;
@@ -49,10 +51,14 @@ namespace DJS.Common
             UpFileDTO entity = new UpFileDTO();
 
             switch (uploadType)
-            { 
-                case "dll":
+            {
+                case DLL_TYPE:
                     string filePaths=GenFilePath(uploadType,dirName);
                     entity = UpLoadDllFile(file,filePaths);
+                    break;
+                case JOBFILES_TYPE:
+                    string jobfilesPaths = GenFilePath(uploadType, dirName);
+                    entity = UpLoadJobFile(file, jobfilesPaths);
                     break;
             }
             return entity;
@@ -67,6 +73,19 @@ namespace DJS.Common
         {
             //验证 
             VerifyFile(file, ConfigHelp.UPLOADDLLEXT);
+            return UpLoadFile(file, filePath);
+        }
+
+
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public UpFileDTO UpLoadJobFile(HttpPostedFileBase file, string filePath)
+        {
+            //验证 
+            //VerifyFile(file, ConfigHelp.UPLOADDLLEXT);
             return UpLoadFile(file, filePath);
         }
 
@@ -196,8 +215,11 @@ namespace DJS.Common
             string strPaths = string.Empty;
             switch (uploadType)
             {
-                case "dll":
+                case DLL_TYPE:
                     strPaths= ConfigHelp.AssemblySrcPath + name + "/";
+                    break;
+                case JOBFILES_TYPE:
+                    strPaths = ConfigHelp.JobFileSrcPath + name + "/";
                     break;
             }
             return strPaths;

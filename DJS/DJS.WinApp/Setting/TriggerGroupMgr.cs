@@ -131,7 +131,7 @@ namespace DJS.WinApp
                             Guid id = Guid.Empty;
                             if (Guid.TryParse(ids, out id))
                             {
-                                if (BLL.TriggerGroup.DeleteForm(ids))
+                                if (BLL.TriggerGroup.RemoveByID(ids))
                                 {
                                     BindList();
                                 }

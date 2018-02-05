@@ -80,7 +80,7 @@ namespace DJS.WebApp.Areas.BaseManage.Controllers
         {
             try
             {
-                bool bState = BLL.DllMgr.DelById(keyValue);
+                bool bState = BLL.DllMgr.RemoveByID(keyValue);
                 if (bState)
                 {
                     return Success("删除成功。");

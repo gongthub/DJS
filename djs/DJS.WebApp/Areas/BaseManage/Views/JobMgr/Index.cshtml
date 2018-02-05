@@ -17,10 +17,20 @@
                 { label: '触发器', name: 'TriggerName', width: 120, align: 'left' },
                 { label: '配置名称', name: 'ConfigName', width: 150, align: 'left' },
                 { label: '策略', name: 'Crons', width: 80, align: 'left' },
-                { label: '时间', name: 'Time', width: 120, align: 'left' },
+                { label: '时间', name: 'TimeShow', width: 120, align: 'left' },
                 { label: '类型', name: 'TypeName', width: 80, align: 'left' },
                 { label: '程序集', name: 'DLLName', width: 120, align: 'left' },
                 { label: '程序集版本', name: 'DllVersion', width: 80, align: 'left' },
+                {
+                    label: '是否自启动', name: 'IsAuto', width: 80, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue == true) {
+                            return '是';
+                        } else {
+                            return '否';
+                        }
+                    }
+                },
                 {
                     label: '已加入任务池', name: 'IsAddPool', width: 80, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
@@ -68,7 +78,10 @@
                 title: "修改任务组",
                 url: "/BaseManage/JobMgr/Form?keyValue=" + keyValue,
                 width: "700px",
-                height: "510px"
+                height: "510px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
             });
         } else {
             $.modalMsgWarning("请选择一行数据！");
@@ -123,6 +136,38 @@
             $.modalMsgWarning("请选择一行数据！");
         }
     }
+    function btn_files() {
+        var keyValue = $("#gridList").jqGridRowValue().ID;
+        var jobName = $("#gridList").jqGridRowValue().Name;
+        jobName = encodeURI(jobName);
+        if (keyValue != null && keyValue != undefined && keyValue != "") {
+            $.modalOpen({
+                id: "Details",
+                title: "附件管理",
+                url: "/BaseManage/JobMgr/Files?keyValue=" + keyValue + "&jobName=" + jobName,
+                width: "700px",
+                height: "580px",
+                btn: null
+            });
+        } else {
+            $.modalMsgWarning("请选择一行数据！");
+        }
+    }
+    function btn_addpools() {
+        var keyValue = $("#gridList").jqGridRowValue().ID;
+        if (keyValue != null && keyValue != undefined && keyValue != "") {
+            $.deleteForm({
+                prompt: "是否确认加入任务池？",
+                url: "/BaseManage/JobMgr/AddPools",
+                param: { keyValue: keyValue },
+                success: function () {
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                }
+            });
+        } else {
+            $.modalMsgWarning("请选择一行数据！");
+        }
+    }
 </script>
 
 <div class="topPanel">
@@ -139,9 +184,9 @@
                 <li><a id="NF-edit" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改任务</a></li>
                 <li><a id="NF-delete" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除任务</a></li>
                 <li><a id="NF-Details" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看任务</a></li>
-                <li><a id="NF-Configs" onclick="btn_configs()"><i class="fa fa-search-plus"></i>配置管理</a></li>
-                <li><a id="NF-Files" onclick="btn_files()"><i class="fa fa-search-plus"></i>附件管理</a></li>
-                <li><a id="NF-AddPools" onclick="btn_addpools()"><i class="fa fa-search-plus"></i>加入任务池</a></li>
+                <li><a id="NF-Configs" onclick="btn_configs()"><i class="fa fa-file-code-o"></i>配置管理</a></li>
+                <li><a id="NF-Files" onclick="btn_files()"><i class="fa fa-file-o"></i>附件管理</a></li>
+                <li><a id="NF-AddPools" onclick="btn_addpools()"><i class="fa fa-ellipsis-h"></i>加入任务池</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

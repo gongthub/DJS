@@ -671,9 +671,7 @@ namespace DJS.Common
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="xPath">xml路径</param>
-        /// <param name="attName">属性名称</param>
-        /// <param name="val">属性值</param>
-        public bool RemoveNode(string filePath, string xPath, string attName)
+        public bool RemoveNode(string filePath, string xPath)
         {
             lock (LOCKOBJW)
             {

@@ -209,5 +209,49 @@ namespace DJS.BLL
             }
             return ret;
         }
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public static bool RemoveByID(string keyValue)
+        {
+            if (IsHasQuote(keyValue))
+            {
+                throw new Exception("该数据已被引用！");
+            }
+            bool bState = true;
+            if (ConfigHelp.SYSDELETEMODEL == 0)
+            {
+                bState = DeleteByID(keyValue);
+            }
+            else
+                if (ConfigHelp.SYSDELETEMODEL == 1)
+                {
+                    bState = DeleteForm(keyValue);
+                }
+            return bState;
+        }
+
+        /// <summary>
+        /// 判断是否被引用
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        private static bool IsHasQuote(string keyValue)
+        {
+            bool bState = false;
+            List<Model.Jobs> models = BLL.Jobs.GetList();
+            if (models != null && models.Count > 0)
+            {
+                models = models.Where(m => m.TriggerGroup == keyValue).ToList();
+                if (models != null && models.Count > 0)
+                {
+                    bState = true;
+                }
+            }
+            return bState;
+        }
     }
 }

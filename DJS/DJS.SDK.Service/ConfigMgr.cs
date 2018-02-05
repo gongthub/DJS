@@ -115,7 +115,7 @@ namespace DJS.SDK.Service
                     else
                         if ((int)Enums.ConfigGetType.Clear == flag)
                         {
-                            Common.XmlHelp.xmlHelp.RemoveNode(SDKCONFIGPATH, CONFIGSPATH, ELENMENTNAME);
+                            Common.XmlHelp.xmlHelp.RemoveNode(SDKCONFIGPATH, CONFIGSPATH);
 
                             if (!IsExist("STATUS"))
                             {

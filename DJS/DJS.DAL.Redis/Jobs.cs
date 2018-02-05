@@ -71,5 +71,17 @@ namespace DJS.DAL.Redis
         {
             throw new NotImplementedException();
         }
+
+
+        public bool RemoveConfigs(string keyValue)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Model.Jobs GetFormByName(string keyValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

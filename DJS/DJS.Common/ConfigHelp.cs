@@ -56,6 +56,28 @@ namespace DJS.Common
         public static readonly string UPLOADDLLEXT = ".dll";
 
         /// <summary>
+        /// 删除模式
+        /// </summary>
+        public static int SYSDELETEMODEL
+        {
+            get
+            {
+                int flay = 0;
+                int.TryParse(ConfigurationManager.AppSettings["SysDeleteModel"].ToString(), out flay);
+                return flay;
+            }
+        }
+        /// <summary>
+        /// 回收站目录
+        /// </summary>
+        public static string SYSDELETESRC
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SysDeleteSrc"].ToString();
+            }
+        }
+        /// <summary>
         /// 根据Key取Value值
         /// </summary>
         /// <param name="key"></param>
@@ -340,7 +362,8 @@ namespace DJS.Common
         /// <summary>
         /// 更新操作不修改字段
         /// </summary>
-        public static List<string> UpdateNotChange {
+        public static List<string> UpdateNotChange
+        {
 
             get
             {

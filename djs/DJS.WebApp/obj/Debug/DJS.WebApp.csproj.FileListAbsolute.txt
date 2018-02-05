@@ -100,3 +100,4 @@ D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\SDKConfig.db
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\XML\XmlDB.db
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.SDK.Service.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\DJS.SDK.Service.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.WebApp\bin\NLog.config

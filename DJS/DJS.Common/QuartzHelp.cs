@@ -405,7 +405,6 @@ namespace DJS.Common
             MessageHelp mess = new MessageHelp();
             if (!ExistJob(new JobKey(jobName, jobGroup)))
             {
-
                 if (!ExistTrigger(new TriggerKey(triggerName, triggerGroup)))
                 {
                     IJobDetail job = JobBuilder.Create(type).WithIdentity(jobName, jobGroup).Build();
