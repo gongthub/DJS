@@ -31,7 +31,7 @@ namespace DJS.BLL
         /// <summary>
         /// 上一个文件MD5值
         /// </summary>
-        public static string LastMD5 = "";
+        private static string LastMD5 = "";
 
         /// <summary>
         /// 构造函数
@@ -43,7 +43,7 @@ namespace DJS.BLL
 
         }
         /// <summary>
-        /// 任务数量
+        /// Redis日志最后时间
         /// </summary>
         public static DateTime NewTime = DateTime.MinValue;
 

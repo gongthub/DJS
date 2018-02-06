@@ -141,3 +141,55 @@ function uploadFiles(fileId, uploadtype, dirname) {
     });
     return dataret;
 }
+
+var WEBSOCKETURL = "ws://127.0.0.1:10020";
+
+var wsrunjobnums;
+function initWSRunJobNums(ele)
+{
+    //wsindex = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/Api/WSChat");
+    wsrunjobnums = new WebSocket(WEBSOCKETURL);
+    wsrunjobnums.onopen = function () {
+        $.modalMsgSuccess("消息监听链接成功");
+        wsrunjobnums.send("RUNJOBNUMS");
+    };
+    wsrunjobnums.onmessage = function (result) {
+        //$.modalMsgSuccess(result.data);
+        var data = eval(result.data);
+        if (data.key == "RUNJOBNUMS")
+        {
+            $("#" + ele)[0].innerText = data.value;
+        }
+    };
+    wsrunjobnums.onerror = function (error) {
+        $.modalMsgWarning("消息监听链接失败");
+    };
+    wsrunjobnums.onclose = function () {
+        $.modalMsgWarning("消息监听链接关闭");
+    };
+}
+function closeWSRunJobNums()
+{
+    wsrunjobnums.close();
+}
+var wsjobpool;
+function initWSJobPool() {
+    //wsindex = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/Api/WSChat");
+    wsjobpool = new WebSocket(WEBSOCKETURL);
+    wsjobpool.onopen = function () {
+        //$.modalMsgSuccess("消息监听链接成功");
+        wsjobpool.send("JobPool");
+    };
+    wsjobpool.onmessage = function (result) {
+        $.modalMsgSuccess(result.data);
+    };
+    wsjobpool.onerror = function (error) {
+        $.modalMsgWarning("消息监听链接失败");
+    };
+    wsjobpool.onclose = function () {
+        $.modalMsgWarning("消息监听链接关闭");
+    };
+}
+function closeWSJobPool() {
+    wsjobpool.close();
+}

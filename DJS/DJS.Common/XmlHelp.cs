@@ -15,7 +15,7 @@ namespace DJS.Common
     public class XmlHelp
     {
         private static readonly object LOCKOBJ = new object();
-        private static readonly object LOCKOBJW = new object();
+        //private static readonly object LOCKOBJW = new object();
         #region 单例模式创建对象
         //单例模式创建对象
         private static XmlHelp _xmlHelp = null;
@@ -395,7 +395,7 @@ namespace DJS.Common
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void AppendNode<T>(T t, string xmlFilePath, string xPath, string elenmentName)
         {
-            lock (LOCKOBJW)
+            lock (LOCKOBJ)
             {
                 //创建XmlDocument对象
                 XmlDocument xmlDocument = new XmlDocument();
@@ -458,7 +458,7 @@ namespace DJS.Common
         /// <param name="xmlNode">要插入的Xml节点</param>
         public void UpdateNode<T>(T t, string xmlFilePath, string xPath, string keyName, string keyValue)
         {
-            lock (LOCKOBJW)
+            lock (LOCKOBJ)
             {
                 xmlFilePath = FileHelp.GetFullPath(xmlFilePath);
                 //创建XmlDocument对象
@@ -630,7 +630,7 @@ namespace DJS.Common
         /// <param name="val">属性值</param>
         public bool RemoveNode(string filePath, string xPath, string attName, object val)
         {
-            lock (LOCKOBJW)
+            lock (LOCKOBJ)
             {
                 bool ret = true;
                 try
@@ -673,7 +673,7 @@ namespace DJS.Common
         /// <param name="xPath">xml路径</param>
         public bool RemoveNode(string filePath, string xPath)
         {
-            lock (LOCKOBJW)
+            lock (LOCKOBJ)
             {
                 bool ret = true;
                 try

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DJS.Common.CommonModel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +33,18 @@ namespace DJS.Common
         private static string NLOGURL = ConfigHelp.NLogUrlPath;
 
         private static string LOGMGR_KEY = Common.RedisConfigHelp.redisConfigHelp.GetRedisKeyByName("LogMgr_K");
+
+        private static readonly object LOCKOBJ = new object();
+
+        /// <summary>
+        /// 上一个文件MD5值
+        /// </summary>
+        private static string LastMD5 = "";
+
+        /// <summary>
+        /// Redis日志最后时间
+        /// </summary>
+        private static DateTime NewTime = DateTime.MinValue;
 
         /// <summary>
         /// 消息队列
@@ -298,7 +311,7 @@ namespace DJS.Common
             return strs.ToString();
         }
         #endregion
-         
+
         #region 写入日志到File -void WriteLogNLog(string int type)
         /// <summary>
         /// 写入日志到File
@@ -318,7 +331,7 @@ namespace DJS.Common
 
             NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
 
-            Log.Info(strs); 
+            Log.Info(strs);
 
         }
         #endregion
@@ -334,12 +347,12 @@ namespace DJS.Common
             {
                 DJS.Common.FileHelp.CreateDirectory(NLOGURL);
             }
-            
-            string strs = ""; 
+
+            string strs = "";
             strs += EnumHelp.enumHelp.GetDescription(type) + " - ";
             strs += messages;
             NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
-            Log.Info(strs);  
+            Log.Info(strs);
         }
         #endregion
 
@@ -352,6 +365,7 @@ namespace DJS.Common
         {
             string strs = "";
             string paths = NLOGURL + @"\";
+            paths = FileHelp.GetFullPath(paths);
             ArrayList files = Common.FileHelp.GetFileslist(paths);
             if (files != null && files.Count > 0)
             {
@@ -361,6 +375,137 @@ namespace DJS.Common
                 strs = Common.FileHelp.ReadTxtFileNumE(paths, num);
             }
             return strs.ToString();
+        }
+        #endregion
+
+        #region 判断Logs是否发生改变
+        /// <summary>
+        /// 判断Logs是否发生改变
+        /// </summary>
+        /// <param name="sender"></param>
+        public bool IsChangeLog()
+        {
+            lock (LOCKOBJ)
+            {
+                bool bState = false;
+                if (LogFileType == Enums.LogFileType.File.ToString())
+                {
+                    string paths = LOGURL + @"\";
+                    paths = FileHelp.GetFullPath(paths);
+                    ArrayList files = Common.FileHelp.GetFileslist(paths);
+                    if (files != null && files.Count > 0)
+                    {
+                        files.Sort();
+                        string file = files[files.Count - 1].ToString();
+                        paths += @"\" + file;
+
+                        if (paths != "" && Common.FileHelp.FileExists(paths) && !Common.FileHelp.IsFileInUse(paths))
+                        {
+                            string mdnow = Common.SecurityHelp.securityHelp.GetMD5HashFromFile(paths);
+                            if (mdnow != LastMD5)
+                            {
+                                bState = true;
+                            }
+                        }
+
+                    }
+                }
+                if (LogFileType == Enums.LogFileType.Redis.ToString())
+                {
+                    List<LogModel> models = new List<LogModel>();
+                    models = Common.RedisHelp.redisHelp.Get<List<LogModel>>(LOGMGR_KEY);
+                    if (models != null)
+                    {
+                        LogModel model = models.OrderByDescending(m => m.Time).FirstOrDefault();
+                        if (model != null)
+                        {
+                            if (NewTime == DateTime.MinValue)
+                            {
+                                NewTime = model.Time;
+                            }
+                            if (model.Time > NewTime)
+                            {
+                                bState = true;
+                            }
+                        }
+                    }
+                }
+                if (LogFileType == Enums.LogFileType.NLog.ToString())
+                {
+                    string paths = NLOGURL + @"\";
+                    paths = FileHelp.GetFullPath(paths);
+                    ArrayList files = Common.FileHelp.GetFileslist(paths);
+                    if (files != null && files.Count > 0)
+                    {
+                        files.Sort();
+                        string file = files[files.Count - 1].ToString();
+                        paths += @"\" + file;
+
+                        if (paths != "" && Common.FileHelp.FileExists(paths) && !Common.FileHelp.IsFileInUse(paths))
+                        {
+                            string mdnow = Common.SecurityHelp.securityHelp.GetMD5HashFromFile(paths);
+                            if (mdnow != LastMD5)
+                            {
+                                LastMD5 = mdnow;
+                                bState = true;
+                            }
+                        }
+
+                    }
+                }
+                return bState;
+            }
+        } 
+        #endregion
+
+        #region 获取日志文件
+        /// <summary>
+        /// 获取日志文件
+        /// </summary>
+        /// <param name="sender"></param>
+        public List<LogFileModel> GetLogFiles()
+        {
+            lock (LOCKOBJ)
+            {
+                List<LogFileModel> models = new List<LogFileModel>();
+                if (LogFileType == Enums.LogFileType.File.ToString())
+                {
+                    string paths = LOGURL + @"\";
+                    paths = FileHelp.GetFullPath(paths);
+                    ArrayList files = Common.FileHelp.GetFileslist(paths);
+                    if (files != null && files.Count > 0)
+                    {
+                        foreach (var item in files)
+                        {
+                            LogFileModel model = new LogFileModel();
+                            model.Name = item.ToString();
+                            model.Url = LOGURL + "/" + model.Name;
+                            models.Add(model);
+                        }
+                    }
+                }
+                if (LogFileType == Enums.LogFileType.Redis.ToString())
+                {
+                }
+                if (LogFileType == Enums.LogFileType.NLog.ToString())
+                {
+                    string paths = NLOGURL + @"\";
+                    paths = FileHelp.GetFullPath(paths);
+                    ArrayList files = Common.FileHelp.GetFileslist(paths);
+                    if (files != null && files.Count > 0)
+                    {
+                        foreach (var item in files)
+                        {
+                            LogFileModel model = new LogFileModel();
+                            model.Name = item.ToString();
+                            model.Url = NLOGURL + "/" + model.Name;
+                            models.Add(model);
+                        }
+
+                    }
+                }
+                return models;
+            }
         }
         #endregion
 

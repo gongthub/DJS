@@ -67,6 +67,7 @@ namespace DJS.BLL
                                     model.State = (int)state;
                                 }
                                 model.AddPoolTime = iTrigger.StartTimeUtc.LocalDateTime;
+                                model.DllVersion = JobDetail.Description;
                                 models.Add(model);
                             }
                         }
@@ -337,7 +338,7 @@ namespace DJS.BLL
             bool retState = false;
             JobKey key = new JobKey("", "");
             Model.Jobs model = GetModelById(Id);
-            if (model != null)
+            if (model != null && !string.IsNullOrEmpty(model.ID) && Id == model.ID)
             {
                 ISet<JobKey> jobkeys = Common.QuartzHelp.quartzHelp.GetJobKeys(model.GroupName);
                 if (jobkeys != null && jobkeys.Count > 0)
@@ -421,11 +422,11 @@ namespace DJS.BLL
                     if (model.Type == (int)Enums.TimeType.Periodicity)
                     {
                         //model.Crons = "0 0 0 ? * MON";
-                        Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                        Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup, model.DllVersion);
                     }
                     if (model.Type == (int)Enums.TimeType.Disposable)
                     {
-                        Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                        Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup, model.DllVersion);
                     }
                 }
                 else
@@ -456,11 +457,11 @@ namespace DJS.BLL
                 if (model.Type == (int)Enums.TimeType.Periodicity)
                 {
                     //model.Crons = "0 0 0 ? * MON";
-                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup, model.DllVersion);
                 }
                 if (model.Type == (int)Enums.TimeType.Disposable)
                 {
-                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup, model.DllVersion);
                 }
                 ret = iJobs.AddForm(model);
 
@@ -561,11 +562,11 @@ namespace DJS.BLL
             {
                 if (model.Type == (int)Enums.TimeType.Periodicity)
                 {
-                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Crons, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup, model.DllVersion);
                 }
                 if (model.Type == (int)Enums.TimeType.Disposable)
                 {
-                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup);
+                    Common.QuartzHelp.quartzHelp.AddJob(model.AssType, model.Time, model.Name, model.GroupName, model.TriggerName, model.TriggerGroup, model.DllVersion);
                 }
 
             }
@@ -814,6 +815,77 @@ namespace DJS.BLL
         #endregion
 
         /// <summary>
+        /// 获取执行中任务
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Jobs> GetRunningJobs()
+        {
+            List<Model.Jobs> models = new List<Model.Jobs>();
+            IList<IJobExecutionContext> modelJobs = Common.QuartzHelp.quartzHelp.GetCurrentlyExecutingJobs();
+            if (modelJobs != null && modelJobs.Count > 0)
+            {
+                foreach (var item in modelJobs)
+                {
+                    Model.Jobs model = GetFormByName(item.JobDetail.Key.Name);
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        if (item.FireTimeUtc != null)
+                        {
+                            model.FireTime = ((DateTimeOffset)item.FireTimeUtc).LocalDateTime;
+                        }
+                        if (item.NextFireTimeUtc != null)
+                        {
+                            model.NextFireTime = ((DateTimeOffset)item.NextFireTimeUtc).LocalDateTime;
+                        }
+                    }
+                }
+            }
+            return models;
+        }
+        /// <summary>
+        /// 获取执行中任务数
+        /// </summary>
+        /// <returns></returns>
+        public static int GetRunningJobNums()
+        {
+            List<Model.Jobs> models = new List<Model.Jobs>();
+            IList<IJobExecutionContext> modelJobs = Common.QuartzHelp.quartzHelp.GetCurrentlyExecutingJobs();
+            if (modelJobs != null && modelJobs.Count > 0)
+            {
+                foreach (var item in modelJobs)
+                {
+                    Model.Jobs model = GetFormByName(item.JobDetail.Key.Name);
+                    if (model != null && !string.IsNullOrEmpty(model.ID))
+                    {
+                        if (item.FireTimeUtc != null)
+                        {
+                            model.FireTime = ((DateTimeOffset)item.FireTimeUtc).LocalDateTime;
+                        }
+                        if (item.NextFireTimeUtc != null)
+                        {
+                            model.NextFireTime = ((DateTimeOffset)item.NextFireTimeUtc).LocalDateTime;
+                        }
+                    }
+                }
+            }
+            return models.Count;
+        }
+
+        /// <summary>
+        /// 获取所有任务数
+        /// </summary>
+        /// <returns></returns>
+        public static int GetJobNums()
+        {
+            int num = 0;
+            List<Model.Jobs> models = GetList();
+            if (models != null)
+            {
+                num = models.Count;
+            }
+            return num;
+        }
+        /// <summary>
         /// 处理任务状态
         /// </summary>
         /// <param name="models"></param>
@@ -842,7 +914,7 @@ namespace DJS.BLL
                         job.DLLName = model.DLLName;
                         job.ConfigName = model.ConfigName;
                         job.IsAuto = model.IsAuto;
-                        job.DllVersion = model.DllVersion;
+                        //job.DllVersion = model.DllVersion;
                         job.Description = model.Description;
                         job.CreatorTime = model.CreatorTime;
                     }
@@ -1129,6 +1201,36 @@ namespace DJS.BLL
                 {
                     bState = DeleteForm(keyValue);
                 }
+            return bState;
+        }
+
+        public static bool UpdateDllVersion(string dllID, string version)
+        {
+            bool bState = true;
+            try
+            {
+                if (!string.IsNullOrEmpty(dllID))
+                {
+                    List<Model.Jobs> models = GetList();
+                    if (models != null && models.Count > 0)
+                    {
+                        models = models.Where(m => m.DLLID == dllID).ToList();
+                        if (models != null && models.Count > 0)
+                        {
+                            foreach (var model in models)
+                            {
+                                model.DllVersion = version;
+                                model.Modify(model.ID);
+                                UpdateForm(model);
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                bState = false;
+            }
             return bState;
         }
     }

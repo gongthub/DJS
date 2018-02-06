@@ -65,9 +65,6 @@ D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.pdb
 D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.Setting.DLLUpdate.resources
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\NLog.config
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\App.config
-D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\RedisConfig.xml
-D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\SDKConfig.xml
-D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\XmlDB.xml
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe.config
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.exe.manifest
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\DJS.WinApp.application
@@ -128,3 +125,6 @@ D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.exe.manifest
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.application
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.exe
 D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\obj\Debug\DJS.WinApp.pdb
+D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\RedisConfig.xml
+D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\SDKConfig.xml
+D:\MyFiles\GIT\DJS\DJS\DJS.WinApp\bin\Debug\XmlDB.xml

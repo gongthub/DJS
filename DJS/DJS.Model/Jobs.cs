@@ -39,6 +39,8 @@ namespace DJS.Model
 
         public bool? EnabledMark { get; set; }
         public DateTime AddPoolTime { set; get; }
+        public DateTime FireTime { set; get; }
+        public DateTime NextFireTime { set; get; }
 
     }
 }

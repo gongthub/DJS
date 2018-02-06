@@ -233,7 +233,12 @@ namespace DJS.BLL
             if (!string.IsNullOrEmpty(keyValue))
             {
                 modelEntity.Modify(keyValue);
-                return UpdateForm(modelEntity);
+                bool bState = UpdateForm(modelEntity);
+                if (bState)
+                {
+                    BLL.Jobs.UpdateDllVersion(keyValue, modelEntity.Version);
+                }
+                return bState;
             }
             else
             {

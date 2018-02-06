@@ -430,6 +430,81 @@ namespace DJS.Common
             return mess;
 
         }
+
+        /// <summary>
+        /// 添加一个job
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jobName"></param>
+        /// <param name="jobGroup"></param>
+        public MessageHelp AddJob(Type type, DateTime time, string jobName, string jobGroup, string triggerName, string triggerGroup,string desc)
+        {
+            MessageHelp mess = new MessageHelp();
+            if (!ExistJob(new JobKey(jobName, jobGroup)))
+            {
+
+                if (!ExistTrigger(new TriggerKey(triggerName, triggerGroup)))
+                {
+                    IJobDetail job = JobBuilder.Create(type).WithIdentity(jobName, jobGroup).WithDescription(desc).Build();
+                    //3.创建并配置一个触发器
+                    //ISimpleTrigger trigger = (ISimpleTrigger)TriggerBuilder.Create().WithSimpleSchedule(x => x.WithIntervalInSeconds(3).WithRepeatCount(int.MaxValue)).Build();
+                    ITrigger trigger = TriggerBuilder.Create().WithIdentity(triggerName, triggerGroup).StartAt(time).Build();
+                    //4.加入作业调度池中
+                    _sched.ScheduleJob(job, trigger);
+
+                    mess.State = true;
+                }
+                else
+                {
+                    mess.State = false;
+                    mess.Message = "触发器名称已经存在，请重新输入！";
+                }
+            }
+            else
+            {
+                mess.State = false;
+                mess.Message = "任务名称已经存在，请重新输入！";
+            }
+            return mess;
+
+        }
+
+        /// <summary>
+        /// 添加一个job
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jobName"></param>
+        /// <param name="jobGroup"></param>
+        public MessageHelp AddJob(Type type, string crons, string jobName, string jobGroup, string triggerName, string triggerGroup, string desc)
+        {
+            MessageHelp mess = new MessageHelp();
+            if (!ExistJob(new JobKey(jobName, jobGroup)))
+            {
+                if (!ExistTrigger(new TriggerKey(triggerName, triggerGroup)))
+                {
+                    IJobDetail job = JobBuilder.Create(type).WithIdentity(jobName, jobGroup).WithDescription(desc).Build();
+
+                    //比较复杂的应用 
+                    IOperableTrigger trigger = new CronTriggerImpl(triggerName, triggerGroup, crons);
+                    // 加入作业调度池中
+                    _sched.ScheduleJob(job, trigger);
+                    mess.Message = "添加成功！";
+                    mess.State = true;
+                }
+                else
+                {
+                    mess.State = false;
+                    mess.Message = "触发器名称已经存在，请重新输入！";
+                }
+            }
+            else
+            {
+                mess.State = false;
+                mess.Message = "任务名称已经存在，请重新输入！";
+            }
+            return mess;
+
+        }
         #endregion
 
         #region 暂停指定任务计划 +bool StopScheduleJob(string jobGroup, string jobName)

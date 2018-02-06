@@ -25,6 +25,7 @@ namespace DJS.WebApp
 
             //自启动程序
             BLL.Jobs.StartAutoJobs();
+
         }
     }
 }

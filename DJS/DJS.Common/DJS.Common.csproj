@@ -71,6 +71,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -81,6 +82,7 @@
   <ItemGroup>
     <Compile Include="AssemblyHelp.cs" />
     <Compile Include="CommonModel\Enums.cs" />
+    <Compile Include="CommonModel\LogFileModel.cs" />
     <Compile Include="CommonModel\LogModel.cs" />
     <Compile Include="CommonModel\OperatorModel.cs" />
     <Compile Include="CommonModel\SelectLists.cs" />

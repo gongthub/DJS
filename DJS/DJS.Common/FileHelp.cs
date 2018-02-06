@@ -18,6 +18,10 @@ namespace DJS.Common
     {
         private const string PATH_SPLIT_CHAR = "\\";
 
+        private static string BASEDIR = AppDomain.CurrentDomain.BaseDirectory;
+
+        private static readonly object LOCKOBJ = new object();
+
         /// <summary>
         /// 数据保存路径
         /// </summary>
@@ -65,17 +69,25 @@ namespace DJS.Common
         /// <returns></returns>
         public static string GetFullPath(string path)
         {
-            if (HttpContext.Current != null)
+            lock (LOCKOBJ)
             {
-                if (!FileExists(path))
+                if (HttpContext.Current != null)
                 {
-                    path = HttpContext.Current.Server.MapPath(path);
+                    if (!FileExists(path))
+                    {
+                        path = HttpContext.Current.Server.MapPath(path);
+                    }
+                    return path;
                 }
-                return path;
-            }
-            else
-            {
-                return System.IO.Path.GetFullPath(path);
+                else
+                {
+                    if (!FileExists(path))
+                    {
+                        path = BASEDIR + path;
+                        path = System.IO.Path.GetFullPath(path);
+                    }
+                    return path;
+                }
             }
         }
         #endregion
@@ -88,9 +100,12 @@ namespace DJS.Common
         /// <returns>是否存在</returns>
         public static bool FileExists(string filename)
         {
-            bool bState = false;
-            bState = System.IO.File.Exists(filename);
-            return bState;
+            lock (LOCKOBJ)
+            {
+                bool bState = false;
+                bState = System.IO.File.Exists(filename);
+                return bState;
+            }
         }
         #endregion
 
@@ -122,22 +137,25 @@ namespace DJS.Common
         /// <param name="copySubDir">如果为true,包含目录,否则不包含</param>
         public static void CopyFiles(string sourceDir, string targetDir, bool overWrite, bool copySubDir)
         {
-            //复制当前目录文件
-            foreach (string sourceFileName in Directory.GetFiles(sourceDir))
+            lock (LOCKOBJ)
             {
-                string targetFileName = Path.Combine(targetDir, sourceFileName.Substring(sourceFileName.LastIndexOf(PATH_SPLIT_CHAR) + 1));
-
-                if (File.Exists(targetFileName))
+                //复制当前目录文件
+                foreach (string sourceFileName in Directory.GetFiles(sourceDir))
                 {
-                    if (overWrite == true)
+                    string targetFileName = Path.Combine(targetDir, sourceFileName.Substring(sourceFileName.LastIndexOf(PATH_SPLIT_CHAR) + 1));
+
+                    if (File.Exists(targetFileName))
                     {
-                        File.SetAttributes(targetFileName, FileAttributes.Normal);
+                        if (overWrite == true)
+                        {
+                            File.SetAttributes(targetFileName, FileAttributes.Normal);
+                            File.Copy(sourceFileName, targetFileName, overWrite);
+                        }
+                    }
+                    else
+                    {
                         File.Copy(sourceFileName, targetFileName, overWrite);
                     }
-                }
-                else
-                {
-                    File.Copy(sourceFileName, targetFileName, overWrite);
                 }
             }
         }
@@ -153,33 +171,36 @@ namespace DJS.Common
         /// <param name="moveSubDir">如果为true,包含目录,否则不包含</param>
         public static void MoveFiles(string sourceDir, string targetDir, bool overWrite, bool moveSubDir)
         {
-            //移动当前目录文件
-            foreach (string sourceFileName in Directory.GetFiles(sourceDir))
+            lock (LOCKOBJ)
             {
-                string targetFileName = Path.Combine(targetDir, sourceFileName.Substring(sourceFileName.LastIndexOf(PATH_SPLIT_CHAR) + 1));
-                if (File.Exists(targetFileName))
+                //移动当前目录文件
+                foreach (string sourceFileName in Directory.GetFiles(sourceDir))
                 {
-                    if (overWrite == true)
+                    string targetFileName = Path.Combine(targetDir, sourceFileName.Substring(sourceFileName.LastIndexOf(PATH_SPLIT_CHAR) + 1));
+                    if (File.Exists(targetFileName))
                     {
-                        File.SetAttributes(targetFileName, FileAttributes.Normal);
-                        File.Delete(targetFileName);
+                        if (overWrite == true)
+                        {
+                            File.SetAttributes(targetFileName, FileAttributes.Normal);
+                            File.Delete(targetFileName);
+                            File.Move(sourceFileName, targetFileName);
+                        }
+                    }
+                    else
+                    {
                         File.Move(sourceFileName, targetFileName);
                     }
                 }
-                else
+                if (moveSubDir)
                 {
-                    File.Move(sourceFileName, targetFileName);
-                }
-            }
-            if (moveSubDir)
-            {
-                foreach (string sourceSubDir in Directory.GetDirectories(sourceDir))
-                {
-                    string targetSubDir = Path.Combine(targetDir, sourceSubDir.Substring(sourceSubDir.LastIndexOf(PATH_SPLIT_CHAR) + 1));
-                    if (!Directory.Exists(targetSubDir))
-                        Directory.CreateDirectory(targetSubDir);
-                    MoveFiles(sourceSubDir, targetSubDir, overWrite, true);
-                    Directory.Delete(sourceSubDir);
+                    foreach (string sourceSubDir in Directory.GetDirectories(sourceDir))
+                    {
+                        string targetSubDir = Path.Combine(targetDir, sourceSubDir.Substring(sourceSubDir.LastIndexOf(PATH_SPLIT_CHAR) + 1));
+                        if (!Directory.Exists(targetSubDir))
+                            Directory.CreateDirectory(targetSubDir);
+                        MoveFiles(sourceSubDir, targetSubDir, overWrite, true);
+                        Directory.Delete(sourceSubDir);
+                    }
                 }
             }
         }
@@ -194,12 +215,15 @@ namespace DJS.Common
         /// <param name="delSourceFile">是否删除原文件</param>
         public static void MoveFiles(string sourcePath, string targetPath)
         {
-            sourcePath = GetFullPath(sourcePath);
-            string filename = System.IO.Path.GetFileName(sourcePath);
-            targetPath = GetFullPath(targetPath);
-            CreateDirectory(targetPath);
-            targetPath = targetPath + @"/" + filename;
-            File.Move(sourcePath, targetPath);
+            lock (LOCKOBJ)
+            {
+                sourcePath = GetFullPath(sourcePath);
+                string filename = System.IO.Path.GetFileName(sourcePath);
+                targetPath = GetFullPath(targetPath);
+                CreateDirectory(targetPath);
+                targetPath = targetPath + @"/" + filename;
+                File.Move(sourcePath, targetPath);
+            }
         }
         #endregion
 
@@ -211,18 +235,21 @@ namespace DJS.Common
         /// <param name="delSubDir">如果为true,包含对子目录的操作</param>
         public static void DeleteDirectoryFiles(string TargetDir, bool delSubDir)
         {
-            foreach (string fileName in Directory.GetFiles(TargetDir))
+            lock (LOCKOBJ)
             {
-                File.SetAttributes(fileName, FileAttributes.Normal);
-                File.Delete(fileName);
-            }
-            if (delSubDir)
-            {
-                DirectoryInfo dir = new DirectoryInfo(TargetDir);
-                foreach (DirectoryInfo subDi in dir.GetDirectories())
+                foreach (string fileName in Directory.GetFiles(TargetDir))
                 {
-                    DeleteDirectoryFiles(subDi.FullName, true);
-                    subDi.Delete();
+                    File.SetAttributes(fileName, FileAttributes.Normal);
+                    File.Delete(fileName);
+                }
+                if (delSubDir)
+                {
+                    DirectoryInfo dir = new DirectoryInfo(TargetDir);
+                    foreach (DirectoryInfo subDi in dir.GetDirectories())
+                    {
+                        DeleteDirectoryFiles(subDi.FullName, true);
+                        subDi.Delete();
+                    }
                 }
             }
         }
@@ -235,7 +262,10 @@ namespace DJS.Common
         /// <param name="TargetFileDir">指定文件的目录</param>
         public static void DeleteFiles(string TargetFileDir)
         {
-            File.Delete(TargetFileDir);
+            lock (LOCKOBJ)
+            {
+                File.Delete(TargetFileDir);
+            }
         }
         #endregion
 
@@ -246,10 +276,13 @@ namespace DJS.Common
         /// <param name="targetDir"></param>
         public static void CreateDirectory(string targetDir)
         {
-            targetDir = GetFullPath(targetDir);
-            DirectoryInfo dir = new DirectoryInfo(targetDir);
-            if (!dir.Exists)
-                dir.Create();
+            lock (LOCKOBJ)
+            {
+                targetDir = GetFullPath(targetDir);
+                DirectoryInfo dir = new DirectoryInfo(targetDir);
+                if (!dir.Exists)
+                    dir.Create();
+            }
         }
         #endregion
 
@@ -274,17 +307,20 @@ namespace DJS.Common
         /// <returns></returns>
         public static bool ReNameFloder(string OldFloderName, string NewFloderName)
         {
-            try
+            lock (LOCKOBJ)
             {
-                if (Directory.Exists(GetFullPath("//") + OldFloderName))
+                try
                 {
-                    Directory.Move(GetFullPath("//") + OldFloderName, GetFullPath("//") + NewFloderName);
+                    if (Directory.Exists(GetFullPath("//") + OldFloderName))
+                    {
+                        Directory.Move(GetFullPath("//") + OldFloderName, GetFullPath("//") + NewFloderName);
+                    }
+                    return true;
                 }
-                return true;
-            }
-            catch
-            {
-                return false;
+                catch
+                {
+                    return false;
+                }
             }
         }
         #endregion
@@ -296,11 +332,14 @@ namespace DJS.Common
         /// <param name="targetDir">目录路径</param>
         public static void DeleteDirectory(string targetDir)
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(targetDir);
-            if (dirInfo.Exists)
+            lock (LOCKOBJ)
             {
-                DeleteDirectoryFiles(targetDir, true);
-                dirInfo.Delete(true);
+                DirectoryInfo dirInfo = new DirectoryInfo(targetDir);
+                if (dirInfo.Exists)
+                {
+                    DeleteDirectoryFiles(targetDir, true);
+                    dirInfo.Delete(true);
+                }
             }
         }
         #endregion
@@ -313,8 +352,11 @@ namespace DJS.Common
         /// <returns></returns>
         public static bool DirectoryIsExists(string StrPath)
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(StrPath);
-            return dirInfo.Exists;
+            lock (LOCKOBJ)
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(StrPath);
+                return dirInfo.Exists;
+            }
         }
         /// <summary>
         /// 检测目录是否存在
@@ -323,11 +365,14 @@ namespace DJS.Common
         /// <param name="Create">如果不存在，是否创建</param>
         public static void DirectoryIsExists(string StrPath, bool Create)
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(StrPath);
-            //return dirInfo.Exists;
-            if (!dirInfo.Exists)
+            lock (LOCKOBJ)
             {
-                if (Create) dirInfo.Create();
+                DirectoryInfo dirInfo = new DirectoryInfo(StrPath);
+                //return dirInfo.Exists;
+                if (!dirInfo.Exists)
+                {
+                    if (Create) dirInfo.Create();
+                }
             }
         }
         #endregion
@@ -354,7 +399,10 @@ namespace DJS.Common
         /// <returns></returns>
         public DateTime GetFileWriteTime(string FileUrl)
         {
-            return File.GetLastWriteTime(FileUrl);
+            lock (LOCKOBJ)
+            {
+                return File.GetLastWriteTime(FileUrl);
+            }
         }
         #endregion
 
@@ -366,7 +414,10 @@ namespace DJS.Common
         /// <returns></returns>
         public string GetFileExtension(string PathFileName)
         {
-            return Path.GetExtension(PathFileName);
+            lock (LOCKOBJ)
+            {
+                return Path.GetExtension(PathFileName);
+            }
         }
         #endregion
 
@@ -378,14 +429,17 @@ namespace DJS.Common
         /// <returns></returns>
         public bool IsHiddenFile(string path)
         {
-            FileAttributes MyAttributes = File.GetAttributes(path);
-            string MyFileType = MyAttributes.ToString();
-            if (MyFileType.LastIndexOf("Hidden") != -1) //是否隐藏文件
+            lock (LOCKOBJ)
             {
-                return true;
+                FileAttributes MyAttributes = File.GetAttributes(path);
+                string MyFileType = MyAttributes.ToString();
+                if (MyFileType.LastIndexOf("Hidden") != -1) //是否隐藏文件
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
-            else
-                return false;
         }
         #endregion
 
@@ -397,7 +451,7 @@ namespace DJS.Common
         /// <returns></returns>
         public static string ReadTxtFile(string FilePath)
         {
-            lock (lockObj)
+            lock (LOCKOBJ)
             {
                 string content = "";//返回的字符串
                 using (FileStream fs = new FileStream(FilePath, FileMode.Open))
@@ -525,7 +579,7 @@ namespace DJS.Common
         /// <param name="FileModes">写入模式：append 是追加写, CreateNew 是覆盖</param>
         public static void WriteStrToTxtFile(string FilePath, string WriteStr, FileMode FileModes)
         {
-            lock (lockObj)
+            lock (LOCKOBJ)
             {
                 using (FileStream fst = new FileStream(FilePath, FileModes))
                 {
@@ -665,17 +719,20 @@ namespace DJS.Common
         /// <returns></returns>
         public static ArrayList GetDirectoryList(string folderFullName)
         {
-            ArrayList arry = new ArrayList();
-            DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
-            if (DirectoryIsExists(GetFullPath(folderFullName)))
+            lock (LOCKOBJ)
             {
-
-                foreach (DirectoryInfo NextFolder in TheFolder.GetDirectories())
+                ArrayList arry = new ArrayList();
+                DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
+                if (DirectoryIsExists(GetFullPath(folderFullName)))
                 {
-                    arry.Add(NextFolder.Name);
+
+                    foreach (DirectoryInfo NextFolder in TheFolder.GetDirectories())
+                    {
+                        arry.Add(NextFolder.Name);
+                    }
                 }
+                return arry;
             }
-            return arry;
         }
         #endregion
 
@@ -686,20 +743,23 @@ namespace DJS.Common
         /// <returns></returns>
         public static ArrayList GetFileslist(string folderFullName)
         {
-            ArrayList arry = new ArrayList();
-            DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
-            if (DirectoryIsExists(folderFullName))
+            lock (LOCKOBJ)
             {
-                FileInfo[] files = TheFolder.GetFiles();
-                if (files != null && files.Count() > 0)
+                ArrayList arry = new ArrayList();
+                DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
+                if (DirectoryIsExists(folderFullName))
                 {
-                    foreach (FileInfo NextFile in files)
+                    FileInfo[] files = TheFolder.GetFiles();
+                    if (files != null && files.Count() > 0)
                     {
-                        arry.Add(NextFile.Name);
+                        foreach (FileInfo NextFile in files)
+                        {
+                            arry.Add(NextFile.Name);
+                        }
                     }
                 }
+                return arry;
             }
-            return arry;
         }
         #endregion
 
@@ -711,7 +771,7 @@ namespace DJS.Common
         /// <returns></returns>
         public static bool IsFileInUse(string fileName)
         {
-            lock (lockObj)
+            lock (LOCKOBJ)
             {
                 bool inUse = true;
                 if (File.Exists(fileName))
@@ -747,35 +807,38 @@ namespace DJS.Common
         /// <returns>文件的编码类型</returns> 
         public static System.Text.Encoding GetType(string FilePath)
         {
-            Encoding reVal = Encoding.Default;
-            if (!IsFileInUse(FilePath))
+            lock (LOCKOBJ)
             {
-                using (FileStream fs = new FileStream(FilePath, FileMode.Open))
+                Encoding reVal = Encoding.Default;
+                if (!IsFileInUse(FilePath))
                 {
-                    byte[] Unicode = new byte[] { 0xFF, 0xFE, 0x41 };
-                    byte[] UnicodeBIG = new byte[] { 0xFE, 0xFF, 0x00 };
-                    byte[] UTF8 = new byte[] { 0xEF, 0xBB, 0xBF }; //带BOM
+                    using (FileStream fs = new FileStream(FilePath, FileMode.Open))
+                    {
+                        byte[] Unicode = new byte[] { 0xFF, 0xFE, 0x41 };
+                        byte[] UnicodeBIG = new byte[] { 0xFE, 0xFF, 0x00 };
+                        byte[] UTF8 = new byte[] { 0xEF, 0xBB, 0xBF }; //带BOM
 
-                    BinaryReader r = new BinaryReader(fs, System.Text.Encoding.Default);
-                    int i;
-                    int.TryParse(fs.Length.ToString(), out i);
-                    byte[] ss = r.ReadBytes(i);
-                    if (IsUTF8Bytes(ss) || (ss[0] == 0xEF && ss[1] == 0xBB && ss[2] == 0xBF))
-                    {
-                        reVal = Encoding.UTF8;
+                        BinaryReader r = new BinaryReader(fs, System.Text.Encoding.Default);
+                        int i;
+                        int.TryParse(fs.Length.ToString(), out i);
+                        byte[] ss = r.ReadBytes(i);
+                        if (IsUTF8Bytes(ss) || (ss[0] == 0xEF && ss[1] == 0xBB && ss[2] == 0xBF))
+                        {
+                            reVal = Encoding.UTF8;
+                        }
+                        else if (ss[0] == 0xFE && ss[1] == 0xFF && ss[2] == 0x00)
+                        {
+                            reVal = Encoding.BigEndianUnicode;
+                        }
+                        else if (ss[0] == 0xFF && ss[1] == 0xFE && ss[2] == 0x41)
+                        {
+                            reVal = Encoding.Unicode;
+                        }
+                        r.Close();
                     }
-                    else if (ss[0] == 0xFE && ss[1] == 0xFF && ss[2] == 0x00)
-                    {
-                        reVal = Encoding.BigEndianUnicode;
-                    }
-                    else if (ss[0] == 0xFF && ss[1] == 0xFE && ss[2] == 0x41)
-                    {
-                        reVal = Encoding.Unicode;
-                    }
-                    r.Close();
                 }
+                return reVal;
             }
-            return reVal;
         }
 
 
@@ -835,7 +898,7 @@ namespace DJS.Common
         /// <returns></returns>
         public static MemoryStream GetFileStream(string FilePath)
         {
-            lock (lockObj)
+            lock (LOCKOBJ)
             {
                 using (MemoryStream memStream = new MemoryStream())
                 {

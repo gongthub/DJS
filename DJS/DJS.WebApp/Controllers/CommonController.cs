@@ -1,4 +1,5 @@
 ﻿using DJS.Common.CommonModel;
+using DJS.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,5 +92,42 @@ namespace DJS.WebApp.Controllers
                 return Success("false", ex.Message);
             }
         }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetJobNums()
+        {
+            List<Model.Jobs> runningJobs = BLL.Jobs.GetRunningJobs();
+            int runningJobNums = BLL.Jobs.GetRunningJobNums();
+            int jobNums = BLL.Jobs.GetJobNums();
+            int jobPoolNums = BLL.Jobs.GetJobsForQuartzCount();
+            var data = new { runningJobs = runningJobs, runningJobNums = runningJobNums, jobNums = jobNums, jobPoolNums = jobPoolNums };
+            return Content(data.ToJson());
+        }
+
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetLogs()
+        {
+            bool isChange = Common.LogHelp.logHelp.IsChangeLog();
+            string logs = string.Empty;
+            if (isChange)
+            {
+                logs = Common.LogHelp.logHelp.GetLogs(100);
+            }
+            var data = new { isChange = isChange, logs = logs };
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetLogFiles()
+        {
+            List<LogFileModel> logFiles = Common.LogHelp.logHelp.GetLogFiles();
+            var data = new { logFiles = logFiles };
+            return Content(data.ToJson());
+        }
+
     }
 }
