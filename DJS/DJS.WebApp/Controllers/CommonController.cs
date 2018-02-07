@@ -129,5 +129,26 @@ namespace DJS.WebApp.Controllers
             return Content(data.ToJson());
         }
 
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCpuMemorys()
+        {
+            List<CpuMemoryModel> models = Common.CpuMemoryHelp.GetCpuMemorys();
+            List<string> lbls = models.Select(m => m.Times.ToString("HH:mm:ss")).ToList();
+            List<string> cpus = models.Select(m => m.cpu.ToString()).ToList();
+            List<string> memorys = models.Select(m => m.memory.ToString()).ToList();
+            var data = new { lbls = lbls, cpus = cpus, memorys = memorys };
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCpuMemory()
+        {
+            CpuMemoryModel model = Common.CpuMemoryHelp.GetCpuMemory();
+            var data = new { lbl = model.Times.ToString("mm:ss"), cpus = model.cpu, memorys = model.memory };
+            return Content(data.ToJson());
+        }
+
     }
 }

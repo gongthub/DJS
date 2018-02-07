@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyHelp.cs" />
+    <Compile Include="CommonModel\CpuMemoryModel.cs" />
     <Compile Include="CommonModel\Enums.cs" />
     <Compile Include="CommonModel\LogFileModel.cs" />
     <Compile Include="CommonModel\LogModel.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="CommonModel\TreeSelectModel.cs" />
     <Compile Include="CommonModel\UpFileDTO.cs" />
     <Compile Include="ConfigHelp.cs" />
+    <Compile Include="CpuMemoryHelp.cs" />
     <Compile Include="EmailHelp.cs" />
     <Compile Include="EnumHelp.cs" />
     <Compile Include="ExceptionHelp.cs" />

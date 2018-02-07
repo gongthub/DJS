@@ -25,6 +25,8 @@ namespace DJS.WebApp
 
             //自启动程序
             BLL.Jobs.StartAutoJobs();
+            //启动获取内存和cpu信息
+            //Common.CpuMemoryHelp.InitGetCpuMemorys();
 
         }
     }
