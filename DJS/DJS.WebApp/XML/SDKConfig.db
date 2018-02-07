@@ -138,4 +138,44 @@
     <CONFIG Name="WarningDate" Value="45" />
     <CONFIG Name="MinWarningDate" Value="5" />
   </DJSDemo>
+  <HHHHCCC>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </HHHHCCC>
+  <TESTJOB1>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </TESTJOB1>
+  <TESTJOB2>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </TESTJOB2>
+  <TESTJOB3>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </TESTJOB3>
 </CONFIGS>

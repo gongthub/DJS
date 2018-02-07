@@ -31,8 +31,8 @@
                     $("#hJobNums")[0].innerText = data.jobNums;
                     $("#hJobPoolNums")[0].innerText = data.jobPoolNums;
                     $("#hRunningJobNums")[0].innerText = data.runningJobNums;
+                    $("#ulRunJobs")[0].innerText = "";
                     if (data.runningJobs != null && data.runningJobs.length > 0) {
-                        $("#ulRunJobs")[0].innerText = "";
                         $(data.runningJobs).each(function (index, obj) {
                             var items = "<li title='任务名称：" + obj.Name + " 本次执行时间：" + obj.FireTime + " 下次执行时间：" + obj.NextFireTime + "'><span>" +
                                 obj.Name + "</span><span>本次：" + obj.FireTime + "</span><span>下次：" + obj.NextFireTime + "</span></li>";
@@ -64,8 +64,8 @@
                 dataType: "json",
                 async: true,
                 success: function (data) {
+                    $("#ulLogFiles")[0].innerText = "";
                     if (data.logFiles != null && data.logFiles.length > 0) {
-                        $("#ulLogFiles")[0].innerText = "";
                         $(data.logFiles).each(function (index, obj) {
                             var items = "<li><a href='" + obj.Url + "'  download='" + obj.Name + "'>" + obj.Name + "</a></li>";
                             $("#ulLogFiles").append(items);
@@ -159,7 +159,7 @@
                             <h2 class="m-top-none" id="hJobNums">0</h2>
                             <h5>总任务数</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-user fa-3x"></i>
+                                <i class="fa fa-archive fa-3x"></i>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                             <h2 class="m-top-none" id="hRunningJobNums">0</h2>
                             <h5>执行中任务数</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-shopping-cart fa-3x"></i>
+                                <i class="fa fa-bars fa-3x"></i>
                             </div>
                         </div>
                     </div>

@@ -71,23 +71,26 @@ namespace DJS.Common
         {
             lock (LOCKOBJ)
             {
-                if (HttpContext.Current != null)
+                string paths = path;
+                if (!path.Contains(':'))
                 {
-                    if (!FileExists(path))
+                    if (HttpContext.Current != null)
                     {
-                        path = HttpContext.Current.Server.MapPath(path);
+                        if (!FileExists(paths))
+                        {
+                            paths = HttpContext.Current.Server.MapPath(paths);
+                        }
                     }
-                    return path;
-                }
-                else
-                {
-                    if (!FileExists(path))
+                    else
                     {
-                        path = BASEDIR + path;
-                        path = System.IO.Path.GetFullPath(path);
+                        if (!FileExists(path))
+                        {
+                            paths = BASEDIR + path;
+                            paths = System.IO.Path.GetFullPath(paths);
+                        }
                     }
-                    return path;
                 }
+                return paths;
             }
         }
         #endregion

@@ -837,6 +837,7 @@ namespace DJS.BLL
                         {
                             model.NextFireTime = ((DateTimeOffset)item.NextFireTimeUtc).LocalDateTime;
                         }
+                        models.Add(model);
                     }
                 }
             }
@@ -848,26 +849,7 @@ namespace DJS.BLL
         /// <returns></returns>
         public static int GetRunningJobNums()
         {
-            List<Model.Jobs> models = new List<Model.Jobs>();
-            IList<IJobExecutionContext> modelJobs = Common.QuartzHelp.quartzHelp.GetCurrentlyExecutingJobs();
-            if (modelJobs != null && modelJobs.Count > 0)
-            {
-                foreach (var item in modelJobs)
-                {
-                    Model.Jobs model = GetFormByName(item.JobDetail.Key.Name);
-                    if (model != null && !string.IsNullOrEmpty(model.ID))
-                    {
-                        if (item.FireTimeUtc != null)
-                        {
-                            model.FireTime = ((DateTimeOffset)item.FireTimeUtc).LocalDateTime;
-                        }
-                        if (item.NextFireTimeUtc != null)
-                        {
-                            model.NextFireTime = ((DateTimeOffset)item.NextFireTimeUtc).LocalDateTime;
-                        }
-                    }
-                }
-            }
+            List<Model.Jobs> models = GetRunningJobs();
             return models.Count;
         }
 
