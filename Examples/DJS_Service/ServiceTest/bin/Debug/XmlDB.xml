@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DB>
+  <JOBGROUPS>
+    <JOBGROUP ID="e6f9d1ec-5087-4b93-ac6b-b0cf982ac603" No="1" Name="任务组一" JobNum="0" />
+  </JOBGROUPS>
+  <TRIGGERGROUPS>
+    <TRIGGERGROUP ID="2709b15d-f9e1-4f4e-93c1-dc65434806ae" No="1" Name="触发器组一" TriggerNum="0" />
+  </TRIGGERGROUPS>
+  <DDLMGRS>
+    <DDLMGR ID="cc07ca4a-b7a3-4658-bd30-c63420255e89" No="1" Name="日租金" NameSpace="DailyRentApportionService" Url="Stores\日租金\DailyRentApportionService.dll" />
+	
+  </DDLMGRS>
+  <JOBS>
+    <JOB ID="f8eae863-8b8b-4178-ad46-5c6cb5d54e0e" Name="job1" GroupName="任务组一" TriggerName="trigger1" TriggerGroup="触发器组一" Crons="" Time="2016/8/27 11:12:36" Type="1" TypeName="" AssType="DailyRentApportionService.Achieve" State="0" StateName="" DLLID="cc07ca4a-b7a3-4658-bd30-c63420255e89" DLLName="日租金" ConfigName="AAAAA" />
+	
+  </JOBS>
+</DB>

@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B23F7D42-A9C8-474C-B484-66B03A5C91EF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DJS.WinApp</RootNamespace>
+    <AssemblyName>DJS.WinApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>D:\djs_clickonce\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <InstallUrl>http://localhost:10020/</InstallUrl>
+    <PublisherName>DJS</PublisherName>
+    <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>Index.html</WebPage>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>0530AEA060E52676FACAB050E2D0737BF9759A27</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>DJS.WinApp_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\DLL\Quartz\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\DLL\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\DLL\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\DLL\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>C:\Users\Tony\Desktop\Quarte\2.6\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Center.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Center.Designer.cs">
+      <DependentUpon>Center.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ControlSetting.cs" />
+    <Compile Include="CronSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CronSet.Designer.cs">
+      <DependentUpon>CronSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListShow\DataList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListShow\DataList.Designer.cs">
+      <DependentUpon>DataList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListShow\JobList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListShow\JobList.Designer.cs">
+      <DependentUpon>JobList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting\AddJob.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\AddJob.Designer.cs">
+      <DependentUpon>AddJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\DLLAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\DLLAdd.Designer.cs">
+      <DependentUpon>DLLAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\DLLMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\DLLMgr.Designer.cs">
+      <DependentUpon>DLLMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\DLLUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\DLLUpdate.Designer.cs">
+      <DependentUpon>DLLUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\JobConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\JobConfig.Designer.cs">
+      <DependentUpon>JobConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\JobGroupAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\JobGroupAdd.Designer.cs">
+      <DependentUpon>JobGroupAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\JobGroupMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\JobGroupMgr.Designer.cs">
+      <DependentUpon>JobGroupMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\TriggerGroupAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\TriggerGroupAdd.Designer.cs">
+      <DependentUpon>TriggerGroupAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\TriggerGroupMgr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\TriggerGroupMgr.Designer.cs">
+      <DependentUpon>TriggerGroupMgr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListShow\TriggerList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListShow\TriggerList.Designer.cs">
+      <DependentUpon>TriggerList.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Center.resx">
+      <DependentUpon>Center.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CronSet.resx">
+      <DependentUpon>CronSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListShow\DataList.resx">
+      <DependentUpon>DataList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListShow\JobList.resx">
+      <DependentUpon>JobList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\AddJob.resx">
+      <DependentUpon>AddJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\DLLAdd.resx">
+      <DependentUpon>DLLAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\DLLMgr.resx">
+      <DependentUpon>DLLMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\DLLUpdate.resx">
+      <DependentUpon>DLLUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\JobConfig.resx">
+      <DependentUpon>JobConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\JobGroupAdd.resx">
+      <DependentUpon>JobGroupAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\JobGroupMgr.resx">
+      <DependentUpon>JobGroupMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\TriggerGroupAdd.resx">
+      <DependentUpon>TriggerGroupAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\TriggerGroupMgr.resx">
+      <DependentUpon>TriggerGroupMgr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListShow\TriggerList.resx">
+      <DependentUpon>TriggerList.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DJS.BLL\DJS.BLL.csproj">
+      <Project>{be4c67a7-2989-4cb2-9a89-e1f19cd9af84}</Project>
+      <Name>DJS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.Common\DJS.Common.csproj">
+      <Project>{400b27d7-6f55-4908-8005-b4cfa2583e3b}</Project>
+      <Name>DJS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.DAL.DataAccessFactory\DJS.DAL.DataAccessFactory.csproj">
+      <Project>{af48dea2-9531-465c-a21d-0fbe05b9f9b6}</Project>
+      <Name>DJS.DAL.DataAccessFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.DAL.Redis\DJS.DAL.Redis.csproj">
+      <Project>{5e858b89-a204-421f-9f03-19d0096153ae}</Project>
+      <Name>DJS.DAL.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.DAL.XML\DJS.DAL.XML.csproj">
+      <Project>{20d3c168-9e04-4bce-9228-9f361a8d7441}</Project>
+      <Name>DJS.DAL.XML</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.IDAL\DJS.IDAL.csproj">
+      <Project>{73e9c051-1c9b-48c6-8683-63f5122b9a81}</Project>
+      <Name>DJS.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.Model\DJS.Model.csproj">
+      <Project>{9583daaa-114e-4777-a344-9f87c8560c9e}</Project>
+      <Name>DJS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.SDK.Service\DJS.SDK.Service.csproj">
+      <Project>{6f271c0f-5855-4aa9-9559-ac11669a793e}</Project>
+      <Name>DJS.SDK.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DJS.SDK\DJS.SDK.csproj">
+      <Project>{d48cfb6c-e92c-40d1-b621-d056a2954c08}</Project>
+      <Name>DJS.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Img\icon72.ico" />
+    <Content Include="RedisConfig.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SDKConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XmlDB.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="XmlDB.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>DataFile</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

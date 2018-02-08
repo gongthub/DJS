@@ -1,9 +1,0 @@
-D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.SDK\bin\Debug\DJS.SDK.dll
-D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.SDK\bin\Debug\DJS.SDK.pdb
-D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.SDK\obj\Debug\DJS.SDK.dll
-D:\WorkFile\WindowsService\Codes\trunk\DJS\DJS.SDK\obj\Debug\DJS.SDK.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK\bin\Debug\DJS.SDK.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK\bin\Debug\DJS.SDK.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK\obj\Debug\DJS.SDK.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK\obj\Debug\DJS.SDK.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.SDK\obj\Debug\DJS.SDK.csprojResolveAssemblyReference.cache

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3993D00D-E80D-4CD8-91A3-9FACB4E11CCF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RentloanSettlementService</RootNamespace>
+    <AssemblyName>RentloanSettlementService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\DLL\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="DJS.SDK">
+      <HintPath>..\DLL\DJS.SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\DLL\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\DLL\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\DLL\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\DLL\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Achieve.cs" />
+    <Compile Include="Common\CommonEnum.cs" />
+    <Compile Include="EFDbContext.cs" />
+    <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\ChargeSpace\Charge.cs" />
+    <Compile Include="Model\ChargeSpace\ChargeAccountTypes.cs" />
+    <Compile Include="Model\ChargeSpace\ChargeDetail.cs" />
+    <Compile Include="Model\ChargeSpace\PeriodicCharge.cs" />
+    <Compile Include="Model\ChargeSpace\PeriodicChargeDetail.cs" />
+    <Compile Include="Model\ContractSpace\Contract.cs" />
+    <Compile Include="Model\ContractSpace\ContractFee.cs" />
+    <Compile Include="Model\ContractSpace\ContractWaterElectSet.cs" />
+    <Compile Include="Model\ContractSpace\ExcelImport.cs" />
+    <Compile Include="Model\ContractSpace\TempCharge.cs" />
+    <Compile Include="Model\ItemSpace\City.cs" />
+    <Compile Include="Model\ItemSpace\Dictionary.cs" />
+    <Compile Include="Model\ItemSpace\Item.cs" />
+    <Compile Include="Model\ItemSpace\UserProfile.cs" />
+    <Compile Include="Model\ItemSpace\Voucher.cs" />
+    <Compile Include="Model\PaymentSpace\BankCard.cs" />
+    <Compile Include="Model\PaymentSpace\CashSaving.cs" />
+    <Compile Include="Model\PaymentSpace\DailyStorePayment.cs" />
+    <Compile Include="Model\PaymentSpace\DailyStorePaymentDetail.cs" />
+    <Compile Include="Model\PaymentSpace\PaymentDetails.cs" />
+    <Compile Include="Model\PaymentSpace\PaymentMethod.cs" />
+    <Compile Include="Model\PaymentSpace\PayMethodType.cs" />
+    <Compile Include="Model\PaymentSpace\StoreDailyCheck.cs" />
+    <Compile Include="Model\RentLoan\BankColumn.cs" />
+    <Compile Include="Model\RentLoan\RentLoanAudit.cs" />
+    <Compile Include="Model\RentLoan\RentLoanAuditContract.cs" />
+    <Compile Include="Model\RentLoan\RentLoanAuditLog.cs" />
+    <Compile Include="Model\RentLoan\RentLoanHistoryPool.cs" />
+    <Compile Include="Model\RentLoan\RentLoanPool.cs" />
+    <Compile Include="Model\RentLoan\RentLoanSettlementLog.cs" />
+    <Compile Include="Model\Reservation\Reservation.cs" />
+    <Compile Include="Model\Reservation\ReservationCharge.cs" />
+    <Compile Include="Model\Reservation\ReservationOps.cs" />
+    <Compile Include="Model\StoreSpace\Coupon.cs" />
+    <Compile Include="Model\StoreSpace\Renter.cs" />
+    <Compile Include="Model\StoreSpace\Room.cs" />
+    <Compile Include="Model\StoreSpace\RoomFee.cs" />
+    <Compile Include="Model\StoreSpace\Store.cs" />
+    <Compile Include="Model\StoreSpace\StoreElecShip.cs" />
+    <Compile Include="Model\StoreSpace\StoreFee.cs" />
+    <Compile Include="Model\StoreSpace\WENumber.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RentLoanSettlementService.cs" />
+    <Compile Include="Utils\ConstUtility.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

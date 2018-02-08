@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CONFIGS>
+  <AAAAA>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="EmailTitle" Value="小V合同变更日志" />
+    <CONFIG Name="IDBRepository" Value="Data Source=192.168.25.20;User Id=SmallAmsSit;Password=1234567890;Database=SmallAMS;" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="EmailToUser" Value="shishuailiang@vlinker.com.cn" />
+    <CONFIG Name="EmailCcUser" Value="" />
+    <CONFIG Name="IDBAMSRepository" Value="Data Source=192.168.20.15;User Id=ams;Password=amsVlinker123;Database=AMS;" />
+    <CONFIG Name="SystemFlag" Value="小V" />
+    <CONFIG Name="Cash" Value="6000" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS_Temp;" />
+    <CONFIG Name="NotApply" Value="5" />
+    <CONFIG Name="NotAudit" Value="15" />
+    <CONFIG Name="AuditOK" Value="8" />
+    <CONFIG Name="AuditRefuse" Value="0" />
+    <CONFIG Name="OverdueNotRepay" Value="45" />
+    <CONFIG Name="WaitSubmit" Value="5" />
+    <CONFIG Name="NormalRepayment" Value="0" />
+    <CONFIG Name="SystemName" Value="大V门店租金贷汇总" />
+    <CONFIG Name="Temp_Revpar" Value="Temp_Revpar.xlsx" />
+    <CONFIG Name="Suffix" Value="xlsx" />
+    <CONFIG Name="EmailTitleRevpar" Value="综合收入汇总表" />
+    <CONFIG Name="EmailDescRevpar" Value="综合收入汇总表" />
+    <CONFIG Name="EmailReportName" Value="小V" />
+    <CONFIG Name="SavesFilePath" Value="D:\RentLoan\" />
+    <CONFIG Name="ZipFilePath" Value="D:\RentLoanZip\" />
+    <CONFIG Name="SendEmail" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendPwd" Value="Vlinker123" />
+    <CONFIG Name="ConnType" Value="SQLServer" />
+    <CONFIG Name="ConnStr" Value="Data Source=.;User Id=sa;Password=1234567890;Database=AMS_Temp;" />
+    <CONFIG Name="Temp_RentLoan" Value="Temp_RentLoan.xlsx" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </AAAAA>
+</CONFIGS>

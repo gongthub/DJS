@@ -1,0 +1,6 @@
+C:\Users\Tony\Desktop\DJSHelloWorld\DJSHelloWorld\bin\Debug\DJSHelloWorld.dll
+C:\Users\Tony\Desktop\DJSHelloWorld\DJSHelloWorld\bin\Debug\DJSHelloWorld.pdb
+C:\Users\Tony\Desktop\DJSHelloWorld\DJSHelloWorld\bin\Debug\DJS.SDK.dll
+C:\Users\Tony\Desktop\DJSHelloWorld\DJSHelloWorld\bin\Debug\Quartz.dll
+C:\Users\Tony\Desktop\DJSHelloWorld\DJSHelloWorld\obj\Debug\DJSHelloWorld.dll
+C:\Users\Tony\Desktop\DJSHelloWorld\DJSHelloWorld\obj\Debug\DJSHelloWorld.pdb

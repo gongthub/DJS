@@ -1,0 +1,10 @@
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\RentLoanSummaryService.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\RentLoanSummaryService.pdb
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\Common.Logging.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\DJS.SDK.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\EntityFramework.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\EntityFramework.SqlServer.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\NLog.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\bin\Debug\Quartz.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\obj\Debug\RentLoanSummaryService.dll
+D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\RentLoanSummaryService\obj\Debug\RentLoanSummaryService.pdb
