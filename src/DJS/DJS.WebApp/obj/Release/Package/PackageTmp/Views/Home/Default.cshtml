@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="~/Content/css/framework-font.css?v=2.3" rel="stylesheet" />
+    <link href="~/Content/css/framework-theme.css?v=2.3" rel="stylesheet" />
+    <link href="~/Content/css/framework-ui.css?v=2.3" rel="stylesheet" />
+    <script src="~/Content/js/jquery/jquery-2.1.1.min.js?v=2.3"></script>
+    <script src="~/Content/js/bootstrap/bootstrap.js?v=2.3"></script>
+    <link href="~/Content/js/bootstrap/bootstrap.min.css?v=2.3" rel="stylesheet" />
+    <script src="~/Content/js/layout/jquery.layout.js?v=2.3"></script>
+    <script src="~/Content/js/framework-ui.js?v=2.3"></script>
+    <script src="~/Content/js/Common.js?v=2.3"></script>
+    <script src="~/Content/js/highcharts/highcharts.js?v=2.3"></script>
+    <script>
+        $(function () {
+            setInterval("getJobNums()", "1000");
+            setInterval("getLogs()", "3000");
+            getLogFiles();
+            setInterval("getLogFiles()", "60000");
+            initChar();
+        });
+
+        //获取任务数信息
+        function getJobNums() {
+            $.ajax({
+                url: "/Common/GetJobNums",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    $("#hJobNums")[0].innerText = data.jobNums;
+                    $("#hJobPoolNums")[0].innerText = data.jobPoolNums;
+                    $("#hRunningJobNums")[0].innerText = data.runningJobNums;
+                    $("#ulRunJobs")[0].innerText = "";
+                    if (data.runningJobs != null && data.runningJobs.length > 0) {
+                        $(data.runningJobs).each(function (index, obj) {
+                            var items = "<li title='任务名称：" + obj.Name + " 本次执行时间：" + obj.FireTime + " 下次执行时间：" + obj.NextFireTime + "'><span>" +
+                                obj.Name + "</span><span>本次：" + obj.FireTime + "</span><span>下次：" + obj.NextFireTime + "</span></li>";
+                            $("#ulRunJobs").append(items);
+                        });
+                    }
+                }
+            });
+        }
+
+        //获取任务数信息
+        function getLogs() {
+            $.ajax({
+                url: "/Common/GetLogs",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    if (data != null && data.isChange != null && data.isChange == true) {
+                        $("#dvLogShow")[0].innerText = data.logs;
+                    }
+                }
+            });
+        }
+
+        //获取日志文件
+        function getLogFiles() {
+            $.ajax({
+                url: "/Common/GetLogFiles",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    $("#ulLogFiles")[0].innerText = "";
+                    if (data.logFiles != null && data.logFiles.length > 0) {
+                        $(data.logFiles).each(function (index, obj) {
+                            var items = "<li><a href='" + obj.Url + "'  download='" + obj.Name + "'>" + obj.Name + "</a></li>";
+                            $("#ulLogFiles").append(items);
+                        });
+                    }
+                }
+            });
+        }
+
+        var datat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        function initChar() {
+            $('#container').highcharts({
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg,
+                    marginRight: 10,
+                    events: {
+                        load: function () {
+                            var series = this.series[0];
+                            var seriesm = this.series[1];
+                            chart = this;
+                            setInterval(function () {
+                                $.ajax({
+                                    url: "/Common/GetCpuMemory",
+                                    dataType: "json",
+                                    async: false,
+                                    success: function (data) {
+                                        series.addPoint([data.lbl, data.cpus], true, true);
+                                        seriesm.addPoint([data.lbl, data.memorys], true, true);
+                                    }
+                                });
+                            }, 1000);
+                        }
+                    }
+                },
+                title: {
+                    text: 'CPU、内存使用率'
+                },
+                xAxis: {
+                    categories:[]
+
+                },
+                yAxis: {
+                    tickPositions: [0, 25, 50, 75, 100],
+                    title: {
+                        text: '百分比'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            Highcharts.numberFormat(this.y, 2) + '%<br/>';
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'CPU',
+                    data: datat
+                }, {
+                    name: '内存',
+                    data: datat
+                }]
+            }, function (c) {
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="areascontent">
+        <div class="rows" style="margin-bottom: 1%; border: 1px solid #e6e6e6; overflow: hidden; padding-left: 1px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-line-chart fa-lg" style="padding-right: 5px;"></i>关键数据实时指标
+                    <div style="float: right; position: relative; top: -4px; right: 0px;">
+                        <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=1" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="dashboard-stats">
+                        <div class="dashboard-stats-item" style="background-color: #fc8675;">
+                            <h2 class="m-top-none" id="hJobNums">0</h2>
+                            <h5>总任务数</h5>
+                            <div class="stat-icon">
+                                <i class="fa fa-archive fa-3x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="dashboard-stats-item" style="background-color: #6bafbd;">
+                            <h2 class="m-top-none" id="hJobPoolNums">0</h2>
+                            <h5>任务池任务数</h5>
+                            <div class="stat-icon">
+                                <i class="fa fa-hdd-o fa-3x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="dashboard-stats-item" style="background-color: #f3ce85;">
+                            <h2 class="m-top-none" id="hRunningJobNums">0</h2>
+                            <h5>执行中任务数</h5>
+                            <div class="stat-icon">
+                                <i class="fa fa-bars fa-3x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-stats-max">
+                        <div class="dashboard-stats-item" style="background-color: #A8A8A8;overflow:auto;">
+                            <h5>执行中任务</h5>
+                            <ul id="ulRunJobs"></ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="rows" style="margin-bottom: 1%; overflow: hidden;">
+            <div style="float: left; width:100%;">
+                <div style="height: 350px; border: 1px solid #e6e6e6; background-color: #fff;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>服务器资源监视
+                            <div style="float: right">
+                                @*<span style="font-weight: 500;"><i class="fa fa-square" style="color: #dcdcdc; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>CPU</span>
+                                <span style="margin-left: 10px; font-weight: 500;"><i class="fa fa-square" style="color: #97bbcd; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>内存</span>*@
+                            </div>
+                        </div>
+                        <div class="panel-body" style="padding-bottom: 0px;">
+                            <div id="container" style="min-width:400px;height:285px"></div>
+
+                            @*<canvas id="salarychart" style="height: 285px; width: 100%; padding-right: 10px;"></canvas>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rows" style="overflow: hidden;">
+            <div style="float: left; width:78%; margin-right: 1%;overflow: auto;">
+                <div style="height: 265px; border: 1px solid #e6e6e6; background-color: #fff;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>最新日志</div>
+                        <div class="panel-body" id="dvLogShow">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="float: right; width: 20%;overflow: auto;">
+                <div style="height: 265px; border: 1px solid #e6e6e6; background-color: #fff;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-send fa-lg" style="padding-right: 5px;"></i>日志文件</div>
+                        <div class="panel-body">
+                            <ul id="ulLogFiles"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #copyrightcontent {
+            height: 30px;
+            line-height: 29px;
+            overflow: hidden;
+            position: absolute;
+            top: 100%;
+            margin-top: -30px;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #e6e6e6;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .dashboard-stats {
+            float: left;
+            width: 20%;
+        }
+
+        .dashboard-stats-max {
+            float: left;
+            width: 40%;
+        }
+
+        #ulRunJobs li span {
+            margin-right: 5px;
+        }
+
+
+        .dashboard-stats-item {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            cursor: pointer;
+            height: 105px;
+            margin-right: 25px;
+            margin-bottom: 10px;
+            padding: 20px 20px;
+        }
+
+            .dashboard-stats-item .m-top-none {
+                margin-top: 2px;
+            }
+
+            .dashboard-stats-item h2 {
+                font-size: 35px;
+                font-family: inherit;
+                line-height: 1.1;
+                font-weight: 500;
+            }
+
+            .dashboard-stats-item h5 {
+                font-size: 14px;
+                font-family: inherit;
+                margin-top: 3px;
+                line-height: 1.1;
+            }
+
+
+            .dashboard-stats-item .stat-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 30px;
+                opacity: .3;
+            }
+
+        .dashboard-stats i.fa.stats-icon {
+            width: 50px;
+            padding: 20px;
+            font-size: 50px;
+            text-align: center;
+            color: #fff;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .panel-default {
+            border: none;
+            border-radius: 0px;
+            margin-bottom: 0px;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+            .panel-default > .panel-heading {
+                color: #777;
+                background-color: #fff;
+                border-color: #e6e6e6;
+                padding: 10px 10px;
+            }
+
+            .panel-default > .panel-body {
+                padding: 10px;
+                padding-bottom: 0px;
+            }
+
+                .panel-default > .panel-body ul {
+                    overflow: hidden;
+                    padding: 0;
+                    margin: 0px;
+                    margin-top: -5px;
+                }
+
+                    .panel-default > .panel-body ul li {
+                        line-height: 27px;
+                        list-style-type: none;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+
+                        .panel-default > .panel-body ul li .time {
+                            color: #a1a1a1;
+                            float: right;
+                            padding-right: 5px;
+                        }
+    </style>
+</body>
+</html>

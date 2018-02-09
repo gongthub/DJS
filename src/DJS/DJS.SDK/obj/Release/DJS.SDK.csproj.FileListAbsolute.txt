@@ -1,0 +1,9 @@
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Release\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Release\DJS.SDK.pdb
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Release\C5.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Release\Common.Logging.Core.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Release\Common.Logging.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Release\Quartz.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\obj\Release\DJS.SDK.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\obj\Release\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\obj\Release\DJS.SDK.pdb

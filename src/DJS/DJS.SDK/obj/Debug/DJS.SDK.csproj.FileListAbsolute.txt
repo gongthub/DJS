@@ -10,3 +10,11 @@ D:\MyFiles\GIT\DJS\DJS\DJS.SDK\bin\Debug\C5.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK\bin\Debug\Common.Logging.Core.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK\bin\Debug\Common.Logging.dll
 D:\MyFiles\GIT\DJS\DJS\DJS.SDK\bin\Debug\Quartz.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Debug\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Debug\DJS.SDK.pdb
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Debug\C5.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Debug\Common.Logging.Core.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Debug\Common.Logging.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\bin\Debug\Quartz.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\obj\Debug\DJS.SDK.dll
+D:\MyFiles\GIT\DJS\src\DJS\DJS.SDK\obj\Debug\DJS.SDK.pdb

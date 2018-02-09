@@ -58,8 +58,9 @@ namespace DJS.Common
                 model.cpu = avgs;
                 model.memory = MemInfo.dwMemoryLoad;
             }
-            catch
+            catch(Exception e)
             {
+                throw e;
             }
             return model;
         }

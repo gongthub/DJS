@@ -145,9 +145,17 @@ namespace DJS.WebApp.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetCpuMemory()
         {
-            CpuMemoryModel model = Common.CpuMemoryHelp.GetCpuMemory();
-            var data = new { lbl = model.Times.ToString("mm:ss"), cpus = model.cpu, memorys = model.memory };
-            return Content(data.ToJson());
+            try
+            {
+                CpuMemoryModel model = Common.CpuMemoryHelp.GetCpuMemory();
+                var data = new { lbl = model.Times.ToString("mm:ss"), cpus = model.cpu, memorys = model.memory };
+                return Content(data.ToJson());
+            }
+            catch (Exception e)
+            {
+                throw e;
+                return Error(e.Message);
+            }
         }
 
     }

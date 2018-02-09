@@ -5,6 +5,7 @@ using DJS.Common;
 namespace DJS.WebApp
 {
     [HandlerLogin]
+    [HandlerError]
     public abstract class ControllerBase : Controller
     {
         [HttpGet]
