@@ -1,4 +1,0 @@
-D:\MyFiles\GIT\DJS\DJS\DJS.Util\bin\Debug\DJS.Util.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.Util\bin\Debug\DJS.Util.pdb
-D:\MyFiles\GIT\DJS\DJS\DJS.Util\obj\Debug\DJS.Util.dll
-D:\MyFiles\GIT\DJS\DJS\DJS.Util\obj\Debug\DJS.Util.pdb

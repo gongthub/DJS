@@ -1,8 +1,0 @@
-2016-10-31 10:32:57.6978 INFO 错误 - job1接口调用失败！未能加载文件或程序集“DJS.BLL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null”或它的某一个依赖项。系统找不到指定的文件。
-2016-10-31 10:37:04.6389 INFO 正常 - job1接口调用开始！
-2016-10-31 15:18:33.3577 INFO 正常 - job1接口调用开始！
-2016-10-31 15:18:40.6452 INFO 正常 - 获取文件目录成功
-2016-10-31 15:18:41.0152 INFO 正常 - D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ServiceTest\bin\Debug\JobFiles\job1\Temp_DayReprotSum.xlsx
-2016-10-31 15:21:07.3925 INFO 正常 - job1接口调用开始！
-2016-10-31 15:21:13.7569 INFO 正常 - 获取文件目录成功
-2016-10-31 15:21:14.3239 INFO 正常 - D:\WorkFiles\AMS\Codes\WindowsService\trunk\DJS_Service\ServiceTest\bin\Debug\JobFiles\job1\Temp_DayReprotSum.xlsx
