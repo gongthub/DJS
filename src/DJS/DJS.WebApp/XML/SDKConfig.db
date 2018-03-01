@@ -1,3 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CONFIGS>
+  <DJSHelloWorldTTT>
+    <CONFIG Name="STATUS" Value="1" />
+    <CONFIG Name="ServiceCode" Value="S013" />
+    <CONFIG Name="SendMailSender" Value="testadmin@vlinker.com.cn" />
+    <CONFIG Name="SendMailPassword" Value="Vlinker123" />
+    <CONFIG Name="EmailSMTP" Value="smtp.exmail.qq.com" />
+    <CONFIG Name="IDBRepositoryEmailService" Value="Data Source=.;User Id=sa;Password=111111;Database=AMS_SIT;" />
+    <CONFIG Name="WarningDate" Value="45" />
+    <CONFIG Name="MinWarningDate" Value="5" />
+  </DJSHelloWorldTTT>
 </CONFIGS>
