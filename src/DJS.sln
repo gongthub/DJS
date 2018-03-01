@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DJSCore", "DJSCore", "{C92637DC-90AE-4F01-A2F7-14852FE04897}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DJS.Core", "DJS.Core", "{C92637DC-90AE-4F01-A2F7-14852FE04897}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Scheduler.WinApp", "DJS.Scheduler.WinApp\DJS.Scheduler.WinApp.csproj", "{31277CA4-913A-4FDF-8EA7-337E0549D34A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Scheduler.WinApp", "DJS.Scheduler.WinApp\DJS.Scheduler.WinApp.csproj", "{31277CA4-913A-4FDF-8EA7-337E0549D34A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Common", "DJS.Core.Common\DJS.Core.Common.csproj", "{8ACDA8A4-6D1E-4F01-889E-BFFCE7339EAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Execute.WinApp", "DJS.Execute.WinApp\DJS.Execute.WinApp.csproj", "{5516145F-2DDE-41F4-B45F-327C9BAD1FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Manage.WebApp", "DJS.Manage.WebApp\DJS.Manage.WebApp.csproj", "{161E8CB8-8680-44AC-8381-43F7D229937F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +23,24 @@ Global
 		{31277CA4-913A-4FDF-8EA7-337E0549D34A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31277CA4-913A-4FDF-8EA7-337E0549D34A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31277CA4-913A-4FDF-8EA7-337E0549D34A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACDA8A4-6D1E-4F01-889E-BFFCE7339EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACDA8A4-6D1E-4F01-889E-BFFCE7339EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACDA8A4-6D1E-4F01-889E-BFFCE7339EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACDA8A4-6D1E-4F01-889E-BFFCE7339EAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5516145F-2DDE-41F4-B45F-327C9BAD1FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5516145F-2DDE-41F4-B45F-327C9BAD1FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5516145F-2DDE-41F4-B45F-327C9BAD1FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5516145F-2DDE-41F4-B45F-327C9BAD1FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{161E8CB8-8680-44AC-8381-43F7D229937F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{161E8CB8-8680-44AC-8381-43F7D229937F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{161E8CB8-8680-44AC-8381-43F7D229937F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{161E8CB8-8680-44AC-8381-43F7D229937F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8ACDA8A4-6D1E-4F01-889E-BFFCE7339EAD} = {C92637DC-90AE-4F01-A2F7-14852FE04897}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93E6AE6D-6F11-4158-B70D-BE342F29C13B}

@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DJS.Core.Common\DJS.Core.Common.csproj" />
+  </ItemGroup>
+
 </Project>

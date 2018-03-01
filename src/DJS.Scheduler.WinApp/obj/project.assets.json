@@ -196,6 +196,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "DJS.Core.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/DJS.Core.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DJS.Core.Common.dll": {}
+        }
       }
     }
   },
@@ -656,10 +666,16 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "DJS.Core.Common/1.0.0": {
+      "type": "project",
+      "path": "../DJS.Core.Common/DJS.Core.Common.csproj",
+      "msbuildProject": "../DJS.Core.Common/DJS.Core.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "DJS.Core.Common >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
@@ -673,11 +689,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\MyFiles\\GIT\\DJS\\src\\DJS\\DJS.Scheduler.WinApp\\DJS.Scheduler.WinApp.csproj",
+      "projectUniqueName": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Scheduler.WinApp\\DJS.Scheduler.WinApp.csproj",
       "projectName": "DJS.Scheduler.WinApp",
-      "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS\\DJS.Scheduler.WinApp\\DJS.Scheduler.WinApp.csproj",
+      "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Scheduler.WinApp\\DJS.Scheduler.WinApp.csproj",
       "packagesPath": "C:\\Users\\Tony\\.nuget\\packages\\",
-      "outputPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS\\DJS.Scheduler.WinApp\\obj\\",
+      "outputPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Scheduler.WinApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -695,7 +711,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Common\\DJS.Core.Common.csproj": {
+              "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Common\\DJS.Core.Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
