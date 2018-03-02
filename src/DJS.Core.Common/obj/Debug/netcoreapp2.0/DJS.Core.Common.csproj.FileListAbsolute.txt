@@ -6,3 +6,4 @@ D:\MyFiles\GIT\DJS\src\DJS.Core.Common\bin\Debug\netcoreapp2.0\DJS.Core.Common.d
 D:\MyFiles\GIT\DJS\src\DJS.Core.Common\bin\Debug\netcoreapp2.0\DJS.Core.Common.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Core.Common\obj\Debug\netcoreapp2.0\DJS.Core.Common.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.Common\obj\Debug\netcoreapp2.0\DJS.Core.Common.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Common\obj\Debug\netcoreapp2.0\DJS.Core.Common.csprojResolveAssemblyReference.cache

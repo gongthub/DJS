@@ -8,3 +8,4 @@ D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\obj\Debug\netcoreapp2.0\DJS.Execute.Wi
 D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\obj\Debug\netcoreapp2.0\DJS.Execute.WinApp.AssemblyInfo.cs
 D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\obj\Debug\netcoreapp2.0\DJS.Execute.WinApp.dll
 D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\obj\Debug\netcoreapp2.0\DJS.Execute.WinApp.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\obj\Debug\netcoreapp2.0\DJS.Execute.WinApp.csprojResolveAssemblyReference.cache
