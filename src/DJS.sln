@@ -13,19 +13,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Execute.WinApp", "DJS.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Manage.WebApp", "DJS.Manage.WebApp\DJS.Manage.WebApp.csproj", "{161E8CB8-8680-44AC-8381-43F7D229937F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.System", "DJS.Core.System\DJS.Core.System.csproj", "{768D9CC3-7AF9-450A-B739-99B8FD141EDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.System", "DJS.Core.System\DJS.Core.System.csproj", "{768D9CC3-7AF9-450A-B739-99B8FD141EDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Scheduler", "DJS.Core.Scheduler\DJS.Core.Scheduler.csproj", "{3BA313F9-6047-4A17-9128-ACC313EF2F3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.Scheduler", "DJS.Core.Scheduler\DJS.Core.Scheduler.csproj", "{3BA313F9-6047-4A17-9128-ACC313EF2F3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Execute", "DJS.Core.Execute\DJS.Core.Execute.csproj", "{B22D8439-F3DF-474C-80FB-703956CA3BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.Execute", "DJS.Core.Execute\DJS.Core.Execute.csproj", "{B22D8439-F3DF-474C-80FB-703956CA3BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Log", "DJS.Core.Log\DJS.Core.Log.csproj", "{7CC16073-5CFD-4006-93EA-83C32978673A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.Log", "DJS.Core.Log\DJS.Core.Log.csproj", "{7CC16073-5CFD-4006-93EA-83C32978673A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Caching", "DJS.Core.Caching\DJS.Core.Caching.csproj", "{98706F60-511B-4A45-98DB-8A8F475A51A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.Caching", "DJS.Core.Caching\DJS.Core.Caching.csproj", "{98706F60-511B-4A45-98DB-8A8F475A51A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.DB", "DJS.Core.DB\DJS.Core.DB.csproj", "{147B6AA9-3FEF-4C5E-8CBE-6333A225137E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.DB", "DJS.Core.DB\DJS.Core.DB.csproj", "{147B6AA9-3FEF-4C5E-8CBE-6333A225137E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Net", "DJS.Core.Net\DJS.Core.Net.csproj", "{1643A63D-40F6-4551-A6A5-7299B7058DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.Net", "DJS.Core.Net\DJS.Core.Net.csproj", "{1643A63D-40F6-4551-A6A5-7299B7058DDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.UnitTest", "DJS.UnitTest\DJS.UnitTest.csproj", "{115ED8A8-AED4-4145-B3FB-538EEC2B8181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{1643A63D-40F6-4551-A6A5-7299B7058DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1643A63D-40F6-4551-A6A5-7299B7058DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1643A63D-40F6-4551-A6A5-7299B7058DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{115ED8A8-AED4-4145-B3FB-538EEC2B8181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{115ED8A8-AED4-4145-B3FB-538EEC2B8181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{115ED8A8-AED4-4145-B3FB-538EEC2B8181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{115ED8A8-AED4-4145-B3FB-538EEC2B8181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
