@@ -1,0 +1,15 @@
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\Configs\schedulerSettings.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.deps.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.runtimeconfig.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.runtimeconfig.dev.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.pdb
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.UnitTest\Debug\netcoreapp2.0\DJS.UnitTest.pdb

@@ -1,0 +1,10 @@
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.deps.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.runtimeconfig.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.runtimeconfig.dev.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.pdb
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Execute.WinApp\Debug\netcoreapp2.0\DJS.Execute.WinApp.pdb

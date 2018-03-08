@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DJS.Core.Scheduler.Models
+﻿namespace DJS.Core.Scheduler.Models
 {
     public class Binding
     {
@@ -10,5 +6,7 @@ namespace DJS.Core.Scheduler.Models
 
         public string Class { get; set; }
 
+        public string ServiceIp { get; set; }
+        public int ServicePort { get; set; }
     }
 }

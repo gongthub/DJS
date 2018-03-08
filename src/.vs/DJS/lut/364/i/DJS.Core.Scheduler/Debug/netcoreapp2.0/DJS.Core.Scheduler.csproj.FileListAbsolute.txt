@@ -1,0 +1,11 @@
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.deps.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.pdb
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.SchedulerResources.resources
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.csproj.GenerateResource.Cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Scheduler\Debug\netcoreapp2.0\DJS.Core.Scheduler.pdb

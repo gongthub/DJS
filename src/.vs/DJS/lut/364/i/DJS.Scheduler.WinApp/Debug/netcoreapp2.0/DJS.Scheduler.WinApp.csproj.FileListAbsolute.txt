@@ -1,0 +1,12 @@
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\Configs\schedulerSettings.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.deps.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.runtimeconfig.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.runtimeconfig.dev.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.pdb
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Scheduler.WinApp\Debug\netcoreapp2.0\DJS.Scheduler.WinApp.pdb

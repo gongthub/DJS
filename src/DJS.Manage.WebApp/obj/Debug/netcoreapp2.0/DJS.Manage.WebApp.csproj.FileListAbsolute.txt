@@ -3,9 +3,9 @@ D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\bin\Debug\netcoreapp2.0\DJS.Manage.WebA
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\bin\Debug\netcoreapp2.0\DJS.Manage.WebApp.runtimeconfig.dev.json
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\bin\Debug\netcoreapp2.0\DJS.Manage.WebApp.dll
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\bin\Debug\netcoreapp2.0\DJS.Manage.WebApp.pdb
-D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.csproj.CoreCompileInputs.cache
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.AssemblyInfoInputs.cache
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.AssemblyInfo.cs
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.dll
 D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Manage.WebApp\obj\Debug\netcoreapp2.0\DJS.Manage.WebApp.csprojResolveAssemblyReference.cache

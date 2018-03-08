@@ -1,8 +1,8 @@
 {
-  "SchedulerSettings": [
-    {
-      "Id": "PollingScheduler",
-      "Class": "DJS.Core.Scheduler.PollingScheduler.PollingScheduler,DJS.Core.Scheduler"
-    }
-  ]
+  "SchedulerSettings": {
+    "Id": "PollingScheduler",
+    "Class": "DJS.Core.Scheduler.PollingScheduler.PollingScheduler,DJS.Core.Scheduler",
+    "ServiceIp": "127.0.0.1",
+    "ServicePoint": "11120"
+  }
 }

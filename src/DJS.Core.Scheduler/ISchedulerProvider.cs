@@ -1,4 +1,5 @@
-﻿using DJS.Core.Scheduler.Utilities;
+﻿using Autofac;
+using DJS.Core.Scheduler.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;

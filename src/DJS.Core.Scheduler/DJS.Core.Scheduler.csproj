@@ -5,16 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ISchedulerProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DJS.Core.Common\DJS.Core.Common.csproj" />
+    <ProjectReference Include="..\DJS.Core.CPlatform\DJS.Core.CPlatform.csproj" />
+    <ProjectReference Include="..\DJS.Core.DotNetty\DJS.Core.DotNetty.csproj" />
     <ProjectReference Include="..\DJS.Core.System\DJS.Core.System.csproj" />
   </ItemGroup>
 
@@ -31,6 +39,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SchedulerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="JobManage\" />
   </ItemGroup>
 
 </Project>

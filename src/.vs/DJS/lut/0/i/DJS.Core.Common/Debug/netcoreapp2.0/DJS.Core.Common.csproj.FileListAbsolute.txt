@@ -1,0 +1,9 @@
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.deps.json
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\b\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.pdb
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.dll
+D:\MyFiles\GIT\DJS\src\.vs\DJS\lut\0\i\DJS.Core.Common\Debug\netcoreapp2.0\DJS.Core.Common.pdb

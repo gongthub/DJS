@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DJS.Core.Communication\DJS.Core.Communication.csproj" />
+    <ProjectReference Include="..\DJS.Core.CPlatform\DJS.Core.CPlatform.csproj" />
+    <ProjectReference Include="..\DJS.Core.DotNetty\DJS.Core.DotNetty.csproj" />
     <ProjectReference Include="..\DJS.Core.Scheduler\DJS.Core.Scheduler.csproj" />
   </ItemGroup>
 

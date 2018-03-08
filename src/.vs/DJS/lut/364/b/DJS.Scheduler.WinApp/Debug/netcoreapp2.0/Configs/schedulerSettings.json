@@ -1,0 +1,8 @@
+{
+  "SchedulerSettings": [
+    {
+      "Id": "PollingScheduler",
+      "Class": "DJS.Core.Scheduler.PollingScheduler.PollingScheduler,DJS.Core.Scheduler"
+    }
+  ]
+}

@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DJS.Core.Common\DJS.Core.Common.csproj" />
+    <ProjectReference Include="..\DJS.Core.CPlatform\DJS.Core.CPlatform.csproj" />
+    <ProjectReference Include="..\DJS.Core.DotNetty\DJS.Core.DotNetty.csproj" />
     <ProjectReference Include="..\DJS.Core.Scheduler\DJS.Core.Scheduler.csproj" />
     <ProjectReference Include="..\DJS.Core.System\DJS.Core.System.csproj" />
   </ItemGroup>

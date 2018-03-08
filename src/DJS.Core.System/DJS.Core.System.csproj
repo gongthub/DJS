@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
 
   <ItemGroup>
