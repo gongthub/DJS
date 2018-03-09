@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace DJS.Core.CPlatform.Runtime.Server.Implementation
+namespace DJS.Core.CPlatform.Communication.Implementation
 {
     /// <summary>
     /// 一个默认的服务主机。

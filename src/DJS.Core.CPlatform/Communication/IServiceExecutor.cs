@@ -2,7 +2,7 @@
 using DJS.Core.CPlatform.Transport;
 using System.Threading.Tasks;
 
-namespace DJS.Core.CPlatform.Runtime.Server
+namespace DJS.Core.CPlatform.Communication
 {
     /// <summary>
     /// 一个抽象的服务执行器。

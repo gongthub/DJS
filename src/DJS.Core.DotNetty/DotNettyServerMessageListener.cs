@@ -1,17 +1,16 @@
-﻿using System;
+﻿using DJS.Core.CPlatform.Messages;
+using DJS.Core.CPlatform.Transport;
+using DJS.Core.CPlatform.Transport.Codec;
+using DJS.Core.DotNetty.Adaper;
+using DotNetty.Buffers;
+using DotNetty.Codecs;
 using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
-using DJS.Core.CPlatform.Transport.Codec;
-using DJS.Core.CPlatform.Transport;
-using System.Threading.Tasks;
-using DJS.Core.CPlatform.Messages;
-using System.Net;
-using DotNetty.Codecs;
-using DJS.Core.DotNetty.Adaper;
-using Microsoft.Extensions.Logging;
-using DotNetty.Buffers;
+using System;
 using System.Diagnostics;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace DJS.Core.DotNetty
 {

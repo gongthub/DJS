@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DJS.Core.CPlatform.Communication.Utilities;
+using System.Collections.Generic;
 
 namespace DJS.Core.CPlatform.Messages
 {
@@ -17,6 +18,7 @@ namespace DJS.Core.CPlatform.Messages
         public bool DecodeJOject { get; set; }
 
         public string ServiceKey { get; set; }
+        public RemoteInvokeType InvokeType { get; set; }
         /// <summary>
         /// 服务参数。
         /// </summary>

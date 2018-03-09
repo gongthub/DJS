@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DJS.Core.Scheduler.Models
+namespace DJS.Core.CPlatform.Scheduler.Models
 {
     public class JobModel
     {

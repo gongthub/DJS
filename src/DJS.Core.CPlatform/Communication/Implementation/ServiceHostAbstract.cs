@@ -4,7 +4,7 @@ using DJS.Core.CPlatform.Transport.Implementation;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace DJS.Core.CPlatform.Runtime.Server.Implementation
+namespace DJS.Core.CPlatform.Communication.Implementation
 {
     /// <summary>
     /// 服务主机基类。

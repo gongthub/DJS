@@ -2,8 +2,7 @@
 using DJS.Core.Communication.Implement;
 using DJS.Core.CPlatform;
 using DJS.Core.CPlatform.Communication;
-using DJS.Core.CPlatform.Runtime.Server;
-using System;
+using DJS.Core.CPlatform.Communication.Implementation;
 
 namespace DJS.Core.Communication
 {
@@ -13,6 +12,7 @@ namespace DJS.Core.Communication
         {
             var services = builder.Services;
             services.RegisterType(typeof(CommunicationProvider)).As(typeof(ICommunicationProvider)).SingleInstance();
+            services.RegisterType(typeof(DefaultServiceExecutor)).As(typeof(IServiceExecutor)).SingleInstance();
             return builder;
         }
 

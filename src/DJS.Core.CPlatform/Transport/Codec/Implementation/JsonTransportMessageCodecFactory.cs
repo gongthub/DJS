@@ -1,6 +1,4 @@
-﻿using DJS.Core.CPlatform.Runtime.Server;
-
-namespace DJS.Core.CPlatform.Transport.Codec.Implementation
+﻿namespace DJS.Core.CPlatform.Transport.Codec.Implementation
 {
     public class JsonTransportMessageCodecFactory : ITransportMessageCodecFactory
     {

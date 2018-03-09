@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using DJS.Core.CPlatform.Communication;
-using DJS.Core.CPlatform.Runtime.Server;
 
 namespace DJS.Core.Communication.Implement
 {

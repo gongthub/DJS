@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DJS.Core.CPlatform.Scheduler.Models;
+using System.Collections.Generic;
 
 namespace DJS.Core.Scheduler.Models
 {

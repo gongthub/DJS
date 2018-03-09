@@ -1,8 +1,6 @@
-﻿using DJS.Core.CPlatform.Address;
-using DJS.Core.CPlatform.Messages;
-using DJS.Core.CPlatform.Transport;
-using DJS.Core.CPlatform.Transport.Codec.Implementation;
+﻿using DJS.Core.CPlatform;
 using DJS.Core.DotNetty;
+using DJS.Core.Scheduler;
 using DJS.Core.Scheduler.Utilities;
 using System;
 
@@ -23,12 +21,21 @@ namespace DJS.Scheduler.WinApp
             //    .BulidOnCompleteRunJob(OnCompleteRunJob)
             //    .Start();
 
-            IpAddressModel IpModel = new IpAddressModel("127.0.0.1", 11112);
-            ITransportClient client = new DotNettyTransportClientFactory(
-                 new JsonTransportMessageCodecFactory()).CreateClient(IpModel.CreateEndPoint());
-            RemoteInvokeMessage remoteInvokeMessage = new RemoteInvokeMessage();
-            remoteInvokeMessage.ServiceId = Guid.NewGuid().ToString();
-            client.SendAsync(remoteInvokeMessage);
+            var host = new SchedulerBuilder()
+                .RegisterServices(builder =>
+                {
+                    builder.AddServices(option =>
+                    {
+                        option.UseDotNettyTransport()
+                        .UsePolling();
+                    });
+                })
+                .AddServerInfo("127.0.0.1", 11120)
+               .Build();
+            //host.BulidOnStartRunJob(OnStartRunJob);
+            //host.BulidOnCompleteRunJob(OnCompleteRunJob);
+
+            host.Start();
             Console.ReadKey();
         }
 

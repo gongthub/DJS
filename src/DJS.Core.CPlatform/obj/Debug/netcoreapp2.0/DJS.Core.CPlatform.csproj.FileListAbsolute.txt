@@ -8,3 +8,4 @@ D:\MyFiles\GIT\DJS\src\DJS.Core.CPlatform\obj\Debug\netcoreapp2.0\DJS.Core.CPlat
 D:\MyFiles\GIT\DJS\src\DJS.Core.CPlatform\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Core.CPlatform\obj\Debug\netcoreapp2.0\DJS.Core.CPlatform.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.CPlatform\obj\Debug\netcoreapp2.0\DJS.Core.CPlatform.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.CPlatform\obj\Debug\netcoreapp2.0\DJS.Core.CPlatform.csprojResolveAssemblyReference.cache

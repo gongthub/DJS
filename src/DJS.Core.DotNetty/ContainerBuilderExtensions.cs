@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Autofac;
 using DJS.Core.CPlatform;
-using DJS.Core.CPlatform.Runtime.Server;
-using DJS.Core.CPlatform.Runtime.Server.Implementation;
+using DJS.Core.CPlatform.Communication;
+using DJS.Core.CPlatform.Communication.Implementation;
 using DJS.Core.CPlatform.Transport;
-using Autofac;
-using Microsoft.Extensions.Logging;
 using DJS.Core.CPlatform.Transport.Codec;
 
 namespace DJS.Core.DotNetty
 {
-   public static class ContainerBuilderExtensions
+    public static class ContainerBuilderExtensions
     {
         /// <summary>
         /// 使用DotNetty进行传输。
@@ -27,12 +25,12 @@ namespace DJS.Core.DotNetty
             services.Register(provider =>
             {
                 var messageListener = provider.Resolve<DotNettyServerMessageListener>();
-                //var serviceExecutor = provider.Resolve<IServiceExecutor>();
+                var serviceExecutor = provider.Resolve<IServiceExecutor>();
                 return new DefaultServiceHost(async endPoint =>
                 {
                     await messageListener.StartAsync(endPoint);
                     return messageListener;
-                });
+                }, serviceExecutor);
                 }).As<IServiceHost>(); 
 
             return builder;

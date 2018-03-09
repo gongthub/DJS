@@ -1,4 +1,5 @@
-﻿using DJS.Core.Scheduler.Models;
+﻿using DJS.Core.CPlatform.Scheduler.Models;
+using DJS.Core.Scheduler.Models;
 using System;
 
 namespace DJS.Core.Scheduler.Utilities
