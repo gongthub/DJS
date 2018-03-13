@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DJS.Core.CPlatform;
 using DJS.Core.CPlatform.Scheduler;
+using DJS.Core.CPlatform.Server;
 using DJS.Core.Scheduler.Implement;
 using DJS.Core.Scheduler.Utilities;
 using System;
@@ -18,6 +19,7 @@ namespace DJS.Core.Scheduler
         public static IServiceBuilder UsePolling(this IServiceBuilder builder)
         {
             var services = builder.Services;
+            services.RegisterType(typeof(SchedulerServiceExecutor)).As(typeof(IServiceExecutor)).SingleInstance();
             services.RegisterType(typeof(PollingScheduler)).As(typeof(ISchedulerProvider)).SingleInstance();
             return builder;
         }

@@ -1,10 +1,10 @@
-using DJS.Core.Communication;
 using DJS.Core.CPlatform;
 using DJS.Core.CPlatform.Address;
 using DJS.Core.CPlatform.Transport.Codec.Implementation;
 using DJS.Core.DotNetty;
 using DJS.Core.Scheduler;
 using DJS.Core.Scheduler.Utilities;
+using DJS.Core.Server;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -59,14 +59,14 @@ namespace DJS.UnitTest
         }
 
         [TestMethod]
-        public void CommunicationTest()
+        public void ServerTest()
         {
-            var host = new CommunicationBuilder()
+            var host = new ServerBuilder()
                 .RegisterServices(builder =>
                 {
                     builder.AddServices(option =>
                     {
-                        option.AddCommunicationServices()
+                        option.AddServerServices()
                         .UseDotNettyTransport();
                     });
                 })

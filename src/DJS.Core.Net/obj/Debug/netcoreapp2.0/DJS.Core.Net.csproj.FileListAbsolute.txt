@@ -1,8 +1,0 @@
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\bin\Debug\netcoreapp2.0\DJS.Core.Net.deps.json
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\bin\Debug\netcoreapp2.0\DJS.Core.Net.dll
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\bin\Debug\netcoreapp2.0\DJS.Core.Net.pdb
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\obj\Debug\netcoreapp2.0\DJS.Core.Net.csproj.CoreCompileInputs.cache
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\obj\Debug\netcoreapp2.0\DJS.Core.Net.AssemblyInfoInputs.cache
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\obj\Debug\netcoreapp2.0\DJS.Core.Net.AssemblyInfo.cs
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\obj\Debug\netcoreapp2.0\DJS.Core.Net.dll
-D:\MyFiles\GIT\DJS\src\DJS.Core.Net\obj\Debug\netcoreapp2.0\DJS.Core.Net.pdb

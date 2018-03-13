@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DJS.Core.CPlatform\DJS.Core.CPlatform.csproj" />
+    <ProjectReference Include="..\DJS.Core.DotNetty\DJS.Core.DotNetty.csproj" />
+    <ProjectReference Include="..\DJS.Core.Execute\DJS.Core.Execute.csproj" />
+  </ItemGroup>
+
 </Project>

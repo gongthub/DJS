@@ -1,4 +1,4 @@
-﻿using DJS.Core.CPlatform.Communication;
+﻿using DJS.Core.CPlatform.Server;
 using DJS.Core.CPlatform.Exceptions;
 using DJS.Core.CPlatform.Messages;
 using System;
@@ -26,7 +26,7 @@ namespace DJS.Core.CPlatform.Transport.Implementation
 
         #region Constructor
 
-        public TransportClient(IMessageSender messageSender, IMessageListener messageListener, 
+        public TransportClient(IMessageSender messageSender, IMessageListener messageListener,
             IServiceExecutor serviceExecutor)
         {
             _messageSender = messageSender;
@@ -68,6 +68,25 @@ namespace DJS.Core.CPlatform.Transport.Implementation
                 Debug.WriteLine("消息发送成功。");
 
                 return await callbackTask;
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception, "消息发送失败。");
+                throw;
+            }
+        }
+        /// <summary>
+        /// 断开连接
+        /// </summary>
+        public void Close()
+        {
+            try
+            {
+                Debug.WriteLine("准备断开连接。");
+
+                Dispose();
+
+                Debug.WriteLine("断开连接成功。");
             }
             catch (Exception exception)
             {
@@ -124,6 +143,7 @@ namespace DJS.Core.CPlatform.Transport.Implementation
             Debug.WriteLine("接收到消息。");
 
             TaskCompletionSource<TransportMessage> task;
+            //var task = new TaskCompletionSource<TransportMessage>();
             if (!_resultDictionary.TryGetValue(message.Id, out task))
                 return;
 
@@ -139,7 +159,7 @@ namespace DJS.Core.CPlatform.Transport.Implementation
                     task.SetResult(message);
                 }
             }
-            if (_serviceExecutor != null && message.IsInvokeMessage())
+            if (_serviceExecutor != null && message.IsInvokeResultMessage())
                 await _serviceExecutor.ExecuteAsync(sender, message);
         }
 

@@ -9,7 +9,7 @@ namespace DJS.Core.CPlatform.Transport
     /// <param name="sender">消息发送者。</param>
     /// <param name="message">接收到的消息。</param>
     public delegate Task ReceivedDelegate(IMessageSender sender, TransportMessage message);
-
+    
     /// <summary>
     /// 一个抽象的消息监听者。
     /// </summary>
@@ -19,7 +19,7 @@ namespace DJS.Core.CPlatform.Transport
         /// 接收到消息的事件。
         /// </summary>
         event ReceivedDelegate Received;
-
+        
         /// <summary>
         /// 触发接收到消息事件。
         /// </summary>

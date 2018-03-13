@@ -27,7 +27,6 @@ namespace DJS.Core.CPlatform.Transport.Implementation
                 return;
             await Received(sender, message);
         }
-
         #endregion Implementation of IMessageListener
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using DJS.Core.CPlatform.Communication;
 using DJS.Core.CPlatform.Module;
-using DJS.Core.CPlatform.Scheduler;
 using DJS.Core.CPlatform.Serialization;
 using DJS.Core.CPlatform.Serialization.Implementation;
+using DJS.Core.CPlatform.Server;
+using DJS.Core.CPlatform.Server.Implementation;
 using DJS.Core.CPlatform.Transport.Codec;
 using DJS.Core.CPlatform.Transport.Codec.Implementation;
 using System;
@@ -48,7 +48,6 @@ namespace DJS.Core.CPlatform
 
     public static class ContainerBuilderExtensions
     {
-
         /// <summary>
         /// 添加服务。
         /// </summary>
@@ -65,7 +64,6 @@ namespace DJS.Core.CPlatform
         /// <returns>服务构建者。</returns>
         private static IServiceBuilder AddServices(this ContainerBuilder services)
         {
-            //services.RegisterType<ISchedulerProvider>().SingleInstance();
             return new ServiceBuilder(services)
                 .AddJsonSerialization()
                 .UseJsonCodec();

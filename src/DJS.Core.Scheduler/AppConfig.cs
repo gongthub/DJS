@@ -14,8 +14,5 @@ namespace DJS.Core.Scheduler
             SERVERINFO = new IpAddressModel();
             SERVICES = new ContainerBuilder();
         }
-
-
-        
     }
 }

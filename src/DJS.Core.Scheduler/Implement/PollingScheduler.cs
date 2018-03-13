@@ -1,12 +1,12 @@
 ﻿using DJS.Core.Common;
 using DJS.Core.CPlatform.Scheduler;
 using DJS.Core.CPlatform.Scheduler.Models;
-using DJS.Core.Scheduler.TriggerManage;
 using DJS.Core.Scheduler.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DJS.Core.Scheduler.Implement
 {
@@ -49,12 +49,12 @@ namespace DJS.Core.Scheduler.Implement
 
         public void Start()
         {
-            Thread thread = new Thread(() =>
+            Task.Run(() =>
             {
+                Thread.Sleep(5000);
                 JobProvider jobProvider = new JobProvider();
-                jobProvider.AsyncRemote();
+                return jobProvider.AsyncRemote();
             });
-            thread.Start();
             //ThreadPool.SetMinThreads(MINTHREADNUM, MINTHREADNUM);
             //ThreadPool.SetMaxThreads(MAXTHREADNUM, MAXTHREADNUM);
             //for (int i = 1; i <= MAXTHREADNUM; i++)
@@ -68,7 +68,7 @@ namespace DJS.Core.Scheduler.Implement
         {
             while (true)
             {
-                Debug.WriteLine(" 开始 执行时间：" + DateTime.Now + " 线程：" + obj);
+                //Debug.WriteLine(" 开始 执行时间：" + DateTime.Now + " 线程：" + obj);
                 JOBS = JobProvider.GetJobs();
                 if (JOBS != null && JOBS.Count > 0)
                 {
@@ -110,7 +110,7 @@ namespace DJS.Core.Scheduler.Implement
                         Console.WriteLine(" 完成 执行时间：" + DateTime.Now + " 总任务数：" + num);
                     }
                     RemoveExpiredJobs();
-                    Debug.WriteLine(" 结束 执行时间：" + DateTime.Now + " 线程：" + obj);
+                    //Debug.WriteLine(" 结束 执行时间：" + DateTime.Now + " 线程：" + obj);
                 }
             }
         }

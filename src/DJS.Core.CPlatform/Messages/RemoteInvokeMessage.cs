@@ -1,4 +1,4 @@
-﻿using DJS.Core.CPlatform.Communication.Utilities;
+﻿using DJS.Core.CPlatform.Server.Utilities;
 using System.Collections.Generic;
 
 namespace DJS.Core.CPlatform.Messages

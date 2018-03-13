@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Communication\**" />
+    <EmbeddedResource Remove="Communication\**" />
+    <None Remove="Communication\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Server\Implementation\DefaultServerHostProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />

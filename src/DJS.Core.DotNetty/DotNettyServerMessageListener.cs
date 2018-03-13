@@ -1,4 +1,5 @@
 ﻿using DJS.Core.CPlatform.Messages;
+using DJS.Core.CPlatform.Server;
 using DJS.Core.CPlatform.Transport;
 using DJS.Core.CPlatform.Transport.Codec;
 using DJS.Core.DotNetty.Adaper;
@@ -17,9 +18,10 @@ namespace DJS.Core.DotNetty
     public class DotNettyServerMessageListener : IMessageListener, IDisposable
     {
         #region Field
-        
+
         private readonly ITransportMessageDecoder _transportMessageDecoder;
         private readonly ITransportMessageEncoder _transportMessageEncoder;
+        private readonly IServerHostProvider _serverHostProvider;
         private IChannel _channel;
 
         #endregion Field
@@ -30,6 +32,12 @@ namespace DJS.Core.DotNetty
         {
             _transportMessageEncoder = codecFactory.GetEncoder();
             _transportMessageDecoder = codecFactory.GetDecoder();
+        }
+        public DotNettyServerMessageListener(ITransportMessageCodecFactory codecFactory, IServerHostProvider serverHostProvider)
+        {
+            _transportMessageEncoder = codecFactory.GetEncoder();
+            _transportMessageDecoder = codecFactory.GetDecoder();
+            _serverHostProvider = serverHostProvider;
         }
 
         #endregion Constructor
@@ -50,7 +58,6 @@ namespace DJS.Core.DotNetty
                 return;
             await Received(sender, message);
         }
-
         #endregion Implementation of IMessageListener
 
         public async Task StartAsync(EndPoint endPoint)
@@ -74,12 +81,14 @@ namespace DJS.Core.DotNetty
                 pipeline.AddLast(new ServerHandler(async (contenxt, message) =>
                 {
                     var sender = new DotNettyServerMessageSender(_transportMessageEncoder, contenxt);
+                    sender.ClientId = Guid.NewGuid().ToString();
                     await OnReceived(sender, message);
                 }));
             }));
             _channel = await bootstrap.BindAsync(endPoint);
             Debug.WriteLine($"服务主机启动成功，监听地址：{endPoint}。");
         }
+
 
         #region Implementation of IDisposable
 
@@ -123,7 +132,7 @@ namespace DJS.Core.DotNetty
 
             public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
             {
-                Debug.WriteLine(exception,$"与服务器：{context.Channel.RemoteAddress}通信时发送了错误。");
+                Debug.WriteLine(exception, $"与服务器：{context.Channel.RemoteAddress}通信时发送了错误。");
             }
 
             #endregion Overrides of ChannelHandlerAdapter

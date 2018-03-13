@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using DJS.Core.CPlatform;
-using DJS.Core.CPlatform.Communication;
-using DJS.Core.CPlatform.Communication.Implementation;
+using DJS.Core.CPlatform.Server;
+using DJS.Core.CPlatform.Server.Implementation;
 using DJS.Core.CPlatform.Transport;
 using DJS.Core.CPlatform.Transport.Codec;
+using DJS.Core.CPlatform.Transport.Implementation;
+using System.Threading.Tasks;
 
 namespace DJS.Core.DotNetty
 {
@@ -18,19 +20,22 @@ namespace DJS.Core.DotNetty
         {
             var services = builder.Services;
             services.RegisterType(typeof(DotNettyTransportClientFactory)).As(typeof(ITransportClientFactory)).SingleInstance();
+
             services.Register(provider => {
-              return  new DotNettyServerMessageListener(
-                    provider.Resolve<ITransportMessageCodecFactory>());
+                var serverHostProvider = provider.Resolve<IServerHostProvider>();
+                return  new DotNettyServerMessageListener(
+                    provider.Resolve<ITransportMessageCodecFactory>(), serverHostProvider);
             }).SingleInstance();
             services.Register(provider =>
             {
                 var messageListener = provider.Resolve<DotNettyServerMessageListener>();
                 var serviceExecutor = provider.Resolve<IServiceExecutor>();
+                var serverHostProvider = provider.Resolve<IServerHostProvider>();
                 return new DefaultServiceHost(async endPoint =>
                 {
                     await messageListener.StartAsync(endPoint);
                     return messageListener;
-                }, serviceExecutor);
+                }, serviceExecutor, serverHostProvider);
                 }).As<IServiceHost>(); 
 
             return builder;

@@ -2154,20 +2154,6 @@
           "bin/placeholder/DJS.Core.Common.dll": {}
         }
       },
-      "DJS.Core.Communication/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.0",
-        "dependencies": {
-          "Autofac": "4.6.2",
-          "DJS.Core.CPlatform": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/DJS.Core.Communication.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DJS.Core.Communication.dll": {}
-        }
-      },
       "DJS.Core.CPlatform/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
@@ -2221,6 +2207,20 @@
         },
         "runtime": {
           "bin/placeholder/DJS.Core.Scheduler.dll": {}
+        }
+      },
+      "DJS.Core.Server/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Autofac": "4.6.2",
+          "DJS.Core.CPlatform": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DJS.Core.Server.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DJS.Core.Server.dll": {}
         }
       },
       "DJS.Core.System/1.0.0": {
@@ -7097,11 +7097,6 @@
       "path": "../DJS.Core.Common/DJS.Core.Common.csproj",
       "msbuildProject": "../DJS.Core.Common/DJS.Core.Common.csproj"
     },
-    "DJS.Core.Communication/1.0.0": {
-      "type": "project",
-      "path": "../DJS.Core.Communication/DJS.Core.Communication.csproj",
-      "msbuildProject": "../DJS.Core.Communication/DJS.Core.Communication.csproj"
-    },
     "DJS.Core.CPlatform/1.0.0": {
       "type": "project",
       "path": "../DJS.Core.CPlatform/DJS.Core.CPlatform.csproj",
@@ -7117,6 +7112,11 @@
       "path": "../DJS.Core.Scheduler/DJS.Core.Scheduler.csproj",
       "msbuildProject": "../DJS.Core.Scheduler/DJS.Core.Scheduler.csproj"
     },
+    "DJS.Core.Server/1.0.0": {
+      "type": "project",
+      "path": "../DJS.Core.Server/DJS.Core.Server.csproj",
+      "msbuildProject": "../DJS.Core.Server/DJS.Core.Server.csproj"
+    },
     "DJS.Core.System/1.0.0": {
       "type": "project",
       "path": "../DJS.Core.System/DJS.Core.System.csproj",
@@ -7126,9 +7126,10 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "DJS.Core.CPlatform >= 1.0.0",
-      "DJS.Core.Communication >= 1.0.0",
       "DJS.Core.DotNetty >= 1.0.0",
       "DJS.Core.Scheduler >= 1.0.0",
+      "DJS.Core.Server >= 1.0.0",
+      "DJS.Core.System >= 1.0.0",
       "MSTest.TestAdapter >= 1.1.18",
       "MSTest.TestFramework >= 1.1.18",
       "Microsoft.NET.Test.Sdk >= 15.3.0-preview-20170628-02",
@@ -7168,14 +7169,17 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
+            "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.System\\DJS.Core.System.csproj": {
+              "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.System\\DJS.Core.System.csproj"
+            },
             "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.CPlatform\\DJS.Core.CPlatform.csproj": {
               "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.CPlatform\\DJS.Core.CPlatform.csproj"
             },
-            "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Communication\\DJS.Core.Communication.csproj": {
-              "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Communication\\DJS.Core.Communication.csproj"
-            },
             "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Scheduler\\DJS.Core.Scheduler.csproj": {
               "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Scheduler\\DJS.Core.Scheduler.csproj"
+            },
+            "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Server\\DJS.Core.Server.csproj": {
+              "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Server\\DJS.Core.Server.csproj"
             },
             "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.DotNetty\\DJS.Core.DotNetty.csproj": {
               "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.DotNetty\\DJS.Core.DotNetty.csproj"

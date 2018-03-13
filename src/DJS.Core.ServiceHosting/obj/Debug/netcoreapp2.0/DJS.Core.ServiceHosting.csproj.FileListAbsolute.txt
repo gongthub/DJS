@@ -1,9 +1,0 @@
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\bin\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.deps.json
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\bin\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.dll
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\obj\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.csproj.CoreCompileInputs.cache
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\obj\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.AssemblyInfoInputs.cache
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\obj\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.AssemblyInfo.cs
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\bin\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.pdb
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\obj\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.dll
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\obj\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.pdb
-D:\MyFiles\GIT\DJS\src\DJS.Core.ServiceHosting\obj\Debug\netcoreapp2.0\DJS.Core.ServiceHosting.csprojResolveAssemblyReference.cache

@@ -9,9 +9,10 @@
       "DJS.UnitTest/1.0.0": {
         "dependencies": {
           "DJS.Core.CPlatform": "1.0.0",
-          "DJS.Core.Communication": "1.0.0",
           "DJS.Core.DotNetty": "1.0.0",
           "DJS.Core.Scheduler": "1.0.0",
+          "DJS.Core.Server": "1.0.0",
+          "DJS.Core.System": "1.0.0",
           "MSTest.TestAdapter": "1.1.18",
           "MSTest.TestFramework": "1.1.18",
           "Microsoft.NET.Test.Sdk": "15.3.0-preview-20170628-02"
@@ -1365,15 +1366,6 @@
           "DJS.Core.Common.dll": {}
         }
       },
-      "DJS.Core.Communication/1.0.0": {
-        "dependencies": {
-          "Autofac": "4.6.2",
-          "DJS.Core.CPlatform": "1.0.0"
-        },
-        "runtime": {
-          "DJS.Core.Communication.dll": {}
-        }
-      },
       "DJS.Core.CPlatform/1.0.0": {
         "dependencies": {
           "Autofac": "4.6.2",
@@ -1412,6 +1404,15 @@
         },
         "runtime": {
           "DJS.Core.Scheduler.dll": {}
+        }
+      },
+      "DJS.Core.Server/1.0.0": {
+        "dependencies": {
+          "Autofac": "4.6.2",
+          "DJS.Core.CPlatform": "1.0.0"
+        },
+        "runtime": {
+          "DJS.Core.Server.dll": {}
         }
       },
       "DJS.Core.System/1.0.0": {
@@ -2170,11 +2171,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DJS.Core.Communication/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "DJS.Core.CPlatform/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -2186,6 +2182,11 @@
       "sha512": ""
     },
     "DJS.Core.Scheduler/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DJS.Core.Server/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

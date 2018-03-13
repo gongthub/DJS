@@ -1,5 +1,5 @@
-﻿using DJS.Core.CPlatform.Communication;
-using DJS.Core.CPlatform.Messages;
+﻿using DJS.Core.CPlatform.Messages;
+using DJS.Core.CPlatform.Server;
 using DJS.Core.CPlatform.Transport;
 using DJS.Core.CPlatform.Transport.Codec;
 using DJS.Core.CPlatform.Transport.Implementation;
@@ -83,9 +83,10 @@ namespace DJS.Core.DotNetty
                         var messageListener = new MessageListener();
                         channel.GetAttribute(messageListenerKey).Set(messageListener);
                         var messageSender = new DotNettyMessageClientSender(_transportMessageEncoder, channel);
+                        messageSender.ClientId = Guid.NewGuid().ToString();
                         channel.GetAttribute(messageSenderKey).Set(messageSender);
                         channel.GetAttribute(origEndPointKey).Set(k);
-                        var client = new TransportClient(messageSender, messageListener,  _serviceExecutor);
+                        var client = new TransportClient(messageSender, messageListener, _serviceExecutor);
                         return client;
                     }
                     )).Value;
@@ -143,7 +144,6 @@ namespace DJS.Core.DotNetty
             public override void ChannelRead(IChannelHandlerContext context, object message)
             {
                 var transportMessage = message as TransportMessage;
-
                 var messageListener = context.Channel.GetAttribute(messageListenerKey).Get();
                 var messageSender = context.Channel.GetAttribute(messageSenderKey).Get();
                 messageListener.OnReceived(messageSender, transportMessage);

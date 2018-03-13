@@ -1,0 +1,11 @@
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\bin\Debug\netcoreapp2.0\DJS.Core.Server.deps.json
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\bin\Debug\netcoreapp2.0\DJS.Core.Server.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\obj\Debug\netcoreapp2.0\DJS.Core.Server.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\obj\Debug\netcoreapp2.0\DJS.Core.Server.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\obj\Debug\netcoreapp2.0\DJS.Core.Server.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\obj\Debug\netcoreapp2.0\DJS.Core.Server.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\bin\Debug\netcoreapp2.0\DJS.Core.Server.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\obj\Debug\netcoreapp2.0\DJS.Core.Server.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.Server\obj\Debug\netcoreapp2.0\DJS.Core.Server.pdb

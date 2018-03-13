@@ -8,6 +8,7 @@ namespace DJS.Core.CPlatform.Transport
     /// </summary>
     public interface IMessageSender
     {
+        string ClientId { get; set; }
         /// <summary>
         /// 发送消息。
         /// </summary>
@@ -21,5 +22,6 @@ namespace DJS.Core.CPlatform.Transport
         /// <param name="message">消息内容。</param>
         /// <returns>一个任务。</returns>
         Task SendAndFlushAsync(TransportMessage message);
+        
     }
 }

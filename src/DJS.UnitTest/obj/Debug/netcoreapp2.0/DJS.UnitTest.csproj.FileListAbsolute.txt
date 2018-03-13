@@ -23,5 +23,5 @@ D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.d
 D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.dll
 D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.pdb
 D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.pdb
-D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.Communication.dll
-D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.Communication.pdb
+D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.Server.dll
+D:\MyFiles\GIT\DJS\src\DJS.UnitTest\bin\Debug\netcoreapp2.0\DJS.Core.Server.pdb

@@ -6,3 +6,6 @@ D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\obj\Debug\netcoreapp2.0\DJS.Core.Execute
 D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\obj\Debug\netcoreapp2.0\DJS.Core.Execute.AssemblyInfo.cs
 D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\obj\Debug\netcoreapp2.0\DJS.Core.Execute.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\obj\Debug\netcoreapp2.0\DJS.Core.Execute.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Execute\obj\Debug\netcoreapp2.0\DJS.Core.Execute.csprojResolveAssemblyReference.cache

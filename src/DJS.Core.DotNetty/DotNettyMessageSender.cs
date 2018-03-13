@@ -1,12 +1,6 @@
-﻿using DotNetty.Buffers;
-using DotNetty.Transport.Channels;
-using DJS.Core.CPlatform.Messages;
-using DJS.Core.CPlatform.Transport;
+﻿using DJS.Core.CPlatform.Messages;
 using DJS.Core.CPlatform.Transport.Codec;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using DotNetty.Buffers;
 
 namespace DJS.Core.DotNetty
 {
@@ -30,94 +24,4 @@ namespace DJS.Core.DotNetty
         }
     }
 
-    /// <summary>
-    /// 基于DotNetty客户端的消息发送者。
-    /// </summary>
-    public class DotNettyMessageClientSender : DotNettyMessageSender, IMessageSender, IDisposable
-    {
-        private readonly IChannel _channel;
-
-        public DotNettyMessageClientSender(ITransportMessageEncoder transportMessageEncoder, IChannel channel) : base(transportMessageEncoder)
-        {
-            _channel = channel;
-        }
-
-        #region Implementation of IDisposable
-
-        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        public void Dispose()
-        {
-            Task.Run(async () =>
-            {
-                await _channel.DisconnectAsync();
-            }).Wait();
-        }
-
-        #endregion Implementation of IDisposable
-
-        #region Implementation of IMessageSender
-
-        /// <summary>
-        /// 发送消息。
-        /// </summary>
-        /// <param name="message">消息内容。</param>
-        /// <returns>一个任务。</returns>
-        public async Task SendAsync(TransportMessage message)
-        {
-            var buffer = GetByteBuffer(message);
-            await _channel.WriteAndFlushAsync(buffer);
-        }
-
-        /// <summary>
-        /// 发送消息并清空缓冲区。
-        /// </summary>
-        /// <param name="message">消息内容。</param>
-        /// <returns>一个任务。</returns>
-        public async Task SendAndFlushAsync(TransportMessage message)
-        {
-            var buffer = GetByteBuffer(message);
-            await _channel.WriteAndFlushAsync(buffer);
-        }
-
-        #endregion Implementation of IMessageSender
-    }
-
-    /// <summary>
-    /// 基于DotNetty服务端的消息发送者。
-    /// </summary>
-    public class DotNettyServerMessageSender : DotNettyMessageSender, IMessageSender
-    {
-        private readonly IChannelHandlerContext _context;
-
-        public DotNettyServerMessageSender(ITransportMessageEncoder transportMessageEncoder, IChannelHandlerContext context) : base(transportMessageEncoder)
-        {
-            _context = context;
-        }
-
-        #region Implementation of IMessageSender
-
-        /// <summary>
-        /// 发送消息。
-        /// </summary>
-        /// <param name="message">消息内容。</param>
-        /// <returns>一个任务。</returns>
-        public Task SendAsync(TransportMessage message)
-        {
-            var buffer = GetByteBuffer(message);
-            return _context.WriteAsync(buffer);
-        }
-
-        /// <summary>
-        /// 发送消息并清空缓冲区。
-        /// </summary>
-        /// <param name="message">消息内容。</param>
-        /// <returns>一个任务。</returns>
-        public Task SendAndFlushAsync(TransportMessage message)
-        {
-            var buffer = GetByteBuffer(message);
-            return _context.WriteAndFlushAsync(buffer);
-        }
-
-        #endregion Implementation of IMessageSender
-    }
 }
