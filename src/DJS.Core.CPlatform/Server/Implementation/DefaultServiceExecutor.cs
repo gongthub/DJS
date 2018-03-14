@@ -109,6 +109,7 @@ namespace DJS.Core.CPlatform.Server.Implementation
             await LocalExecuteAsync(sender, serverHostProvider, remoteInvokeMessage, resultMessage);
             //向客户端发送调用结果。
             await SendRemoteInvokeResult(sender, message.Id, resultMessage);
+            
             //}
             //else
             //{
@@ -138,23 +139,22 @@ namespace DJS.Core.CPlatform.Server.Implementation
                 switch (remoteInvokeMessage.InvokeType)
                 {
                     case RemoteInvokeType.SubScriptionScheduler:
+                        resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;
                         await Task.Run(() =>
                         {
-                            serverHostProvider.SetSubClient(sender);
+                            serverHostProvider.SetSubSchedulerClient(sender);
                         });
+                        resultMessage.Result = "订阅调度器任务成功！";
+                        break;
+                    case RemoteInvokeType.TriggerJob:
+                        resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;
+                        //await Task.Run(() =>
+                        //{
+                        //    serverHostProvider.SetSubSchedulerClient(sender);
+                        //});
+                        resultMessage.Result = "触发任务成功！";
                         break;
                 }
-
-                //Random ran = new Random();
-                //int num = ran.Next(2000, 10000);
-                //int numT = ran.Next(1, 10);
-                //Thread.Sleep(num);
-                //List<JobModel> jobModels = new List<JobModel>();
-                //jobModels.Add(new JobModel() { Id = Guid.NewGuid().ToString(), Name = "任务-" + num, Cron = "0/5 * * * * ?" });
-                //jobModels.Add(new JobModel() { Id = Guid.NewGuid().ToString(), Name = "任务-" + numT, Cron = "0/3 * * * * ?" });
-
-                //resultMessage.Result = jobModels;
-
                 Console.WriteLine("请求消息处理成功。");
             }
             catch (Exception exception)

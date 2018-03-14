@@ -81,7 +81,7 @@ namespace DJS.Core.DotNetty
                 pipeline.AddLast(new ServerHandler(async (contenxt, message) =>
                 {
                     var sender = new DotNettyServerMessageSender(_transportMessageEncoder, contenxt);
-                    sender.ClientId = Guid.NewGuid().ToString();
+                    sender.ClientId = contenxt.Channel.Id.ToString();
                     await OnReceived(sender, message);
                 }));
             }));

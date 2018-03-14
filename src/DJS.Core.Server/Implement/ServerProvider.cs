@@ -18,7 +18,7 @@ namespace DJS.Core.Server.Implement
                 while (true)
                 {
                     Thread.Sleep(10000);
-                    iServerHostProvider.StartExecPublishJobs();
+                    iServerHostProvider.PublishSchedulerJobs();
                 }
             });
             thread.Start();

@@ -4,11 +4,9 @@ using System.Text;
 
 namespace DJS.Core.CPlatform.Server.Utilities
 {
-    public enum RemoteInvokeType
+    public enum RemoteInvokeResultType
     {
-        Heartbeat,
-        TriggerJob,
-        SubScriptionExecute,
-        SubScriptionScheduler
+        Default,
+        PublishSchedulerJobs
     }
 }

@@ -925,6 +925,16 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
+      "DJS.Core.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/DJS.Core.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DJS.Core.Common.dll": {}
+        }
+      },
       "DJS.Core.CPlatform/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
@@ -3787,6 +3797,11 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
+    "DJS.Core.Common/1.0.0": {
+      "type": "project",
+      "path": "../DJS.Core.Common/DJS.Core.Common.csproj",
+      "msbuildProject": "../DJS.Core.Common/DJS.Core.Common.csproj"
+    },
     "DJS.Core.CPlatform/1.0.0": {
       "type": "project",
       "path": "../DJS.Core.CPlatform/DJS.Core.CPlatform.csproj",
@@ -3797,6 +3812,7 @@
     ".NETCoreApp,Version=v2.0": [
       "Autofac >= 4.6.2",
       "DJS.Core.CPlatform >= 1.0.0",
+      "DJS.Core.Common >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
@@ -3833,6 +3849,9 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
+            "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Common\\DJS.Core.Common.csproj": {
+              "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.Common\\DJS.Core.Common.csproj"
+            },
             "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.CPlatform\\DJS.Core.CPlatform.csproj": {
               "projectPath": "D:\\MyFiles\\GIT\\DJS\\src\\DJS.Core.CPlatform\\DJS.Core.CPlatform.csproj"
             }

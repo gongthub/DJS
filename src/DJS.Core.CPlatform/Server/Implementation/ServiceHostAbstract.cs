@@ -67,7 +67,6 @@ namespace DJS.Core.CPlatform.Server.Implementation
         private async Task MessageListener_Received(IMessageSender sender, TransportMessage message)
         {
             await _serviceExecutor.ExecuteAsync(sender, _serverHostProvider, message);
-
         }
 
         #endregion Private Method

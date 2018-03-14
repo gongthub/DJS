@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DJS.Core.CPlatform.Server;
+using System.Threading;
 
 namespace DJS.Core.Scheduler.Implement
 {
@@ -18,6 +19,12 @@ namespace DJS.Core.Scheduler.Implement
 
         private static List<JobModel> JOBMODELS = new List<JobModel>();
 
+        private static ITransportClient ISUBSCHEDULERCLIENT;
+
+        public static void SetJobs(List<JobModel> jobs)
+        {
+            JOBMODELS = jobs;
+        }
         public static List<JobModel> GetJobs()
         {
             return JOBMODELS;
@@ -53,17 +60,21 @@ namespace DJS.Core.Scheduler.Implement
         {
             try
             {
+                MonitorSchedulerClient();
                 while (true)
                 {
+                    Thread.Sleep(10000);
                     RemoteInvokeMessage message = new RemoteInvokeMessage();
-                    message.ServiceId ="11111";
+                    message.ServiceId = "11111";
                     message.InvokeType = RemoteInvokeType.SubScriptionScheduler;
-                    var client = CreateClient();
-                    RemoteInvokeResultMessage result = await client.SendAsync(message);
+                    if (ISUBSCHEDULERCLIENT == null)
+                        ISUBSCHEDULERCLIENT = CreateClient();
+                    RemoteInvokeResultMessage result = await ISUBSCHEDULERCLIENT.SendAsync(message);
                     //client.Close();
                     //var clientT = CreateClient();
                     //result = await clientT.SendAsync(message);
                     CallBack(result);
+                    ISUBSCHEDULERCLIENT.Close();
                 }
             }
             catch (Exception e)
@@ -71,6 +82,27 @@ namespace DJS.Core.Scheduler.Implement
                 Console.WriteLine(e.Message);
             }
             //RemoteInvokeResultMessage result =await client.SendAsync(message);
+        }
+
+        private void MonitorSchedulerClient()
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        Thread.Sleep(1000);
+                        RemoteInvokeMessage message = new RemoteInvokeMessage();
+                        message.InvokeType = RemoteInvokeType.Heartbeat;
+                        ISUBSCHEDULERCLIENT.SendAsync(message);
+                    }
+                    catch
+                    {
+                        ISUBSCHEDULERCLIENT = CreateClient();
+                    }
+                }
+            });
         }
 
         public void CallBack(RemoteInvokeResultMessage message)

@@ -15,3 +15,5 @@ D:\MyFiles\GIT\DJS\src\DJS.Server.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.DotNet
 D:\MyFiles\GIT\DJS\src\DJS.Server.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.Server.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Server.WinApp\obj\Debug\netcoreapp2.0\DJS.Server.WinApp.dll
 D:\MyFiles\GIT\DJS\src\DJS.Server.WinApp\obj\Debug\netcoreapp2.0\DJS.Server.WinApp.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Server.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.Common.dll
+D:\MyFiles\GIT\DJS\src\DJS.Server.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.Common.pdb

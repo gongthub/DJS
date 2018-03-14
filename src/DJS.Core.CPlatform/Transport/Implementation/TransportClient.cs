@@ -143,10 +143,13 @@ namespace DJS.Core.CPlatform.Transport.Implementation
             Debug.WriteLine("接收到消息。");
 
             TaskCompletionSource<TransportMessage> task;
-            //var task = new TaskCompletionSource<TransportMessage>();
             if (!_resultDictionary.TryGetValue(message.Id, out task))
-                return;
-
+            {
+                if (_serviceExecutor != null && message.IsInvokeResultMessage())
+                    await _serviceExecutor.ExecuteAsync(sender, message);
+                else
+                    return;
+            }
             if (message.IsInvokeResultMessage())
             {
                 var content = message.GetContent<RemoteInvokeResultMessage>();
@@ -159,8 +162,6 @@ namespace DJS.Core.CPlatform.Transport.Implementation
                     task.SetResult(message);
                 }
             }
-            if (_serviceExecutor != null && message.IsInvokeResultMessage())
-                await _serviceExecutor.ExecuteAsync(sender, message);
         }
 
         #endregion Private Method
