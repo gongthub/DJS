@@ -15,3 +15,5 @@ D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.CPlat
 D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.Execute.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\obj\Debug\netcoreapp2.0\DJS.Execute.WinApp.csprojResolveAssemblyReference.cache
+D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.Common.dll
+D:\MyFiles\GIT\DJS\src\DJS.Execute.WinApp\bin\Debug\netcoreapp2.0\DJS.Core.Common.pdb

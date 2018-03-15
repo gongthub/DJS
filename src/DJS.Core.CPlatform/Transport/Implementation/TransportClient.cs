@@ -150,16 +150,19 @@ namespace DJS.Core.CPlatform.Transport.Implementation
                 else
                     return;
             }
-            if (message.IsInvokeResultMessage())
+            else
             {
-                var content = message.GetContent<RemoteInvokeResultMessage>();
-                if (!string.IsNullOrEmpty(content.ExceptionMessage))
+                if (message.IsInvokeResultMessage())
                 {
-                    task.TrySetException(new CPlatformCommunicationException(content.ExceptionMessage));
-                }
-                else
-                {
-                    task.SetResult(message);
+                    var content = message.GetContent<RemoteInvokeResultMessage>();
+                    if (!string.IsNullOrEmpty(content.ExceptionMessage))
+                    {
+                        task.TrySetException(new CPlatformCommunicationException(content.ExceptionMessage));
+                    }
+                    else
+                    {
+                        task.SetResult(message);
+                    }
                 }
             }
         }

@@ -13,8 +13,9 @@ namespace DJS.Core.Scheduler.Implement
     {
         public async Task Run(JobModel job)
         {
+            Console.WriteLine(job.Name + " 开始 执行时间：" + DateTime.Now + " 下次开始时间：" + job.NextTime);
             RemoteInvokeMessage message = new RemoteInvokeMessage();
-            message.ServiceId = Guid.NewGuid().ToString();
+            message.ServiceId = job.Id.ToString();
             message.InvokeType = RemoteInvokeType.TriggerJob;
             var client = CreateClient();
             RemoteInvokeResultMessage result = await client.SendAsync(message);
@@ -25,23 +26,7 @@ namespace DJS.Core.Scheduler.Implement
         {
             try
             {
-                //List<JobModel> models = new List<JobModel>();
-                //var iContainer = AppConfig.ICONTATINER;
-                //var iCodeFactory = iContainer.Resolve<ISerializer<string>>();
-                //models = iCodeFactory.Deserialize<string, List<JobModel>>(message.Result.ToString());
-                ////List<JobModel> models = new List<JobModel>();
-                //if (models != null && models.Count > 0)
-                //{
-                //    models.ForEach(delegate (JobModel model)
-                //    {
-                //        DateTime tTime = DateTime.Now;
-                //        var exp = new CronExpression(model.Cron);
-                //        DateTime? ntimet = exp.GetNextValidTimeAfter(tTime);
-                //        model.NextTime = ntimet;
-                //    });
-                //}
-                //JOBMODELS = models;
-                //Console.WriteLine(message.Result);
+                Console.WriteLine(message.Result);
             }
             catch (Exception e)
             {

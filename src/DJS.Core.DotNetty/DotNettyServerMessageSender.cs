@@ -1,6 +1,7 @@
 ﻿using DJS.Core.CPlatform.Messages;
 using DJS.Core.CPlatform.Transport;
 using DJS.Core.CPlatform.Transport.Codec;
+using DotNetty.Buffers;
 using DotNetty.Transport.Channels;
 using System.Collections.Generic;
 using System.Threading.Tasks;

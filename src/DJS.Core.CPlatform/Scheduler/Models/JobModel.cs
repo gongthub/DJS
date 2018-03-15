@@ -14,5 +14,7 @@ namespace DJS.Core.CPlatform.Scheduler.Models
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public bool IsTriggering { get; set; }
+        public string AssPath { get; set; }
+        public string FileName { get; set; }
     }
 }

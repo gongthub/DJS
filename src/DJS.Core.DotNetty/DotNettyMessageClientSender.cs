@@ -1,9 +1,11 @@
 ﻿using DJS.Core.CPlatform.Messages;
 using DJS.Core.CPlatform.Transport;
 using DJS.Core.CPlatform.Transport.Codec;
+using DotNetty.Buffers;
 using DotNetty.Transport.Channels;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DJS.Core.DotNetty
@@ -60,7 +62,6 @@ namespace DJS.Core.DotNetty
             var buffer = GetByteBuffer(message);
             await _channel.WriteAndFlushAsync(buffer);
         }
-
         #endregion Implementation of IMessageSender
     }
 }

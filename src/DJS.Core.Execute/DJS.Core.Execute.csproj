@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DJS.Core.Common\DJS.Core.Common.csproj" />
     <ProjectReference Include="..\DJS.Core.CPlatform\DJS.Core.CPlatform.csproj" />
   </ItemGroup>
 

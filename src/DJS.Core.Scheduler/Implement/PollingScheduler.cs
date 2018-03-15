@@ -76,7 +76,7 @@ namespace DJS.Core.Scheduler.Implement
                     List<JobModel> models = JOBS.FindAll(m => m.NextTime.Value.ToString().Equals(nTime.ToString()));
                     if (models != null && models.Count > 0)
                     {
-                        Console.WriteLine(" 开始 执行时间：" + DateTime.Now + " 总任务数：" + models.Count);
+                        //Console.WriteLine(" 开始 执行时间：" + DateTime.Now + " 总任务数：" + models.Count);
                         int num = 0;
                         models.ForEach(delegate (JobModel model)
                         {
@@ -91,23 +91,27 @@ namespace DJS.Core.Scheduler.Implement
                                 arg.job = model;
                                 //OnStartRunJob(this, arg);
 
-                                Console.WriteLine(model.Name + " 开始 执行时间：" + DateTime.Now + " 下次开始时间：" + model.NextTime + " 线程：" + obj);
+                                //Console.WriteLine(model.Name + " 开始 执行时间：" + DateTime.Now + " 下次开始时间：" + model.NextTime + " 线程：" + obj);
                                 //TriggerProvider triggerProvider = new TriggerProvider();
                                 //triggerProvider.Run(model);
-                                Thread thread = new Thread(() =>
-                                 {
-                                     new TriggerProvider().Run(model);
-                                     //OnCompleteRunJob(this, arg);
-                                     Console.WriteLine(model.Name + " 完成 执行时间：" + DateTime.Now + " 下次开始时间：" + model.NextTime + " 线程：" + obj);
-                                 });
-                                thread.Start();
+                                Task.Factory.StartNew(() =>
+                                {
+                                    return new TriggerProvider().Run(model);
+                                });
+                                //Thread thread = new Thread(() =>
+                                // {
+                                //     new TriggerProvider().Run(model);
+                                //     //OnCompleteRunJob(this, arg);
+                                //     //Console.WriteLine(model.Name + " 完成 执行时间：" + DateTime.Now + " 下次开始时间：" + model.NextTime + " 线程：" + obj);
+                                // });
+                                //thread.Start();
                                 //OnCompleteRunJob(this, arg);
                                 //Console.WriteLine(model.Name + " 完成 执行时间：" + DateTime.Now + " 下次开始时间：" + model.NextTime + " 线程：" + obj);
                             }
                             model.IsTriggering = false;
                             num++;
                         });
-                        Console.WriteLine(" 完成 执行时间：" + DateTime.Now + " 总任务数：" + num);
+                        //Console.WriteLine(" 完成 执行时间：" + DateTime.Now + " 总任务数：" + num);
                     }
                     RemoveExpiredJobs();
                     //Debug.WriteLine(" 结束 执行时间：" + DateTime.Now + " 线程：" + obj);

@@ -109,7 +109,7 @@ namespace DJS.Core.CPlatform.Server.Implementation
             await LocalExecuteAsync(sender, serverHostProvider, remoteInvokeMessage, resultMessage);
             //向客户端发送调用结果。
             await SendRemoteInvokeResult(sender, message.Id, resultMessage);
-            
+
             //}
             //else
             //{
@@ -144,15 +144,27 @@ namespace DJS.Core.CPlatform.Server.Implementation
                         {
                             serverHostProvider.SetSubSchedulerClient(sender);
                         });
-                        resultMessage.Result = "订阅调度器任务成功！";
+                        resultMessage.Result = "订阅调度器成功！";
+                        break;
+                    case RemoteInvokeType.SubScriptionExecute:
+                        resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;
+                        await Task.Run(() =>
+                        {
+                            serverHostProvider.SetSubExecuteClient(sender);
+                        });
+                        resultMessage.Result = "订阅执行器成功！";
                         break;
                     case RemoteInvokeType.TriggerJob:
                         resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;
-                        //await Task.Run(() =>
-                        //{
-                        //    serverHostProvider.SetSubSchedulerClient(sender);
-                        //});
-                        resultMessage.Result = "触发任务成功！";
+                        await Task.Run(() =>
+                        {
+                            serverHostProvider.PublishExecuteJobs(remoteInvokeMessage.ServiceId);
+                        });
+                        resultMessage.Result = "触发执行器任务成功！";
+                        break;
+                    case RemoteInvokeType.Heartbeat:
+                        resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;
+                        resultMessage.Result = "心跳成功！";
                         break;
                 }
                 Console.WriteLine("请求消息处理成功。");

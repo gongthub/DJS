@@ -60,71 +60,61 @@ namespace DJS.Core.Scheduler.Implement
         {
             try
             {
-                MonitorSchedulerClient();
-                while (true)
-                {
-                    Thread.Sleep(10000);
-                    RemoteInvokeMessage message = new RemoteInvokeMessage();
-                    message.ServiceId = "11111";
-                    message.InvokeType = RemoteInvokeType.SubScriptionScheduler;
-                    if (ISUBSCHEDULERCLIENT == null)
-                        ISUBSCHEDULERCLIENT = CreateClient();
-                    RemoteInvokeResultMessage result = await ISUBSCHEDULERCLIENT.SendAsync(message);
-                    //client.Close();
-                    //var clientT = CreateClient();
-                    //result = await clientT.SendAsync(message);
-                    CallBack(result);
-                    ISUBSCHEDULERCLIENT.Close();
-                }
+                await MonitorSchedulerClient();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            //RemoteInvokeResultMessage result =await client.SendAsync(message);
         }
 
-        private void MonitorSchedulerClient()
+        public async Task CreateSubScheduler()
         {
-            Task.Run(() =>
+            try
             {
-                while (true)
-                {
-                    try
-                    {
-                        Thread.Sleep(1000);
-                        RemoteInvokeMessage message = new RemoteInvokeMessage();
-                        message.InvokeType = RemoteInvokeType.Heartbeat;
-                        ISUBSCHEDULERCLIENT.SendAsync(message);
-                    }
-                    catch
-                    {
-                        ISUBSCHEDULERCLIENT = CreateClient();
-                    }
-                }
-            });
+                RemoteInvokeMessage message = new RemoteInvokeMessage();
+                message.ServiceId = "1111";
+                message.InvokeType = RemoteInvokeType.SubScriptionScheduler;
+                if (ISUBSCHEDULERCLIENT == null)
+                    ISUBSCHEDULERCLIENT = CreateClient();
+                RemoteInvokeResultMessage result = await ISUBSCHEDULERCLIENT.SendAsync(message);
+                CallBack(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+
+                await MonitorSchedulerClient();
+            }
+        }
+        private async Task MonitorSchedulerClient()
+        {
+            await Task.Run(() =>
+             {
+                 while (true)
+                 {
+                     try
+                     {
+                         Thread.Sleep(1000);
+                         RemoteInvokeMessage message = new RemoteInvokeMessage();
+                         message.InvokeType = RemoteInvokeType.Heartbeat;
+                         ISUBSCHEDULERCLIENT.SendAsync(message);
+                     }
+                     catch
+                     {
+                         return CreateSubScheduler();
+                     }
+                 }
+             });
         }
 
         public void CallBack(RemoteInvokeResultMessage message)
         {
             try
             {
-                //List<JobModel> models = new List<JobModel>();
-                //var iContainer = AppConfig.ICONTATINER;
-                //var iCodeFactory = iContainer.Resolve<ISerializer<string>>();
-                //models = iCodeFactory.Deserialize<string, List<JobModel>>(message.Result.ToString());
-                ////List<JobModel> models = new List<JobModel>();
-                //if (models != null && models.Count > 0)
-                //{
-                //    models.ForEach(delegate (JobModel model)
-                //    {
-                //        DateTime tTime = DateTime.Now;
-                //        var exp = new CronExpression(model.Cron);
-                //        DateTime? ntimet = exp.GetNextValidTimeAfter(tTime);
-                //        model.NextTime = ntimet;
-                //    });
-                //}
-                //JOBMODELS = models;
                 Console.WriteLine(message.Result);
             }
             catch (Exception e)

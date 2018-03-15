@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using DJS.Core.CPlatform;
 using DJS.Core.CPlatform.Execute;
+using DJS.Core.CPlatform.Server;
+using DJS.Core.Execute.Implement;
 using DJS.Core.Scheduler.Implement;
 using System;
 
@@ -11,6 +13,7 @@ namespace DJS.Core.Execute
         public static IServiceBuilder AddExecuteServices(this IServiceBuilder builder)
         {
             var services = builder.Services;
+            services.RegisterType(typeof(ExecuteServiceExecutor)).As(typeof(IServiceExecutor)).SingleInstance();
             services.RegisterType(typeof(ExecuteProvider)).As(typeof(IExecuteProvider)).SingleInstance();
             return builder;
         }

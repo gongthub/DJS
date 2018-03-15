@@ -7,6 +7,8 @@ namespace DJS.Core.CPlatform.Server.Utilities
     public enum RemoteInvokeResultType
     {
         Default,
-        PublishSchedulerJobs
+        PublishSchedulerJobs,
+        PublishExecuteJobs,
+        PublishExecuteJobFiles
     }
 }

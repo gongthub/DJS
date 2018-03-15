@@ -760,6 +760,11 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "DJS.Core.Common/1.0.0": {
+        "runtime": {
+          "DJS.Core.Common.dll": {}
+        }
+      },
       "DJS.Core.CPlatform/1.0.0": {
         "dependencies": {
           "Autofac": "4.6.2",
@@ -784,7 +789,8 @@
       "DJS.Core.Execute/1.0.0": {
         "dependencies": {
           "Autofac": "4.6.2",
-          "DJS.Core.CPlatform": "1.0.0"
+          "DJS.Core.CPlatform": "1.0.0",
+          "DJS.Core.Common": "1.0.0"
         },
         "runtime": {
           "DJS.Core.Execute.dll": {}
@@ -1315,6 +1321,11 @@
       "sha512": "sha512-3LZGYLN9NUL/KRN+a4+Xk2/Lrxutp1PCLcTXmHHQdViK18GZcR0gzvTBUPBqomsjAzMiisg0VaU1nnzgJogkQA==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "DJS.Core.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "DJS.Core.CPlatform/1.0.0": {
       "type": "project",

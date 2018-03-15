@@ -11,4 +11,8 @@
     <ProjectReference Include="..\DJS.Core.Execute\DJS.Core.Execute.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Stores\" />
+  </ItemGroup>
+
 </Project>

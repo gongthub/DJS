@@ -26,5 +26,25 @@ namespace DJS.Core.CPlatform.Server
         /// 发布调度器任务
         /// </summary>
         void PublishSchedulerJobs();
+
+        /// <summary>
+        /// 设置执行器订阅客户端
+        /// </summary>
+        /// <param name="messageSender"></param>
+        void SetSubExecuteClient(IMessageSender messageSender);
+        /// <summary>
+        /// 获取所有执行器订阅客户端
+        /// </summary>
+        /// <returns></returns>
+        List<IMessageSender> GetSubExecuteClients();
+        /// <summary>
+        /// 移除指定执行器订阅客户端
+        /// </summary>
+        /// <param name="clientId"></param>
+        void RemoveSubExecuteClient(string clientId);
+        /// <summary>
+        /// 发布执行器任务
+        /// </summary>
+        void PublishExecuteJobs(string jobId);
     }
 }

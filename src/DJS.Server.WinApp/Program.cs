@@ -2,6 +2,8 @@
 using DJS.Core.DotNetty;
 using DJS.Core.Server;
 using System;
+using System.IO;
+using System.Net.Http;
 
 namespace DJS.Server.WinApp
 {
@@ -25,5 +27,6 @@ namespace DJS.Server.WinApp
             Console.WriteLine("服务启动成功！");
             Console.ReadKey();
         }
+
     }
 }

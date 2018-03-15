@@ -31,9 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.CPlatform", "DJS.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.DotNetty", "DJS.Core.DotNetty\DJS.Core.DotNetty.csproj", "{C71B064B-58AD-4156-9457-A4F568A619E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Core.Server", "DJS.Core.Server\DJS.Core.Server.csproj", "{AEEB33BF-E65C-4D95-9035-458906A9675C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Core.Server", "DJS.Core.Server\DJS.Core.Server.csproj", "{AEEB33BF-E65C-4D95-9035-458906A9675C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.Server.WinApp", "DJS.Server.WinApp\DJS.Server.WinApp.csproj", "{7BCC75A1-2B7B-45EF-842F-CB76708AEF18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DJS.Server.WinApp", "DJS.Server.WinApp\DJS.Server.WinApp.csproj", "{7BCC75A1-2B7B-45EF-842F-CB76708AEF18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DJS.FileServer.WebApp", "DJS.FileServer.WebApp\DJS.FileServer.WebApp.csproj", "{9A39046B-1A4A-473C-A571-D84A73C27A8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,10 @@ Global
 		{7BCC75A1-2B7B-45EF-842F-CB76708AEF18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BCC75A1-2B7B-45EF-842F-CB76708AEF18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BCC75A1-2B7B-45EF-842F-CB76708AEF18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A39046B-1A4A-473C-A571-D84A73C27A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A39046B-1A4A-473C-A571-D84A73C27A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A39046B-1A4A-473C-A571-D84A73C27A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A39046B-1A4A-473C-A571-D84A73C27A8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
