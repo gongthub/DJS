@@ -1,11 +1,13 @@
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.deps.json
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.Common.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.CPlatform.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.Common.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\obj\Debug\netcoreapp2.0\DJS.Core.DotNetty.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\obj\Debug\netcoreapp2.0\DJS.Core.DotNetty.csproj.CoreCompileInputs.cache
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\obj\Debug\netcoreapp2.0\DJS.Core.DotNetty.AssemblyInfoInputs.cache
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\obj\Debug\netcoreapp2.0\DJS.Core.DotNetty.AssemblyInfo.cs
-D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\bin\Debug\netcoreapp2.0\DJS.Core.DotNetty.pdb
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\obj\Debug\netcoreapp2.0\DJS.Core.DotNetty.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.DotNetty\obj\Debug\netcoreapp2.0\DJS.Core.DotNetty.pdb

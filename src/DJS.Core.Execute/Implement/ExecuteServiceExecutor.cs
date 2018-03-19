@@ -29,14 +29,20 @@ namespace DJS.Core.Execute.Implement
                 try
                 {
                     remoteInvokeResultMessage = message.GetContent<RemoteInvokeResultMessage>();
+
+                    var iContainer = AppConfig.ICONTATINER;
+                    var iCodeFactory = iContainer.Resolve<ISerializer<string>>();
                     switch (remoteInvokeResultMessage.remoteInvokeResultType)
                     {
-                        case RemoteInvokeResultType.PublishExecuteJobs:
-                            var iContainer = AppConfig.ICONTATINER;
-                            var iCodeFactory = iContainer.Resolve<ISerializer<string>>();
+                        case RemoteInvokeResultType.PublishExecuteJobFiles:
                             ExecuteJobModel model = iCodeFactory.Deserialize<string, ExecuteJobModel>(remoteInvokeResultMessage.Result.ToString());
                             AppConfig.SetJob(model);
                             Console.WriteLine("发布执行任务：" + model.Name);
+                            break;
+                        case RemoteInvokeResultType.PublishExecuteJobs:
+                            string jobIds = iCodeFactory.Deserialize<string,string>(remoteInvokeResultMessage.Result.ToString());
+                            //AppConfig.SetJob(model);
+                            Console.WriteLine("执行任务：" + jobIds);
                             break;
                     }
                 }

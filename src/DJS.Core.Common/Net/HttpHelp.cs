@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 
 namespace DJS.Core.Common.Net
 {
@@ -13,10 +11,11 @@ namespace DJS.Core.Common.Net
         /// </summary>
         /// <param name="url">网络路径</param>
         /// <param name="savePath">保存本地的文件夹</param>
-        public static void FileDownSave(string url, string savePath)
+        public static void FileDownSave(string url, string savePath, out string filePath)
         {
             try
             {
+                filePath = string.Empty;
                 HttpClient httpClient = new HttpClient();
                 if (!string.IsNullOrWhiteSpace(url))
                 {
@@ -38,6 +37,7 @@ namespace DJS.Core.Common.Net
                         }
                         stream.Close();
                         responseStream.Close();
+                        filePath = savePath;
                     }
                 }
             }

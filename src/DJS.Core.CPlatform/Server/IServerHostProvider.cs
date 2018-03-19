@@ -1,6 +1,5 @@
 ﻿using DJS.Core.CPlatform.Transport;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace DJS.Core.CPlatform.Server
 {
@@ -46,5 +45,10 @@ namespace DJS.Core.CPlatform.Server
         /// 发布执行器任务
         /// </summary>
         void PublishExecuteJobs(string jobId);
+
+        /// <summary>
+        /// 发布执行器任务信息
+        /// </summary>
+        void PublishExecuteJobFiles(string jobId);
     }
 }

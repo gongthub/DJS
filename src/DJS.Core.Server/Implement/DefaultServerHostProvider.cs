@@ -1,15 +1,11 @@
-﻿using DJS.Core.CPlatform.Messages;
-using DJS.Core.CPlatform.Server;
-using DJS.Core.CPlatform.Transport;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Autofac;
-using System;
+﻿using DJS.Core.Common;
+using DJS.Core.CPlatform.Messages;
 using DJS.Core.CPlatform.Scheduler.Models;
+using DJS.Core.CPlatform.Server;
 using DJS.Core.CPlatform.Server.Utilities;
-using DJS.Core.Common;
-using DJS.Core.Common.File;
+using DJS.Core.CPlatform.Transport;
+using System;
+using System.Collections.Generic;
 
 namespace DJS.Core.Server.Implement
 {
@@ -112,8 +108,40 @@ namespace DJS.Core.Server.Implement
                         {
                             try
                             {
-                                resultMessage.Result = jobModel;
+                                resultMessage.Result = jobModel.Id;
                                 resultMessage.remoteInvokeResultType = RemoteInvokeResultType.PublishExecuteJobs;
+                                message = TransportMessage.CreateInvokeResultMessage(Guid.NewGuid().ToString(), resultMessage);
+                                item.SendAndFlushAsync(message);
+                            }
+                            catch
+                            {
+                                RemoveSubExecuteClient(item.ClientId);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void PublishExecuteJobFiles(string jobId)
+        {
+            List<JobModel> schedulerJobs = GetSchedulerJobs();
+            if (schedulerJobs != null && schedulerJobs.Count > 0)
+            {
+                JobModel jobModel = schedulerJobs.Find(m => m.Id == jobId);
+                if (jobModel != null && !string.IsNullOrEmpty(jobModel.Id))
+                {
+                    List<IMessageSender> models = GetSubExecuteClients();
+                    TransportMessage message = new TransportMessage();
+                    RemoteInvokeResultMessage resultMessage = new RemoteInvokeResultMessage();
+                    if (models != null && models.Count > 0)
+                    {
+                        foreach (var item in models)
+                        {
+                            try
+                            {
+                                resultMessage.Result = jobModel;
+                                resultMessage.remoteInvokeResultType = RemoteInvokeResultType.PublishExecuteJobFiles;
                                 message = TransportMessage.CreateInvokeResultMessage(Guid.NewGuid().ToString(), resultMessage);
                                 item.SendAndFlushAsync(message);
                             }

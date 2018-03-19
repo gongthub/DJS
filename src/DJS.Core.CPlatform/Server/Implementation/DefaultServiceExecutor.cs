@@ -1,10 +1,7 @@
 ﻿using DJS.Core.CPlatform.Messages;
-using DJS.Core.CPlatform.Scheduler.Models;
 using DJS.Core.CPlatform.Server.Utilities;
 using DJS.Core.CPlatform.Transport;
 using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DJS.Core.CPlatform.Server.Implementation
@@ -161,6 +158,14 @@ namespace DJS.Core.CPlatform.Server.Implementation
                             serverHostProvider.PublishExecuteJobs(remoteInvokeMessage.ServiceId);
                         });
                         resultMessage.Result = "触发执行器任务成功！";
+                        break;
+                    case RemoteInvokeType.SetExecuteJob:
+                        resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;
+                        await Task.Run(() =>
+                        {
+                            serverHostProvider.PublishExecuteJobFiles(remoteInvokeMessage.ServiceId);
+                        });
+                        resultMessage.Result = "发布执行器任务信息成功！";
                         break;
                     case RemoteInvokeType.Heartbeat:
                         resultMessage.remoteInvokeResultType = RemoteInvokeResultType.Default;

@@ -1,6 +1,7 @@
 D:\MyFiles\GIT\DJS\src\DJS.Core.Log\bin\Debug\netcoreapp2.0\DJS.Core.Log.deps.json
 D:\MyFiles\GIT\DJS\src\DJS.Core.Log\bin\Debug\netcoreapp2.0\DJS.Core.Log.dll
 D:\MyFiles\GIT\DJS\src\DJS.Core.Log\bin\Debug\netcoreapp2.0\DJS.Core.Log.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Log\obj\Debug\netcoreapp2.0\DJS.Core.Log.csprojResolveAssemblyReference.cache
 D:\MyFiles\GIT\DJS\src\DJS.Core.Log\obj\Debug\netcoreapp2.0\DJS.Core.Log.csproj.CoreCompileInputs.cache
 D:\MyFiles\GIT\DJS\src\DJS.Core.Log\obj\Debug\netcoreapp2.0\DJS.Core.Log.AssemblyInfoInputs.cache
 D:\MyFiles\GIT\DJS\src\DJS.Core.Log\obj\Debug\netcoreapp2.0\DJS.Core.Log.AssemblyInfo.cs

@@ -2,7 +2,6 @@
 using DJS.Core.Common.Net;
 using DJS.Core.CPlatform.Address;
 using DJS.Core.CPlatform.Execute.Models;
-using DJS.Core.CPlatform.Scheduler.Models;
 using System.Collections.Generic;
 
 namespace DJS.Core.Execute
@@ -27,9 +26,9 @@ namespace DJS.Core.Execute
             ExecuteJobModel model = JOBMODELS.Find(m => m.Id == job.Id);
             if (model == null)
             {
-                HttpHelp.FileDownSave(job.AssPath, "Stores/");
-
-                
+                string filePaths = string.Empty;
+                HttpHelp.FileDownSave(job.AssPath, "Stores/",out filePaths);
+                job.AssPath = filePaths;
                 JOBMODELS.Add(job);
             }
         }

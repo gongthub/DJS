@@ -1,0 +1,8 @@
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\bin\Debug\netcoreapp2.0\DJS.Core.Model.deps.json
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\bin\Debug\netcoreapp2.0\DJS.Core.Model.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\bin\Debug\netcoreapp2.0\DJS.Core.Model.pdb
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\obj\Debug\netcoreapp2.0\DJS.Core.Model.csproj.CoreCompileInputs.cache
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\obj\Debug\netcoreapp2.0\DJS.Core.Model.AssemblyInfoInputs.cache
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\obj\Debug\netcoreapp2.0\DJS.Core.Model.AssemblyInfo.cs
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\obj\Debug\netcoreapp2.0\DJS.Core.Model.dll
+D:\MyFiles\GIT\DJS\src\DJS.Core.Model\obj\Debug\netcoreapp2.0\DJS.Core.Model.pdb
